@@ -24,9 +24,7 @@ return [
     // 模块描述[选填]
     'description' => '门户模块',
     // 开发者[必填]
-    'author'      => 'CaiWeiMing',
-    // 开发者网址[选填]
-    'author_url'  => 'http://www.DThinkPHP.com',
+    'author'      => 'YourFather',
     // 版本[必填],格式采用三段式：主版本号.次版本号.修订版本号
     'version'     => '1.0.0',
     // 模块依赖[可选]，格式[[模块名, 模块唯一标识, 依赖版本, 对比方式]]
