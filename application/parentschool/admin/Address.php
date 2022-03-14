@@ -7,7 +7,7 @@
 // | 官方网站: http://DThinkPHP.com
 // +----------------------------------------------------------------------
 
-namespace app\fbcct\admin;
+namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
