@@ -29,7 +29,6 @@ return [
     'version'     => '1.0.0',
     // 模块依赖[可选]，格式[[模块名, 模块唯一标识, 依赖版本, 对比方式]]
     'need_module' => [
-        ['admin', 'admin.DThinkPHP.module', '1.0.0']
     ],
 
 ];
