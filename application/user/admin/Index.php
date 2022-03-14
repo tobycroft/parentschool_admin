@@ -45,7 +45,7 @@ class Index extends Admin
         }
 
         // 数据列表
-        $data_list = User::where($map)->order('sort,role,id desc')->paginate();
+        $data_list = UserModel::where($map)->order('sort,role,id desc')->paginate();
 
         // 授权按钮
         $btn_access = [
@@ -120,7 +120,7 @@ class Index extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = User::create($data)) {
+            if ($user = UserModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -171,7 +171,7 @@ class Index extends Admin
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = UserModel::where('role', 'in', $role_list)->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -221,8 +221,8 @@ class Index extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if (User::update($data)) {
-                $user = User::get($data['id']);
+            if (UserModel::update($data)) {
+                $user = UserModel::get($data['id']);
                 Hook::listen('user_edit', $user);
                 // 记录行为
                 action_log('user_edit', 'admin_user', $user['id'], UID, get_nickname($user['id']));
@@ -233,7 +233,7 @@ class Index extends Admin
         }
 
         // 获取数据
-        $info = User::where('id', $id)->field('password', true)->find();
+        $info = UserModel::where('id', $id)->field('password', true)->find();
 
         // 角色列表
         if (session('user_auth.role') != 1) {
@@ -281,7 +281,7 @@ class Index extends Admin
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = UserModel::where('role', 'in', $role_list)->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -541,7 +541,7 @@ class Index extends Admin
 
         // 当前用户所能操作的用户
         $role_list = RoleModel::getChildsId(session('user_auth.role'));
-        $user_list = User::where('role', 'in', $role_list)->column('id');
+        $user_list = UserModel::where('role', 'in', $role_list)->column('id');
         if (session('user_auth.role') != 1 && !$user_list) {
             $this->error('权限不足，没有可操作的用户');
         }
@@ -553,17 +553,17 @@ class Index extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === User::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === UserModel::where('id', 'in', $ids)->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === User::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === UserModel::where('id', 'in', $ids)->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === User::where('id', 'in', $ids)->delete()) {
+                if (false === UserModel::where('id', 'in', $ids)->delete()) {
                     $this->error('删除失败');
                 }
                 break;
@@ -592,13 +592,13 @@ class Index extends Admin
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = UserModel::where('role', 'in', $role_list)->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
 
-        $config  = User::where('id', $id)->value($field);
+        $config  = UserModel::where('id', $id)->value($field);
         $details = '字段(' . $field . ')，原值(' . $config . ')，新值：(' . $value . ')';
         return parent::quickEdit(['user_edit', 'admin_user', $id, UID, $details]);
     }
