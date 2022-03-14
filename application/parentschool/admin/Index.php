@@ -46,19 +46,6 @@ class Index extends Admin
 
         $num1 = ParentModel::where("date", ">", $todaytime)->count();
         $num2 = ParentModel::count();
-        $sum_amount = TransferInModel::sum("amount");
-        $out_amount = TransferRecordModel::sum("amount");
-        $out_today = TransferRecordModel::where("date", ">", $todaytime)->sum("amount");
-        $in_today = TransferInModel::where("date > CURRENT_DATE")->sum("amount");
-//        $aft_today=Db::query("SELECT SUM(exchange+`out`) FROM `compute_record` where date > CURRENT_DATE");
-//        $aft_yesterday=Db::query("SELECT SUM(exchange+`out`) FROM `compute_record` where date BETWEEN FROM_UNIXTIME(UNIX_TIMESTAMP(CURRENT_DATE)-86400) and CURRENT_DATE");
-
-        $aft_in = BalanceRecordModel::where("cid=4 and type=121")->sum("amount");
-        $aft_out = BalanceRecordModel::where("cid=4 and type=102")->sum("amount");
-//        $aft_out=ExchangeRecordModel::where("from_cid=4")->sum("amount");
-//        $aft_out_today=ExchangeRecordModel::where("from_cid=4 and date > CURRENT_DATE")->sum("amount");
-        $aft_in_today = BalanceRecordModel::where("cid=4 and type=121 and date > CURRENT_DATE")->sum("amount");
-        $aft_out_today = BalanceRecordModel::where("cid=4 and type=102 and date > CURRENT_DATE")->sum("amount");
         $btn_access = [
             'title' => '用户地址',
             'icon' => 'fa fa-fw fa-key',
@@ -69,14 +56,6 @@ class Index extends Admin
         return ZBuilder::make('form')
             ->addStatic('today', '今日注册数量', "", $num1)
             ->addStatic('today', '全部注册数量', "", $num2)
-            ->addStatic('today', '总入金', "", $sum_amount)
-            ->addStatic('today', '总出金', "", $out_amount)
-            ->addStatic('today', '今日入', "", $in_today)
-            ->addStatic('today', '今日出', "", $out_today)
-            ->addStatic('today', 'AFT总入', "", $aft_in)
-            ->addStatic('today', 'AFT-USDT总出', "", abs($aft_out))
-            ->addStatic('today', 'AFT今日入', "", $aft_in_today)
-            ->addStatic('today', 'AFT-USDT今日出', "", abs($aft_out_today))
             ->hideBtn('submit,back')
             ->fetch();
     }
