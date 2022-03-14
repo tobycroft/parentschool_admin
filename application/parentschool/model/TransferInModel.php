@@ -20,7 +20,7 @@ use think\Db;
 class TransferInModel extends Model
 {
     // 设置当前模型对应的完整数据表名称
-    protected $table = 'fb_transfer_in';
+    protected $table = 'ps_transfer_in';
 
 
 }
