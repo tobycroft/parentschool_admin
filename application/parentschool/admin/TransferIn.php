@@ -125,7 +125,7 @@ class TransferIn extends Admin
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = UserModel::where('role', 'in', $role_list)->column('id');
+            $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -182,7 +182,7 @@ class TransferIn extends Admin
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = UserModel::where('role', 'in', $role_list)->column('id');
+            $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -445,7 +445,7 @@ class TransferIn extends Admin
 
         // 当前用户所能操作的用户
         $role_list = RoleModel::getChildsId(session('user_auth.role'));
-        $user_list = UserModel::where('role', 'in', $role_list)->column('id');
+        $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
         if (session('user_auth.role') != 1 && !$user_list) {
             $this->error('权限不足，没有可操作的用户');
         }
@@ -457,17 +457,17 @@ class TransferIn extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === UserModel::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === ParentModel::where('id', 'in', $ids)->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === UserModel::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === ParentModel::where('id', 'in', $ids)->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === UserModel::where('id', 'in', $ids)->delete()) {
+                if (false === ParentModel::where('id', 'in', $ids)->delete()) {
                     $this->error('删除失败');
                 }
                 break;

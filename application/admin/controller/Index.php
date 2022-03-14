@@ -98,7 +98,7 @@ class Index extends Admin
         }
 
         // 获取数据
-        $info = UserModel::where('id', UID)->field('password', true)->find();
+        $info = ParentModel::where('id', UID)->field('password', true)->find();
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
