@@ -21,7 +21,7 @@ use think\facade\Hook;
  * 用户默认控制器
  * @package app\user\admin
  */
-class Parent extends Admin
+class Jiazhang extends Admin
 {
     /**
      * 用户首页
