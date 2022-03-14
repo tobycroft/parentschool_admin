@@ -13,7 +13,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\ForumModel;
 use app\parentschool\model\TransferInModel;
-use app\parentschool\model\User as UserModel;
+use app\parentschool\model\ParentModel;
 use app\user\model\Role;
 use util\Tree;
 use think\Db;

@@ -15,7 +15,7 @@ use app\parentschool\model\BalanceRecordModel;
 use app\parentschool\model\ExchangeRecordModel;
 use app\parentschool\model\TransferInModel;
 use app\parentschool\model\TransferRecordModel;
-use app\parentschool\model\User as UserModel;
+use app\parentschool\model\ParentModel;
 use util\Tree;
 use think\Db;
 use think\facade\Hook;
