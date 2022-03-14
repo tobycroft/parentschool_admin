@@ -11,8 +11,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\fbcct\model\TypeModel;
-use app\fbcct\model\User as UserModel;
+use app\parentschool\model\TypeModel;
+use app\parentschool\model\User as UserModel;
 use util\Tree;
 use think\Db;
 use think\facade\Hook;

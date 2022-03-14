@@ -11,9 +11,9 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\fbcct\model\BalanceModel as BalanceModel;
-use app\fbcct\model\CoinModel;
-use app\fbcct\model\User as UserModel;
+use app\parentschool\model\BalanceModel as BalanceModel;
+use app\parentschool\model\CoinModel;
+use app\parentschool\model\User as UserModel;
 use app\user\model\Role;
 use util\Tree;
 use think\Db;
@@ -529,8 +529,8 @@ class Balance extends Admin
             $this->error('404');
             return;
         }
-        $bal = new \app\fbcct\model\BalanceRecordModel();
-        $last_record = \app\fbcct\model\BalanceRecordModel::where(["uid" => $data['uid'], "cid" => $data['cid']])->order("id desc")->find();
+        $bal = new \app\parentschool\model\BalanceRecordModel();
+        $last_record = \app\parentschool\model\BalanceRecordModel::where(["uid" => $data['uid'], "cid" => $data['cid']])->order("id desc")->find();
         if (!$last_record) {
             $after = 0;
         } else {

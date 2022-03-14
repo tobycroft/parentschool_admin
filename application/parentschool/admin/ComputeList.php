@@ -11,7 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\fbcct\model\ComputeListModel;
+use app\parentschool\model\ComputeListModel;
 use app\user\model\Role;
 use util\Tree;
 use think\Db;

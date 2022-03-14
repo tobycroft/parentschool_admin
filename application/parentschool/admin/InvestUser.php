@@ -11,8 +11,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\fbcct\model\InvestUserModel;
-use app\fbcct\model\User as UserModel;
+use app\parentschool\model\InvestUserModel;
+use app\parentschool\model\User as UserModel;
 use app\user\model\Role;
 use util\Tree;
 use think\Db;
@@ -41,7 +41,7 @@ class InvestUser extends Admin
         // 读取用户数据
         $data_list = InvestUserModel::where($map)->order($order)->paginate();
         foreach ($data_list as $k => $v) {
-            $v["num"] = \app\fbcct\model\User::where(["pid" => $v["uid"]])->count();
+            $v["num"] = \app\parentschool\model\User::where(["pid" => $v["uid"]])->count();
             $data_list[$k] = $v;
         }
         $page = $data_list->render();

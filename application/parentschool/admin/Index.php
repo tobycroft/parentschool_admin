@@ -11,11 +11,11 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\fbcct\model\BalanceRecordModel;
-use app\fbcct\model\ExchangeRecordModel;
-use app\fbcct\model\TransferInModel;
-use app\fbcct\model\TransferRecordModel;
-use app\fbcct\model\User as UserModel;
+use app\parentschool\model\BalanceRecordModel;
+use app\parentschool\model\ExchangeRecordModel;
+use app\parentschool\model\TransferInModel;
+use app\parentschool\model\TransferRecordModel;
+use app\parentschool\model\User as UserModel;
 use util\Tree;
 use think\Db;
 use think\facade\Hook;

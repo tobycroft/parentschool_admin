@@ -7,7 +7,7 @@
 // | 官方网站: http://DThinkPHP.com
 // +----------------------------------------------------------------------
 
-namespace app\fbcct\model;
+namespace app\parentschool\model;
 
 use think\Model;
 use think\helper\Hash;

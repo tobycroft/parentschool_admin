@@ -11,9 +11,9 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\fbcct\model\ForumModel;
-use app\fbcct\model\TransferInModel;
-use app\fbcct\model\User as UserModel;
+use app\parentschool\model\ForumModel;
+use app\parentschool\model\TransferInModel;
+use app\parentschool\model\User as UserModel;
 use app\user\model\Role;
 use util\Tree;
 use think\Db;

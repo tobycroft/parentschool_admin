@@ -11,8 +11,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\fbcct\model\ForumModel;
-use app\fbcct\model\ComputeOrderModel;
+use app\parentschool\model\ForumModel;
+use app\parentschool\model\ComputeOrderModel;
 use app\user\model\Role;
 use util\Tree;
 use think\Db;
