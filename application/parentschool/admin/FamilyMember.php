@@ -111,6 +111,8 @@ class FamilyMember extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
+                ['text', 'type', '名称', '请确认务必存在',],
+                ['text', 'name', '名称', '请确认务必存在'],
                 ['text', 'name', '名称', '请确认务必存在'],
             ])
             ->fetch();
