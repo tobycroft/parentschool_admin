@@ -187,7 +187,7 @@ class Circle extends Admin
         if (!empty($imgs)) {
             foreach ($imgs as $img) {
                 $data->addFormItems([
-                    ['pic', 'img', '图片', '', $img],
+                    ['image', 'img', '图片', '', $img],
                 ]);
             }
         }
