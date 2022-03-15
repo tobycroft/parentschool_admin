@@ -39,13 +39,13 @@ class QuizSelection extends Admin
         // 读取用户数据
         $data_list = QuizSelectionModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
-        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
+//        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = QuizSelectionModel::where("date", ">", $todaytime)->count();
-        $num2 = QuizSelectionModel::count();
+//        $num1 = QuizSelectionModel::where("date", ">", $todaytime)->count();
+//        $num2 = QuizSelectionModel::count();
 
         return ZBuilder::make('table')
-            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+//            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
