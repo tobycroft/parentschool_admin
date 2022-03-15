@@ -33,7 +33,7 @@ class Circle extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder();
+        $order = $this->getOrder("id dessc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = CircleRecordModel::where($map)->order($order)->paginate();
