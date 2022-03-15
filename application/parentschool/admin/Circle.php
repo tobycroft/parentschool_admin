@@ -174,7 +174,7 @@ class Circle extends Admin
         $info = CircleRecordModel::where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
-        return ZBuilder::make('form')
+        $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
@@ -185,6 +185,8 @@ class Circle extends Admin
             ])
             ->setFormData($info) // 设置表单数据
             ->fetch();
+
+        return $data;
     }
 
 
