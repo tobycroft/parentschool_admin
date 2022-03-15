@@ -113,8 +113,8 @@ class FamilyMember extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['text', 'type', '名称', '请确认务必存在', Student::get_student_type()],
-                ['text', 'family_id', '家庭id', '请确认务必存在'],
-                ['text', 'uid', '用户对应id', '请确认务必存在'],
+                ['number', 'family_id', '家庭id', '请确认务必存在'],
+                ['number', 'uid', '用户对应id', '请确认务必存在'],
             ])
             ->fetch();
     }
