@@ -132,8 +132,23 @@ class StudyDaily extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'name', '家庭名称', '请确认务必存在'],
-                ['image', 'face', '家庭头像', ''],
+
+                ['text', 'grade', '年级', 'number'],
+                ['text', 'area_id', '对应区域', 'number'],
+                ['text', 'school_id', '学校id', 'number'],
+                ['text', 'title', '标题'],
+                ['text', 'slogan', '标题'],
+                ['text', 'special_tag', '特殊标签'],
+                ['text', 'common_tag', '特殊标签'],
+                ['text', 'img', '小图头图', "picture"],
+                ['text', 'img_intro', '简介图', "picture"],
+                ['text', 'from1', '内容来源1'],
+                ['text', 'from2', '内容来源2'],
+                ['text', 'can_push', '是否可以推送', 'radio'],
+                ['text', 'push_date', '推送日期', 'datetime'],
+                ['text', 'show_date', '展示日期', 'datetime'],
+                ['text', 'attach_type', '附件类型', 'datetime'],
+                ['text', 'show_to', '展示给谁'],
             ])
             ->fetch();
     }
