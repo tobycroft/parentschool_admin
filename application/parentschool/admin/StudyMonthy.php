@@ -45,15 +45,15 @@ class StudyMonthy extends Admin
         $num2 = StudyMonthyModel::count();
 
         $btn_access = [
-            'title' => '用户地址',
+            'title' => '对应课程',
             'icon' => 'fa fa-fw fa-key',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('study_monthy_topic/index', ['search_field' => 'study_id', 'keyword' => '__id__'])
         ];
 
         $btn_access2 = [
-            'title' => '用户地址',
-            'icon' => 'fa fa-fw fa-key',
+            'title' => '新建数据',
+            'icon' => 'fa fa-fw fa-new',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('study_monthy_topic/add', ['search_field' => 'study_id', 'keyword' => '__id__'])
         ];
