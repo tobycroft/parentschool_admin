@@ -56,7 +56,6 @@ class Note extends Admin
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('parent_id', '家长id', 'number')
             ->addColumn('content', '内容', 'textarea.edit')
-            ->addColumn('imgs', '图片')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
