@@ -57,7 +57,7 @@ class StudyMonthyTopic extends Admin
                 ['rank', '排序', 'number'],
                 ['title', '标题'],
                 ['content', '字内容'],
-                ['attach_type', '附件类型', 'select', '', \Study\Type::get_attach_type()],
+                ['attach_type', '附件类型', 'text'],
                 ['attach_duration', '播放时间', 'number'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
