@@ -57,7 +57,7 @@ class QuizQuestion extends Admin
             ->addColumn('title', '标题', 'textarea.edit')
             ->addColumn('content', '内容', 'textarea.edit')
             ->addColumn('remark', '备注提示', 'textarea.edit')
-            ->addColumn('img', '图片','picture')
+            ->addColumn('img', '图片', 'picture')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -122,8 +122,10 @@ class QuizQuestion extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'parent_id', '家长id', ''],
+                ['textarea', 'title', '标题', ''],
                 ['textarea', 'content', '内容', ''],
+                ['textarea', 'remark', '提示', ''],
+                ['image', 'img', '配图', ''],
             ])
             ->fetch();
     }
@@ -178,17 +180,11 @@ class QuizQuestion extends Admin
                 ['hidden', 'id'],
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'parent_id', '家长id', ''],
-                ['textarea', 'content', '内容'],
+                ['textarea', 'title', '标题', ''],
+                ['textarea', 'content', '内容', ''],
+                ['textarea', 'remark', '提示', ''],
+                ['image', 'img', '配图', ''],
             ]);
-        $imgs = json_decode($info["imgs"], 1);
-        if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-                $data->addFormItems([
-                    ['image', 'img', '图片', '', $img],
-                ]);
-            }
-        }
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;
