@@ -54,7 +54,7 @@ class School extends Admin
             ->addColumn('id', 'ID')
             ->addColumn('name', '学校名称', 'text')
             ->addColumn('area_id', '学校所属区域', 'number')
-            ->addColumn('detail', '详细说明', 'textarea')
+            ->addColumn('detail', '详细说明')
             ->addColumn('sight', '可见性', 'number')
             ->addColumn('icon', '学校图标', 'picture')
             ->addColumn('img', '学校宣传图', 'picture')
