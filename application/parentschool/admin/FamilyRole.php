@@ -11,7 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\FamilyModel;
+use app\parentschool\model\FamilyRoleModel;
 use app\user\model\User;
 use app\user\model\Role as RoleModel;
 use util\Tree;
@@ -22,7 +22,7 @@ use think\facade\Hook;
  * 用户默认控制器
  * @package app\user\admin
  */
-class Family extends Admin
+class FamilyRole extends Admin
 {
     /**
      * 用户首页
@@ -37,12 +37,12 @@ class Family extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = FamilyModel::where($map)->order($order)->paginate();
+        $data_list = FamilyRoleModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = FamilyModel::where("date", ">", $todaytime)->count();
-        $num2 = FamilyModel::count();
+        $num1 = FamilyRoleModel::where("date", ">", $todaytime)->count();
+        $num2 = FamilyRoleModel::count();
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -97,7 +97,7 @@ class Family extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = FamilyModel::create($data)) {
+            if ($user = FamilyRoleModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -154,8 +154,8 @@ class Family extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (FamilyModel::update($data)) {
-                $user = FamilyModel::get($data['id']);
+            if (FamilyRoleModel::update($data)) {
+                $user = FamilyRoleModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -165,7 +165,7 @@ class Family extends Admin
         }
 
         // 获取数据
-        $info = FamilyModel::where('id', $id)->find();
+        $info = FamilyRoleModel::where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -473,17 +473,17 @@ class Family extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === FamilyModel::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === FamilyRoleModel::where('id', 'in', $ids)->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === FamilyModel::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === FamilyRoleModel::where('id', 'in', $ids)->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === FamilyModel::where('id', 'in', $ids)->delete()) {
+                if (false === FamilyRoleModel::where('id', 'in', $ids)->delete()) {
                     $this->error('删除失败');
                 }
                 break;
@@ -516,7 +516,7 @@ class Family extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = FamilyModel::where("id", $id)->setField($field, $value);
+        $result = FamilyRoleModel::where("id", $id)->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
