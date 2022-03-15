@@ -55,7 +55,7 @@ class QuizRecord extends Admin
             ->addColumn('type', '课程类型', \Study\Type::get_type())
             ->addColumn('question_id', '问题ID', 'number')
             ->addColumn('parent_id', '家长id', 'number')
-            ->addColumn('choice', '选项', 'textarea.edit')
+            ->addColumn('choice', '选项')
             ->addColumn('correct', '正确率')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
