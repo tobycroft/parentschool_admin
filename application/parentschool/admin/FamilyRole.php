@@ -54,9 +54,6 @@ class FamilyRole extends Admin
             ->addColumns([
                 ['id', 'ID'],
                 ['name', '家庭名称', 'text.edit'],
-                ['face', '家庭头像', "picture"],
-                ['change_date', '修改时间'],
-                ['date', '创建时间'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
