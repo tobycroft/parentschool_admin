@@ -183,14 +183,7 @@ class StudyRecord extends Admin
                 ['file', 'attah_url', '上传文件'],
                 ['number', 'completion', '完成情况%'],
             ]);
-        $imgs = json_decode($info["imgs"], 1);
-        if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-                $data->addFormItems([
-                    ['image', 'img', '图片', '', $img],
-                ]);
-            }
-        }
+
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;

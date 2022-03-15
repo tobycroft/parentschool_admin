@@ -189,14 +189,7 @@ class StudyMonthyTopic extends Admin
                 ['file', 'attah_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ]);
-        $imgs = json_decode($info["imgs"], 1);
-        if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-                $data->addFormItems([
-                    ['image', 'img', '图片', '', $img],
-                ]);
-            }
-        }
+
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;

@@ -208,14 +208,7 @@ class StudyMonthy extends Admin
                 ['datetime', 'show_date', '展示日期', 'datetime'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
-        $imgs = json_decode($info["imgs"], 1);
-        if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-                $data->addFormItems([
-                    ['image', 'img', '图片', '', $img],
-                ]);
-            }
-        }
+
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;

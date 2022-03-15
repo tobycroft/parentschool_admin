@@ -167,14 +167,7 @@ class FamilyRole extends Admin
                 ['number', 'parent_id', '家长id', ''],
                 ['textarea', 'content', '内容'],
             ]);
-        $imgs = json_decode($info["imgs"], 1);
-        if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-                $data->addFormItems([
-                    ['image', 'img', '图片', '', $img],
-                ]);
-            }
-        }
+
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;
