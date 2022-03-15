@@ -48,7 +48,9 @@ class FamilyRole extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['name', '家庭名称', 'text.edit'],
+                ['type', '类型（家长还是学生）', 'text.edit'],
+                ['family_id', '家庭id','number'],
+                ['uid', '用户id','number'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('delete') //添加删除按钮
