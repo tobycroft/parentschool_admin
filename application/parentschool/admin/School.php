@@ -49,7 +49,7 @@ class School extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
+            ->setSearch(['area_id' => '区域ID']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '学校名称', 'text')
