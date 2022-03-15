@@ -53,7 +53,7 @@ class SchoolSight extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '区域名称', 'text')
-            ->addColumn('bind_uid', '绑定负责人UID', 'number')
+            ->addColumn('type', '可见范围', 'number')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
