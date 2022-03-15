@@ -130,6 +130,7 @@ class StudyMonthyTopic extends Admin
                 ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ])
+            ->setFormData(["study_id" => $data["study_id"]])
             ->fetch();
     }
 
