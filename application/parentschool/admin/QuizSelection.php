@@ -120,10 +120,12 @@ class QuizSelection extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'parent_id', '家长id', ''],
+                ['number', 'question_id', '家长id', ''],
+                ['number', 'rank', '排序', ''],
+                ['radio', 'is_answer', '是否是答案', ''],
+                ['textarea', 'title', '选项', ''],
                 ['textarea', 'content', '内容', ''],
+                ['textarea', 'remark', '错误提示', ''],
             ])
             ->fetch();
     }
@@ -176,10 +178,12 @@ class QuizSelection extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'parent_id', '家长id', ''],
-                ['textarea', 'content', '内容'],
+                ['number', 'question_id', '家长id', ''],
+                ['number', 'rank', '排序', ''],
+                ['radio', 'is_answer', '是否是答案', ''],
+                ['textarea', 'title', '选项', ''],
+                ['textarea', 'content', '内容', ''],
+                ['textarea', 'remark', '错误提示', ''],
             ]);
         $imgs = json_decode($info["imgs"], 1);
         if (!empty($imgs)) {
