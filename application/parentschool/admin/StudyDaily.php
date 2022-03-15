@@ -202,10 +202,24 @@ class StudyDaily extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'parent_id', '家长id', ''],
-                ['textarea', 'content', '内容'],
+                ['text', 'grade', '年级', 'number'],
+                ['number', 'area_id', '对应区域'],
+                ['number', 'school_id', '学校id'],
+                ['text', 'title', '标题'],
+                ['text', 'slogan', '推荐金句'],
+                ['text', 'special_tag', '特殊标签'],
+                ['text', 'common_tag', '特殊标签'],
+                ['textedit', 'content', '内容'],
+                ['image', 'img', '小图头图', "picture"],
+                ['image', 'img_intro', '简介图', "picture"],
+                ['text', 'from1', '内容来源1'],
+                ['text', 'from2', '内容来源2'],
+                ['radio', 'can_push', '是否可以推送'],
+                ['datetime', 'push_date', '推送日期', 'datetime'],
+                ['datetime', 'show_date', '展示日期', 'datetime'],
+                ['select', 'attach_type', '附件类型', \Study\Type::get_attach_type()],
+                ['file', 'attach_url', '附件类型'],
+                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
         $imgs = json_decode($info["imgs"], 1);
         if (!empty($imgs)) {
