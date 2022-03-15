@@ -123,12 +123,12 @@ class RateThread extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'question_id', '家长id', ''],
-                ['number', 'rank', '排序', ''],
-                ['radio', 'is_answer', '是否是答案', ''],
-                ['textarea', 'title', '选项', ''],
+                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
+                ['number', 'parent_id', '家长id', ''],
+                ['number', 'study_id', '课程id', ''],
+                ['number', 'score', '评分', ''],
                 ['textarea', 'content', '内容', ''],
-                ['textarea', 'remark', '错误提示', ''],
+                ['picture', 'img', '图片', ''],
             ])
             ->fetch();
     }
@@ -181,12 +181,12 @@ class RateThread extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'question_id', '家长id', ''],
-                ['number', 'rank', '排序', ''],
-                ['radio', 'is_answer', '是否是答案', ''],
-                ['textarea', 'title', '选项', ''],
+                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
+                ['number', 'parent_id', '家长id', ''],
+                ['number', 'study_id', '课程id', ''],
+                ['number', 'score', '评分', ''],
                 ['textarea', 'content', '内容', ''],
-                ['textarea', 'remark', '错误提示', ''],
+                ['picture', 'img', '图片', ''],
             ]);
         $imgs = json_decode($info["imgs"], 1);
         if (!empty($imgs)) {
