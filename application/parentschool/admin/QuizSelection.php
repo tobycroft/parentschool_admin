@@ -52,7 +52,6 @@ class QuizSelection extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
-            ->addColumn('study_id', '课程id', 'number')
             ->addColumn('question_id', '问题ID', 'number')
             ->addColumn('is_answer', '是否是正确答案', 'radio')
             ->addColumn('rank', '排序', 'number')
