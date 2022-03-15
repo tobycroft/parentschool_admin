@@ -182,11 +182,16 @@ class Circle extends Admin
                 ['text', 'study_id', '课程id', '请确认务必存在'],
                 ['number', 'parent_id', '家长id', ''],
                 ['textarea', 'content', '内容'],
-            ])
+            ]);
+        $imgs = json_decode($info["imgs"], 1);
+        foreach ($imgs as $img) {
+            $data->addFormItems([
+                ['pic', 'img', '图片'],
+            ]);
+        }
+        return $data
             ->setFormData($info) // 设置表单数据
-            ->fetch();
-
-        return $data;
+            ->fetch();;
     }
 
 
