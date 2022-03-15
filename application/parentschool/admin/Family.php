@@ -51,15 +51,14 @@ class Family extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('id', 'ID')
-            ->addColumn('type', '课程类型')
-            ->addColumn('study_id', '课程id', 'number')
-            ->addColumn('parent_id', '家长id', 'number')
-            ->addColumn('content', '内容', 'textarea.edit')
-            ->addColumn('imgs', '图片')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
+            ->addColumns([
+                ['id', 'ID'],
+                ['name', '家庭名称'],
+                ['face', '家庭头像'],
+            ])
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
