@@ -78,11 +78,6 @@ class Circle extends Admin
         // 保存数据
         if ($this->request->isPost()) {
             $data = $this->request->post();
-            // 验证
-            $result = $this->validate($data, 'User');
-            // 验证失败 输出错误信息
-            if (true !== $result) $this->error($result);
-
             // 非超级管理需要验证可选择角色
             if (session('user_auth.role') != 1) {
                 if ($data['role'] == session('user_auth.role')) {
