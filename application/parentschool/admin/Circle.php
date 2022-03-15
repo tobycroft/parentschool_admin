@@ -40,8 +40,8 @@ class Circle extends Admin
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = ParentModel::where("date", ">", $todaytime)->count();
-        $num2 = ParentModel::count();
+        $num1 = CircleRecordModel::where("date", ">", $todaytime)->count();
+        $num2 = CircleRecordModel::count();
 
         $btn_access = [
             'title' => '用户地址',
