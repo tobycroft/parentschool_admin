@@ -51,7 +51,6 @@ class Family extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('right_button', '操作', 'btn')
             ->addColumns([
                 ['id', 'ID'],
                 ['name', '家庭名称'],
@@ -59,6 +58,7 @@ class Family extends Admin
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
+            ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
