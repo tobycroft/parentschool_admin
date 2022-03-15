@@ -53,7 +53,7 @@ class Student extends Admin
             ->addOrder('id')
             ->addColumn('id', '问题ID')
             ->addColumn('parent_id', '家长id', 'number')
-            ->addColumn('study_id', '课程id', 'number')
+            ->addColumn('school_id', '学校id', 'number')
             ->addColumn('gender', '男女', 'number')
             ->addColumn('name', '姓名', 'text.edit')
             ->addColumn('img', '头像', 'picture')
