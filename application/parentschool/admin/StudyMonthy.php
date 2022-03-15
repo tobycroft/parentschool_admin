@@ -129,7 +129,8 @@ class StudyMonthy extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'grade', '年级', 'number'],
+                ['number', 'grade', '年级'],
+                ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
                 ['text', 'title', '标题'],
@@ -137,15 +138,9 @@ class StudyMonthy extends Admin
                 ['text', 'special_tag', '特殊标签'],
                 ['text', 'common_tag', '特殊标签'],
                 ['ueditor', 'content', '内容'],
-                ['image', 'img', '小图头图', "picture"],
-                ['image', 'img_intro', '简介图', "picture"],
-                ['ueditor', 'howto', '实践方法'],
-                ['ueditor', 'notify', '特别提醒'],
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期', 'datetime'],
                 ['datetime', 'show_date', '展示日期', 'datetime'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attach_url', '附件类型'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
             ->fetch();
@@ -199,7 +194,8 @@ class StudyMonthy extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'grade', '年级', 'number'],
+                ['number', 'grade', '年级'],
+                ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
                 ['text', 'title', '标题'],
@@ -207,15 +203,9 @@ class StudyMonthy extends Admin
                 ['text', 'special_tag', '特殊标签'],
                 ['text', 'common_tag', '特殊标签'],
                 ['ueditor', 'content', '内容'],
-                ['image', 'img', '小图头图', "picture"],
-                ['image', 'img_intro', '简介图', "picture"],
-                ['ueditor', 'howto', '实践方法'],
-                ['ueditor', 'notify', '特别提醒'],
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期', 'datetime'],
                 ['datetime', 'show_date', '展示日期', 'datetime'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attach_url', '附件类型'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
         $imgs = json_decode($info["imgs"], 1);
