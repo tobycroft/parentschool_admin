@@ -12,7 +12,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\CircleRecordModel;
-use app\parentschool\model\ParentModel;
+use app\user\model\User;
 use util\Tree;
 use think\Db;
 use think\facade\Hook;
@@ -101,7 +101,7 @@ class Circle extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = ParentModel::create($data)) {
+            if ($user = CircleRecordModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -147,7 +147,7 @@ class Circle extends Admin
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -160,8 +160,8 @@ class Circle extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (ParentModel::update($data)) {
-                $user = ParentModel::get($data['id']);
+            if (CircleRecordModel::update($data)) {
+                $user = CircleRecordModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -217,7 +217,7 @@ class Circle extends Admin
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -479,17 +479,17 @@ class Circle extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === ParentModel::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === CircleRecordModel::where('id', 'in', $ids)->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === ParentModel::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === CircleRecordModel::where('id', 'in', $ids)->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === ParentModel::where('id', 'in', $ids)->delete()) {
+                if (false === CircleRecordModel::where('id', 'in', $ids)->delete()) {
                     $this->error('删除失败');
                 }
                 break;
@@ -522,7 +522,7 @@ class Circle extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = \app\user\model\User::where("id", $id)->setField($field, $value);
+        $result = CircleRecordModel::where("id", $id)->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
