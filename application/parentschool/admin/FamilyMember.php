@@ -14,6 +14,7 @@ use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
 use app\user\model\User;
 use app\user\model\Role as RoleModel;
+use Student\Student;
 use util\Tree;
 use think\Db;
 use think\facade\Hook;
@@ -49,8 +50,8 @@ class FamilyMember extends Admin
             ->addColumns([
                 ['id', 'ID'],
                 ['type', '类型（家长还是学生）', 'text.edit'],
-                ['family_id', '家庭id','number'],
-                ['uid', '用户id','number'],
+                ['family_id', '家庭id', 'number'],
+                ['uid', '用户id', 'number'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('delete') //添加删除按钮
@@ -111,9 +112,9 @@ class FamilyMember extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'type', '名称', '请确认务必存在',],
-                ['text', 'name', '名称', '请确认务必存在'],
-                ['text', 'name', '名称', '请确认务必存在'],
+                ['text', 'type', '名称', '请确认务必存在', Student::get_student_type()],
+                ['text', 'family_id', '家庭id', '请确认务必存在'],
+                ['text', 'uid', '用户对应id', '请确认务必存在'],
             ])
             ->fetch();
     }
