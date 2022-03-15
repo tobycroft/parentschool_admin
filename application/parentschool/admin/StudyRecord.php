@@ -120,13 +120,11 @@ class StudyRecord extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'study_id', '课程id', 'number'],
-                ['number', 'rank', '排序', 'number'],
-                ['text', 'title', '标题'],
-                ['ueditor', 'content', '字内容'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['number', 'parent_id', '家长id'],
+                ['number', 'study_id', '课程id'],
+                ['select', 'type', '记录类型', '', \Study\Type::get_type()],
                 ['file', 'attah_url', '上传文件'],
-                ['text', 'attach_duration', '播放时间'],
+                ['number', 'completion', '完成情况%'],
             ])
             ->fetch();
     }
@@ -179,13 +177,11 @@ class StudyRecord extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'study_id', '课程id', 'number'],
-                ['number', 'rank', '排序', 'number'],
-                ['text', 'title', '标题'],
-                ['ueditor', 'content', '字内容'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['number', 'parent_id', '家长id'],
+                ['number', 'study_id', '课程id'],
+                ['select', 'type', '记录类型', '', \Study\Type::get_type()],
                 ['file', 'attah_url', '上传文件'],
-                ['text', 'attach_duration', '播放时间'],
+                ['number', 'completion', '完成情况%'],
             ]);
         $imgs = json_decode($info["imgs"], 1);
         if (!empty($imgs)) {
