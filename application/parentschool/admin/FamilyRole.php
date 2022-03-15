@@ -51,7 +51,6 @@ class FamilyRole extends Admin
                 ['name', '家庭名称', 'text.edit'],
             ])
             ->addColumn('right_button', '操作', 'btn')
-            ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
