@@ -115,8 +115,7 @@ class FamilyRole extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'name', '家庭名称', '请确认务必存在'],
-                ['image', 'face', '家庭头像', ''],
+                ['text', 'name', '名称', '请确认务必存在'],
             ])
             ->fetch();
     }
