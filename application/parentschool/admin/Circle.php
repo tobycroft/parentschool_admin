@@ -187,6 +187,7 @@ class Circle extends Admin
             ->fetch();
     }
 
+
     /**
      * 授权
      * @param string $module 模块名
