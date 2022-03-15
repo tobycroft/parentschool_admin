@@ -52,7 +52,7 @@ class RateThread extends Admin
             ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
-            ->addColumn('question_id', '问题ID', 'number')
+            ->addColumn('select', '评价课程类型', \Study\Type::get_type())
             ->addColumn('is_answer', '是否是正确答案', 'radio')
             ->addColumn('rank', '排序', 'number')
             ->addColumn('title', '选项', 'text.edit')
