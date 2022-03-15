@@ -11,7 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\CircleRecordModel;
+use app\parentschool\model\QuizQuestionModel;
 use app\user\model\User;
 use app\user\model\Role as RoleModel;
 use util\Tree;
@@ -37,12 +37,12 @@ class QuizQuestion extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = CircleRecordModel::where($map)->order($order)->paginate();
+        $data_list = QuizQuestionModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = CircleRecordModel::where("date", ">", $todaytime)->count();
-        $num2 = CircleRecordModel::count();
+        $num1 = QuizQuestionModel::where("date", ">", $todaytime)->count();
+        $num2 = QuizQuestionModel::count();
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -98,7 +98,7 @@ class QuizQuestion extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = CircleRecordModel::create($data)) {
+            if ($user = QuizQuestionModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -157,8 +157,8 @@ class QuizQuestion extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (CircleRecordModel::update($data)) {
-                $user = CircleRecordModel::get($data['id']);
+            if (QuizQuestionModel::update($data)) {
+                $user = QuizQuestionModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -168,7 +168,7 @@ class QuizQuestion extends Admin
         }
 
         // 获取数据
-        $info = CircleRecordModel::where('id', $id)->find();
+        $info = QuizQuestionModel::where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -476,17 +476,17 @@ class QuizQuestion extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === CircleRecordModel::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === QuizQuestionModel::where('id', 'in', $ids)->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === CircleRecordModel::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === QuizQuestionModel::where('id', 'in', $ids)->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === CircleRecordModel::where('id', 'in', $ids)->delete()) {
+                if (false === QuizQuestionModel::where('id', 'in', $ids)->delete()) {
                     $this->error('删除失败');
                 }
                 break;
@@ -519,7 +519,7 @@ class QuizQuestion extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = CircleRecordModel::where("id", $id)->setField($field, $value);
+        $result = QuizQuestionModel::where("id", $id)->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
