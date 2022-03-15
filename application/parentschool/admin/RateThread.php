@@ -128,7 +128,7 @@ class RateThread extends Admin
                 ['number', 'study_id', '课程id', ''],
                 ['number', 'score', '评分', ''],
                 ['textarea', 'content', '内容', ''],
-                ['picture', 'img', '图片', ''],
+                ['image', 'img', '图片', ''],
             ])
             ->fetch();
     }
@@ -186,7 +186,7 @@ class RateThread extends Admin
                 ['number', 'study_id', '课程id', ''],
                 ['number', 'score', '评分', ''],
                 ['textarea', 'content', '内容', ''],
-                ['picture', 'img', '图片', ''],
+                ['image', 'img', '图片', ''],
             ]);
         $imgs = json_decode($info["imgs"], 1);
         if (!empty($imgs)) {
