@@ -44,6 +44,13 @@ class StudyMonthy extends Admin
         $num1 = StudyMonthyModel::where("date", ">", $todaytime)->count();
         $num2 = StudyMonthyModel::count();
 
+        $btn_access = [
+            'title' => '用户地址',
+            'icon' => 'fa fa-fw fa-key',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('user_address/index', ['search_field' => 'uid', 'keyword' => '__id__'])
+        ];
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
