@@ -57,7 +57,7 @@ class QuizQuestion extends Admin
             ->addColumn('title', '标题', 'textarea.edit')
             ->addColumn('content', '内容', 'textarea.edit')
             ->addColumn('remark', '备注提示', 'textarea.edit')
-            ->addColumn('imgs', '图片')
+            ->addColumn('img', '图片','picture')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
