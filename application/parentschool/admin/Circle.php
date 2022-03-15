@@ -11,6 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\CircleRecordModel;
 use app\parentschool\model\ParentModel;
 use util\Tree;
 use think\Db;
@@ -35,7 +36,7 @@ class Circle extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = ParentModel::where($map)->order($order)->paginate();
+        $data_list = CircleRecordModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
