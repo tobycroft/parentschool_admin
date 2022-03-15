@@ -43,13 +43,6 @@ class Circle extends Admin
         $num1 = CircleRecordModel::where("date", ">", $todaytime)->count();
         $num2 = CircleRecordModel::count();
 
-        $btn_access = [
-            'title' => '用户地址',
-            'icon' => 'fa fa-fw fa-key',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('user_address/index', ['search_field' => 'uid', 'keyword' => '__id__'])
-        ];
-
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -67,7 +60,6 @@ class Circle extends Admin
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
-            ->addRightButton('custom', $btn_access) //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
