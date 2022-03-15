@@ -85,6 +85,7 @@ class StudyMonthy extends Admin
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('按钮', $btn_access)
+            ->addRightButton('新建', $btn_access2)
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
