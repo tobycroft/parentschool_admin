@@ -185,14 +185,6 @@ class School extends Admin
                 ['image', 'icon', '学校图标', ''],
                 ['image', 'img', '学校图片', ''],
             ]);
-        $imgs = json_decode($info["imgs"], 1);
-        if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-                $data->addFormItems([
-                    ['image', 'img', '图片', '', $img],
-                ]);
-            }
-        }
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;
