@@ -181,7 +181,7 @@ class Circle extends Admin
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'study_id', '课程id', '请确认务必存在'],
                 ['number', 'parent_id', '家长id', ''],
-                ['textarea', 'content', '内容', ''],
+                ['textarea', 'content', '内容'],
             ])
             ->setFormData($info) // 设置表单数据
             ->fetch();
