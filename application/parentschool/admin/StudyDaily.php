@@ -140,7 +140,7 @@ class StudyDaily extends Admin
                 ['text', 'slogan', '推荐金句'],
                 ['text', 'special_tag', '特殊标签'],
                 ['text', 'common_tag', '特殊标签'],
-//                ['ueditor', 'content', '内容'],
+                ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
                 ['image', 'img_intro', '简介图', "picture"],
                 ['text', 'from1', '内容来源1'],
@@ -148,7 +148,7 @@ class StudyDaily extends Admin
                 ['radio', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期', 'datetime'],
                 ['datetime', 'show_date', '展示日期', 'datetime'],
-                ['select', 'attach_type', '附件类型', \Study\Type::get_attach_type()],
+                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
