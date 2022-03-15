@@ -127,7 +127,7 @@ class StudyMonthyTopic extends Admin
                 ['text', 'title', '标题'],
                 ['ueditor', 'content', '字内容'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attah_url', '上传文件'],
+                ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ])
             ->fetch();
