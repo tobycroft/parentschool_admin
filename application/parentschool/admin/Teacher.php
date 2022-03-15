@@ -54,7 +54,7 @@ class Teacher extends Admin
             ->addColumns([
                 ['id', 'ID'],
                 ['name', '姓名', 'text'],
-                ['info', '老师信息', 'textarea'],
+                ['info', '老师信息', 'edit.textarea'],
                 ['img', '老师头像', 'picture'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
