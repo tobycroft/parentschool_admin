@@ -184,10 +184,12 @@ class Circle extends Admin
                 ['textarea', 'content', '内容'],
             ]);
         $imgs = json_decode($info["imgs"], 1);
-        foreach ($imgs as $img) {
-            $data->addFormItems([
-                ['pic', 'img', '图片'],
-            ]);
+        if (!empty($imgs)) {
+            foreach ($imgs as $img) {
+                $data->addFormItems([
+                    ['pic', 'img', '图片'],
+                ]);
+            }
         }
         return $data
             ->setFormData($info) // 设置表单数据
