@@ -47,7 +47,7 @@ class QuizRecord extends Admin
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->addTopButton("add")
+//            ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
@@ -120,7 +120,7 @@ class QuizRecord extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
+                ['number', 'question_id', '问题id', ''],
                 ['number', 'parent_id', '家长id', ''],
                 ['textarea', 'content', '内容', ''],
             ])
