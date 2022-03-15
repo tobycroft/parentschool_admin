@@ -122,7 +122,7 @@ class Circle extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'username', '用户名', '必填，可由英文字母、数字组成'],
+                ['select', 'type', '课程类型', ['daily' => '每日一课', 'weekly' => '每周一做', 'monthy' => '每月一练']],
                 ['text', 'nickname', '昵称', '可以是中文'],
                 ['select', 'role', '主角色', '非超级管理员，禁止创建与当前角色同级的用户', $role_list],
                 ['select', 'roles', '副角色', '可多选', $role_list, '', 'multiple'],
