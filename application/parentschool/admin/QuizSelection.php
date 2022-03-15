@@ -53,7 +53,7 @@ class QuizSelection extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('question_id', '问题ID', 'number')
-            ->addColumn('is_answer', '是否是正确答案', 'radio')
+            ->addColumn('is_answer', '是否是正确答案', 'switch')
             ->addColumn('rank', '排序', 'number')
             ->addColumn('title', '选项', 'text.edit')
             ->addColumn('content', '内容', 'text.edit')
@@ -122,7 +122,7 @@ class QuizSelection extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['number', 'question_id', '家长id', ''],
                 ['number', 'rank', '排序', ''],
-                ['radio', 'is_answer', '是否是答案', ''],
+                ['switch', 'is_answer', '是否是答案', ''],
                 ['textarea', 'title', '选项', ''],
                 ['textarea', 'content', '内容', ''],
                 ['textarea', 'remark', '错误提示', ''],
@@ -180,7 +180,7 @@ class QuizSelection extends Admin
                 ['hidden', 'id'],
                 ['number', 'question_id', '家长id', ''],
                 ['number', 'rank', '排序', ''],
-                ['radio', 'is_answer', '是否是答案', ''],
+                ['switch', 'is_answer', '是否是答案', ''],
                 ['textarea', 'title', '选项', ''],
                 ['textarea', 'content', '内容', ''],
                 ['textarea', 'remark', '错误提示', ''],

@@ -65,7 +65,7 @@ class StudyDaily extends Admin
                 ['img_intro', '简介图', "picture"],
                 ['from1', '内容来源1'],
                 ['from2', '内容来源2'],
-                ['can_push', '是否可以推送', 'radio'],
+                ['can_push', '是否可以推送', 'switch'],
                 ['push_date', '推送日期', 'datetime'],
                 ['show_date', '展示日期', 'datetime'],
                 ['attach_type', '附件类型', 'datetime'],
