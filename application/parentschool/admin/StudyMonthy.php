@@ -55,7 +55,7 @@ class StudyMonthy extends Admin
             'title' => '新建数据',
             'icon' => 'fa fa-fw fa-new',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('study_monthy_topic/add', ['search_field' => 'study_id', 'keyword' => '__id__'])
+            'href' => url('study_monthy_topic/add', ['study_id' => '__id__'])
         ];
 
         return ZBuilder::make('table')
