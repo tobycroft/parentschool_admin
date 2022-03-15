@@ -22,7 +22,7 @@ use think\facade\Hook;
  * 用户默认控制器
  * @package app\user\admin
  */
-class QuizQuestion extends Admin
+class QuizRecord extends Admin
 {
     /**
      * 用户首页
