@@ -210,7 +210,7 @@ class StudyDaily extends Admin
                 ['text', 'slogan', '推荐金句'],
                 ['text', 'special_tag', '特殊标签'],
                 ['text', 'common_tag', '特殊标签'],
-                ['ueditor', 'content', '内容'],
+//                ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
                 ['image', 'img_intro', '简介图', "picture"],
                 ['text', 'from1', '内容来源1'],
