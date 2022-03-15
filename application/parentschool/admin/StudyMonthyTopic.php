@@ -117,7 +117,7 @@ class StudyMonthyTopic extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
-        $get = $this->request->get();
+        $study_id = input("study_id");
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -130,7 +130,7 @@ class StudyMonthyTopic extends Admin
                 ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ])
-            ->setFormData(["study_id" => $get["study_id"]])
+            ->setFormData(["study_id" => $study_id])
             ->fetch();
     }
 
