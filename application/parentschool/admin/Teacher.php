@@ -53,10 +53,9 @@ class Teacher extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['type', '记录类型'],
-                ['study_id', '课程id', 'number'],
-                ['parent_id', '家长id', 'number'],
-                ['completion', '完成情况%'],
+                ['name', '姓名', 'text'],
+                ['info', '老师信息', 'textarea'],
+                ['img', '老师头像', 'picture'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
