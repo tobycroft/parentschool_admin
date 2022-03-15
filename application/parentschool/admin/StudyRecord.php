@@ -53,12 +53,10 @@ class StudyRecord extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
+                ['type', '记录类型'],
                 ['study_id', '课程id', 'number'],
-                ['rank', '排序', 'number'],
-                ['title', '标题'],
-                ['content', '字内容'],
-                ['attach_type', '附件类型', 'text'],
-                ['attach_duration', '播放时间', 'number'],
+                ['parent_id', '家长id', 'number'],
+                ['completion', '完成情况%'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
