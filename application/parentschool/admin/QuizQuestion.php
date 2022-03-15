@@ -51,7 +51,7 @@ class QuizQuestion extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('id', 'ID')
+            ->addColumn('id', '问题ID')
             ->addColumn('type', '课程类型', \Study\Type::get_type())
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('title', '标题', 'textarea.edit')
