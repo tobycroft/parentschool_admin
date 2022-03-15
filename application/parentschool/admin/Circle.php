@@ -13,6 +13,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\CircleRecordModel;
 use app\user\model\User;
+use app\user\model\Role as RoleModel;
 use util\Tree;
 use think\Db;
 use think\facade\Hook;
