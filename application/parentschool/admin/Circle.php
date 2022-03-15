@@ -178,10 +178,10 @@ class Circle extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['static', 'username', '用户名', '不可更改'],
-                ['text', 'password', '密码', '必填，6-20位'],
-                ['text', 'share', '共享码', '必填，6-20位'],
-                ['image', 'head_img', '头像'],
+                ['select', 'type', '课程类型', \Study\Type::get_type()],
+                ['text', 'study_id', '昵称', '可以是中文'],
+                ['select', 'parent_id', '主角色', '非超级管理员，禁止创建与当前角色同级的用户', $role_list],
+                ['textarea', 'content', '内容', ''],
             ])
             ->setFormData($info) // 设置表单数据
             ->fetch();
