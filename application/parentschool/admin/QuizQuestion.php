@@ -52,10 +52,11 @@ class QuizQuestion extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
-            ->addColumn('type', '课程类型')
+            ->addColumn('type', '课程类型', \Study\Type::get_type())
             ->addColumn('study_id', '课程id', 'number')
-            ->addColumn('parent_id', '家长id', 'number')
+            ->addColumn('title', '标题', 'textarea.edit')
             ->addColumn('content', '内容', 'textarea.edit')
+            ->addColumn('remark', '备注提示', 'textarea.edit')
             ->addColumn('imgs', '图片')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
