@@ -122,19 +122,13 @@ class StudyMonthyTopic extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'grade', '年级'],
-                ['number', 'class', '班级'],
-                ['number', 'area_id', '对应区域'],
-                ['number', 'school_id', '学校id'],
+                ['number', 'study_id', '课程id', 'number'],
+                ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
-                ['text', 'slogan', '推荐金句'],
-                ['text', 'special_tag', '特殊标签'],
-                ['text', 'common_tag', '特殊标签'],
-                ['ueditor', 'content', '内容'],
-                ['switch', 'can_push', '是否可以推送'],
-                ['datetime', 'push_date', '推送日期', 'datetime'],
-                ['datetime', 'show_date', '展示日期', 'datetime'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ['ueditor', 'content', '字内容'],
+                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['file', 'attah_url', '上传文件'],
+                ['text', 'attach_duration', '播放时间'],
             ])
             ->fetch();
     }
