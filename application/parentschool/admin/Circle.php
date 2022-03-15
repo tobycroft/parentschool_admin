@@ -124,7 +124,7 @@ class Circle extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'type', '课程类型', \Study\Type::get_type()],
+                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'study_id', '课程id', '请确认务必存在'],
                 ['number', 'parent_id', '家长id', ''],
                 ['textarea', 'content', '内容', ''],
