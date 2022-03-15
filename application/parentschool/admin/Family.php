@@ -54,7 +54,7 @@ class Family extends Admin
             ->addColumns([
                 ['id', 'ID'],
                 ['name', '家庭名称', 'text.edit'],
-                ['face', '家庭头像', "pic"],
+                ['face', '家庭头像', "image"],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
