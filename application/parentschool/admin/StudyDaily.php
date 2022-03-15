@@ -57,7 +57,7 @@ class StudyDaily extends Admin
                 ['area_id', '对应区域', 'number'],
                 ['school_id', '学校id', 'number'],
                 ['title', '标题'],
-                ['slogan', '标题'],
+                ['slogan', '推荐金句'],
                 ['special_tag', '特殊标签'],
                 ['common_tag', '特殊标签'],
                 ['img', '小图头图', "picture"],
@@ -132,14 +132,14 @@ class StudyDaily extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-
                 ['text', 'grade', '年级', 'number'],
-                ['text', 'area_id', '对应区域', 'number'],
-                ['text', 'school_id', '学校id', 'number'],
+                ['number', 'area_id', '对应区域'],
+                ['number', 'school_id', '学校id'],
                 ['text', 'title', '标题'],
-                ['text', 'slogan', '标题'],
+                ['text', 'slogan', '推荐金句'],
                 ['text', 'special_tag', '特殊标签'],
                 ['text', 'common_tag', '特殊标签'],
+                ['textedit', 'content', '内容'],
                 ['text', 'img', '小图头图', "picture"],
                 ['text', 'img_intro', '简介图', "picture"],
                 ['text', 'from1', '内容来源1'],
@@ -148,7 +148,8 @@ class StudyDaily extends Admin
                 ['text', 'push_date', '推送日期', 'datetime'],
                 ['text', 'show_date', '展示日期', 'datetime'],
                 ['text', 'attach_type', '附件类型', 'datetime'],
-                ['text', 'show_to', '展示给谁'],
+                ['text', 'attach_url', '附件类型', 'datetime'],
+                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
             ->fetch();
     }
