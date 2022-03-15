@@ -11,7 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\StudyDailyModel;
+use app\parentschool\model\StudyWeeklyModel;
 use app\user\model\User;
 use app\user\model\Role as RoleModel;
 use util\Tree;
@@ -37,12 +37,12 @@ class StudyWeekly extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyDailyModel::where($map)->order($order)->paginate();
+        $data_list = StudyWeeklyModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = StudyDailyModel::where("date", ">", $todaytime)->count();
-        $num2 = StudyDailyModel::count();
+        $num1 = StudyWeeklyModel::where("date", ">", $todaytime)->count();
+        $num2 = StudyWeeklyModel::count();
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -109,7 +109,7 @@ class StudyWeekly extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = StudyDailyModel::create($data)) {
+            if ($user = StudyWeeklyModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -182,8 +182,8 @@ class StudyWeekly extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (StudyDailyModel::update($data)) {
-                $user = StudyDailyModel::get($data['id']);
+            if (StudyWeeklyModel::update($data)) {
+                $user = StudyWeeklyModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -193,7 +193,7 @@ class StudyWeekly extends Admin
         }
 
         // 获取数据
-        $info = StudyDailyModel::where('id', $id)->find();
+        $info = StudyWeeklyModel::where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -515,17 +515,17 @@ class StudyWeekly extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === StudyDailyModel::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === StudyWeeklyModel::where('id', 'in', $ids)->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === StudyDailyModel::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === StudyWeeklyModel::where('id', 'in', $ids)->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === StudyDailyModel::where('id', 'in', $ids)->delete()) {
+                if (false === StudyWeeklyModel::where('id', 'in', $ids)->delete()) {
                     $this->error('删除失败');
                 }
                 break;
@@ -558,7 +558,7 @@ class StudyWeekly extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = StudyDailyModel::where("id", $id)->setField($field, $value);
+        $result = StudyWeeklyModel::where("id", $id)->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
