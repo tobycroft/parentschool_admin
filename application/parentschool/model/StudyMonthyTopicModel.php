@@ -19,7 +19,7 @@ use think\Db;
  */
 class StudyMonthyTopicModel extends Model {
 	// 设置当前模型对应的完整数据表名称
-	protected $table = 'ps_circle_record';
+	protected $table = 'ps_study_monthy_topic';
 
 	// 设置当前模型对应的完整数据表名称
 
