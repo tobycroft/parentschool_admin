@@ -123,8 +123,8 @@ class Circle extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', 'type', '课程类型', \Study\Type::get_type()],
-                ['text', 'study_id', '昵称', '可以是中文'],
-                ['select', 'parent_id', '主角色', '非超级管理员，禁止创建与当前角色同级的用户', $role_list],
+                ['text', 'study_id', '课程id', '请确认务必存在'],
+                ['number', 'parent_id', '家长id', ''],
                 ['textarea', 'content', '内容', ''],
             ])
             ->fetch();
