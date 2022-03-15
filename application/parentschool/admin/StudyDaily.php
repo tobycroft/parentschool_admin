@@ -60,6 +60,7 @@ class StudyDaily extends Admin
                 ['slogan', '推荐金句'],
                 ['special_tag', '特殊标签'],
                 ['common_tag', '特殊标签'],
+                ['ueditor', 'content', '内容'],
                 ['img', '小图头图', "picture"],
                 ['img_intro', '简介图', "picture"],
                 ['from1', '内容来源1'],
