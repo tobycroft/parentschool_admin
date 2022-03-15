@@ -171,7 +171,7 @@ class Circle extends Admin
         }
 
         // 获取数据
-        $info = ParentModel::where('id', $id)->find();
+        $info = CircleRecordModel::where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
