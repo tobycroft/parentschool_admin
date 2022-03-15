@@ -12,4 +12,14 @@ class Type
             'monthy' => '每月一练',
         ];
     }
+
+    public static function get_attach_type()
+    {
+        return [
+            'img' => "图片",
+            'record' => "录音",
+            'video' => "视频",
+            'none' => "无"
+        ];
+    }
 }
