@@ -52,7 +52,7 @@ class QuizRecord extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
-            ->addColumn('type', '课程类型')
+            ->addColumn('type', '课程类型', \Study\Type::get_type())
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('parent_id', '家长id', 'number')
             ->addColumn('content', '内容', 'textarea.edit')
