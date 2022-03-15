@@ -180,7 +180,6 @@ class Circle extends Admin
                 ['hidden', 'id'],
                 ['select', 'type', '课程类型', \Study\Type::get_type()],
                 ['text', 'study_id', '昵称', '可以是中文'],
-                ['select', 'parent_id', '主角色', '非超级管理员，禁止创建与当前角色同级的用户', $role_list],
                 ['textarea', 'content', '内容', ''],
             ])
             ->setFormData($info) // 设置表单数据
