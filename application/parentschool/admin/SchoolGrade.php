@@ -53,7 +53,6 @@ class SchoolGrade extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '区域名称', 'text')
-            ->addColumn('bind_uid', '绑定负责人UID', 'number')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -117,7 +116,6 @@ class SchoolGrade extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '学校名称', ''],
-                ['number', 'bind_uid', '负责人uid', ''],
             ])
             ->fetch();
     }
@@ -171,7 +169,6 @@ class SchoolGrade extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['text', 'name', '学校名称', ''],
-                ['number', 'bind_uid', '负责人uid', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
