@@ -22,7 +22,7 @@ use think\facade\Hook;
  * 用户默认控制器
  * @package app\user\admin
  */
-class FamilyRole extends Admin
+class FamilyMember extends Admin
 {
     /**
      * 用户首页
