@@ -53,7 +53,7 @@ class StudyMonthy extends Admin
 
         $btn_access2 = [
             'title' => '新建数据',
-            'icon' => 'fa fa-fw fa-new',
+            'icon' => 'fa fa-fw fa-star',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('study_monthy_topic/add', ['study_id' => '__id__'])
         ];
