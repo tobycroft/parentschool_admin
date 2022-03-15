@@ -48,7 +48,7 @@ class StudyMonthy extends Admin
             'title' => '用户地址',
             'icon' => 'fa fa-fw fa-key',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('user_address/index', ['search_field' => 'uid', 'keyword' => '__id__'])
+            'href' => url('study_monthy_topic/index', ['search_field' => 'study_id', 'keyword' => '__id__'])
         ];
 
         return ZBuilder::make('table')
