@@ -119,7 +119,7 @@ class Family extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '家庭名称', '请确认务必存在'],
-                ['pic', 'face', '家庭头像', ''],
+                ['image', 'face', '家庭头像', ''],
             ])
             ->fetch();
     }
