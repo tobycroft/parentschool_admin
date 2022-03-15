@@ -34,7 +34,7 @@ class SchoolGrade extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("id desc");
+        $order = $this->getOrder("id asc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = SchoolGradeModel::where($map)->order($order)->paginate();
