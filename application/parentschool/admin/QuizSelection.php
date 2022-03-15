@@ -49,7 +49,7 @@ class QuizSelection extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
+            ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('question_id', '问题ID', 'number')
