@@ -119,11 +119,9 @@ class Teacher extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'parent_id', '家长id'],
-                ['number', 'study_id', '课程id'],
-                ['select', 'type', '记录类型', '', \Study\Type::get_type()],
-                ['file', 'attah_url', '上传文件'],
-                ['number', 'completion', '完成情况%'],
+                ['text', 'name', '姓名'],
+                ['textarea', 'info', '老师信息'],
+                ['image', 'img', '老师头像'],
             ])
             ->fetch();
     }
@@ -176,11 +174,9 @@ class Teacher extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'parent_id', '家长id'],
-                ['number', 'study_id', '课程id'],
-                ['select', 'type', '记录类型', '', \Study\Type::get_type()],
-                ['file', 'attah_url', '上传文件'],
-                ['number', 'completion', '完成情况%'],
+                ['text', 'name', '姓名'],
+                ['textarea', 'info', '老师信息'],
+                ['image', 'img', '老师头像'],
             ]);
 
         return $data
