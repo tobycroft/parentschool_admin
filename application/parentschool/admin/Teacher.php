@@ -53,7 +53,7 @@ class Teacher extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['name', '姓名', 'text'],
+                ['name', '姓名', 'text.edit'],
                 ['info', '老师信息', 'textarea.edit'],
                 ['img', '老师头像', 'picture'],
                 ['change_date', '修改时间'],
