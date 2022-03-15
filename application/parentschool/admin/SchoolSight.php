@@ -117,7 +117,7 @@ class SchoolSight extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '学校名称', ''],
-                ['number', 'bind_uid', '负责人uid', ''],
+                ['number', 'type', '可见范围', ''],
             ])
             ->fetch();
     }
@@ -171,7 +171,7 @@ class SchoolSight extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['text', 'name', '学校名称', ''],
-                ['number', 'bind_uid', '负责人uid', ''],
+                ['number', 'type', '可见范围', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
