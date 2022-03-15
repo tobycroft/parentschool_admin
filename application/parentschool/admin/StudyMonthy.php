@@ -51,6 +51,13 @@ class StudyMonthy extends Admin
             'href' => url('study_monthy_topic/index', ['search_field' => 'study_id', 'keyword' => '__id__'])
         ];
 
+        $btn_access2 = [
+            'title' => '用户地址',
+            'icon' => 'fa fa-fw fa-key',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('study_monthy_topic/add', ['search_field' => 'study_id', 'keyword' => '__id__'])
+        ];
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
