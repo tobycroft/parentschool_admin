@@ -179,7 +179,8 @@ class Circle extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['select', 'type', '课程类型', \Study\Type::get_type()],
-                ['text', 'study_id', '昵称', '可以是中文'],
+                ['text', 'study_id', '课程id', '请确认务必存在'],
+                ['number', 'parent_id', '家长id', ''],
                 ['textarea', 'content', '内容', ''],
             ])
             ->setFormData($info) // 设置表单数据
