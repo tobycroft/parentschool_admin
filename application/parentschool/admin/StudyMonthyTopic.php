@@ -59,10 +59,6 @@ class StudyMonthyTopic extends Admin
                 ['content', '字内容'],
                 ['attach_type', '附件类型', 'select', '', \Study\Type::get_attach_type()],
                 ['attach_duration', '播放时间', 'number'],
-                ['can_push', '是否可以推送', 'switch'],
-                ['push_date', '推送日期', 'datetime'],
-                ['show_date', '展示日期', 'datetime'],
-                ['show_to', '展示给谁'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
