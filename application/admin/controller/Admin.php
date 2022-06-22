@@ -1,24 +1,24 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\admin\controller;
 
-use app\common\controller\Common;
-use app\common\builder\ZBuilder;
+use app\admin\model\Icon as IconModel;
 use app\admin\model\Menu as MenuModel;
 use app\admin\model\Module as ModuleModel;
-use app\admin\model\Icon as IconModel;
-use app\user\model\Role as RoleModel;
+use app\common\builder\ZBuilder;
+use app\common\controller\Common;
 use app\user\model\Message as MessageModel;
-use think\facade\Cache;
+use app\user\model\Role as RoleModel;
 use think\Db;
 use think\facade\App;
+use think\facade\Cache;
 use think\helper\Hash;
 
 /**

@@ -1,11 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
-// +----------------------------------------------------------------------
-// | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
-// +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
-// +----------------------------------------------------------------------
+
 
 namespace app\admin\model;
 
@@ -26,21 +20,21 @@ class Attachment extends Model
     /**
      * 根据附件id获取路径
      * @param string|array $id 附件id
-     * @param  int $type 类型：0-补全目录，1-直接返回数据库记录的地址
-     * @author 蔡伟明 <314013107@qq.com>
+     * @param int $type 类型：0-补全目录，1-直接返回数据库记录的地址
      * @return array|bool|mixed|string
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function getFilePath($id = '', $type = 0)
     {
         if (is_array($id)) {
-            $data_list = $this->where('id', 'in', $id)->select();
+            $data_list = $this->where('path', $id)->whereOr('id', 'in', $id)->select();
             $paths = [];
             foreach ($data_list as $key => $value) {
                 if ($value['driver'] == 'local') {
-                    $paths[$value['id']] = ($type == 0 ? PUBLIC_PATH : '').$value['path'];
+                    $paths[$value['id']] = ($type == 0 ? PUBLIC_PATH : '') . $value['path'];
                 } else {
                     $paths[$value['id']] = $value['path'];
                 }
@@ -50,7 +44,7 @@ class Attachment extends Model
             $data = $this->where('id', $id)->find();
             if ($data) {
                 if ($data['driver'] == 'local') {
-                    return ($type == 0 ? PUBLIC_PATH : '').$data['path'];
+                    return ($type == 0 ? PUBLIC_PATH : '') . $data['path'];
                 } else {
                     return $data['path'];
                 }
@@ -63,18 +57,18 @@ class Attachment extends Model
     /**
      * 根据图片id获取缩略图路径，如果缩略图不存在，则返回原图路径
      * @param string $id 图片id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|mixed|string|Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
+     * @author 蔡伟明 <314013107@qq.com>
      */
-    public function getThumbPath($id = '')
+    public function getThumbPath($path = '')
     {
-        $result = $this->where('id', $id)->field('path,driver,thumb')->find();
+        $result = $this->where('path', $path)->whereOr('id', $path)->field('path,driver,thumb')->find();
         if ($result) {
             if ($result['driver'] == 'local') {
-                return $result['thumb'] != '' ? PUBLIC_PATH.$result['thumb'] : PUBLIC_PATH.$result['path'];
+                return $result['thumb'] != '' ? PUBLIC_PATH . $result['thumb'] : PUBLIC_PATH . $result['path'];
             } else {
                 return $result['thumb'] != '' ? $result['thumb'] : $result['path'];
             }
@@ -85,7 +79,7 @@ class Attachment extends Model
 
     /**
      * 根据附件id获取名称
-     * @param  string $id 附件id
+     * @param string $id 附件id
      * @return string     名称
      */
     public function getFileName($id = '')
@@ -93,3 +87,4 @@ class Attachment extends Model
         return $this->where('id', $id)->value('name');
     }
 }
+

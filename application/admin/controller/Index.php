@@ -1,20 +1,20 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\admin\controller;
 
+use app\common\builder\ZBuilder;
+use app\user\model\User as UserModel;
+use think\Db;
 use think\facade\Cache;
 use think\facade\Env;
 use think\helper\Hash;
-use think\Db;
-use app\common\builder\ZBuilder;
-use app\user\model\User as UserModel;
 
 /**
  * 后台默认控制器
@@ -98,7 +98,7 @@ class Index extends Admin
         }
 
         // 获取数据
-        $info = ParentModel::where('id', UID)->field('password', true)->find();
+        $info = UserModel::where('id', UID)->field('password', true)->find();
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
@@ -152,8 +152,8 @@ class Index extends Admin
 
         if ($result['code'] == 1) {
             return json([
-                'update' => '<a class="badge badge-primary" href="http://www.DThinkPHP.com/download" target="_blank">有新版本：'.$result["version"].'</a>',
-                'auth'   => $result['auth']
+                'update' => '<a class="badge badge-primary" href="http://www.dolphinphp.com/download" target="_blank">有新版本：' . $result["version"] . '</a>',
+                'auth' => $result['auth']
             ]);
         } else {
             return json([

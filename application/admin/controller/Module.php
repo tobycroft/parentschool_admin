@@ -1,27 +1,27 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\admin\controller;
 
+use app\admin\model\Action as ActionModel;
+use app\admin\model\Menu as MenuModel;
 use app\admin\model\Module as ModuleModel;
 use app\admin\model\Plugin as PluginModel;
-use app\admin\model\Menu as MenuModel;
-use app\admin\model\Action as ActionModel;
+use think\Db;
 use think\facade\Cache;
+use think\facade\Env;
+use think\facade\Hook;
 use util\Database;
-use util\Sql;
 use util\File;
 use util\PHPZip;
+use util\Sql;
 use util\Tree;
-use think\Db;
-use think\facade\Hook;
-use think\facade\Env;
 
 /**
  * 模块管理控制器
@@ -444,11 +444,11 @@ class Module extends Admin
         $content = <<<INFO
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 /**
@@ -482,11 +482,11 @@ INFO;
         $content = <<<INFO
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 /**

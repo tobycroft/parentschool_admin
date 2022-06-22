@@ -1,21 +1,21 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\admin\controller;
 
-use app\common\builder\ZBuilder;
-use app\admin\model\Plugin as PluginModel;
 use app\admin\model\HookPlugin as HookPluginModel;
-use think\facade\Cache;
-use util\Sql;
+use app\admin\model\Plugin as PluginModel;
+use app\common\builder\ZBuilder;
 use think\Db;
+use think\facade\Cache;
 use think\facade\Hook;
+use util\Sql;
 
 /**
  * 插件管理控制器

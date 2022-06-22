@@ -1,11 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
-// +----------------------------------------------------------------------
-// | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
-// +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
-// +----------------------------------------------------------------------
+
 
 namespace app\admin\controller;
 
@@ -367,7 +361,6 @@ class Attachment extends Admin
             'module' => $this->request->module(),
             'width' => $img->width(),
             'height' => $img->height(),
-            'driver' => config('upload_driver'),
         ];
 
         if ($file_add = AttachmentModel::create($file_info)) {
@@ -556,7 +549,6 @@ class Attachment extends Admin
                 'module' => $module,
                 'width' => $image->width(),
                 'height' => $image->height(),
-                'driver' => config('upload_driver'),
             ];
 
             if ($file_add = AttachmentModel::create($file_info)) {
@@ -669,7 +661,7 @@ class Attachment extends Admin
                     'code' => 1,
                     'info' => '上传成功',
                     'class' => 'success',
-                    'id' => $file_id,
+                    'id' => $file_path,
                     'path' => $file_path,
                 ]);
         }
