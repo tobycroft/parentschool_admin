@@ -87,4 +87,3 @@ class Attachment extends Model
         return $this->where('id', $id)->value('name');
     }
 }
-

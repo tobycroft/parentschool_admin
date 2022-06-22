@@ -1,11 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DolphinPHP ]
-// +----------------------------------------------------------------------
-// | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
-// +----------------------------------------------------------------------
-// | 官方网站: http://dolphinphp.com
-// +----------------------------------------------------------------------
+
 
 namespace app\cms\admin;
 
@@ -120,7 +114,7 @@ class Column extends Admin
                 ['text', 'name', '栏目名称', '<span class="text-danger">必填</span>'],
                 ['radio', 'model', '内容模型', '<span class="text-danger">必选</span>', DocumentModel::getTitleList()],
                 ['radio', 'type', '栏目属性', '', ['最终列表栏目', '外部链接'], 0],
-                ['text', 'url', '链接', '可以填写完整的url，如：<code>http://www.dolphinphp.com</code>，也可以填写 <code>模块/控制器/操作</code>，如：<code>cms/index/index</code>'],
+                ['text', 'url', '链接', '可以填写完整的url，如：<code>http://www.DThinkphp.com</code>，也可以填写 <code>模块/控制器/操作</code>，如：<code>cms/index/index</code>'],
                 ['radio', 'target', '打开方式', '', ['_self' => '当前窗口', '_blank' => '新窗口'], '_self'],
 //                ['select', 'index_template', '封面页模板', '可选'],
                 ['select', 'list_template', '列表页模板', '可选，模板目录： <code>cms/view/column</code>', parse_array($template_list)],
@@ -181,7 +175,7 @@ class Column extends Admin
                 ['text', 'name', '栏目名称', '<span class="text-danger">必填</span>'],
                 ['radio', 'model', '内容模型', '<span class="text-danger">必选</span>', DocumentModel::getTitleList()],
                 ['radio', 'type', '栏目属性', '', ['最终列表栏目', '外部链接'], 0],
-                ['text', 'url', '链接', '可以填写完整的url，如：<code>http://www.dolphinphp.com</code>，也可以填写 <code>模块/控制器/操作</code>，如：<code>cms/index/index</code>'],
+                ['text', 'url', '链接', '可以填写完整的url，如：<code>http://www.DThinkphp.com</code>，也可以填写 <code>模块/控制器/操作</code>，如：<code>cms/index/index</code>'],
                 ['radio', 'target', '打开方式', '', ['_self' => '当前窗口', '_blank' => '新窗口'], '_self'],
 //                ['select', 'index_template', '封面页模板', '可选'],
                 ['select', 'list_template', '列表页模板', '可选，模板目录： <code>cms/view/column</code>', parse_array($template_list)],

@@ -207,11 +207,11 @@ CREATE TABLE `dp_cms_menu` (
 -- 表数据 `dp_cms_menu`
 -- -----------------------------
 INSERT INTO `dp_cms_menu` VALUES ('1', '1', '0', '0', '0', '2', '首页', 'cms/index/index', '', '', '_self', '1492345605', '1492345605', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('2', '2', '0', '0', '0', '2', '关于我们', 'http://www.dolphinphp.com', '', '', '_self', '1492346763', '1492346763', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('3', '3', '0', '0', '0', '2', '开发文档', 'http://www.kancloud.cn/ming5112/dolphinphp', '', '', '_self', '1492346812', '1492346812', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('4', '3', '0', '0', '0', '2', '开发者社区', 'http://bbs.dolphinphp.com/', '', '', '_self', '1492346832', '1492346832', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('5', '1', '0', '0', '0', '2', '二级菜单', 'http://www.dolphinphp.com', '', '', '_self', '1492347372', '1492347510', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('6', '1', '5', '0', '0', '2', '子菜单', 'http://www.dolphinphp.com', '', '', '_self', '1492347388', '1492347520', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('2', '2', '0', '0', '0', '2', '关于我们', 'http://www.DThinkphp.com', '', '', '_self', '1492346763', '1492346763', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('3', '3', '0', '0', '0', '2', '开发文档', 'http://www.kancloud.cn/ming5112/DThinkphp', '', '', '_self', '1492346812', '1492346812', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('4', '3', '0', '0', '0', '2', '开发者社区', 'http://bbs.DThinkphp.com/', '', '', '_self', '1492346832', '1492346832', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('5', '1', '0', '0', '0', '2', '二级菜单', 'http://www.DThinkphp.com', '', '', '_self', '1492347372', '1492347510', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('6', '1', '5', '0', '0', '2', '子菜单', 'http://www.DThinkphp.com', '', '', '_self', '1492347388', '1492347520', '100', '1');
 
 -- -----------------------------
 -- 表结构 `dp_cms_model`

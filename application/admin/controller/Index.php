@@ -1,11 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DolphinPHP ]
-// +----------------------------------------------------------------------
-// | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
-// +----------------------------------------------------------------------
-// | 官方网站: http://dolphinphp.com
-// +----------------------------------------------------------------------
+
 
 namespace app\admin\controller;
 
@@ -24,8 +18,8 @@ class Index extends Admin
 {
     /**
      * 后台首页
-     * @return string
      * @author 蔡伟明 <314013107@qq.com>
+     * @return string
      */
     public function index()
     {
@@ -48,17 +42,17 @@ class Index extends Admin
             foreach ($wipe_cache_type as $item) {
                 switch ($item) {
                     case 'TEMP_PATH':
-                        array_map('unlink', glob(Env::get('runtime_path') . 'temp/*.*'));
+                        array_map('unlink', glob(Env::get('runtime_path'). 'temp/*.*'));
                         break;
                     case 'LOG_PATH':
-                        $dirs = (array)glob(Env::get('runtime_path') . 'log/*');
+                        $dirs = (array) glob(Env::get('runtime_path') . 'log/*');
                         foreach ($dirs as $dir) {
                             array_map('unlink', glob($dir . '/*.log'));
                         }
                         array_map('rmdir', $dirs);
                         break;
                     case 'CACHE_PATH':
-                        array_map('unlink', glob(Env::get('runtime_path') . 'cache/*.*'));
+                        array_map('unlink', glob(Env::get('runtime_path'). 'cache/*.*'));
                         break;
                 }
             }
@@ -116,53 +110,49 @@ class Index extends Admin
 
     /**
      * 检查版本更新
+     * @author 蔡伟明 <314013107@qq.com>
      * @return \think\response\Json
      * @throws \think\db\exception\BindParamException
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function checkUpdate()
     {
-        return json([
-            'update' => '',
-            'auth' => ""
-        ]);
         $params = config('dolphin.');
-        $params['domain'] = request()->domain();
+        $params['domain']  = request()->domain();
         $params['website'] = config('web_site_title');
-        $params['ip'] = $_SERVER['SERVER_ADDR'];
-        $params['php_os'] = PHP_OS;
+        $params['ip']      = $_SERVER['SERVER_ADDR'];
+        $params['php_os']  = PHP_OS;
         $params['php_version'] = PHP_VERSION;
         $params['mysql_version'] = db()->query('select version() as version')[0]['version'];
         $params['server_software'] = $_SERVER['SERVER_SOFTWARE'];
         $params = http_build_query($params);
 
         $opts = [
-            CURLOPT_TIMEOUT => 20,
+            CURLOPT_TIMEOUT        => 20,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_URL => config('dolphin.product_update'),
-            CURLOPT_USERAGENT => $_SERVER['HTTP_USER_AGENT'],
-            CURLOPT_POST => 1,
-            CURLOPT_POSTFIELDS => $params
+            CURLOPT_URL            => config('dolphin.product_update'),
+            CURLOPT_USERAGENT      => $_SERVER['HTTP_USER_AGENT'],
+            CURLOPT_POST           => 1,
+            CURLOPT_POSTFIELDS     => $params
         ];
 
         // 初始化并执行curl请求
         $ch = curl_init();
         curl_setopt_array($ch, $opts);
-        $data = curl_exec($ch);
+        $data  = curl_exec($ch);
         curl_close($ch);
 
         $result = json_decode($data, true);
 
         if ($result['code'] == 1) {
             return json([
-                'update' => '<a class="badge badge-primary" href="http://www.dolphinphp.com/download" target="_blank">有新版本：' . $result["version"] . '</a>',
-                'auth' => $result['auth']
+                'update' => '<a class="badge badge-primary" href="http://www.DThinkphp.com/download" target="_blank">有新版本：'.$result["version"].'</a>',
+                'auth'   => $result['auth']
             ]);
         } else {
             return json([
                 'update' => '',
-                'auth' => $result['auth']
+                'auth'   => $result['auth']
             ]);
         }
     }

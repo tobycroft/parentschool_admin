@@ -1,11 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DolphinPHP ]
-// +----------------------------------------------------------------------
-// | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
-// +----------------------------------------------------------------------
-// | 官方网站: http://dolphinphp.com
-// +----------------------------------------------------------------------
+
 
 namespace app\common\builder\table;
 
@@ -1562,7 +1556,7 @@ class Builder extends ZBuilder
 
     /**
      * 设置Tab按钮列表
-     * @param array $tab_list Tab列表  ['title' => '标题', 'href' => 'http://www.dolphinphp.com']
+     * @param array $tab_list Tab列表  ['title' => '标题', 'href' => 'http://www.DThinkphp.com']
      * @param string $curr_tab 当前tab
      * @return $this
      * @author 蔡伟明 <314013107@qq.com>
