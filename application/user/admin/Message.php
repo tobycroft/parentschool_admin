@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\user\admin;
@@ -12,8 +12,8 @@ namespace app\user\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\user\model\Message as MessageModel;
-use app\user\model\User as UserModel;
 use app\user\model\Role as RoleModel;
+use app\user\model\User as UserModel;
 
 /**
  * 消息控制器

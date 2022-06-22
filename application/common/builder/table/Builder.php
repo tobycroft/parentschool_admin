@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\common\builder\table;
@@ -116,46 +116,46 @@ class Builder extends ZBuilder
      * @var array 模板变量
      */
     private $_vars = [
-        'page_title'         => '',       // 页面标题
-        'page_tips'          => '',       // 页面提示
-        'tips_type'          => '',       // 提示类型
-        'tab_nav'            => [],       // 页面Tab导航
-        'hide_checkbox'      => false,    // 是否隐藏第一列多选
-        'extra_html'         => '',       // 额外HTML代码
-        'extra_js'           => '',       // 额外JS代码
-        'extra_css'          => '',       // 额外CSS代码
-        'order_columns'      => [],       // 需要排序的列表头
-        'filter_columns'     => [],       // 需要筛选功能的列表头
-        'filter_map'         => [],       // 字段筛选的排序条件
-        '_field_display'     => [],       // 字段筛选的默认选项
-        '_filter_content'    => [],       // 字段筛选的默认选中值
-        '_filter'            => [],       // 字段筛选的默认字段名
-        'top_buttons'        => [],       // 顶部栏按钮
-        'right_buttons'      => [],       // 表格右侧按钮
-        'search'             => [],       // 搜索参数
-        'search_button'      => false,    // 搜索按钮
-        'columns'            => [],       // 表格列集合
-        'pages'              => '',       // 分页数据
-        'row_list'           => [],       // 表格数据列表
-        '_page_info'         => '',       // 分页信息
-        'primary_key'        => 'id',     // 表格主键名称
-        '_table'             => '',       // 表名
-        'js_list'            => [],       // js文件名
-        'css_list'           => [],       // css文件名
-        'validate'           => '',       // 快速编辑的验证器名
-        '_js_files'          => [],       // js文件
-        '_css_files'         => [],       // css文件
-        '_select_list'       => [],       // 顶部下拉菜单列表
-        '_filter_time'       => [],       // 时间段筛选
-        'empty_tips'         => '暂无数据', // 没有数据时的提示信息
-        '_search_area'       => [],       // 搜索区域
-        '_search_area_url'   => '',       // 搜索区域url
-        '_search_area_op'    => '',       // 搜索区域匹配方式
-        'builder_height'     => 'fixed',  // 表格高度
+        'page_title' => '',       // 页面标题
+        'page_tips' => '',       // 页面提示
+        'tips_type' => '',       // 提示类型
+        'tab_nav' => [],       // 页面Tab导航
+        'hide_checkbox' => false,    // 是否隐藏第一列多选
+        'extra_html' => '',       // 额外HTML代码
+        'extra_js' => '',       // 额外JS代码
+        'extra_css' => '',       // 额外CSS代码
+        'order_columns' => [],       // 需要排序的列表头
+        'filter_columns' => [],       // 需要筛选功能的列表头
+        'filter_map' => [],       // 字段筛选的排序条件
+        '_field_display' => [],       // 字段筛选的默认选项
+        '_filter_content' => [],       // 字段筛选的默认选中值
+        '_filter' => [],       // 字段筛选的默认字段名
+        'top_buttons' => [],       // 顶部栏按钮
+        'right_buttons' => [],       // 表格右侧按钮
+        'search' => [],       // 搜索参数
+        'search_button' => false,    // 搜索按钮
+        'columns' => [],       // 表格列集合
+        'pages' => '',       // 分页数据
+        'row_list' => [],       // 表格数据列表
+        '_page_info' => '',       // 分页信息
+        'primary_key' => 'id',     // 表格主键名称
+        '_table' => '',       // 表名
+        'js_list' => [],       // js文件名
+        'css_list' => [],       // css文件名
+        'validate' => '',       // 快速编辑的验证器名
+        '_js_files' => [],       // js文件
+        '_css_files' => [],       // css文件
+        '_select_list' => [],       // 顶部下拉菜单列表
+        '_filter_time' => [],       // 时间段筛选
+        'empty_tips' => '暂无数据', // 没有数据时的提示信息
+        '_search_area' => [],       // 搜索区域
+        '_search_area_url' => '',       // 搜索区域url
+        '_search_area_op' => '',       // 搜索区域匹配方式
+        'builder_height' => 'fixed',  // 表格高度
         'fixed_right_column' => 0,        // 固定右边列数量
-        'fixed_left_column'  => 0,        // 固定左边列数量
-        'column_width'       => [],       // 列宽度
-        'column_hide'        => [],       // 隐藏列
+        'fixed_left_column' => 0,        // 固定左边列数量
+        'column_width' => [],       // 列宽度
+        'column_hide' => [],       // 隐藏列
     ];
 
     /**
@@ -164,14 +164,14 @@ class Builder extends ZBuilder
      */
     public function initialize()
     {
-        $this->_module     = $this->request->module();
+        $this->_module = $this->request->module();
         $this->_controller = parse_name($this->request->controller());
-        $this->_action     = $this->request->action();
-        $this->_table_name = strtolower($this->_module.'_'.$this->_controller);
-        $this->_template   = Env::get('app_path'). 'common/builder/table/layout.html';
+        $this->_action = $this->request->action();
+        $this->_table_name = strtolower($this->_module . '_' . $this->_controller);
+        $this->_template = Env::get('app_path') . 'common/builder/table/layout.html';
 
         // 默认加载快速编辑所需js和css
-        $this->_vars['_js_files'][]  = 'editable_js';
+        $this->_vars['_js_files'][] = 'editable_js';
         $this->_vars['_css_files'][] = 'editable_css';
     }
 
@@ -179,8 +179,8 @@ class Builder extends ZBuilder
      * 模板变量赋值
      * @param mixed $name 要显示的模板变量
      * @param string $value 变量的值
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function assign($name, $value = '')
     {
@@ -195,8 +195,8 @@ class Builder extends ZBuilder
     /**
      * 设置页面标题
      * @param string $page_title 页面标题
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setPageTitle($page_title = '')
     {
@@ -208,8 +208,8 @@ class Builder extends ZBuilder
 
     /**
      * 隐藏第一列多选框
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function hideCheckbox($status = true)
     {
@@ -222,13 +222,13 @@ class Builder extends ZBuilder
      * @param string $tips 提示信息
      * @param string $type 提示类型：success/info/warning/danger，默认info
      * @param string $pos 提示位置：top,button
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setPageTips($tips = '', $type = 'info', $pos = 'top')
     {
         if ($tips != '') {
-            $this->_vars['page_tips_'.$pos] = $tips;
+            $this->_vars['page_tips_' . $pos] = $tips;
             $this->_vars['tips_type'] = $type != '' ? trim($type) : 'info';
         }
         return $this;
@@ -243,25 +243,25 @@ class Builder extends ZBuilder
      * @param string $ignore 生成url时，需要忽略的参数，用于有父子关系的下拉菜单，比如省份和地区，省份URL不应该带有地区参数的，
      *                       所以可以在定义省份下拉菜单时，传入地区的下拉列表名，
      *                       如需忽略多个参数，用逗号隔开
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addTopSelect($name = '', $title = '', $options = [], $default = '', $ignore = '')
     {
         if ($name != '') {
             $this->_vars['_select_list'][$name] = [
-                'name'    => $name,
-                'title'   => $title,
+                'name' => $name,
+                'title' => $title,
                 'options' => $options,
-                'ignore'  => $ignore,
+                'ignore' => $ignore,
                 'current' => '',
             ];
             if ($default != '') {
                 $this->_select_list_default[$name] = $default;
             }
-            $this->_vars['_js_files'][]  = 'select2_js';
+            $this->_vars['_js_files'][] = 'select2_js';
             $this->_vars['_css_files'][] = 'select2_css';
-            $this->_vars['_js_init'][]   = 'select2';
+            $this->_vars['_js_init'][] = 'select2';
         }
         return $this;
     }
@@ -269,8 +269,8 @@ class Builder extends ZBuilder
     /**
      * 添加表头排序
      * @param array|string $column 表头排序字段，多个以逗号隔开
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addOrder($column = [])
     {
@@ -287,8 +287,8 @@ class Builder extends ZBuilder
      * @param array $options 选项，供有些字段值需要另外显示的，比如字段值是数字，但显示的时候是其他文字。
      * @param array $default 默认选项，['字段名' => '字段值,字段值...']
      * @param string $type 筛选类型，默认为CheckBox，也可以是radio
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addFilter($columns = [], $options = [], $default = [], $type = 'checkbox')
     {
@@ -302,11 +302,11 @@ class Builder extends ZBuilder
                         if (strpos($column, '.')) {
                             $column = explode('.', $column)[1];
                         }
-                        cache('filter_options_'.$column, $options);
-                        $this->_filter_options[$column] = 'filter_options_'.$column;
+                        cache('filter_options_' . $column, $options);
+                        $this->_filter_options[$column] = 'filter_options_' . $column;
                     } else {
-                        cache('filter_options_'.$key, $options);
-                        $this->_filter_options[$key] = 'filter_options_'.$key;
+                        cache('filter_options_' . $key, $options);
+                        $this->_filter_options[$key] = 'filter_options_' . $key;
                     }
                 }
             }
@@ -321,8 +321,8 @@ class Builder extends ZBuilder
                     if (strpos($display, '.')) {
                         $display = explode('.', $display)[1];
                     }
-                    $this->_vars['_field_display'][]  = $display;
-                    $this->_vars['_filter'][]         = $filter;
+                    $this->_vars['_field_display'][] = $display;
+                    $this->_vars['_filter'][] = $filter;
                     $this->_vars['_filter_content'][] = is_array($content) ? implode(',', $content) : $content;
                 }
             }
@@ -340,21 +340,21 @@ class Builder extends ZBuilder
      * @param array $list 需要显示的列表
      * @param string $default 默认值，一维数组或逗号隔开的字符串
      * @param string $type 筛选类型，默认为CheckBox，也可以是radio
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addFilterList($field = '', $list = [], $default = '', $type = 'checkbox')
     {
         if ($field != '' && !empty($list)) {
             $this->_vars['filter_columns'][] = $field;
             $this->_filter_type[$field] = $type;
-            $this->_filter_list[$field] = md5('_filter_list_'.$this->_module.'_'.$this->_controller.'_'.$this->_action.'_'.session('user_auth.uid').'_'.$field);
+            $this->_filter_list[$field] = md5('_filter_list_' . $this->_module . '_' . $this->_controller . '_' . $this->_action . '_' . session('user_auth.uid') . '_' . $field);
             Cache::set($this->_filter_list[$field], $list);
 
             // 处理默认选项和值
             if ($default != '') {
-                $this->_vars['_field_display'][]  = $field;
-                $this->_vars['_filter'][]         = $field;
+                $this->_vars['_field_display'][] = $field;
+                $this->_vars['_filter'][] = $field;
                 $this->_vars['_filter_content'][] = is_array($default) ? implode(',', $default) : $default;
             }
         }
@@ -365,8 +365,8 @@ class Builder extends ZBuilder
      * 添加表头筛选条件
      * @param string $fields 字段名，多个可以用逗号隔开
      * @param array $map 查询条件
-     * @author caiweiming <314013107@qq.com>
      * @return $this
+     * @author caiweiming <314013107@qq.com>
      */
     public function addFilterMap($fields = '', $map = [])
     {
@@ -399,8 +399,8 @@ class Builder extends ZBuilder
     /**
      * 组合筛选条件
      * @param string $map 筛选条件
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function buildFilterMap($map = '')
     {
@@ -409,7 +409,7 @@ class Builder extends ZBuilder
         $_map = [];
         $_filter = $this->request->param('_filter');
         $_filter = explode('|', $_filter);
-        $_pos    = array_search($map, $_filter);
+        $_pos = array_search($map, $_filter);
         if ($_pos !== false) {
             $_filter_content = $this->request->param('_filter_content');
             $_filter_content = explode('|', $_filter_content);
@@ -431,16 +431,16 @@ class Builder extends ZBuilder
      * @param string $field 字段名
      * @param string|array $date 默认的开始日期和结束日期
      * @param string|array $tips 开始日期和结束日期的提示
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addTimeFilter($field = '', $date = '', $tips = '')
     {
         if ($field != '') {
             $date_start = '';
-            $date_end   = '';
+            $date_end = '';
             $tips_start = '开始日期';
-            $tips_end   = '结束日期';
+            $tips_end = '结束日期';
 
             if (!empty($date)) {
                 if (!is_array($date)) {
@@ -466,15 +466,15 @@ class Builder extends ZBuilder
                 }
             }
 
-            $this->_vars['_js_files'][]  = 'datepicker_js';
+            $this->_vars['_js_files'][] = 'datepicker_js';
             $this->_vars['_css_files'][] = 'datepicker_css';
-            $this->_vars['_js_init'][]   = 'datepicker';
+            $this->_vars['_js_init'][] = 'datepicker';
             $this->_vars['_filter_time'] = [
-                'field'      => $field,
+                'field' => $field,
                 'tips_start' => $tips_start,
-                'tips_end'   => $tips_end,
+                'tips_end' => $tips_end,
                 'date_start' => $date_start,
-                'date_end'   => $date_end,
+                'date_end' => $date_end,
             ];
         }
         return $this;
@@ -484,13 +484,13 @@ class Builder extends ZBuilder
      * 添加快捷编辑的验证器
      * @param string $validate 验证器名
      * @param string $fields 要验证的字段，多个用逗号隔开，并且在验证器中要定义该字段名对应的场景
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addValidate($validate = '', $fields = '')
     {
         if ($validate != '') {
-            $this->_vars['validate']        = $validate;
+            $this->_vars['validate'] = $validate;
             $this->_vars['validate_fields'] = $fields;
         }
         return $this;
@@ -501,13 +501,13 @@ class Builder extends ZBuilder
      * @param array $map 条件，格式为：['字段名' => '字段值', '字段名' => '字段值'....]
      * @param string $content 要替换的内容
      * @param null $target 要替换的目标按钮
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function replaceRightButton($map = [], $content = '', $target = null)
     {
         if (!empty($map)) {
-            $maps   = [];
+            $maps = [];
             $target = is_string($target) ? explode(',', $target) : $target;
             if (is_callable($map)) {
                 $maps[] = [$map, $content, $target];
@@ -516,17 +516,30 @@ class Builder extends ZBuilder
                     if (is_array($value)) {
                         $op = strtolower($value[0]);
                         switch ($op) {
-                            case '=':  $op = 'eq';  break;
-                            case '<>': $op = 'neq'; break;
-                            case '>':  $op = 'gt';  break;
-                            case '<':  $op = 'lt';  break;
-                            case '>=': $op = 'egt'; break;
-                            case '<=': $op = 'elt'; break;
+                            case '=':
+                                $op = 'eq';
+                                break;
+                            case '<>':
+                                $op = 'neq';
+                                break;
+                            case '>':
+                                $op = 'gt';
+                                break;
+                            case '<':
+                                $op = 'lt';
+                                break;
+                            case '>=':
+                                $op = 'egt';
+                                break;
+                            case '<=':
+                                $op = 'elt';
+                                break;
                             case 'in':
                             case 'not in':
                             case 'between':
                             case 'not between':
-                                $value[1] = is_array($value[1]) ? $value[1] : explode(',', $value[1]); break;
+                                $value[1] = is_array($value[1]) ? $value[1] : explode(',', $value[1]);
+                                break;
                         }
                         $maps[] = [$key, $op, $value[1]];
                     } else {
@@ -536,9 +549,9 @@ class Builder extends ZBuilder
             }
 
             $this->_replace_right_buttons[] = [
-                'maps'    => $maps,
+                'maps' => $maps,
                 'content' => $content,
-                'target'  => $target
+                'target' => $target
             ];
         }
         return $this;
@@ -552,8 +565,8 @@ class Builder extends ZBuilder
      * @param string $auto_time 自动添加时间，默认有两个create_time和update_time
      * @param string $format 时间格式
      * @param bool $pop 弹窗显示
-     * @author caiweiming <314013107@qq.com>
      * @return $this
+     * @author caiweiming <314013107@qq.com>
      */
     public function autoAdd($items = [], $table = '', $validate = '', $auto_time = '', $format = '', $pop = false)
     {
@@ -561,11 +574,11 @@ class Builder extends ZBuilder
             // 默认属性
             $btn_attribute = [
                 'title' => '新增',
-                'icon'  => 'fa fa-plus-circle',
-                'class' => 'btn btn-primary'.($pop === true ? ' pop' : ''),
-                'href'  => url(
-                    $this->_module.'/'.$this->_controller.'/add'
-                ).($pop === true ? '?_pop=1' : ''),
+                'icon' => 'fa fa-plus-circle',
+                'class' => 'btn btn-primary' . ($pop === true ? ' pop' : ''),
+                'href' => url(
+                        $this->_module . '/' . $this->_controller . '/add'
+                    ) . ($pop === true ? '?_pop=1' : ''),
             ];
 
             // 判断当前用户是否有权限，没有权限则不生成按钮
@@ -576,7 +589,7 @@ class Builder extends ZBuilder
             }
 
             // 缓存名称
-            $cache_name = strtolower($this->_module.'/'.$this->_controller.'/add');
+            $cache_name = strtolower($this->_module . '/' . $this->_controller . '/add');
 
             // 自动插入时间
             if ($auto_time != '') {
@@ -585,12 +598,12 @@ class Builder extends ZBuilder
 
             // 表单缓存数据
             $form = [
-                'items'     => $items,
-                'table'     => $table == '' ? strtolower($this->_module . '_' . $this->_controller) : $table,
-                'validate'  => $validate === true ? ucfirst($this->_controller) : $validate,
+                'items' => $items,
+                'table' => $table == '' ? strtolower($this->_module . '_' . $this->_controller) : $table,
+                'validate' => $validate === true ? ucfirst($this->_controller) : $validate,
                 'auto_time' => $auto_time,
-                'format'    => $format,
-                'go_back'   => $this->request->server('REQUEST_URI')
+                'format' => $format,
+                'go_back' => $this->request->server('REQUEST_URI')
             ];
 
             // 开发模式
@@ -612,29 +625,37 @@ class Builder extends ZBuilder
      * 获取默认url
      * @param string $type 按钮类型：add/enable/disable/delete
      * @param array $params 参数
-     * @author 蔡伟明 <314013107@qq.com>
      * @return string
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function getDefaultUrl($type = '', $params = [])
     {
-        $url = $this->_module.'/'.$this->_controller.'/'.$type;
+        $url = $this->_module . '/' . $this->_controller . '/' . $type;
         $MenuModel = new Menu();
-        $menu  = $MenuModel->where('url_value', $url)->find();
-        if ($menu['params'] != '') {
-            $url_params = explode('&', trim($menu['params'], '&'));
-            if (!empty($url_params)) {
-                foreach ($url_params as $item) {
-                    list($key, $value) = explode('=', $item);
-                    $params[$key] = $value;
+        $menu = $MenuModel->where('url_value', $url)->find();
+        if ($menu != null) {
+            if ($menu['params'] != '') {
+                $url_params = explode('&', trim($menu['params'], '&'));
+                if (!empty($url_params)) {
+                    foreach ($url_params as $item) {
+                        list($key, $value) = explode('=', $item);
+                        $params[$key] = $value;
+                    }
                 }
             }
         }
 
         if (!empty($params) && config('url_common_param')) {
-            $params = array_filter($params, function($v){return $v !== '';});
+            $params = array_filter($params, function ($v) {
+                return $v !== '';
+            });
         }
 
-        return $menu['url_type'] == 'module_home' ? home_url($url, $params) : url($url, $params);
+        if ($menu) {
+            return $menu['url_type'] == 'module_home' ? home_url($url, $params) : url($url, $params);
+        } else {
+            return url($url, $params);
+        }
     }
 
     /**
@@ -642,8 +663,8 @@ class Builder extends ZBuilder
      * @param string $type 按钮类型：add/enable/disable/back/delete/custom
      * @param array $attribute 按钮属性
      * @param bool $pop 是否使用弹出框形式
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addTopButton($type = '', $attribute = [], $pop = false)
     {
@@ -674,9 +695,9 @@ class Builder extends ZBuilder
                 // 默认属性
                 $btn_attribute = [
                     'title' => '新增',
-                    'icon'  => 'fa fa-plus-circle',
+                    'icon' => 'fa fa-plus-circle',
                     'class' => 'btn btn-primary',
-                    'href'  => $this->getDefaultUrl($type, ['plugin_name' => $plugin_name])
+                    'href' => $this->getDefaultUrl($type, ['plugin_name' => $plugin_name])
                 ];
                 break;
 
@@ -684,11 +705,11 @@ class Builder extends ZBuilder
             case 'enable':
                 // 默认属性
                 $btn_attribute = [
-                    'title'       => '启用',
-                    'icon'        => 'fa fa-check-circle-o',
-                    'class'       => 'btn btn-success ajax-post confirm',
+                    'title' => '启用',
+                    'icon' => 'fa fa-check-circle-o',
+                    'class' => 'btn btn-success ajax-post confirm',
                     'target-form' => 'ids',
-                    'href'        => $this->getDefaultUrl($type, ['_t' => $table_token, 'field' => $field])
+                    'href' => $this->getDefaultUrl($type, ['_t' => $table_token, 'field' => $field])
                 ];
                 break;
 
@@ -696,11 +717,11 @@ class Builder extends ZBuilder
             case 'disable':
                 // 默认属性
                 $btn_attribute = [
-                    'title'       => '禁用',
-                    'icon'        => 'fa fa-ban',
-                    'class'       => 'btn btn-warning ajax-post confirm',
+                    'title' => '禁用',
+                    'icon' => 'fa fa-ban',
+                    'class' => 'btn btn-warning ajax-post confirm',
                     'target-form' => 'ids',
-                    'href'        => $this->getDefaultUrl($type, ['_t' => $table_token, 'field' => $field])
+                    'href' => $this->getDefaultUrl($type, ['_t' => $table_token, 'field' => $field])
                 ];
                 break;
 
@@ -709,9 +730,9 @@ class Builder extends ZBuilder
                 // 默认属性
                 $btn_attribute = [
                     'title' => '返回',
-                    'icon'  => 'fa fa-reply',
+                    'icon' => 'fa fa-reply',
                     'class' => 'btn btn-info',
-                    'href'  => 'javascript:history.back(-1);'
+                    'href' => 'javascript:history.back(-1);'
                 ];
                 break;
 
@@ -719,11 +740,11 @@ class Builder extends ZBuilder
             case 'delete':
                 // 默认属性
                 $btn_attribute = [
-                    'title'       => '删除',
-                    'icon'        => 'fa fa-times-circle-o',
-                    'class'       => 'btn btn-danger ajax-post confirm',
+                    'title' => '删除',
+                    'icon' => 'fa fa-times-circle-o',
+                    'class' => 'btn btn-danger ajax-post confirm',
                     'target-form' => 'ids',
-                    'href'        => $this->getDefaultUrl($type, ['_t' => $table_token])
+                    'href' => $this->getDefaultUrl($type, ['_t' => $table_token])
                 ];
                 break;
 
@@ -731,10 +752,10 @@ class Builder extends ZBuilder
             default:
                 // 默认属性
                 $btn_attribute = [
-                    'title'       => '定义按钮',
-                    'class'       => 'btn btn-default',
+                    'title' => '定义按钮',
+                    'class' => 'btn btn-default',
                     'target-form' => 'ids',
-                    'href'        => 'javascript:void(0);'
+                    'href' => 'javascript:void(0);'
                 ];
                 break;
         }
@@ -754,7 +775,7 @@ class Builder extends ZBuilder
         // 是否为弹出框方式
         if ($pop !== false) {
             $btn_attribute['class'] .= ' pop';
-            $btn_attribute['href']  .= (strpos($btn_attribute['href'], '?') ? '&' : '?').'_pop=1';
+            $btn_attribute['href'] .= (strpos($btn_attribute['href'], '?') ? '&' : '?') . '_pop=1';
             if (is_array($pop) && !empty($pop)) {
                 $btn_attribute['data-layer'] = json_encode($pop);
             }
@@ -767,17 +788,17 @@ class Builder extends ZBuilder
     /**
      * 检查是否有按钮权限
      * @param array $btn_attribute 按钮属性
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function checkButtonAuth($btn_attribute = [])
     {
-        if (preg_match('/\/(index.php|'.ADMIN_FILE.')\/(.*)/', $btn_attribute['href'], $match)) {
+        if (preg_match('/\/(index.php|' . ADMIN_FILE . ')\/(.*)/', $btn_attribute['href'], $match)) {
             $url_value = explode('/', $match[2]);
             if (strpos($url_value[2], '.')) {
                 $url_value[2] = substr($url_value[2], 0, strpos($url_value[2], '.'));
             }
-            $url_value = $url_value[0].'/'.$url_value[1].'/'.$url_value[2];
+            $url_value = $url_value[0] . '/' . $url_value[1] . '/' . $url_value[2];
             $url_value = strtolower($url_value);
             return Role::checkAuth($url_value, true);
         }
@@ -793,8 +814,8 @@ class Builder extends ZBuilder
      * $builder->addTopButtons(['add', 'delete']);
      * $builder->addTopButtons(['add' => ['table' => '__USER__'], 'delete']);
      *
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addTopButtons($buttons = [])
     {
@@ -820,8 +841,8 @@ class Builder extends ZBuilder
      * @param string $format 时间格式
      * @param bool $pop 弹窗显示
      * @param array $extra 额外参数，设置按钮样式
-     * @author caiweiming <314013107@qq.com>
      * @return $this
+     * @author caiweiming <314013107@qq.com>
      */
     public function autoEdit($items = [], $table = '', $validate = '', $auto_time = '', $format = '', $pop = false, $extra = [])
     {
@@ -832,10 +853,10 @@ class Builder extends ZBuilder
             // 默认属性
             $btn_attribute = [
                 'title' => '编辑',
-                'icon'  => 'fa fa-pencil',
-                'class' => 'btn btn-'.$btn_style['size'].' btn-'.$btn_style['style'].($pop === true ? ' pop' : ''),
-                'href'  => url(
-                    $this->_module.'/'.$this->_controller.'/edit',
+                'icon' => 'fa fa-pencil',
+                'class' => 'btn btn-' . $btn_style['size'] . ' btn-' . $btn_style['style'] . ($pop === true ? ' pop' : ''),
+                'href' => url(
+                    $this->_module . '/' . $this->_controller . '/edit',
                     ['id' => '__id__']
                 ),
                 'target' => '_self',
@@ -844,7 +865,7 @@ class Builder extends ZBuilder
 
             // 是否弹窗显示
             if ($pop === true) {
-                $btn_attribute['href'] .= (strpos($btn_attribute['href'], '?') ? '&' : '?').'_pop=1';
+                $btn_attribute['href'] .= (strpos($btn_attribute['href'], '?') ? '&' : '?') . '_pop=1';
             }
 
             // 判断当前用户是否有权限，没有权限则不生成按钮
@@ -855,7 +876,7 @@ class Builder extends ZBuilder
             }
 
             // 缓存名称
-            $cache_name = strtolower($this->_module.'/'.$this->_controller.'/edit');
+            $cache_name = strtolower($this->_module . '/' . $this->_controller . '/edit');
 
             // 自动插入时间
             if ($auto_time != '') {
@@ -864,12 +885,12 @@ class Builder extends ZBuilder
 
             // 表单缓存数据
             $form = [
-                'items'     => $items,
-                'table'     => $table == '' ? strtolower($this->_module . '_' . $this->_controller) : $table,
-                'validate'  => $validate === true ? ucfirst($this->_controller) : $validate,
+                'items' => $items,
+                'table' => $table == '' ? strtolower($this->_module . '_' . $this->_controller) : $table,
+                'validate' => $validate === true ? ucfirst($this->_controller) : $validate,
                 'auto_time' => $auto_time,
-                'format'    => $format,
-                'go_back'   => $this->request->server('REQUEST_URI')
+                'format' => $format,
+                'go_back' => $this->request->server('REQUEST_URI')
             ];
 
             // 开发模式
@@ -891,20 +912,20 @@ class Builder extends ZBuilder
      * 创建表名Token
      * @param string $table 表名
      * @param int $prefix 前缀类型：0使用Db类(不添加表前缀)，1使用Db类(添加表前缀)，2使用模型
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool|string
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function createTableToken($table = '', $prefix = 1)
     {
         $data = [
-            'table'      => $table, // 表名或模型名
-            'prefix'     => $prefix,
-            'module'     => $this->_module,
+            'table' => $table, // 表名或模型名
+            'prefix' => $prefix,
+            'module' => $this->_module,
             'controller' => $this->_controller,
-            'action'     => $this->_action,
+            'action' => $this->_action,
         ];
 
-        $table_token = substr(sha1($this->_module.'-'.$this->_controller.'-'.$this->_action.'-'.$table), 0, 8);
+        $table_token = substr(sha1($this->_module . '-' . $this->_controller . '-' . $this->_action . '-' . $table), 0, 8);
         session($table_token, $data);
         return $table_token;
     }
@@ -915,8 +936,8 @@ class Builder extends ZBuilder
      * @param array $attribute 按钮属性
      * @param bool $pop 是否使用弹出框形式
      * @param array $extra 扩展参数，设置按钮样式
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addRightButton($type = '', $attribute = [], $pop = false, $extra = [])
     {
@@ -949,9 +970,9 @@ class Builder extends ZBuilder
                 // 默认属性
                 $btn_attribute = [
                     'title' => '编辑',
-                    'icon'  => 'fa fa-pencil',
-                    'class' => 'btn btn-'.$btn_style['size'].' btn-'.$btn_style['style'],
-                    'href'  => $this->getDefaultUrl($type, ['id' => '__id__', 'plugin_name' => $plugin_name]),
+                    'icon' => 'fa fa-pencil',
+                    'class' => 'btn btn-' . $btn_style['size'] . ' btn-' . $btn_style['style'],
+                    'href' => $this->getDefaultUrl($type, ['id' => '__id__', 'plugin_name' => $plugin_name]),
                     'target' => '_self'
                 ];
                 break;
@@ -961,9 +982,9 @@ class Builder extends ZBuilder
                 // 默认属性
                 $btn_attribute = [
                     'title' => '启用',
-                    'icon'  => 'fa fa-check',
-                    'class' => 'btn btn-'.$btn_style['size'].' btn-'.$btn_style['style'].' ajax-get confirm',
-                    'href'  => $this->getDefaultUrl($type, ['ids' => '__id__', '_t' => $table_token, 'field' => $field])
+                    'icon' => 'fa fa-check',
+                    'class' => 'btn btn-' . $btn_style['size'] . ' btn-' . $btn_style['style'] . ' ajax-get confirm',
+                    'href' => $this->getDefaultUrl($type, ['ids' => '__id__', '_t' => $table_token, 'field' => $field])
                 ];
                 break;
 
@@ -972,9 +993,9 @@ class Builder extends ZBuilder
                 // 默认属性
                 $btn_attribute = [
                     'title' => '禁用',
-                    'icon'  => 'fa fa-ban',
-                    'class' => 'btn btn-'.$btn_style['size'].' btn-'.$btn_style['style'].' ajax-get confirm',
-                    'href'  => $this->getDefaultUrl($type, ['ids' => '__id__', '_t' => $table_token, 'field' => $field])
+                    'icon' => 'fa fa-ban',
+                    'class' => 'btn btn-' . $btn_style['size'] . ' btn-' . $btn_style['style'] . ' ajax-get confirm',
+                    'href' => $this->getDefaultUrl($type, ['ids' => '__id__', '_t' => $table_token, 'field' => $field])
                 ];
                 break;
 
@@ -983,9 +1004,9 @@ class Builder extends ZBuilder
                 // 默认属性
                 $btn_attribute = [
                     'title' => '删除',
-                    'icon'  => 'fa fa-times',
-                    'class' => 'btn btn-'.$btn_style['size'].' btn-'.$btn_style['style'].' ajax-get confirm',
-                    'href'  => $this->getDefaultUrl($type, ['ids' => '__id__', '_t' => $table_token])
+                    'icon' => 'fa fa-times',
+                    'class' => 'btn btn-' . $btn_style['size'] . ' btn-' . $btn_style['style'] . ' ajax-get confirm',
+                    'href' => $this->getDefaultUrl($type, ['ids' => '__id__', '_t' => $table_token])
                 ];
                 break;
 
@@ -994,9 +1015,9 @@ class Builder extends ZBuilder
                 // 默认属性
                 $btn_attribute = [
                     'title' => '自定义按钮',
-                    'icon'  => 'fa fa-smile-o',
-                    'class' => 'btn btn-'.$btn_style['size'].' btn-'.$btn_style['style'],
-                    'href'  => 'javascript:void(0);'
+                    'icon' => 'fa fa-smile-o',
+                    'class' => 'btn btn-' . $btn_style['size'] . ' btn-' . $btn_style['style'],
+                    'href' => 'javascript:void(0);'
                 ];
                 break;
         }
@@ -1016,7 +1037,7 @@ class Builder extends ZBuilder
         // 是否为弹出框方式
         if ($pop !== false) {
             $btn_attribute['class'] .= ' pop';
-            $btn_attribute['href']  .= (strpos($btn_attribute['href'], '?') ? '&' : '?').'_pop=1';
+            $btn_attribute['href'] .= (strpos($btn_attribute['href'], '?') ? '&' : '?') . '_pop=1';
             if (is_array($pop) && !empty($pop)) {
                 $btn_attribute['data-layer'] = json_encode($pop);
             }
@@ -1041,8 +1062,8 @@ class Builder extends ZBuilder
      * $builder->addRightButtons(['edit', 'delete']);
      * $builder->addRightButtons(['edit' => ['table' => 'admin_user'], 'delete']);
      *
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addRightButtons($buttons = [])
     {
@@ -1062,8 +1083,8 @@ class Builder extends ZBuilder
     /**
      * 设置表格高度
      * @param string $height 高度：fixed/auto/具体数值
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      * @since 1.3.0
      */
     public function setHeight($height = 'fixed')
@@ -1075,8 +1096,8 @@ class Builder extends ZBuilder
     /**
      * 固定左侧列数
      * @param int $num 数量
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function fixedRight($num = 0)
     {
@@ -1087,8 +1108,8 @@ class Builder extends ZBuilder
     /**
      * 固定右侧列数
      * @param int $num 数量
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function fixedLeft($num = 0)
     {
@@ -1102,16 +1123,16 @@ class Builder extends ZBuilder
      * @param string $placeholder 提示符
      * @param string $url 提交地址
      * @param null $search_button 提交按钮
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setSearch($fields = [], $placeholder = '', $url = '', $search_button = null)
     {
         if (!empty($fields)) {
             $this->_search = [
-                'fields'      => is_string($fields) ? explode(',', $fields) : $fields,
+                'fields' => is_string($fields) ? explode(',', $fields) : $fields,
                 'placeholder' => $placeholder,
-                'url'         => $url,
+                'url' => $url,
             ];
 
             $this->_vars['search_button'] = $search_button !== null ? $search_button : config('zbuilder.search_button');
@@ -1123,15 +1144,15 @@ class Builder extends ZBuilder
      * 设置搜索区域
      * @param array $items
      * @param string $url
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setSearchArea($items = [], $url = '')
     {
         if (!empty($items)) {
             $_op = [];
             $_defaults = [];
-            $_s  = $this->request->param('_s', '');
+            $_s = $this->request->param('_s', '');
             if ($_s != '') {
                 $_s = explode('|', $_s);
                 foreach ($_s as $v) {
@@ -1147,20 +1168,32 @@ class Builder extends ZBuilder
                     list($item[0], $layout) = explode(':', $item[0]);
                 }
 
-                $type    = $item[0];
-                $name    = $item[1];
-                $label   = $item[2];
-                $op      = isset($item[3]) ? $item[3] : 'eq';
+                $type = $item[0];
+                $name = $item[1];
+                $label = $item[2];
+                $op = isset($item[3]) ? $item[3] : 'eq';
                 $item[4] = isset($_defaults[$name]) ? $_defaults[$name] : (isset($item[4]) ? $item[4] : ''); // 默认值
                 $item[5] = isset($item[5]) ? $item[5] : [];
 
                 switch ($op) {
-                    case '=':  $op = 'eq';  break;
-                    case '<>': $op = 'neq'; break;
-                    case '>':  $op = 'gt';  break;
-                    case '<':  $op = 'lt';  break;
-                    case '>=': $op = 'egt'; break;
-                    case '<=': $op = 'elt'; break;
+                    case '=':
+                        $op = 'eq';
+                        break;
+                    case '<>':
+                        $op = 'neq';
+                        break;
+                    case '>':
+                        $op = 'gt';
+                        break;
+                    case '<':
+                        $op = 'lt';
+                        break;
+                    case '>=':
+                        $op = 'egt';
+                        break;
+                    case '<=':
+                        $op = 'elt';
+                        break;
                     default:
                         $op = $op == '' ? 'eq' : $op;
                 }
@@ -1169,21 +1202,21 @@ class Builder extends ZBuilder
                     case 'text':
                         break;
                     case 'select':
-                        $this->_vars['_js_files'][]  = 'select2_js';
+                        $this->_vars['_js_files'][] = 'select2_js';
                         $this->_vars['_css_files'][] = 'select2_css';
-                        $this->_vars['_js_init'][]   = 'select2';
+                        $this->_vars['_js_init'][] = 'select2';
                         break;
                     case 'daterange':
-                        $this->_vars['_js_files'][]  = 'moment_js';
-                        $this->_vars['_js_files'][]  = 'daterangepicker_js';
+                        $this->_vars['_js_files'][] = 'moment_js';
+                        $this->_vars['_js_files'][] = 'daterangepicker_js';
                         $this->_vars['_css_files'][] = 'daterangepicker_css';
-                        $this->_vars['_js_init'][]   = 'daterangepicker';
+                        $this->_vars['_js_init'][] = 'daterangepicker';
                         $op = $op == 'eq' ? 'between time' : $op . ' time';
 
                         $params = [];
                         if (!empty($item[5])) {
                             foreach ($item[5] as $key => $param) {
-                                $params[] = 'data-'.strtolower($key).'="'.$param.'"';
+                                $params[] = 'data-' . strtolower($key) . '="' . $param . '"';
                             }
                         }
                         $item[5] = implode(' ', $params);
@@ -1192,12 +1225,12 @@ class Builder extends ZBuilder
 
                 }
 
-                $_op[] = $name.'='.strtolower($op);
+                $_op[] = $name . '=' . strtolower($op);
                 $this->_vars['_search_area_layout'][$name] = $layout;
             }
 
-            $this->_vars['_search_area_op']  = implode('|', $_op);
-            $this->_vars['_search_area']     = $items;
+            $this->_vars['_search_area_op'] = implode('|', $_op);
+            $this->_vars['_search_area'] = $items;
             $this->_vars['_search_area_url'] = $url == '' ? $this->request->baseUrl(true) : $url;
         }
         return $this;
@@ -1207,8 +1240,8 @@ class Builder extends ZBuilder
      * 引入模块js文件
      * @param string $files_name js文件名，多个文件用逗号隔开
      * @param string $module 指定模块
-     * @author caiweiming <314013107@qq.com>
      * @return $this
+     * @author caiweiming <314013107@qq.com>
      */
     public function js($files_name = '', $module = '')
     {
@@ -1222,8 +1255,8 @@ class Builder extends ZBuilder
      * 引入模块css文件
      * @param string $files_name css文件名，多个文件用逗号隔开
      * @param string $module 指定模块
-     * @author caiweiming <314013107@qq.com>
      * @return $this
+     * @author caiweiming <314013107@qq.com>
      */
     public function css($files_name = '', $module = '')
     {
@@ -1249,9 +1282,9 @@ class Builder extends ZBuilder
             }
             foreach ($files_name as $item) {
                 if (strpos($item, '/')) {
-                    $this->_vars[$type.'_list'][] = PUBLIC_PATH. 'static/'. $item.'.'.$type;
+                    $this->_vars[$type . '_list'][] = PUBLIC_PATH . 'static/' . $item . '.' . $type;
                 } else {
-                    $this->_vars[$type.'_list'][] = PUBLIC_PATH. 'static/'. $module .'/'.$type.'/'.$item.'.'.$type;
+                    $this->_vars[$type . '_list'][] = PUBLIC_PATH . 'static/' . $module . '/' . $type . '/' . $item . '.' . $type;
                 }
             }
         }
@@ -1261,19 +1294,19 @@ class Builder extends ZBuilder
      * 设置数据库表名
      * @param string $table 数据库表名，不含前缀，如果为true则使用模型方式
      * @param int $prefix 前缀类型：0使用Db类(不添加表前缀)，1使用Db类(添加表前缀)，2使用模型
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setTableName($table = '', $prefix = 1)
     {
         if ($table === true) {
-            $this->_prefix     = 2;
-            $this->_table_name = strtolower($this->_module.'/'.$this->_controller);
+            $this->_prefix = 2;
+            $this->_table_name = strtolower($this->_module . '/' . $this->_controller);
         } else {
             $this->_prefix = $prefix === true ? 2 : $prefix;
 
             if ($this->_prefix == 2) {
-                $this->_table_name = strpos($table, '/') ? $table : strtolower($this->_module.'/'.$table);
+                $this->_table_name = strpos($table, '/') ? $table : strtolower($this->_module . '/' . $table);
             } else {
                 $this->_table_name = $table;
             }
@@ -1284,8 +1317,8 @@ class Builder extends ZBuilder
     /**
      * 设置插件名称（此方法只供制作插件时用）
      * @param string $plugin_name 插件名
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setPluginName($plugin_name = '')
     {
@@ -1304,8 +1337,8 @@ class Builder extends ZBuilder
      * @param string $param 额外参数
      * @param string $class css类名
      * @param string $extra 扩展参数
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function addColumn($name = '', $title = '', $type = '', $default = '', $param = '', $class = '', $extra = '')
     {
@@ -1322,18 +1355,18 @@ class Builder extends ZBuilder
         }
 
         $column = [
-            'name'    => $name,
-            'title'   => $title,
-            'type'    => $type,
+            'name' => $name,
+            'title' => $title,
+            'type' => $type,
             'default' => $default,
-            'param'   => $param,
-            'class'   => $class,
-            'extra'   => $extra,
-            'field'   => $field,
-            'table'   => $table,
+            'param' => $param,
+            'class' => $class,
+            'extra' => $extra,
+            'field' => $field,
+            'table' => $table,
         ];
 
-        $args   = array_slice(func_get_args(), 7);
+        $args = array_slice(func_get_args(), 7);
         $column = array_merge($column, $args);
 
         $this->_vars['columns'][] = $column;
@@ -1344,8 +1377,8 @@ class Builder extends ZBuilder
     /**
      * 一次性添加多列
      * @param array $columns 数据列
-     * @author caiweiming <314013107@qq.com>
      * @return $this
+     * @author caiweiming <314013107@qq.com>
      */
     public function addColumns($columns = [])
     {
@@ -1361,8 +1394,8 @@ class Builder extends ZBuilder
      * 设置列宽
      * @param string $column 列名，即字段名
      * @param int $width 宽度，默认为100
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setColumnWidth($column = '', $width = 100)
     {
@@ -1389,8 +1422,8 @@ class Builder extends ZBuilder
      * 隐藏列
      * @param string $column 列名，即字段名
      * @param string $screen 屏幕，xs/sm/md/lg
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function hideColumn($column = '', $screen = '')
     {
@@ -1399,7 +1432,7 @@ class Builder extends ZBuilder
                 foreach ($column as $field => $screen) {
                     $screens = is_array($screen) ? $screen : explode(',', $screen);
                     foreach ($screens as $key => $value) {
-                        $screens[$key] = 'hidden-'.$value;
+                        $screens[$key] = 'hidden-' . $value;
                     }
                     $screens = implode(' ', $screens);
 
@@ -1408,7 +1441,7 @@ class Builder extends ZBuilder
             } else {
                 $screens = is_array($screen) ? $screen : explode(',', $screen);
                 foreach ($screens as &$screen) {
-                    $screen = 'hidden-'.$screen;
+                    $screen = 'hidden-' . $screen;
                 }
                 $screens = implode(' ', $screens);
 
@@ -1416,12 +1449,12 @@ class Builder extends ZBuilder
                     $columns = explode(',', $column);
                     foreach ($columns as $column) {
                         $this->_vars['column_hide'][$column] = isset($this->_vars['column_hide'][$column]) ?
-                            $this->_vars['column_hide'][$column]. ' ' . $screen :
+                            $this->_vars['column_hide'][$column] . ' ' . $screen :
                             $screens;
                     }
                 } else {
                     $this->_vars['column_hide'][$column] = isset($this->_vars['column_hide'][$column]) ?
-                        $this->_vars['column_hide'][$column]. ' ' . $screen :
+                        $this->_vars['column_hide'][$column] . ' ' . $screen :
                         $screens;
                 }
             }
@@ -1432,8 +1465,8 @@ class Builder extends ZBuilder
     /**
      * 设置表格数据列表
      * @param array|object $row_list 表格数据
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setRowList($row_list = null)
     {
@@ -1452,7 +1485,7 @@ class Builder extends ZBuilder
             $params = $this->request->param();
             if (isset($params['page'])) {
                 unset($params['page']);
-                $url = url($this->_module.'/'.$this->_controller.'/'.$this->_action).'?'.http_build_query($params);
+                $url = url($this->_module . '/' . $this->_controller . '/' . $this->_action) . '?' . http_build_query($params);
                 $this->redirect($url);
             }
         }
@@ -1462,8 +1495,8 @@ class Builder extends ZBuilder
     /**
      * 将表格数据转换为纯数组
      * @param array|object $row_list 数据
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function toArray($row_list)
     {
@@ -1480,8 +1513,8 @@ class Builder extends ZBuilder
      * 获取原始数据
      * @param string $index 索引
      * @param string $field 字段名
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function getData($index = '', $field = '')
     {
@@ -1500,8 +1533,8 @@ class Builder extends ZBuilder
     /**
      * 设置需要使用原始数据的字段
      * @param string|array $field 字段名
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function raw($field = '')
     {
@@ -1516,8 +1549,8 @@ class Builder extends ZBuilder
     /**
      * 设置表格主键
      * @param string $key 主键名称
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setPrimaryKey($key = '')
     {
@@ -1529,10 +1562,10 @@ class Builder extends ZBuilder
 
     /**
      * 设置Tab按钮列表
-     * @param array $tab_list Tab列表  ['title' => '标题', 'href' => 'http://www.DThinkPHP.com']
+     * @param array $tab_list Tab列表  ['title' => '标题', 'href' => 'http://www.dolphinphp.com']
      * @param string $curr_tab 当前tab
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setTabNav($tab_list = [], $curr_tab = '')
     {
@@ -1548,8 +1581,8 @@ class Builder extends ZBuilder
     /**
      * 设置分页
      * @param string $pages 分页数据
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setPages($pages = '')
     {
@@ -1561,8 +1594,8 @@ class Builder extends ZBuilder
 
     /**
      * 设置为无分页
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function noPages()
     {
@@ -1574,15 +1607,15 @@ class Builder extends ZBuilder
      * 设置额外代码
      * @param string $extra_html 额外代码
      * @param string $tag 标记
+     * @return $this
      * @author 蔡伟明 <314013107@qq.com>
      * @alter 小乌 <82950492@qq.com>
-     * @return $this
      */
     public function setExtraHtml($extra_html = '', $tag = '')
     {
         if ($extra_html != '') {
-            $tag != '' && $tag = '_'.$tag;
-            $this->_vars['extra_html'.$tag] = $extra_html;
+            $tag != '' && $tag = '_' . $tag;
+            $this->_vars['extra_html' . $tag] = $extra_html;
         }
         return $this;
     }
@@ -1592,22 +1625,22 @@ class Builder extends ZBuilder
      * @param string $template 模板文件名
      * @param string $tag 标记
      * @param array $vars 模板输出变量
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setExtraHtmlFile($template = '', $tag = '', $vars = [])
     {
         $template = $template == '' ? $this->_action : $template;
-        $file = Env::get('app_path'). $this->_module.'/view/admin/'.$this->_controller.'/'.$template.'.html';
+        $file = Env::get('app_path') . $this->_module . '/view/admin/' . $this->_controller . '/' . $template . '.html';
         if (file_exists($file)) {
             $content = file_get_contents($file);
             $content = $this->view->display($content, $vars);
         } else {
-            $content = '模板文件不存在：'.$file;
+            $content = '模板文件不存在：' . $file;
         }
 
-        $tag != '' && $tag = '_'.$tag;
-        $this->_vars['extra_html'.$tag] = $content;
+        $tag != '' && $tag = '_' . $tag;
+        $this->_vars['extra_html' . $tag] = $content;
 
         return $this;
     }
@@ -1615,8 +1648,8 @@ class Builder extends ZBuilder
     /**
      * 设置额外JS代码
      * @param string $extra_js 额外JS代码
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setExtraJs($extra_js = '')
     {
@@ -1629,8 +1662,8 @@ class Builder extends ZBuilder
     /**
      * 设置额外CSS代码
      * @param string $extra_css 额外CSS代码
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setExtraCss($extra_css = '')
     {
@@ -1643,8 +1676,8 @@ class Builder extends ZBuilder
     /**
      * 设置页面模版
      * @param string $template 模版
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setTemplate($template = '')
     {
@@ -1660,10 +1693,10 @@ class Builder extends ZBuilder
      * @param mixed $field 字段名
      * @param null $op 表达式
      * @param null $condition 查询条件
-     * @author 蔡伟明 <314013107@qq.com>
      * @return $this
+     * @author 蔡伟明 <314013107@qq.com>
      */
-    public function addTrClass($class = '', $field, $op = null, $condition = null)
+    public function addTrClass($class = '', $field = null, $op = null, $condition = null)
     {
         if ($class != '') {
             if (is_callable($field)) {
@@ -1675,17 +1708,30 @@ class Builder extends ZBuilder
                     $this->_tr_class[$class][] = [$field, 'eq', $op];
                 } else {
                     switch ($op) {
-                        case '=':  $op = 'eq';  break;
-                        case '<>': $op = 'neq'; break;
-                        case '>':  $op = 'gt';  break;
-                        case '<':  $op = 'lt';  break;
-                        case '>=': $op = 'egt'; break;
-                        case '<=': $op = 'elt'; break;
+                        case '=':
+                            $op = 'eq';
+                            break;
+                        case '<>':
+                            $op = 'neq';
+                            break;
+                        case '>':
+                            $op = 'gt';
+                            break;
+                        case '<':
+                            $op = 'lt';
+                            break;
+                        case '>=':
+                            $op = 'egt';
+                            break;
+                        case '<=':
+                            $op = 'elt';
+                            break;
                         case 'in':
                         case 'not in':
                         case 'between':
                         case 'not between':
-                            $condition = is_array($condition) ? $condition : explode(',', $condition); break;
+                            $condition = is_array($condition) ? $condition : explode(',', $condition);
+                            break;
                     }
 
                     $this->_tr_class[$class][] = [$field, $op, $condition];
@@ -1699,10 +1745,11 @@ class Builder extends ZBuilder
     /**
      * 编译HTML属性
      * @param array $attr 要编译的数据
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|string
+     * @author 蔡伟明 <314013107@qq.com>
      */
-    private function compileHtmlAttr($attr = []) {
+    private function compileHtmlAttr($attr = [])
+    {
         $result = [];
         if ($attr) {
             foreach ($attr as $key => &$value) {
@@ -1749,7 +1796,8 @@ class Builder extends ZBuilder
                             foreach ($replace_right_button['maps'] as $condition) {
                                 if (is_string($condition[0])) {
                                     if (!isset($row[$condition[0]])) {
-                                        $_button_match = false; continue;
+                                        $_button_match = false;
+                                        continue;
                                     }
                                     $_button_match = $this->parseCondition($row, $condition) ? $_button_match : false;
                                 } elseif (is_callable($condition[0])) {
@@ -1761,9 +1809,9 @@ class Builder extends ZBuilder
                             if ($replace_right_button['content'] != '') {
                                 if (preg_match_all('/__(.*?)__/', $replace_right_button['content'], $matches)) {
                                     $replace_to = [];
-                                    $pattern    = [];
+                                    $pattern = [];
                                     foreach ($matches[1] as $match) {
-                                        $pattern[]    = '/__'. $match .'__/i';
+                                        $pattern[] = '/__' . $match . '__/i';
                                         $replace_to[] = $row[$match];
                                     }
                                     $replace_right_button['content'] = preg_replace($pattern, $replace_to, $replace_right_button['content']);
@@ -1804,11 +1852,11 @@ class Builder extends ZBuilder
                     if (preg_match_all('/__(.*?)__/', $button['href'], $matches)) {
                         // 要替换的字段名
                         $replace_to = [];
-                        $pattern    = [];
+                        $pattern = [];
                         foreach ($matches[1] as $match) {
                             $replace = in_array($match, $this->rawField) ? $this->getData($key, $match) : (isset($row[$match]) ? $row[$match] : '');
                             if (isset($row[$match])) {
-                                $pattern[]    = '/__'. $match .'__/i';
+                                $pattern[] = '/__' . $match . '__/i';
                                 $replace_to[] = $replace;
                             }
                         }
@@ -1824,16 +1872,16 @@ class Builder extends ZBuilder
                     // 编译按钮属性
                     $button['attribute'] = $this->compileHtmlAttr($button);
                     if ($button_style['title']) {
-                        $row['right_button'] .= '<a '.$button['attribute'].'">';
+                        $row['right_button'] .= '<a ' . $button['attribute'] . '">';
                         if ($button_style['icon']) {
-                            $row['right_button'] .= '<i class="'.$button['icon'].'"></i> ';
+                            $row['right_button'] .= '<i class="' . $button['icon'] . '"></i> ';
                         }
-                        $row['right_button'] .= $button['title'].'</a>';
+                        $row['right_button'] .= $button['title'] . '</a>';
                     } else {
-                        $row['right_button'] .= '<a '.$button['attribute'].' data-toggle="tooltip"><i class="'.$button['icon'].'"></i></a>';
+                        $row['right_button'] .= '<a ' . $button['attribute'] . ' data-toggle="tooltip"><i class="' . $button['icon'] . '"></i></a>';
                     }
                 }
-                $row['right_button'] = '<div class="btn-group">'. $row['right_button'] .'</div>';
+                $row['right_button'] = '<div class="btn-group">' . $row['right_button'] . '</div>';
             }
 
             // 编译单元格数据类型
@@ -1842,7 +1890,7 @@ class Builder extends ZBuilder
                 $row['_primary_key_value'] = isset($row[$this->_vars['primary_key']]) ? $row[$this->_vars['primary_key']] : '';
 
                 foreach ($this->_vars['columns'] as $column) {
-                    $_name       = $column['field'];
+                    $_name = $column['field'];
                     $_table_name = $column['table'];
 
                     // 如果需要显示编号
@@ -1856,7 +1904,7 @@ class Builder extends ZBuilder
 
                     // 备份原数据
                     if (isset($row[$column['name']])) {
-                        $row['__'.$column['name'].'__'] = $row[$column['name']];
+                        $row['__' . $column['name'] . '__'] = $row[$column['name']];
                     }
 
                     switch ($column['type']) {
@@ -1864,18 +1912,18 @@ class Builder extends ZBuilder
                             if ($column['default'] != '') {
                                 // 要替换的字段名
                                 $replace_to = [];
-                                $pattern    = [];
-                                $url        = $column['default'];
-                                $target     = $column['param'] == '' ? '_self' : $column['param'];
+                                $pattern = [];
+                                $url = $column['default'];
+                                $target = $column['param'] == '' ? '_self' : $column['param'];
                                 if (preg_match_all('/__(.*?)__/', $column['default'], $matches)) {
                                     foreach ($matches[1] as $match) {
-                                        $pattern[]    = '/__'. $match .'__/i';
+                                        $pattern[] = '/__' . $match . '__/i';
                                         $replace_to[] = $row[$match];
                                     }
                                     $url = preg_replace($pattern, $replace_to, $url);
                                 }
 
-                                $url = $column['class'] == 'pop' ? $url.(strpos($url, '?') ? '&' : '?').'_pop=1' : $url;
+                                $url = $column['class'] == 'pop' ? $url . (strpos($url, '?') ? '&' : '?') . '_pop=1' : $url;
 
                                 if ($column['extra'] != '') {
                                     $title = $column['extra'] === true ? $column['title'] : $column['extra'];
@@ -1883,19 +1931,19 @@ class Builder extends ZBuilder
                                     $title = $row[$column['name']];
                                 }
 
-                                $row[$column['name'].'__'.$column['type']] = '<a href="'. $url .'"
-                                    title="'. $title .'"
-                                    class="'. $column['class'] .'"
-                                    target="'.$target.'">'.$row[$column['name']].'</a>';
+                                $row[$column['name'] . '__' . $column['type']] = '<a href="' . $url . '"
+                                    title="' . $title . '"
+                                    class="' . $column['class'] . '"
+                                    target="' . $target . '">' . $row[$column['name']] . '</a>';
                             }
                             break;
                         case 'switch': // 开关
                             switch ($row[$column['name']]) {
                                 case '0': // 关闭
-                                    $row[$column['name'].'__'.$column['type']] = '<label class="css-input switch switch-sm switch-primary" title="开启/关闭"><input type="checkbox" data-table="'.$this->createTableToken($this->_table_name, $this->_prefix).'" data-id="'.$row['_primary_key_value'].'" data-field="'.$column['name'].'"><span></span></label>';
+                                    $row[$column['name'] . '__' . $column['type']] = '<label class="css-input switch switch-sm switch-primary" title="开启/关闭"><input type="checkbox" data-table="' . $this->createTableToken($this->_table_name, $this->_prefix) . '" data-id="' . $row['_primary_key_value'] . '" data-field="' . $column['name'] . '"><span></span></label>';
                                     break;
                                 case '1': // 开启
-                                    $row[$column['name'].'__'.$column['type']] = '<label class="css-input switch switch-sm switch-primary" title="开启/关闭"><input type="checkbox" data-table="'.$this->createTableToken($this->_table_name, $this->_prefix).'" data-id="'.$row['_primary_key_value'].'" data-field="'.$column['name'].'" checked=""><span></span></label>';
+                                    $row[$column['name'] . '__' . $column['type']] = '<label class="css-input switch switch-sm switch-primary" title="开启/关闭"><input type="checkbox" data-table="' . $this->createTableToken($this->_table_name, $this->_prefix) . '" data-id="' . $row['_primary_key_value'] . '" data-field="' . $column['name'] . '" checked=""><span></span></label>';
                                     break;
                             }
                             break;
@@ -1905,58 +1953,67 @@ class Builder extends ZBuilder
 
                             if (isset($list_status[$status])) {
                                 switch ($status) {
-                                    case '0': $class = 'warning';break;
-                                    case '1': $class = 'success';break;
-                                    case '2': $class = 'primary';break;
-                                    case '3': $class = 'info';break;
-                                    default: $class  = 'default';
+                                    case '0':
+                                        $class = 'warning';
+                                        break;
+                                    case '1':
+                                        $class = 'success';
+                                        break;
+                                    case '2':
+                                        $class = 'primary';
+                                        break;
+                                    case '3':
+                                        $class = 'info';
+                                        break;
+                                    default:
+                                        $class = 'default';
                                 }
                                 if (strpos($list_status[$status], ':')) {
                                     list($label, $class) = explode(':', $list_status[$status]);
                                 } else {
                                     $label = $list_status[$status];
                                 }
-                                $row[$column['name'].'__'.$column['type']] = '<span class="label label-'.$class.'">'.$label.'</span>';
+                                $row[$column['name'] . '__' . $column['type']] = '<span class="label label-' . $class . '">' . $label . '</span>';
                             }
                             break;
                         case 'yesno': // 是/否
                             switch ($row[$column['name']]) {
                                 case '0': // 否
-                                    $row[$column['name'].'__'.$column['type']] = '<i class="fa fa-ban text-danger"></i>';
+                                    $row[$column['name'] . '__' . $column['type']] = '<i class="fa fa-ban text-danger"></i>';
                                     break;
                                 case '1': // 是
-                                    $row[$column['name'].'__'.$column['type']] = '<i class="fa fa-check text-success"></i>';
+                                    $row[$column['name'] . '__' . $column['type']] = '<i class="fa fa-check text-success"></i>';
                                     break;
                             }
                             break;
                         case 'text.edit': // 可编辑的单行文本
-                            $row[$column['name'].'__'.$column['type']] = '<a href="javascript:void(0);" 
+                            $row[$column['name'] . '__' . $column['type']] = '<a href="javascript:void(0);" 
                                 class="text-edit" 
-                                data-placeholder="请输入'.$column['title'].'" 
-                                data-table="'.$this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix).'" 
+                                data-placeholder="请输入' . $column['title'] . '" 
+                                data-table="' . $this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix) . '" 
                                 data-type="text" 
-                                data-pk="'.$row['_primary_key_value'].'" 
-                                data-name="'.$_name.'">'.$row[$column['name']].'</a>';
+                                data-pk="' . $row['_primary_key_value'] . '" 
+                                data-name="' . $_name . '">' . $row[$column['name']] . '</a>';
                             break;
                         case 'textarea.edit': // 可编辑的多行文本
-                            $row[$column['name'].'__'.$column['type']] = '<a href="javascript:void(0);" 
+                            $row[$column['name'] . '__' . $column['type']] = '<a href="javascript:void(0);" 
                                 class="textarea-edit" 
-                                data-placeholder="请输入'.$column['title'].'" 
-                                data-table="'.$this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix).'" 
+                                data-placeholder="请输入' . $column['title'] . '" 
+                                data-table="' . $this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix) . '" 
                                 data-type="textarea" 
-                                data-pk="'.$row['_primary_key_value'].'" 
-                                data-name="'.$_name.'">'.$row[$column['name']].'</a>';
+                                data-pk="' . $row['_primary_key_value'] . '" 
+                                data-name="' . $_name . '">' . $row[$column['name']] . '</a>';
                             break;
                         case 'password': // 密码框
                             $column['param'] = $column['param'] != '' ? $column['param'] : $column['name'];
-                            $row[$column['name'].'__'.$column['type']] = '<a href="javascript:void(0);" 
+                            $row[$column['name'] . '__' . $column['type']] = '<a href="javascript:void(0);" 
                                 class="text-edit" 
-                                data-placeholder="请输入'.$column['title'].'" 
-                                data-table="'.$this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix).'" 
+                                data-placeholder="请输入' . $column['title'] . '" 
+                                data-table="' . $this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix) . '" 
                                 data-type="password" 
                                 data-value="" 
-                                data-pk="'.$row['_primary_key_value'].'" 
-                                data-name="'.$_name.'">******</a>';
+                                data-pk="' . $row['_primary_key_value'] . '" 
+                                data-name="' . $_name . '">******</a>';
                             break;
                         case 'email': // 邮箱地址
                         case 'url': // 链接地址
@@ -1964,27 +2021,27 @@ class Builder extends ZBuilder
                         case 'number': // 数字
                         case 'range': // 范围
                             $column['param'] = $column['param'] != '' ? $column['param'] : $column['name'];
-                            $row[$column['name'].'__'.$column['type']] = '<a href="javascript:void(0);" 
+                            $row[$column['name'] . '__' . $column['type']] = '<a href="javascript:void(0);" 
                                 class="text-edit" 
-                                data-placeholder="请输入'.$column['title'].'" 
-                                data-table="'.$this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix).'" 
-                                data-type="'.$column['type'].'" 
-                                data-value="'.$row[$column['name']].'" 
-                                data-pk="'.$row['_primary_key_value'].'" 
-                                data-name="'.$_name.'">'.$row[$column['name']].'</a>';
+                                data-placeholder="请输入' . $column['title'] . '" 
+                                data-table="' . $this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix) . '" 
+                                data-type="' . $column['type'] . '" 
+                                data-value="' . $row[$column['name']] . '" 
+                                data-pk="' . $row['_primary_key_value'] . '" 
+                                data-name="' . $_name . '">' . $row[$column['name']] . '</a>';
                             break;
                         case 'icon': // 图标
                             if ($row[$column['name']] === '') {
-                                $row[$column['name'].'__'.$column['type']] = '<i class="'.$column['default'].'"></i>';
+                                $row[$column['name'] . '__' . $column['type']] = '<i class="' . $column['default'] . '"></i>';
                             } else {
-                                $row[$column['name'].'__'.$column['type']] = '<i class="'.$row[$column['name']].'"></i>';
+                                $row[$column['name'] . '__' . $column['type']] = '<i class="' . $row[$column['name']] . '"></i>';
                             }
                             break;
                         case 'byte': // 字节
                             if ($row[$column['name']] === '') {
-                                $row[$column['name'].'__'.$column['type']] = $column['default'];
+                                $row[$column['name'] . '__' . $column['type']] = $column['default'];
                             } else {
-                                $row[$column['name'].'__'.$column['type']] = format_bytes($row[$column['name']], $column['param']);
+                                $row[$column['name'] . '__' . $column['type']] = format_bytes($row[$column['name']], $column['param']);
                             }
                             break;
                         case 'date': // 日期
@@ -1993,16 +2050,22 @@ class Builder extends ZBuilder
                             // 默认格式
                             $format = 'Y-m-d H:i';
                             switch ($column['type']) {
-                                case 'date': $format = 'Y-m-d';break;
-                                case 'datetime': $format = 'Y-m-d H:i';break;
-                                case 'time': $format = 'H:i';break;
+                                case 'date':
+                                    $format = 'Y-m-d';
+                                    break;
+                                case 'datetime':
+                                    $format = 'Y-m-d H:i';
+                                    break;
+                                case 'time':
+                                    $format = 'H:i';
+                                    break;
                             }
                             // 格式
                             $format = $column['param'] == '' ? $format : $column['param'];
                             if ($row[$column['name']] == '') {
-                                $row[$column['name'].'__'.$column['type']] = $column['default'];
+                                $row[$column['name'] . '__' . $column['type']] = $column['default'];
                             } else {
-                                $row[$column['name'].'__'.$column['type']] = format_time($row[$column['name']], $format);
+                                $row[$column['name'] . '__' . $column['type']] = format_time($row[$column['name']], $format);
                             }
                             break;
                         case 'date.edit': // 可编辑日期时间，默认发送的是格式化好的
@@ -2011,27 +2074,33 @@ class Builder extends ZBuilder
                             // 默认格式
                             $format = 'YYYY-MM-DD HH:mm';
                             switch ($column['type']) {
-                                case 'date.edit': $format = 'YYYY-MM-DD';break;
-                                case 'datetime.edit': $format = 'YYYY-MM-DD HH:mm';break;
-                                case 'time.edit': $format = 'HH:mm';break;
+                                case 'date.edit':
+                                    $format = 'YYYY-MM-DD';
+                                    break;
+                                case 'datetime.edit':
+                                    $format = 'YYYY-MM-DD HH:mm';
+                                    break;
+                                case 'time.edit':
+                                    $format = 'HH:mm';
+                                    break;
                             }
                             // 格式
                             $format = $column['param'] == '' ? $format : $column['param'];
                             // 时间戳
                             $timestamp = $row[$column['name']];
-                            $row[$column['name'].'__'.$column['type']] = '<a href="javascript:void(0);" 
+                            $row[$column['name'] . '__' . $column['type']] = '<a href="javascript:void(0);" 
                                 class="combodate-edit" 
-                                data-format="'.$format.'" 
-                                data-name="'.$_name.'" 
-                                data-template="'.$format.'" 
+                                data-format="' . $format . '" 
+                                data-name="' . $_name . '" 
+                                data-template="' . $format . '" 
                                 data-callback="" 
-                                data-table="'.$this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix).'" 
+                                data-table="' . $this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix) . '" 
                                 data-type="combodate" 
-                                data-pk="'.$row['_primary_key_value'].'">';
+                                data-pk="' . $row['_primary_key_value'] . '">';
                             if ($row[$column['name']] == '') {
-                                $row[$column['name'].'__'.$column['type']] .= $column['default'].'</a>';
+                                $row[$column['name'] . '__' . $column['type']] .= $column['default'] . '</a>';
                             } else {
-                                $row[$column['name'].'__'.$column['type']] .= format_moment($timestamp, $format).'</a>';
+                                $row[$column['name'] . '__' . $column['type']] .= format_moment($timestamp, $format) . '</a>';
                             }
 
                             // 加载moment.js
@@ -2041,15 +2110,15 @@ class Builder extends ZBuilder
                             break;
                         case 'img_url': // 外链图片
                             if ($row[$column['name']] != '') {
-                                $row[$column['name'].'__'.$column['type']] = '<div class="js-gallery"><img class="image" data-original="'.$row[$column['name']].'" src="'.$row[$column['name']].'"></div>';
+                                $row[$column['name'] . '__' . $column['type']] = '<div class="js-gallery"><img class="image" data-original="' . $row[$column['name']] . '" src="' . $row[$column['name']] . '"></div>';
                             }
                             break;
                         case 'picture': // 单张图片
-                            $row[$column['name'].'__'.$column['type']] = '<div class="js-gallery"><img class="image" data-original="'.get_file_path($row[$column['name']]).'" src="'.get_thumb($row[$column['name']]).'"></div>';
+                            $row[$column['name'] . '__' . $column['type']] = '<div class="js-gallery"><img class="image" data-original="' . get_file_path($row[$column['name']]) . '" src="' . get_thumb($row[$column['name']]) . '"></div>';
                             break;
                         case 'pictures': // 多张图片
                             if ($row[$column['name']] === '') {
-                                $row[$column['name'].'__'.$column['type']] = !empty($column['default']) ? $column['default'] : '暂无图片';
+                                $row[$column['name'] . '__' . $column['type']] = !empty($column['default']) ? $column['default'] : '暂无图片';
                             } else {
                                 $list_img = is_array($row[$column['name']]) ? $row[$column['name']] : explode(',', $row[$column['name']]);
                                 $imgs = '<div class="js-gallery">';
@@ -2057,14 +2126,14 @@ class Builder extends ZBuilder
                                     if ($column['param'] != '' && $k == $column['param']) {
                                         break;
                                     }
-                                    $imgs .= ' <img class="image" data-original="'.get_file_path($img).'" src="'.get_thumb($img).'">';
+                                    $imgs .= ' <img class="image" data-original="' . get_file_path($img) . '" src="' . get_thumb($img) . '">';
                                 }
-                                $row[$column['name'].'__'.$column['type']] = $imgs.'</div>';
+                                $row[$column['name'] . '__' . $column['type']] = $imgs . '</div>';
                             }
                             break;
                         case 'files':
                             if ($row[$column['name']] === '') {
-                                $row[$column['name'].'__'.$column['type']] = !empty($column['default']) ? $column['default'] : '暂无文件';
+                                $row[$column['name'] . '__' . $column['type']] = !empty($column['default']) ? $column['default'] : '暂无文件';
                             } else {
                                 $list_file = is_array($row[$column['name']]) ? $row[$column['name']] : explode(',', $row[$column['name']]);
                                 $files = '<div>';
@@ -2072,9 +2141,9 @@ class Builder extends ZBuilder
                                     if ($column['param'] != '' && $k == $column['param']) {
                                         break;
                                     }
-                                    $files .= ' [<a href="'.get_file_path($file).'">'.get_file_name($file).'</a>]';
+                                    $files .= ' [<a href="' . get_file_path($file) . '">' . get_file_name($file) . '</a>]';
                                 }
-                                $row[$column['name'].'__'.$column['type']] = $files.'</div>';
+                                $row[$column['name'] . '__' . $column['type']] = $files . '</div>';
                             }
                             break;
                         case 'select': // 下拉框
@@ -2084,16 +2153,16 @@ class Builder extends ZBuilder
                                 } else {
                                     $prepend = '无对应值';
                                 }
-                                $class   = ($prepend == '无对应值' || $prepend == '空值') ? 'select-edit text-danger' : 'select-edit';
+                                $class = ($prepend == '无对应值' || $prepend == '空值') ? 'select-edit text-danger' : 'select-edit';
                                 $source = json_encode($column['default'], JSON_FORCE_OBJECT);
-                                $row[$column['name'].'__'.$column['type']] = '<a href="javascript:void(0);" 
-                                    class="'.$class.'"
-                                    data-table="'.$this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix).'" 
+                                $row[$column['name'] . '__' . $column['type']] = '<a href="javascript:void(0);" 
+                                    class="' . $class . '"
+                                    data-table="' . $this->createTableToken($_table_name == '' ? $this->_table_name : $_table_name, $this->_prefix) . '" 
                                     data-type="select" 
-                                    data-value="'.$row[$column['name']].'" 
-                                    data-source=\''.$source.'\' 
-                                    data-pk="'.$row['_primary_key_value'].'" 
-                                    data-name="'.$_name.'">'.$prepend.'</a>';
+                                    data-value="' . $row[$column['name']] . '" 
+                                    data-source=\'' . $source . '\' 
+                                    data-pk="' . $row['_primary_key_value'] . '" 
+                                    data-name="' . $_name . '">' . $prepend . '</a>';
                             }
                             break;
                         case 'select2': // tag编辑(有BUG)
@@ -2113,7 +2182,9 @@ class Builder extends ZBuilder
                             unset($column['field']);
                             unset($column['table']);
                             $params = array_slice($column, 4);
-                            $params = array_filter($params, function($v){return $v !== '';});
+                            $params = array_filter($params, function ($v) {
+                                return $v !== '';
+                            });
 
                             if (isset($row[$column['name']]) || array_key_exists($column['name'], $row)) {
                                 $params = array_merge([$row[$column['name']]], $params);
@@ -2125,12 +2196,12 @@ class Builder extends ZBuilder
                                 }
                             }
 
-                            $row[$column['name'].'__'.$column['type']] = call_user_func_array($column['default'], $params);
+//                            $row[$column['name'] . '__' . $column['type']] = call_user_func_array($column['default'], $params);
                             break;
                         case 'popover':
                             $length = empty($column['default']) ? 10 : $column['default'];
                             $placement = empty($column['param']) ? 'top' : $column['param'];
-                            $row[$column['name'].'__'.$column['type']] = mb_substr($row[$column['name']], 0, $length, 'utf-8').'... <i class="fa fa-fw fa-question-circle" data-toggle="popover" data-placement="'.$placement.'" data-content="'.$row[$column['name']].'"></i>';
+                            $row[$column['name'] . '__' . $column['type']] = mb_substr($row[$column['name']], 0, $length, 'utf-8') . '... <i class="fa fa-fw fa-question-circle" data-toggle="popover" data-placement="' . $placement . '" data-content="' . $row[$column['name']] . '"></i>';
                             break;
                         case 'text':
                         default: // 默认
@@ -2163,8 +2234,8 @@ class Builder extends ZBuilder
     /**
      * 分析行class
      * @param mixed $row 行数据
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function parseTrClass($row)
     {
@@ -2178,7 +2249,8 @@ class Builder extends ZBuilder
                     continue;
                 }
                 if (!isset($row[$condition[0]])) {
-                    $match = false; continue;
+                    $match = false;
+                    continue;
                 }
                 $match = $this->parseCondition($row, $condition) ? $match : false;
             }
@@ -2194,8 +2266,8 @@ class Builder extends ZBuilder
      * 分析条件
      * @param mixed $row 行数据
      * @param array $condition 对比条件
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function parseCondition($row, $condition = [])
     {
@@ -2239,12 +2311,12 @@ class Builder extends ZBuilder
      * 创建筛选Token
      * @param string $table 表名
      * @param string $field 字段
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool|string
+     * @author 蔡伟明 <314013107@qq.com>
      */
     private function createFilterToken($table = '', $field = '')
     {
-        $table_token = substr(sha1($table.'-'.$field.'-'.session('user_auth.last_login_ip').'-'.session('user_auth.uid').'-'.session('user_auth.last_login_time')), 0, 8);
+        $table_token = substr(sha1($table . '-' . $field . '-' . session('user_auth.last_login_ip') . '-' . session('user_auth.uid') . '-' . session('user_auth.last_login_time')), 0, 8);
         session($table_token, ['table' => $table, 'field' => $field]);
         return $table_token;
     }
@@ -2253,7 +2325,8 @@ class Builder extends ZBuilder
      * 编译表格数据
      * @author 蔡伟明 <314013107@qq.com>
      */
-    private function compileTable(){
+    private function compileTable()
+    {
         // 设置表名
         $this->_vars['_table'] = $this->_table_name;
 
@@ -2262,7 +2335,7 @@ class Builder extends ZBuilder
             // 要筛选的字段
             $filter_columns = [];
             // 要筛选的字段条件
-            $filter_maps    = [];
+            $filter_maps = [];
             // 处理字段筛选条件
             if (!empty($this->_vars['filter_map'])) {
                 foreach ($this->_vars['filter_map'] as $fields => $map) {
@@ -2298,22 +2371,22 @@ class Builder extends ZBuilder
                         list($table, $field) = explode('.', $value);
                         $_filter_token = $this->createFilterToken($table, $field);
                         $filter_columns[$field] = [
-                            'token'   => $_filter_token,
-                            'type'    => $this->_filter_type[$value],
-                            'filter'  => $value,
-                            'map'     => isset($filter_maps[$field]) ? $filter_maps[$field] : '',
+                            'token' => $_filter_token,
+                            'type' => $this->_filter_type[$value],
+                            'filter' => $value,
+                            'map' => isset($filter_maps[$field]) ? $filter_maps[$field] : '',
                             'options' => isset($this->_filter_options[$field]) ? $this->_filter_options[$field] : '',
-                            'list'    => isset($this->_filter_list[$field]) ? $this->_filter_list[$field] : ''
+                            'list' => isset($this->_filter_list[$field]) ? $this->_filter_list[$field] : ''
                         ];
                     } else {
                         $_filter_token = $this->createFilterToken($this->_table_name, $value);
                         $filter_columns[$value] = [
-                            'token'   => $_filter_token,
-                            'type'    => $this->_filter_type[$value],
-                            'filter'  => $value,
-                            'map'     => isset($filter_maps[$value]) ? $filter_maps[$value] : '',
+                            'token' => $_filter_token,
+                            'type' => $this->_filter_type[$value],
+                            'filter' => $value,
+                            'map' => isset($filter_maps[$value]) ? $filter_maps[$value] : '',
                             'options' => isset($this->_filter_options[$value]) ? $this->_filter_options[$value] : '',
-                            'list'    => isset($this->_filter_list[$value]) ? $this->_filter_list[$value] : ''
+                            'list' => isset($this->_filter_list[$value]) ? $this->_filter_list[$value] : ''
                         ];
                     }
                 } else {
@@ -2321,22 +2394,22 @@ class Builder extends ZBuilder
                         list($table, $field) = explode('.', $value);
                         $_filter_token = $this->createFilterToken($table, $field);
                         $filter_columns[$key] = [
-                            'token'   => $_filter_token,
-                            'type'    => $this->_filter_type[$value],
-                            'filter'  => $value,
-                            'map'     => isset($filter_maps[$key]) ? $filter_maps[$key] : '',
+                            'token' => $_filter_token,
+                            'type' => $this->_filter_type[$value],
+                            'filter' => $value,
+                            'map' => isset($filter_maps[$key]) ? $filter_maps[$key] : '',
                             'options' => isset($this->_filter_options[$key]) ? $this->_filter_options[$key] : '',
-                            'list'    => isset($this->_filter_list[$key]) ? $this->_filter_list[$key] : ''
+                            'list' => isset($this->_filter_list[$key]) ? $this->_filter_list[$key] : ''
                         ];
                     } else {
                         $_filter_token = $this->createFilterToken($value, $key);
                         $filter_columns[$key] = [
-                            'token'   => $_filter_token,
-                            'type'    => $this->_filter_type[$value],
-                            'filter'  => $value . '.' . $key,
-                            'map'     => isset($filter_maps[$key]) ? $filter_maps[$key] : '',
+                            'token' => $_filter_token,
+                            'type' => $this->_filter_type[$value],
+                            'filter' => $value . '.' . $key,
+                            'map' => isset($filter_maps[$key]) ? $filter_maps[$key] : '',
                             'options' => isset($this->_filter_options[$key]) ? $this->_filter_options[$key] : '',
-                            'list'    => isset($this->_filter_list[$key]) ? $this->_filter_list[$key] : ''
+                            'list' => isset($this->_filter_list[$key]) ? $this->_filter_list[$key] : ''
                         ];
                     }
                 }
@@ -2346,8 +2419,8 @@ class Builder extends ZBuilder
 
         // 处理字段筛选默认选项
         $this->_vars['_filter_content'] = implode('|', $this->_vars['_filter_content']);
-        $this->_vars['_field_display']  = implode(',', $this->_vars['_field_display']);
-        $this->_vars['_filter']         = implode('|', $this->_vars['_filter']);
+        $this->_vars['_field_display'] = implode(',', $this->_vars['_field_display']);
+        $this->_vars['_filter'] = implode('|', $this->_vars['_filter']);
 
         // 处理字段排序
         if ($this->_vars['order_columns']) {
@@ -2364,7 +2437,7 @@ class Builder extends ZBuilder
                     if (strpos($value, '.')) {
                         $order_columns[$key] = $value;
                     } else {
-                        $order_columns[$key] = $value. '.' .$key;
+                        $order_columns[$key] = $value . '.' . $key;
                     }
                 }
             }
@@ -2386,7 +2459,7 @@ class Builder extends ZBuilder
                 $button['attribute'] = $this->compileHtmlAttr($button);
                 $new_button = "<a {$button['attribute']}>";
                 if (isset($button['icon']) && $button['icon'] != '') {
-                    $new_button .= '<i class="'.$button['icon'].'"></i> ';
+                    $new_button .= '<i class="' . $button['icon'] . '"></i> ';
                 }
                 $new_button .= "{$button['title']}</a>";
                 $button = $new_button;
@@ -2443,13 +2516,13 @@ class Builder extends ZBuilder
                     foreach ($select['options'] as $key => $option) {
                         $select_value[array_search($name, $select_field)] = $key;
                         $url_params['_select_value'] = implode('|', $select_value);
-                        $select['url'][$key]   = url('').'?'.http_build_query($url_params);
+                        $select['url'][$key] = url('') . '?' . http_build_query($url_params);
                     }
                 } else {
                     $url_params['_select_field'] = $name;
                     foreach ($select['options'] as $key => $option) {
                         $url_params['_select_value'] = $key; // 添加下拉菜单项查询参数
-                        $select['url'][$key]   = url('').'?'.http_build_query($url_params);
+                        $select['url'][$key] = url('') . '?' . http_build_query($url_params);
                     }
                 }
 
@@ -2472,7 +2545,7 @@ class Builder extends ZBuilder
                         }
                     }
                 }
-                $select['default_url'] = url('').'?'.http_build_query($url_params);
+                $select['default_url'] = url('') . '?' . http_build_query($url_params);
             }
         }
 
@@ -2488,14 +2561,14 @@ class Builder extends ZBuilder
                     }
                     $_temp_fields[$field] = isset($this->_field_name[$_field]) ? $this->_field_name[$_field] : '';
                 } else {
-                    $_temp_fields[$key]   = $field;
+                    $_temp_fields[$key] = $field;
                 }
             }
             $this->_vars['search'] = [
-                'fields'      => $_temp_fields,
-                'field_all'   => implode('|', array_keys($_temp_fields)),
-                'placeholder' => $this->_search['placeholder'] != '' ? $this->_search['placeholder'] : '请输入'. implode('/', $_temp_fields),
-                'url'         => $this->_search['url'] == '' ? $this->request->baseUrl(true) : $this->_search['url']
+                'fields' => $_temp_fields,
+                'field_all' => implode('|', array_keys($_temp_fields)),
+                'placeholder' => $this->_search['placeholder'] != '' ? $this->_search['placeholder'] : '请输入' . implode('/', $_temp_fields),
+                'url' => $this->_search['url'] == '' ? $this->request->baseUrl(true) : $this->_search['url']
             ];
         }
 
@@ -2534,10 +2607,10 @@ class Builder extends ZBuilder
     /**
      * 加载模板输出
      * @param string $template 模板文件名
-     * @param array  $vars     模板输出变量
-     * @param array  $config   模板参数
-     * @author 蔡伟明 <314013107@qq.com>
+     * @param array $vars 模板输出变量
+     * @param array $config 模板参数
      * @return mixed
+     * @author 蔡伟明 <314013107@qq.com>
      */
     public function fetch($template = '', $vars = [], $config = [])
     {

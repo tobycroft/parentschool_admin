@@ -1,23 +1,23 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\user\admin;
 
 use app\admin\controller\Admin;
-use app\common\builder\ZBuilder;
-use app\user\model\User as UserModel;
-use app\user\model\Role as RoleModel;
-use app\admin\model\Module as ModuleModel;
 use app\admin\model\Access as AccessModel;
-use util\Tree;
+use app\admin\model\Module as ModuleModel;
+use app\common\builder\ZBuilder;
+use app\user\model\Role as RoleModel;
+use app\user\model\User as UserModel;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器

@@ -1,10 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 /**
@@ -12,8 +12,8 @@
  */
 return array(
     //产品配置
-    'install_product_name'   => 'DThinkPHP', //产品名称
-    'install_website_domain' => 'http://www.DThinkPHP.com', //官方网址
+    'install_product_name'   => 'DolphinPHP', //产品名称
+    'install_website_domain' => 'http://www.dolphinphp.com', //官方网址
     'install_company_name'   => '广东卓锐软件有限公司', //公司名称
     'original_table_prefix'  => 'dp_', //默认表前缀
 

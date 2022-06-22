@@ -21,7 +21,7 @@ CREATE TABLE `dp_cms_advert` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='广告表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_advert`
@@ -38,7 +38,7 @@ CREATE TABLE `dp_cms_advert_type` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='广告分类表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告分类表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_advert_type`
@@ -69,7 +69,7 @@ CREATE TABLE `dp_cms_column` (
   `rank_auth` int(11) NOT NULL DEFAULT '0' COMMENT '浏览权限，-1待审核，0为开放浏览，大于0则为对应的用户角色id',
   `type` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '栏目属性：0-最终列表栏目，1-外部链接，2-频道封面',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='栏目表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_column`
@@ -98,7 +98,7 @@ CREATE TABLE `dp_cms_document` (
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `trash` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '回收站',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档基础表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文档基础表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_document`
@@ -135,7 +135,7 @@ CREATE TABLE `dp_cms_field` (
   `sort` int(11) NOT NULL DEFAULT '100' COMMENT '排序',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='文档字段表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='文档字段表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_field`
@@ -174,7 +174,7 @@ CREATE TABLE `dp_cms_link` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='有钱链接表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='有钱链接表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_link`
@@ -201,17 +201,17 @@ CREATE TABLE `dp_cms_menu` (
   `sort` int(11) NOT NULL DEFAULT '100' COMMENT '排序',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_menu`
 -- -----------------------------
 INSERT INTO `dp_cms_menu` VALUES ('1', '1', '0', '0', '0', '2', '首页', 'cms/index/index', '', '', '_self', '1492345605', '1492345605', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('2', '2', '0', '0', '0', '2', '关于我们', 'http://www.DThinkPHP.com', '', '', '_self', '1492346763', '1492346763', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('3', '3', '0', '0', '0', '2', '开发文档', 'http://www.kancloud.cn/ming5112/DThinkPHP', '', '', '_self', '1492346812', '1492346812', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('4', '3', '0', '0', '0', '2', '开发者社区', 'http://bbs.DThinkPHP.com/', '', '', '_self', '1492346832', '1492346832', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('5', '1', '0', '0', '0', '2', '二级菜单', 'http://www.DThinkPHP.com', '', '', '_self', '1492347372', '1492347510', '100', '1');
-INSERT INTO `dp_cms_menu` VALUES ('6', '1', '5', '0', '0', '2', '子菜单', 'http://www.DThinkPHP.com', '', '', '_self', '1492347388', '1492347520', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('2', '2', '0', '0', '0', '2', '关于我们', 'http://www.dolphinphp.com', '', '', '_self', '1492346763', '1492346763', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('3', '3', '0', '0', '0', '2', '开发文档', 'http://www.kancloud.cn/ming5112/dolphinphp', '', '', '_self', '1492346812', '1492346812', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('4', '3', '0', '0', '0', '2', '开发者社区', 'http://bbs.dolphinphp.com/', '', '', '_self', '1492346832', '1492346832', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('5', '1', '0', '0', '0', '2', '二级菜单', 'http://www.dolphinphp.com', '', '', '_self', '1492347372', '1492347510', '100', '1');
+INSERT INTO `dp_cms_menu` VALUES ('6', '1', '5', '0', '0', '2', '子菜单', 'http://www.dolphinphp.com', '', '', '_self', '1492347388', '1492347520', '100', '1');
 
 -- -----------------------------
 -- 表结构 `dp_cms_model`
@@ -230,7 +230,7 @@ CREATE TABLE `dp_cms_model` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='内容模型表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='内容模型表';
 
 -- -----------------------------
 -- 表结构 `dp_cms_nav`
@@ -244,7 +244,7 @@ CREATE TABLE `dp_cms_nav` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='导航表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='导航表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_nav`
@@ -270,7 +270,7 @@ CREATE TABLE `dp_cms_page` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='单页表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单页表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_page`
@@ -290,7 +290,7 @@ CREATE TABLE `dp_cms_slider` (
   `sort` int(11) unsigned NOT NULL DEFAULT '100' COMMENT '排序',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='滚动图片表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='滚动图片表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_slider`
@@ -313,7 +313,7 @@ CREATE TABLE `dp_cms_support` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客服表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客服表';
 
 -- -----------------------------
 -- 表数据 `dp_cms_support`

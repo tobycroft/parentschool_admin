@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    {block name="page-title"}<title>{$page_title|default='后台'} | {:config('web_site_title')} - DolphinPHP</title>
-    {/block}
+    {block name="page-title"}<title>{$page_title|default='后台'} | {:config('web_site_title')} - DolphinPHP</title>{/block}
 
     <meta name="description" content="{:config('web_site_description')}">
     <meta name="author" content="caiweiming">
@@ -387,23 +386,20 @@
         </div>
         <!-- END Page Content -->
     </main>
-<!-- END Main Container -->
+    <!-- END Main Container -->
 
-<!-- Footer -->
-{empty name="_pop"}
-<footer class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix" id="page-footer">
-    <div class="pull-right">
-        Crafted with <i class="fa fa-heart text-city"></i> by <a class="font-w600"
-                                                                 href="{:config('dolphin.company_website')}"
-                                                                 target="_blank">{:config('dolphin.company_name')}</a>
-    </div>
-    <div class="pull-left">
-        <a class="font-w600" href="{:config('dolphin.product_website')}" target="_blank">{:config('dolphin.product_name')}
-            {:config('dolphin.product_version')}</a> &copy; <span class="js-year-copy"></span>
-    </div>
-</footer>
-{/empty}
-<!-- END Footer -->
+    <!-- Footer -->
+    {empty name="_pop"}
+    <footer class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix" id="page-footer">
+        <div class="pull-right">
+            Crafted with <i class="fa fa-heart text-city"></i> by <a class="font-w600" href="{:config('dolphin.company_website')}" target="_blank">{:config('dolphin.company_name')}</a>
+        </div>
+        <div class="pull-left">
+            <a class="font-w600" href="{:config('dolphin.product_website')}" target="_blank">{:config('dolphin.product_name')} {:config('dolphin.product_version')}</a> &copy; <span class="js-year-copy"></span>
+        </div>
+    </footer>
+    {/empty}
+    <!-- END Footer -->
 </div>
 <!-- END Page Container -->
 

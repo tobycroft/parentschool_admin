@@ -1,19 +1,19 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
 namespace app\common\behavior;
 
 use app\admin\model\Config as ConfigModel;
 use app\admin\model\Module as ModuleModel;
+use think\facade\App;
 use think\facade\Env;
 use think\facade\Request;
-use think\facade\App;
 
 /**
  * 初始化配置信息行为
