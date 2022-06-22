@@ -1,16 +1,16 @@
 <?php
 // +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DThinkPHP ]
+// | 海豚PHP框架 [ DolphinPHP ]
 // +----------------------------------------------------------------------
 // | 版权所有 2016~2019 广东卓锐软件有限公司 [ http://www.zrthink.com ]
 // +----------------------------------------------------------------------
-// | 官方网站: http://DThinkPHP.com
+// | 官方网站: http://dolphinphp.com
 // +----------------------------------------------------------------------
 
-use think\Db;
-use think\Container;
-use think\facade\Env;
 use app\user\model\User;
+use think\Container;
+use think\Db;
+use think\facade\Env;
 
 // 应用公共文件
 
@@ -32,7 +32,7 @@ if (!function_exists('is_signin')) {
             // 判断是否记住登录
             if (cookie('?uid') && cookie('?signin_token')) {
                 $UserModel = new User();
-                $user = $ParentModel::get(cookie('uid'));
+                $user = $UserModel::get(cookie('uid'));
                 if ($user) {
                     $signin_token = data_auth_sign($user['username'] . $user['id'] . $user['last_login_time']);
                     if (cookie('signin_token') == $signin_token) {
@@ -82,15 +82,11 @@ if (!function_exists('get_file_path')) {
      */
     function get_file_path($id = 0)
     {
-        if (config("upload_driver") == "local") {
-            $path = model('admin/attachment')->getFilePath($id);
-            if (!$path) {
-                return config('public_static_path') . 'admin/img/none.png';
-            }
-            return $path;
-        } else {
-            return $id;
+        $path = model('admin/attachment')->getFilePath($id);
+        if (!$path) {
+            return config('public_static_path') . 'admin/img/none.png';
         }
+        return $path;
     }
 }
 
@@ -103,12 +99,8 @@ if (!function_exists('get_files_path')) {
      */
     function get_files_path($ids = [])
     {
-        if (config("upload_driver") == "local") {
-            $paths = model('admin/attachment')->getFilePath($ids);
-            return !$paths ? [] : $paths;
-        } else {
-            return $ids;
-        }
+        $paths = model('admin/attachment')->getFilePath($ids);
+        return !$paths ? [] : $paths;
     }
 }
 
@@ -121,15 +113,11 @@ if (!function_exists('get_thumb')) {
      */
     function get_thumb($id = 0)
     {
-        if (config("upload_driver") == "local") {
-            $path = model('admin/attachment')->getThumbPath($id);
-            if (!$path) {
-                return config('public_static_path') . 'admin/img/none.png';
-            }
-            return $path;
-        } else {
-            return $id;
+        $path = model('admin/attachment')->getThumbPath($id);
+        if (!$path) {
+            return config('public_static_path') . 'admin/img/none.png';
         }
+        return $path;
     }
 }
 
@@ -1079,7 +1067,7 @@ if (!function_exists('action_log')) {
 
             // 查询行为,判断是否执行
             $action_info = model('admin/action')->where('module', $module)->getByName($action);
-            if ($action_info['status'] != 1) {
+            if (!$action_info || $action_info['status'] != 1) {
                 return '该行为被禁用或删除';
             }
 
