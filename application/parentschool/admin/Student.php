@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudentModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -52,7 +52,7 @@ class Student extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', '问题ID')
-            ->addColumn('parent_id', '家长id', 'number')
+            ->addColumn('uid', '家长id', 'number')
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('gender', '男女', 'number')
             ->addColumn('name', '姓名', 'text.edit')
@@ -124,7 +124,7 @@ class Student extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'parent_id', '家长id', '请确认务必存在'],
+                ['number', 'uid', '家长id', '请确认务必存在'],
                 ['number', 'school_id', '学校id', '请确认务必存在'],
                 ['select', 'gender', '性别', '', \Student\Student::get_student_gender()],
                 ['text', 'name', '姓名', ''],
@@ -187,7 +187,7 @@ class Student extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'parent_id', '家长id', '请确认务必存在'],
+                ['number', 'uid', '家长id', '请确认务必存在'],
                 ['number', 'school_id', '学校id', '请确认务必存在'],
                 ['select', 'gender', '性别', '', \Student\Student::get_student_gender()],
                 ['text', 'name', '姓名', ''],

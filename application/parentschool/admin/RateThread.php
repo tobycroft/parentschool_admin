@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\RateThreadModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -53,7 +53,7 @@ class RateThread extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('type', '评价课程类型')
-            ->addColumn('parent_id', '家长id', 'number')
+            ->addColumn('uid', '家长id', 'number')
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('score', '评分', 'number')
             ->addColumn('content', '评价内容', 'text.edit')
@@ -124,7 +124,7 @@ class RateThread extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['number', 'parent_id', '家长id', ''],
+                ['number', 'uid', '家长id', ''],
                 ['number', 'study_id', '课程id', ''],
                 ['number', 'score', '评分', ''],
                 ['textarea', 'content', '内容', ''],
@@ -182,7 +182,7 @@ class RateThread extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['number', 'parent_id', '家长id', ''],
+                ['number', 'uid', '家长id', ''],
                 ['number', 'study_id', '课程id', ''],
                 ['number', 'score', '评分', ''],
                 ['textarea', 'content', '内容', ''],

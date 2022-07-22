@@ -12,12 +12,12 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
+use app\user\model\User;
 use Student\Student;
-use util\Tree;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -169,7 +169,7 @@ class FamilyMember extends Admin
                 ['hidden', 'id'],
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'parent_id', '家长id', ''],
+                ['number', 'uid', '家长id', ''],
                 ['textarea', 'content', '内容'],
             ]);
 

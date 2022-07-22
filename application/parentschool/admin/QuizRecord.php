@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\QuizRecordModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -54,7 +54,7 @@ class QuizRecord extends Admin
             ->addColumn('id', 'ID')
             ->addColumn('type', '课程类型', \Study\Type::get_type())
             ->addColumn('question_id', '问题ID', 'number')
-            ->addColumn('parent_id', '家长id', 'number')
+            ->addColumn('uid', '家长id', 'number')
             ->addColumn('choice', '选项')
             ->addColumn('correct', '正确率')
             ->addColumn('change_date', '修改时间')
@@ -121,7 +121,7 @@ class QuizRecord extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['number', 'question_id', '问题id', ''],
-                ['number', 'parent_id', '家长id', ''],
+                ['number', 'uid', '家长id', ''],
                 ['textarea', 'content', '内容', ''],
             ])
             ->fetch();
@@ -177,7 +177,7 @@ class QuizRecord extends Admin
                 ['hidden', 'id'],
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'parent_id', '家长id', ''],
+                ['number', 'uid', '家长id', ''],
                 ['textarea', 'content', '内容'],
             ]);
 

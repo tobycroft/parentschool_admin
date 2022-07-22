@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyRecordModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -55,7 +55,7 @@ class StudyRecord extends Admin
                 ['id', 'ID'],
                 ['type', '记录类型'],
                 ['study_id', '课程id', 'number'],
-                ['parent_id', '家长id', 'number'],
+                ['uid', '家长id', 'number'],
                 ['completion', '完成情况%'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
@@ -120,7 +120,7 @@ class StudyRecord extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'parent_id', '家长id'],
+                ['number', 'uid', '家长id'],
                 ['number', 'study_id', '课程id'],
                 ['select', 'type', '记录类型', '', \Study\Type::get_type()],
                 ['file', 'attah_url', '上传文件'],
@@ -177,7 +177,7 @@ class StudyRecord extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'parent_id', '家长id'],
+                ['number', 'uid', '家长id'],
                 ['number', 'study_id', '课程id'],
                 ['select', 'type', '记录类型', '', \Study\Type::get_type()],
                 ['file', 'attah_url', '上传文件'],
