@@ -12,9 +12,9 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\ParentModel;
-use util\Tree;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -58,7 +58,7 @@ class Jiazhang extends Admin
             ->addColumn('id', 'UID')
             ->addColumn('pid', '上级UID')
             ->addColumn('wx_name', '用户名')
-            ->addColumn('face', '头像', 'img_url')
+            ->addColumn('wx_face', '头像', 'img_url')
             ->addColumn('share', '邀请码')
             ->addColumn('active', '是否启用', "number")
             ->addColumn('change_date', '修改时间')
