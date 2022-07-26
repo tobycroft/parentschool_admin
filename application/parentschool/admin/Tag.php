@@ -53,24 +53,10 @@ class Tag extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['grade', '年级', 'number'],
-                ['area_id', '对应区域', 'number'],
-                ['school_id', '学校id', 'number'],
-                ['title', '标题'],
-                ['slogan', '推荐金句'],
-                ['special_tag', '特殊标签'],
-                ['common_tag', '特殊标签'],
-                ['img', '小图头图', "picture"],
-                ['img_intro', '简介图', "picture"],
-                ['from1', '内容来源1'],
-                ['from2', '内容来源2'],
-                ['can_push', '是否可以推送', 'switch'],
-                ['push_date', '推送日期', 'text.edit'],
-                ['show_date', '展示日期', 'text.edit'],
-                ['attach_type', '附件类型', 'text'],
-                ['show_to', '展示给谁'],
-                ['change_date', '修改时间'],
-                ['date', '创建时间'],
+                ['study_type', '课程类型', 'text.edit'],
+                ['tag_type', '标签类型', 'text.edit'],
+                ['class', '标签分类', 'text.edit'],
+                ['name', '标签名称', "text.edit"],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
