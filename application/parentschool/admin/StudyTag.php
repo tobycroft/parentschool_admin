@@ -130,8 +130,8 @@ class StudyTag extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['number', 'study_id', '课程id'],
-                ['select', 'study_type', '课程类型', \Study\Type::get_type()],
-                ['select', 'tag_id', '标签id', $tag_name],
+                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['select', 'tag_id', '标签id', '', $tag_name],
             ])
             ->fetch();
     }
@@ -191,8 +191,8 @@ class StudyTag extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['number', 'study_id', '课程id'],
-                ['select', 'study_type', '课程类型', \Study\Type::get_type()],
-                ['select', 'tag_id', '标签id', $tag_name],
+                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['select', 'tag_id', '标签id', '', $tag_name],
             ]);
 
         return $data
