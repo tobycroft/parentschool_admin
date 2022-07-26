@@ -175,6 +175,15 @@ class StudyWeekly extends Admin
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+
+                ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
+                ['text', 'tick_mode', '打卡模式', "打卡模式"],
+                ['text', 'tick_word', '打卡说明', "打卡说明"],
+
+                ['text', 'tick_y', '打卡Y轴', "打卡Y轴"],
+                ['text', 'tick_x', '打卡X轴', "打卡X轴"],
+                ['text', 'tick_location', '打卡点名字', "打卡点名字"],
+                ['text', 'tick_area', '打卡范围m', "打卡范围m"],
             ])
             ->fetch();
     }
@@ -266,6 +275,15 @@ class StudyWeekly extends Admin
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+
+                ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
+                ['text', 'tick_mode', '打卡模式', "打卡模式"],
+                ['text', 'tick_word', '打卡说明', "打卡说明"],
+
+                ['text', 'tick_y', '打卡Y轴', "打卡Y轴"],
+                ['text', 'tick_x', '打卡X轴', "打卡X轴"],
+                ['text', 'tick_location', '打卡点名字', "打卡点名字"],
+                ['text', 'tick_area', '打卡范围m', "打卡范围m"],
             ]);
 
         return $data
