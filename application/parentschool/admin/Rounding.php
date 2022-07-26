@@ -11,12 +11,12 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\RoundingModel;
 use app\parentschool\model\ParentModel;
+use app\parentschool\model\RoundingModel;
 use app\user\model\Role;
-use util\Tree;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 
 /**
@@ -56,6 +56,7 @@ class Rounding extends Admin
             ->addColumn('id', 'id')
             ->addColumn('rank', '排序', 'text.edit')
             ->addColumn('title', '备注', 'text.edit')
+            ->addColumn('url', 'URL', 'text.edit')
             ->addColumn("img", "图片", "img_url")
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
