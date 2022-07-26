@@ -48,7 +48,7 @@ class StudyTag extends Admin
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
+            ->setSearch(['study_id' => '课程id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
