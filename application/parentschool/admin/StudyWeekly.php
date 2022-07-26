@@ -11,8 +11,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\StudyWeeklyModel;
-use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -46,9 +46,8 @@ class StudyWeekly extends Admin
         $num2 = StudyWeeklyModel::count();
 
         foreach ($data_list as $key => $item) {
-            $tags_map =
-            $item["common_tag"] = TagModel::where("id", $item["aid"])->value("name");
-            $item["special_tag"] = InstructorModel::where("id", $item["iid"])->value("name");
+            $item["common_tag"] = StudyTagModel::join("ps_tag", "tag_id=tag_id", "leftjoin")->where("id", $item["aid"])->value("name");
+//            $item["special_tag"] = InstructorModel::where("id", $item["iid"])->value("name");
             $data_list[$key] = $item;
         }
         return ZBuilder::make('table')
