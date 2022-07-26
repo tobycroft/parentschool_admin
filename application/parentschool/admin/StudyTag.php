@@ -54,22 +54,9 @@ class StudyTag extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['grade', '年级', 'number'],
-                ['area_id', '对应区域', 'number'],
-                ['school_id', '学校id', 'number'],
-                ['title', '标题'],
-                ['slogan', '推荐金句'],
-                ['special_tag', '特殊标签'],
-                ['common_tag', '特殊标签'],
-                ['img', '小图头图', "picture"],
-                ['img_intro', '简介图', "picture"],
-                ['can_push', '是否可以推送', 'switch'],
-                ['push_date', '推送日期', 'text.edit'],
-                ['show_date', '展示日期', 'text.edit'],
-                ['attach_type', '附件类型', 'text'],
-                ['show_to', '展示给谁'],
-                ['change_date', '修改时间'],
-                ['date', '创建时间'],
+                ['study_id', '课程id', 'number'],
+                ['study_type', '课程类型', 'number'],
+                ['tag_id', '标签id', 'number'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
