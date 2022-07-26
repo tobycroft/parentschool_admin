@@ -46,8 +46,8 @@ class StudyWeekly extends Admin
         $num2 = StudyWeeklyModel::count();
 
         foreach ($data_list as $key => $item) {
-            $item["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->value("name");
-//            $item["special_tag"] = InstructorModel::where("id", $item["iid"])->value("name");
+            $item["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("tag_type", "common")->column("name");
+            $item["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("tag_type", "special_tag")->column("name");
             $data_list[$key] = $item;
         }
         return ZBuilder::make('table')
