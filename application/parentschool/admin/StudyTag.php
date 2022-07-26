@@ -12,6 +12,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyTagModel;
+use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -41,10 +42,11 @@ class StudyTag extends Admin
         $page = $data_list->render();
 
 
-//        foreach ($data_list as $key => $item) {
-//            $tags_map =
-//            $data_list[$key] = $item;
-//        }
+        foreach ($data_list as $key => $item) {
+            $tag_info = TagModel::where("id", $item["tag_id"])->find();
+            $item["tag_name"] = $tag_info["name"];
+            $data_list[$key] = $item;
+        }
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
