@@ -44,6 +44,7 @@ class StudyTag extends Admin
 
         foreach ($data_list as $key => $item) {
             $tag_info = TagModel::where("id", $item["tag_id"])->find();
+            $item["tag_type"] = $tag_info["tag_type"];
             $item["tag_name"] = $tag_info["name"];
             $item["tag_class"] = $tag_info["class"];
             $data_list[$key] = $item;
@@ -58,6 +59,7 @@ class StudyTag extends Admin
                 ['study_id', '课程id', 'number'],
                 ['study_type', '课程类型', 'number'],
                 ['tag_id', '标签id', 'number'],
+                ['tag_type', '标签类型'],
                 ['tag_class', '标签分类'],
                 ['tag_name', '标签名称'],
             ])
