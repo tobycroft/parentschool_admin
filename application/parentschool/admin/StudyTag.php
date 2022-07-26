@@ -39,10 +39,7 @@ class StudyTag extends Admin
         // 读取用户数据
         $data_list = StudyTagModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
-        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = StudyTagModel::where("date", ">", $todaytime)->count();
-        $num2 = StudyTagModel::count();
 
 //        foreach ($data_list as $key => $item) {
 //            $tags_map =
