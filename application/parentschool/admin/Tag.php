@@ -11,7 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\StudyWeeklyModel;
+use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -22,7 +22,7 @@ use util\Tree;
  * 用户默认控制器
  * @package app\user\admin
  */
-class StudyWeekly extends Admin
+class Tag extends Admin
 {
     /**
      * 用户首页
@@ -37,18 +37,13 @@ class StudyWeekly extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyWeeklyModel::where($map)->order($order)->paginate();
+        $data_list = TagModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = StudyWeeklyModel::where("date", ">", $todaytime)->count();
-        $num2 = StudyWeeklyModel::count();
+        $num1 = TagModel::where("date", ">", $todaytime)->count();
+        $num2 = TagModel::count();
 
-        foreach ($data_list as $key => $item) {
-            $item["common_tag"] = AssociationModel::where("id", $item["aid"])->value("name");
-            $item["special_tag"] = InstructorModel::where("id", $item["iid"])->value("name");
-            $data_list[$key] = $item;
-        }
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -67,6 +62,8 @@ class StudyWeekly extends Admin
                 ['common_tag', '特殊标签'],
                 ['img', '小图头图', "picture"],
                 ['img_intro', '简介图', "picture"],
+                ['from1', '内容来源1'],
+                ['from2', '内容来源2'],
                 ['can_push', '是否可以推送', 'switch'],
                 ['push_date', '推送日期', 'text.edit'],
                 ['show_date', '展示日期', 'text.edit'],
@@ -114,7 +111,7 @@ class StudyWeekly extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = StudyWeeklyModel::create($data)) {
+            if ($user = TagModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -145,8 +142,8 @@ class StudyWeekly extends Admin
                 ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
                 ['image', 'img_intro', '简介图', "picture"],
-                ['ueditor', 'howto', '实践方法'],
-                ['ueditor', 'notify', '特别提醒'],
+                ['text', 'from1', '内容来源1'],
+                ['text', 'from2', '内容来源2'],
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
@@ -187,8 +184,8 @@ class StudyWeekly extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (StudyWeeklyModel::update($data)) {
-                $user = StudyWeeklyModel::get($data['id']);
+            if (TagModel::update($data)) {
+                $user = TagModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -198,7 +195,7 @@ class StudyWeekly extends Admin
         }
 
         // 获取数据
-        $info = StudyWeeklyModel::where('id', $id)->find();
+        $info = TagModel::where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -215,8 +212,8 @@ class StudyWeekly extends Admin
                 ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
                 ['image', 'img_intro', '简介图', "picture"],
-                ['ueditor', 'howto', '实践方法'],
-                ['ueditor', 'notify', '特别提醒'],
+                ['text', 'from1', '内容来源1'],
+                ['text', 'from2', '内容来源2'],
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
@@ -428,6 +425,58 @@ class StudyWeekly extends Admin
     }
 
     /**
+     * 删除用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     * @author 蔡伟明 <314013107@qq.com>
+     */
+    public function delete($ids = [])
+    {
+        Hook::listen('user_delete', $ids);
+        action_log('user_delete', 'user', $ids, UID);
+        return $this->setStatus('delete');
+    }
+
+    /**
+     * 设置用户状态：删除、禁用、启用
+     * @param string $type 类型：delete/enable/disable
+     * @param array $record
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     * @author 蔡伟明 <314013107@qq.com>
+     */
+    public function setStatus($type = '', $record = [])
+    {
+        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
+        $ids = (array)$ids;
+
+        switch ($type) {
+            case 'enable':
+                if (false === TagModel::where('id', 'in', $ids)->setField('status', 1)) {
+                    $this->error('启用失败');
+                }
+                break;
+            case 'disable':
+                if (false === TagModel::where('id', 'in', $ids)->setField('status', 0)) {
+                    $this->error('禁用失败');
+                }
+                break;
+            case 'delete':
+                if (false === TagModel::where('id', 'in', $ids)->delete()) {
+                    $this->error('删除失败');
+                }
+                break;
+            default:
+                $this->error('非法操作');
+        }
+
+        action_log('user_' . $type, 'admin_user', '', UID);
+
+        $this->success('操作成功');
+    }
+
+    /**
      * 构建jstree代码
      * @param array $nodes 节点
      * @param array $curr_access 当前授权信息
@@ -459,20 +508,6 @@ class StudyWeekly extends Admin
     }
 
     /**
-     * 删除用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
-     */
-    public function delete($ids = [])
-    {
-        Hook::listen('user_delete', $ids);
-        action_log('user_delete', 'user', $ids, UID);
-        return $this->setStatus('delete');
-    }
-
-    /**
      * 启用用户
      * @param array $ids 用户id
      * @throws \think\Exception
@@ -499,44 +534,6 @@ class StudyWeekly extends Admin
     }
 
     /**
-     * 设置用户状态：删除、禁用、启用
-     * @param string $type 类型：delete/enable/disable
-     * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
-     */
-    public function setStatus($type = '', $record = [])
-    {
-        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
-        $ids = (array)$ids;
-
-        switch ($type) {
-            case 'enable':
-                if (false === StudyWeeklyModel::where('id', 'in', $ids)->setField('status', 1)) {
-                    $this->error('启用失败');
-                }
-                break;
-            case 'disable':
-                if (false === StudyWeeklyModel::where('id', 'in', $ids)->setField('status', 0)) {
-                    $this->error('禁用失败');
-                }
-                break;
-            case 'delete':
-                if (false === StudyWeeklyModel::where('id', 'in', $ids)->delete()) {
-                    $this->error('删除失败');
-                }
-                break;
-            default:
-                $this->error('非法操作');
-        }
-
-        action_log('user_' . $type, 'admin_user', '', UID);
-
-        $this->success('操作成功');
-    }
-
-    /**
      * 快速编辑
      * @param array $record 行为日志
      * @return mixed
@@ -556,7 +553,7 @@ class StudyWeekly extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = StudyWeeklyModel::where("id", $id)->setField($field, $value);
+        $result = TagModel::where("id", $id)->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
