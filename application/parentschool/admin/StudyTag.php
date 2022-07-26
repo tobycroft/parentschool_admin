@@ -57,6 +57,7 @@ class StudyTag extends Admin
                 ['study_id', '课程id', 'number'],
                 ['study_type', '课程类型', 'number'],
                 ['tag_id', '标签id', 'number'],
+                ['tag_name', '标签名称'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
