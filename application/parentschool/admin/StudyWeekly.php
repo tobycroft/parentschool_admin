@@ -13,6 +13,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\StudyWeeklyModel;
+use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -116,8 +117,25 @@ class StudyWeekly extends Admin
             }
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
-            $data["special_tag"] = explode(",", $data["special_tag"]);
-
+            StudyTagModel::where("study_id", $data["id"])->delete();
+            $special_tag = explode(",", $data["special_tag"]);
+            foreach ($special_tag as $tagname) {
+                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                StudyTagModel::create([
+                    "study_id" => $data["id"],
+                    "study_type" => "weekly",
+                    "tag_id" => $id,
+                ]);
+            }
+            $common_tag = explode(",", $data["common_tag"]);
+            foreach ($common_tag as $tagname) {
+                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                StudyTagModel::create([
+                    "study_id" => $data["id"],
+                    "study_type" => "weekly",
+                    "tag_id" => $id,
+                ]);
+            }
 
             if ($user = StudyWeeklyModel::create($data)) {
                 Hook::listen('user_add', $user);
