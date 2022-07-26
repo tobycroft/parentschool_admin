@@ -13,6 +13,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyTagModel;
+use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -113,6 +114,25 @@ class StudyDaily extends Admin
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
             if ($user = StudyDailyModel::create($data)) {
+                StudyTagModel::where("study_id", $user->getLastInsID())->delete();
+                $special_tag = explode(",", $data["special_tag"]);
+                foreach ($special_tag as $tagname) {
+                    $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                    StudyTagModel::create([
+                        "study_id" => $user->getLastInsID(),
+                        "study_type" => "daily",
+                        "tag_id" => $id,
+                    ]);
+                }
+                $common_tag = explode(",", $data["common_tag"]);
+                foreach ($common_tag as $tagname) {
+                    $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                    StudyTagModel::create([
+                        "study_id" => $user->getLastInsID(),
+                        "study_type" => "daily",
+                        "tag_id" => $id,
+                    ]);
+                }
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -184,7 +204,25 @@ class StudyDaily extends Admin
 
             // 非超级管理需要验证可选择角色
 
-
+            StudyTagModel::where("study_id", $data["id"])->delete();
+            $special_tag = explode(",", $data["special_tag"]);
+            foreach ($special_tag as $tagname) {
+                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                StudyTagModel::create([
+                    "study_id" => $data["id"],
+                    "study_type" => "weekly",
+                    "tag_id" => $id,
+                ]);
+            }
+            $common_tag = explode(",", $data["common_tag"]);
+            foreach ($common_tag as $tagname) {
+                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                StudyTagModel::create([
+                    "study_id" => $data["id"],
+                    "study_type" => "weekly",
+                    "tag_id" => $id,
+                ]);
+            }
             if (StudyDailyModel::update($data)) {
                 $user = StudyDailyModel::get($data['id']);
                 // 记录行为
