@@ -213,7 +213,7 @@ class StudyDaily extends Admin
                 }
                 StudyTagModel::create([
                     "study_id" => $data["id"],
-                    "study_type" => "weekly",
+                    "study_type" => "daily",
                     "tag_id" => $id,
                 ]);
             }
@@ -225,7 +225,7 @@ class StudyDaily extends Admin
                 }
                 StudyTagModel::create([
                     "study_id" => $data["id"],
-                    "study_type" => "weekly",
+                    "study_type" => "daily",
                     "tag_id" => $id,
                 ]);
             }
