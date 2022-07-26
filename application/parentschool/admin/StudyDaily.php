@@ -67,7 +67,7 @@ class StudyDaily extends Admin
                 ['can_push', '是否可以推送', 'switch'],
                 ['push_date', '推送日期', 'text.edit'],
                 ['show_date', '展示日期', 'text.edit'],
-                ['attach_type', '附件类型', 'datetime'],
+                ['attach_type', '附件类型', 'text'],
                 ['show_to', '展示给谁'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
