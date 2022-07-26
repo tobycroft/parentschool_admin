@@ -216,6 +216,9 @@ class StudyMonthy extends Admin
             $special_tag = explode(",", $data["special_tag"]);
             foreach ($special_tag as $tagname) {
                 $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                if (empty($id)) {
+                    $this->error("$tagname 不存在");
+                }
                 StudyTagModel::create([
                     "study_id" => $data["id"],
                     "study_type" => "weekly",
@@ -225,6 +228,9 @@ class StudyMonthy extends Admin
             $common_tag = explode(",", $data["common_tag"]);
             foreach ($common_tag as $tagname) {
                 $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                if (empty($id)) {
+                    $this->error("$tagname 不存在");
+                }
                 StudyTagModel::create([
                     "study_id" => $data["id"],
                     "study_type" => "weekly",
