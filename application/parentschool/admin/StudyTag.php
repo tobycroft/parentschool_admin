@@ -118,14 +118,20 @@ class StudyTag extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
-
+        $tag = TagModel::select();
+        $tag_name = [];
+        $tag_class = [];
+        foreach ($tag as $item) {
+            $tag_name[$item["id"]] = $item["name"];
+            $tag_class[$item["id"]] = $item["class"];
+        }
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['number', 'study_id', '课程id'],
-                ['number', 'study_type', '课程类型'],
-                ['number', 'tag_id', '标签id'],
+                ['select', 'study_type', '课程类型', \Study\Type::get_type()],
+                ['select', 'tag_id', '标签id', $tag_name],
             ])
             ->fetch();
     }
