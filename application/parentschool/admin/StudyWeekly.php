@@ -116,6 +116,8 @@ class StudyWeekly extends Admin
             }
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
+            $data["special_tag"] = explode(",", $data["special_tag"]);
+
 
             if ($user = StudyWeeklyModel::create($data)) {
                 Hook::listen('user_add', $user);
