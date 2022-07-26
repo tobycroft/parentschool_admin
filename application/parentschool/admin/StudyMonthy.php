@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyMonthyModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -77,8 +77,8 @@ class StudyMonthy extends Admin
                 ['special_tag', '特殊标签'],
                 ['common_tag', '特殊标签'],
                 ['can_push', '是否可以推送', 'switch'],
-                ['push_date', '推送日期', 'datetime'],
-                ['show_date', '展示日期', 'datetime'],
+                ['push_date', '推送日期', 'text.edit'],
+                ['show_date', '展示日期', 'text.edit'],
                 ['show_to', '展示给谁'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
