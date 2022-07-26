@@ -172,15 +172,21 @@ class StudyTag extends Admin
 
         // 获取数据
         $info = StudyTagModel::where('id', $id)->find();
-
+        $tag = TagModel::select();
+        $tag_name = [];
+        $tag_class = [];
+        foreach ($tag as $item) {
+            $tag_name[$item["id"]] = $item["name"];
+            $tag_class[$item["id"]] = $item["class"];
+        }
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['number', 'study_id', '课程id'],
-                ['number', 'study_type', '课程类型'],
-                ['number', 'tag_id', '标签id'],
+                ['select', 'study_type', '课程类型'],
+                ['number', 'tag_id', '标签id', $tag_name],
             ]);
 
         return $data
