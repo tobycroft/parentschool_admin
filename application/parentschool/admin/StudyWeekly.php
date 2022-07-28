@@ -281,7 +281,7 @@ class StudyWeekly extends Admin
         }
         var_dump($tag_common);
         var_dump($tag_choose);
-        exit();
+//        exit();
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
@@ -292,7 +292,7 @@ class StudyWeekly extends Admin
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
                 ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
+                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, ["k22"]],
                 ['checkbox', 'checkbox1', '多选', '提示', ['1' => '是', '0' => '否'], 0],
                 ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
