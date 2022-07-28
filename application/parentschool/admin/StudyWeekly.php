@@ -153,6 +153,20 @@ class StudyWeekly extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
+        $tags = TagModel::column("name");
+        $tag_common = [];
+        $tag_special = [];
+        foreach ($tags as $tag) {
+            switch ($tag["tag_type"]) {
+                case "common":
+                    $tag_common[] = $tag["tag_type"];
+                    break;
+
+                case "special":
+                    $tag_special[] = $tag["tag_type"];
+                    break;
+            }
+        }
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -162,8 +176,8 @@ class StudyWeekly extends Admin
                 ['number', 'school_id', '学校id'],
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
-                ['text', 'special_tag', '特殊标签'],
-                ['text', 'common_tag', '普通/推荐标签'],
+                ['text', 'special_tag', '特殊标签', join(",", $tag_special)],
+                ['text', 'common_tag', '普通/推荐标签', join(",", $tag_common)],
                 ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
                 ['image', 'img_intro', '简介图', "picture"],
@@ -259,6 +273,19 @@ class StudyWeekly extends Admin
         $info["common_tag"] = join(",", $info["common_tag"]);
         $info["special_tag"] = join(",", $info["special_tag"]);
         // 使用ZBuilder快速创建表单
+        $tag_common = [];
+        $tag_special = [];
+        foreach ($tags as $tag) {
+            switch ($tag["tag_type"]) {
+                case "common":
+                    $tag_common[] = $tag["tag_type"];
+                    break;
+
+                case "special":
+                    $tag_special[] = $tag["tag_type"];
+                    break;
+            }
+        }
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
@@ -268,8 +295,8 @@ class StudyWeekly extends Admin
                 ['number', 'school_id', '学校id'],
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
-                ['text', 'special_tag', '特殊标签'],
-                ['text', 'common_tag', '普通/推荐标签'],
+                ['text', 'special_tag', '特殊标签', join(",", $tag_special)],
+                ['text', 'common_tag', '普通/推荐标签', join(",", $tag_common)],
                 ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
                 ['image', 'img_intro', '简介图', "picture"],
