@@ -223,7 +223,7 @@ class StudyWeekly extends Admin
             $special_tag = $data["special_tag"];
             foreach ($special_tag as $id) {
                 StudyTagModel::create([
-                    "study_id" => $user->getLastInsID(),
+                    "study_id" => $data["id"],
                     "study_type" => "weekly",
                     "tag_id" => $id,
                 ]);
@@ -231,7 +231,7 @@ class StudyWeekly extends Admin
             $common_tag = $data["common_tag"];
             foreach ($common_tag as $id) {
                 StudyTagModel::create([
-                    "study_id" => $user->getLastInsID(),
+                    "study_id" => $data["id"],
                     "study_type" => "weekly",
                     "tag_id" => $id,
                 ]);
