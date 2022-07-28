@@ -153,7 +153,13 @@ class StudyWeekly extends Admin
         }
 
         $tag_common = TagModel::where("tag_type", "common")->column("id,name");
+        foreach ($tag_common as $key => $value) {
+            $tag_common[strval($key)] = $value;
+        }
         $tag_special = TagModel::where("tag_type", "special")->column("id,name");
+        foreach ($tag_special as $key => $value) {
+            $tag_special[strval($key)] = $value;
+        }
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
@@ -255,7 +261,13 @@ class StudyWeekly extends Admin
         // 使用ZBuilder快速创建表单
 
         $tag_common = TagModel::where("tag_type", "common")->column("id,name");
+        foreach ($tag_common as $key => $value) {
+            $tag_common[strval($key)] = $value;
+        }
         $tag_special = TagModel::where("tag_type", "special")->column("id,name");
+        foreach ($tag_special as $key => $value) {
+            $tag_special[strval($key)] = $value;
+        }
         $tag_choose = StudyTagModel::where("study_id", $id)->column("tag_id");
 
 
