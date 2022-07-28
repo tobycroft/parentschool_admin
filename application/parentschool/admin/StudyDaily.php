@@ -149,7 +149,8 @@ class StudyDaily extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
         $tags = TagModel::column("name");
-        $tags = TagModel::column("name");
+        print_r($tags);
+        exit();
         $tag_common = [];
         $tag_special = [];
         foreach ($tags as $tag) {

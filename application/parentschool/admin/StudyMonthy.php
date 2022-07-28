@@ -162,7 +162,6 @@ class StudyMonthy extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
         $tags = TagModel::column("name");
-        $tags = TagModel::column("name");
         $tag_common = [];
         $tag_special = [];
         foreach ($tags as $tag) {
