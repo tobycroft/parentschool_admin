@@ -272,8 +272,6 @@ class StudyWeekly extends Admin
         // 使用ZBuilder快速创建表单
 
         $tag_commons = TagModel::where("tag_type", "common")->column("id,name");
-        print_r($tag_commons);
-        exit();
         $tag_common = [];
         foreach ($tag_commons as $tc) {
             $tag_common[$tc["id"]] = $tc["name"];
