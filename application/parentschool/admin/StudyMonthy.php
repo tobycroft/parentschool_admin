@@ -176,7 +176,7 @@ class StudyMonthy extends Admin
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
                 ['text', 'special_tag', '特殊标签', join(",", $tag_special)],
-                ['checkbox', 'common_tag', '普通/推荐标签', $tag_common],
+                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common],
                 ['ueditor', 'content', '内容'],
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
