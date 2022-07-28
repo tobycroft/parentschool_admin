@@ -279,7 +279,7 @@ class StudyWeekly extends Admin
             $item = "k" . $item;
             $tag_choose[$key] = $item;
         }
-        print_r($tag_special);
+        print_r($tag_common);
         print_r($tag_choose);
         exit();
         $data = ZBuilder::make('form')
