@@ -175,6 +175,8 @@ class StudyMonthy extends Admin
                     break;
             }
         }
+        print_r($tag_common);
+        exit();
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -185,8 +187,8 @@ class StudyMonthy extends Admin
                 ['number', 'school_id', '学校id'],
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
-                ['text', 'special_tag', '特殊标签', "", join(",", $tag_special)],
-                ['text', 'common_tag', '普通/推荐标签', "", join(",", $tag_common)],
+                ['text', 'special_tag', '特殊标签', join(",", $tag_special)],
+                ['text', 'common_tag', '普通/推荐标签', join(",", $tag_common)],
                 ['ueditor', 'content', '内容'],
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
