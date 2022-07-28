@@ -149,16 +149,9 @@ class StudyDaily extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $tag_commons = TagModel::where("tag_type", "common")->column("id,name");
-        $tag_common = [];
-        foreach ($tag_commons as $tc) {
-            $tag_common[$tc["id"]] = $tc["name"];
-        }
-        $tag_specials = TagModel::where("tag_type", "special")->column("id,name");
-        $tag_special = [];
-        foreach ($tag_specials as $ts) {
-            $tag_special[$ts["id"]] = $ts["name"];
-        }
+        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
+        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
+
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
@@ -258,16 +251,9 @@ class StudyDaily extends Admin
         $info["special_tag"] = join(",", $info["special_tag"]);
         // 使用ZBuilder快速创建表单
 
-        $tag_commons = TagModel::where("tag_type", "common")->column("id,name");
-        $tag_common = [];
-        foreach ($tag_commons as $tc) {
-            $tag_common[$tc["id"]] = $tc["name"];
-        }
-        $tag_specials = TagModel::where("tag_type", "special")->column("id,name");
-        $tag_special = [];
-        foreach ($tag_specials as $ts) {
-            $tag_special[$ts["id"]] = $ts["name"];
-        }
+        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
+        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
+
 
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
