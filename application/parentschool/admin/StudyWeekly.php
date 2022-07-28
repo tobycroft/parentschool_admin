@@ -256,6 +256,8 @@ class StudyWeekly extends Admin
 
         $tag_common = TagModel::where("tag_type", "common")->column("id,name");
         $tag_special = TagModel::where("tag_type", "special")->column("id,name");
+        var_dump($tag_common);
+        exit();
         $tag_choose = StudyTagModel::where("study_id", $id)->column("tag_id");
 
 
