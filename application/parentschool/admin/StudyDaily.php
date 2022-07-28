@@ -149,11 +149,9 @@ class StudyDaily extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
         $tags = TagModel::column("name");
-        print_r($tags);
-        exit();
         $tag_common = [];
         $tag_special = [];
-        foreach ($tags as $tag) {
+        foreach ($tags as $key => $tag) {
             switch ($tag["tag_type"]) {
                 case "common":
                     $tag_common[] = $tag["tag_type"];
@@ -264,7 +262,7 @@ class StudyDaily extends Admin
         $tags = TagModel::column("name");
         $tag_common = [];
         $tag_special = [];
-        foreach ($tags as $tag) {
+        foreach ($tags as $key => $tag) {
             switch ($tag["tag_type"]) {
                 case "common":
                     $tag_common[] = $tag["tag_type"];
