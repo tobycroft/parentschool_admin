@@ -281,7 +281,8 @@ class StudyWeekly extends Admin
         }
         var_dump($tag_common);
         var_dump($tag_choose);
-//        exit();
+        var_dump(['1' => '是', '0' => '否']);
+        exit();
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
