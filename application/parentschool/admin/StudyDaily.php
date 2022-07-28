@@ -116,22 +116,24 @@ class StudyDaily extends Admin
             if ($user = StudyDailyModel::create($data)) {
                 StudyTagModel::where("study_id", $user->getLastInsID())->delete();
                 $special_tag = $data["special_tag"];
-                foreach ($special_tag as $id) {
-
-                    StudyTagModel::create([
-                        "study_id" => $user->getLastInsID(),
-                        "study_type" => "daily",
-                        "tag_id" => $id,
-                    ]);
+                if ($special_tag) {
+                    foreach ($special_tag as $id) {
+                        StudyTagModel::create([
+                            "study_id" => $user->getLastInsID(),
+                            "study_type" => "daily",
+                            "tag_id" => $id,
+                        ]);
+                    }
                 }
                 $common_tag = $data["common_tag"];
-                foreach ($common_tag as $id) {
-
-                    StudyTagModel::create([
-                        "study_id" => $user->getLastInsID(),
-                        "study_type" => "daily",
-                        "tag_id" => $id,
-                    ]);
+                if ($common_tag) {
+                    foreach ($common_tag as $id) {
+                        StudyTagModel::create([
+                            "study_id" => $user->getLastInsID(),
+                            "study_type" => "daily",
+                            "tag_id" => $id,
+                        ]);
+                    }
                 }
                 Hook::listen('user_add', $user);
                 // 记录行为
@@ -215,20 +217,24 @@ class StudyDaily extends Admin
 
             StudyTagModel::where("study_id", $data["id"])->delete();
             $special_tag = $data["special_tag"];
-            foreach ($special_tag as $id) {
-                StudyTagModel::create([
-                    "study_id" => $data["id"],
-                    "study_type" => "daily",
-                    "tag_id" => $id,
-                ]);
+            if ($special_tag) {
+                foreach ($special_tag as $id) {
+                    StudyTagModel::create([
+                        "study_id" => $data["id"],
+                        "study_type" => "daily",
+                        "tag_id" => $id,
+                    ]);
+                }
             }
             $common_tag = $data["common_tag"];
-            foreach ($common_tag as $id) {
-                StudyTagModel::create([
-                    "study_id" => $data["id"],
-                    "study_type" => "daily",
-                    "tag_id" => $id,
-                ]);
+            if ($common_tag) {
+                foreach ($common_tag as $id) {
+                    StudyTagModel::create([
+                        "study_id" => $data["id"],
+                        "study_type" => "daily",
+                        "tag_id" => $id,
+                    ]);
+                }
             }
             if (StudyDailyModel::update($data)) {
                 $user = StudyDailyModel::get($data['id']);

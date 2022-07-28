@@ -227,20 +227,24 @@ class StudyWeekly extends Admin
 
             StudyTagModel::where("study_id", $data["id"])->delete();
             $special_tag = $data["special_tag"];
-            foreach ($special_tag as $id) {
-                StudyTagModel::create([
-                    "study_id" => $data["id"],
-                    "study_type" => "weekly",
-                    "tag_id" => $id,
-                ]);
+            if ($special_tag) {
+                foreach ($special_tag as $id) {
+                    StudyTagModel::create([
+                        "study_id" => $data["id"],
+                        "study_type" => "weekly",
+                        "tag_id" => $id,
+                    ]);
+                }
             }
             $common_tag = $data["common_tag"];
-            foreach ($common_tag as $id) {
-                StudyTagModel::create([
-                    "study_id" => $data["id"],
-                    "study_type" => "weekly",
-                    "tag_id" => $id,
-                ]);
+            if ($common_tag) {
+                foreach ($common_tag as $id) {
+                    StudyTagModel::create([
+                        "study_id" => $data["id"],
+                        "study_type" => "weekly",
+                        "tag_id" => $id,
+                    ]);
+                }
             }
             if (StudyWeeklyModel::update($data)) {
                 $user = StudyWeeklyModel::get($data['id']);
