@@ -216,8 +216,8 @@ class StudyDaily extends Admin
             // 非超级管理需要验证可选择角色
 
             StudyTagModel::where("study_id", $data["id"])->delete();
-            $special_tag = $data["special_tag"];
-            if ($special_tag) {
+            if ($data["special_tag"]) {
+                $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {
                     StudyTagModel::create([
                         "study_id" => $data["id"],
@@ -226,8 +226,8 @@ class StudyDaily extends Admin
                     ]);
                 }
             }
-            $common_tag = $data["common_tag"];
-            if ($common_tag) {
+            if ($data["common_tag"]) {
+                $common_tag = $data["common_tag"];
                 foreach ($common_tag as $id) {
                     StudyTagModel::create([
                         "study_id" => $data["id"],
