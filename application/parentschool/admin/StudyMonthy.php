@@ -232,7 +232,7 @@ class StudyMonthy extends Admin
                     StudyTagModel::create([
                         "study_id" => $data["id"],
                         "study_type" => "monthy",
-                        "tag_id" => $id,
+                        "tag_id" => trim($id, "k"),
                     ]);
                 }
             }
@@ -242,7 +242,7 @@ class StudyMonthy extends Admin
                     StudyTagModel::create([
                         "study_id" => $data["id"],
                         "study_type" => "monthy",
-                        "tag_id" => $id,
+                        "tag_id" => trim($id, "k"),
                     ]);
                 }
             }

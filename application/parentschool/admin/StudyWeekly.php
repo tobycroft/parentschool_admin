@@ -232,7 +232,7 @@ class StudyWeekly extends Admin
                     StudyTagModel::create([
                         "study_id" => $data["id"],
                         "study_type" => "weekly",
-                        "tag_id" => $id,
+                        "tag_id" => trim($id, "k"),
                     ]);
                 }
             }
@@ -242,7 +242,7 @@ class StudyWeekly extends Admin
                     StudyTagModel::create([
                         "study_id" => $data["id"],
                         "study_type" => "weekly",
-                        "tag_id" => $id,
+                        "tag_id" => trim($id, "k"),
                     ]);
                 }
             }
