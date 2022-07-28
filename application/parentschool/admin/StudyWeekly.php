@@ -41,9 +41,6 @@ class StudyWeekly extends Admin
         // 读取用户数据
         $data_list = StudyWeeklyModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
-        var_dump($data_list);
-
-        exit();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
         $num1 = StudyWeeklyModel::where("date", ">", $todaytime)->count();
@@ -70,8 +67,8 @@ class StudyWeekly extends Admin
                 ['school_id', '学校id', 'number'],
                 ['title', '标题'],
                 ['slogan', '推荐金句'],
-                ['special_tag', '特殊标签'],
-                ['common_tag', '特殊标签'],
+//                ['special_tag', '特殊标签'],
+//                ['common_tag', '特殊标签'],
                 ['img', '小图头图', "picture"],
                 ['img_intro', '简介图', "picture"],
                 ['can_push', '是否可以推送', 'switch'],
