@@ -269,7 +269,7 @@ class StudyWeekly extends Admin
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
                 ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, 3],
+                ['checkbox', 'common_tag', '普通/推荐标签', "", ["t1" => "aaa", "t2" => "bbb"], "t1"],
                 ['ueditor', 'content', '内容'],
                 ['image', 'img', '小图头图', "picture"],
                 ['image', 'img_intro', '简介图', "picture"],
