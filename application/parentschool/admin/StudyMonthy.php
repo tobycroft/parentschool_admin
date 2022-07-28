@@ -258,10 +258,7 @@ class StudyMonthy extends Admin
 
         // 获取数据
         $info = StudyMonthyModel::where('id', $id)->find();
-        $info["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $info["id"])->where("b.tag_type", "common")->column("name");
-        $info["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $info["id"])->where("b.tag_type", "special_tag")->column("name");
-        $info["common_tag"] = join(",", $info["common_tag"]);
-        $info["special_tag"] = join(",", $info["special_tag"]);
+
 
         // 使用ZBuilder快速创建表单
 
@@ -280,6 +277,10 @@ class StudyMonthy extends Admin
             $item = "k" . $item;
             $tag_choose[$key] = $item;
         }
+
+        $info["special_tag"] = null;
+        $info["common_tag"] = null;
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
