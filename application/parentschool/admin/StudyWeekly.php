@@ -272,6 +272,8 @@ class StudyWeekly extends Admin
         }
         $tag_choose = StudyTagModel::where("study_id", $id)->column("tag_id");
 
+        var_dump($tag_special);
+        exit();
 
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
