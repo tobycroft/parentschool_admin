@@ -164,7 +164,7 @@ class StudyMonthy extends Admin
         $tags = TagModel::column("name");
         $tag_common = [];
         $tag_special = [];
-        foreach ($tags as $key => $tag) {
+        foreach ($tags as $tag => $key) {
             switch ($tag["tag_type"]) {
                 case "common":
                     $tag_common[] = $tag["tag_type"];
@@ -271,7 +271,7 @@ class StudyMonthy extends Admin
         $tags = TagModel::column("name");
         $tag_common = [];
         $tag_special = [];
-        foreach ($tags as $key => $tag) {
+        foreach ($tags as $tag => $key) {
             switch ($tag["tag_type"]) {
                 case "common":
                     $tag_common[] = $tag["tag_type"];
