@@ -232,7 +232,7 @@ class StudyWeekly extends Admin
                     StudyTagModel::create([
                         "study_id" => $data["id"],
                         "study_type" => "weekly",
-                        "tag_id" => trim($id, "k"),
+                        "tag_id" => $id,
                     ]);
                 }
             }
@@ -242,7 +242,7 @@ class StudyWeekly extends Admin
                     StudyTagModel::create([
                         "study_id" => $data["id"],
                         "study_type" => "weekly",
-                        "tag_id" => trim($id, "k"),
+                        "tag_id" => $id,
                     ]);
                 }
             }
@@ -260,21 +260,9 @@ class StudyWeekly extends Admin
         $info = StudyWeeklyModel::where('id', $id)->find();
         // 使用ZBuilder快速创建表单
 
-        $tag_commons = TagModel::where("tag_type", "common")->column("id,name");
-        $tag_common = [];
-        foreach ($tag_commons as $key => $value) {
-            $tag_common["k" . $key] = $value;
-        }
-        $tag_specials = TagModel::where("tag_type", "special")->column("id,name");
-        $tag_special = [];
-        foreach ($tag_specials as $key => $value) {
-            $tag_special["k" . $key] = $value;
-        }
+        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
+        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
         $tag_choose = StudyTagModel::where("study_id", $id)->column("tag_id");
-        foreach ($tag_choose as $key => $item) {
-            $item = "k" . $item;
-            $tag_choose[$key] = $item;
-        }
 
         $info["special_tag"] = null;
         $info["common_tag"] = null;
