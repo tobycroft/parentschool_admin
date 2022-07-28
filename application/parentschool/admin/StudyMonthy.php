@@ -129,8 +129,7 @@ class StudyMonthy extends Admin
             if ($user = StudyMonthyModel::create($data)) {
                 StudyTagModel::where("study_id", $user->getLastInsID())->delete();
                 $special_tag = $data["special_tag"];
-                foreach ($special_tag as $tagname) {
-                    $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                foreach ($special_tag as $id) {
                     StudyTagModel::create([
                         "study_id" => $user->getLastInsID(),
                         "study_type" => "monthy",
@@ -138,8 +137,7 @@ class StudyMonthy extends Admin
                     ]);
                 }
                 $common_tag = $data["common_tag"];
-                foreach ($common_tag as $tagname) {
-                    $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                foreach ($common_tag as $id) {
                     StudyTagModel::create([
                         "study_id" => $user->getLastInsID(),
                         "study_type" => "monthy",
@@ -218,11 +216,7 @@ class StudyMonthy extends Admin
 
             StudyTagModel::where("study_id", $data["id"])->delete();
             $special_tag = $data["special_tag"];
-            foreach ($special_tag as $tagname) {
-                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
-                if (empty($id)) {
-                    $this->error("$tagname 不存在");
-                }
+            foreach ($special_tag as $id) {
                 StudyTagModel::create([
                     "study_id" => $data["id"],
                     "study_type" => "monthy",
@@ -230,11 +224,7 @@ class StudyMonthy extends Admin
                 ]);
             }
             $common_tag = $data["common_tag"];
-            foreach ($common_tag as $tagname) {
-                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
-                if (empty($id)) {
-                    $this->error("$tagname 不存在");
-                }
+            foreach ($common_tag as $id) {
                 StudyTagModel::create([
                     "study_id" => $data["id"],
                     "study_type" => "monthy",

@@ -121,8 +121,7 @@ class StudyWeekly extends Admin
             if ($user = StudyWeeklyModel::create($data)) {
                 StudyTagModel::where("study_id", $user->getLastInsID())->delete();
                 $special_tag = $data["special_tag"];
-                foreach ($special_tag as $tagname) {
-                    $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                foreach ($special_tag as $id) {
                     StudyTagModel::create([
                         "study_id" => $user->getLastInsID(),
                         "study_type" => "weekly",
@@ -130,8 +129,7 @@ class StudyWeekly extends Admin
                     ]);
                 }
                 $common_tag = $data["common_tag"];
-                foreach ($common_tag as $tagname) {
-                    $id = TagModel::where("name", "like", "%$tagname%")->value("id");
+                foreach ($common_tag as $id) {
                     StudyTagModel::create([
                         "study_id" => $user->getLastInsID(),
                         "study_type" => "weekly",
@@ -223,25 +221,17 @@ class StudyWeekly extends Admin
 
             StudyTagModel::where("study_id", $data["id"])->delete();
             $special_tag = $data["special_tag"];
-            foreach ($special_tag as $tagname) {
-                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
-                if (empty($id)) {
-                    $this->error("$tagname 不存在");
-                }
+            foreach ($special_tag as $id) {
                 StudyTagModel::create([
-                    "study_id" => $data["id"],
+                    "study_id" => $user->getLastInsID(),
                     "study_type" => "weekly",
                     "tag_id" => $id,
                 ]);
             }
             $common_tag = $data["common_tag"];
-            foreach ($common_tag as $tagname) {
-                $id = TagModel::where("name", "like", "%$tagname%")->value("id");
-                if (empty($id)) {
-                    $this->error("$tagname 不存在");
-                }
+            foreach ($common_tag as $id) {
                 StudyTagModel::create([
-                    "study_id" => $data["id"],
+                    "study_id" => $user->getLastInsID(),
                     "study_type" => "weekly",
                     "tag_id" => $id,
                 ]);
