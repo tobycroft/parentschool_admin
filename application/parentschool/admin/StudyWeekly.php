@@ -276,8 +276,8 @@ class StudyWeekly extends Admin
             $tag_choose[$key] = $item;
         }
 
-        $info["special_tag"] = $tag_special;
-        $info["common_tag"] = $tag_common;
+        $info["special_tag"] = null;
+        $info["common_tag"] = null;
 
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
