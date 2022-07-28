@@ -41,6 +41,9 @@ class StudyWeekly extends Admin
         // 读取用户数据
         $data_list = StudyWeeklyModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
+        var_dump($page);
+
+        exit();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
         $num1 = StudyWeeklyModel::where("date", ">", $todaytime)->count();

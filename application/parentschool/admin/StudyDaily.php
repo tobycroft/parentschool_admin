@@ -42,7 +42,6 @@ class StudyDaily extends Admin
         $data_list = StudyDailyModel::where($map)->order($order)->paginate();
 
         $page = $data_list->render();
-        var_dump($page);
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
         $num1 = StudyDailyModel::where("date", ">", $todaytime)->count();
