@@ -273,6 +273,7 @@ class StudyWeekly extends Admin
         $info["common_tag"] = join(",", $info["common_tag"]);
         $info["special_tag"] = join(",", $info["special_tag"]);
         // 使用ZBuilder快速创建表单
+        $tags = TagModel::column("name");
         $tag_common = [];
         $tag_special = [];
         foreach ($tags as $tag) {
