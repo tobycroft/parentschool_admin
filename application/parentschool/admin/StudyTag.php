@@ -44,9 +44,12 @@ class StudyTag extends Admin
 
         foreach ($data_list as $key => $item) {
             $tag_info = TagModel::where("id", $item["tag_id"])->find();
-            $item["tag_type"] = $tag_info["tag_type"];
-            $item["tag_name"] = $tag_info["name"];
-            $item["tag_class"] = $tag_info["class"];
+            if ($tag_info) {
+                $item["tag_type"] = $tag_info["tag_type"];
+                $item["tag_name"] = $tag_info["name"];
+                $item["tag_class"] = $tag_info["class"];
+            }
+
             $data_list[$key] = $item;
         }
         return ZBuilder::make('table')
