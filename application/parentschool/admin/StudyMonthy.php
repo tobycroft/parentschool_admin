@@ -254,9 +254,6 @@ class StudyMonthy extends Admin
         $tag_special = TagModel::where("tag_type", "special")->column("id,name");
 
         $tag_choose = StudyTagModel::where("study_id", $id)->column("tag_id");
-        echo json_encode($tag_common, 320);
-        echo json_encode($tag_choose, 320);
-        exit();
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
@@ -268,7 +265,7 @@ class StudyMonthy extends Admin
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
                 ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
+                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, ["2", "3"]],
                 ['ueditor', 'content', '内容'],
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
