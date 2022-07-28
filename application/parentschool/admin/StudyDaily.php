@@ -151,14 +151,14 @@ class StudyDaily extends Admin
         $tags = TagModel::column("name");
         $tag_common = [];
         $tag_special = [];
-        foreach ($tags as $tag => $key) {
-            switch ($tag["tag_type"]) {
+        foreach ($tags as $tag) {
+            switch ($tag) {
                 case "common":
-                    $tag_common[] = $tag["tag_type"];
+                    $tag_common[] = $tag;
                     break;
 
                 case "special":
-                    $tag_special[] = $tag["tag_type"];
+                    $tag_special[] = $tag;
                     break;
             }
         }
@@ -262,14 +262,14 @@ class StudyDaily extends Admin
         $tags = TagModel::column("name");
         $tag_common = [];
         $tag_special = [];
-        foreach ($tags as $tag => $key) {
-            switch ($tag["tag_type"]) {
+        foreach ($tags as $tag) {
+            switch ($tag) {
                 case "common":
-                    $tag_common[] = $tag["tag_type"];
+                    $tag_common[] = $tag;
                     break;
 
                 case "special":
-                    $tag_special[] = $tag["tag_type"];
+                    $tag_special[] = $tag;
                     break;
             }
         }
