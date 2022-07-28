@@ -120,7 +120,7 @@ class StudyWeekly extends Admin
 
             if ($user = StudyWeeklyModel::create($data)) {
                 StudyTagModel::where("study_id", $user->getLastInsID())->delete();
-                $special_tag = explode(",", $data["special_tag"]);
+                $special_tag = $data["special_tag"];
                 foreach ($special_tag as $tagname) {
                     $id = TagModel::where("name", "like", "%$tagname%")->value("id");
                     StudyTagModel::create([
@@ -129,7 +129,7 @@ class StudyWeekly extends Admin
                         "tag_id" => $id,
                     ]);
                 }
-                $common_tag = explode(",", $data["common_tag"]);
+                $common_tag = $data["common_tag"];
                 foreach ($common_tag as $tagname) {
                     $id = TagModel::where("name", "like", "%$tagname%")->value("id");
                     StudyTagModel::create([
@@ -222,7 +222,7 @@ class StudyWeekly extends Admin
             // 非超级管理需要验证可选择角色
 
             StudyTagModel::where("study_id", $data["id"])->delete();
-            $special_tag = explode(",", $data["special_tag"]);
+            $special_tag = $data["special_tag"];
             foreach ($special_tag as $tagname) {
                 $id = TagModel::where("name", "like", "%$tagname%")->value("id");
                 if (empty($id)) {
@@ -234,7 +234,7 @@ class StudyWeekly extends Admin
                     "tag_id" => $id,
                 ]);
             }
-            $common_tag = explode(",", $data["common_tag"]);
+            $common_tag = $data["common_tag"];
             foreach ($common_tag as $tagname) {
                 $id = TagModel::where("name", "like", "%$tagname%")->value("id");
                 if (empty($id)) {
