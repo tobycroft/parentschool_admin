@@ -39,7 +39,7 @@ class StudyDaily extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyDailyModel::where($map)->order($order)->select();
+        $data_list = StudyDailyModel::where($map)->order($order)->paginate();
 
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
