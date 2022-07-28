@@ -226,7 +226,7 @@ class StudyMonthy extends Admin
             // 非超级管理需要验证可选择角色
 
             StudyTagModel::where("study_id", $data["id"])->delete();
-            if ($data["special_tag"]) {
+            if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {
                     StudyTagModel::create([
@@ -236,7 +236,7 @@ class StudyMonthy extends Admin
                     ]);
                 }
             }
-            if ($data["common_tag"]) {
+            if (isset($data["common_tag"])) {
                 $common_tag = $data["common_tag"];
                 foreach ($common_tag as $id) {
                     StudyTagModel::create([
