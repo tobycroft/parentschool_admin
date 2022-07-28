@@ -153,20 +153,10 @@ class StudyWeekly extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
-        $tags = TagModel::select();
-        $tag_common = [];
-        $tag_special = [];
-        foreach ($tags as $tag) {
-            switch ($tag) {
-                case "common":
-                    $tag_common[] = $tag;
-                    break;
+        
+        $tag_common = TagModel::where("tag_type", "common")->column("name");
+        $tag_special = TagModel::where("tag_type", "special")->column("name");
 
-                case "special":
-                    $tag_special[] = $tag;
-                    break;
-            }
-        }
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -273,20 +263,10 @@ class StudyWeekly extends Admin
         $info["common_tag"] = join(",", $info["common_tag"]);
         $info["special_tag"] = join(",", $info["special_tag"]);
         // 使用ZBuilder快速创建表单
-        $tags = TagModel::select();
-        $tag_common = [];
-        $tag_special = [];
-        foreach ($tags as $tag) {
-            switch ($tag) {
-                case "common":
-                    $tag_common[] = $tag;
-                    break;
 
-                case "special":
-                    $tag_special[] = $tag;
-                    break;
-            }
-        }
+        $tag_common = TagModel::where("tag_type", "common")->column("name");
+        $tag_special = TagModel::where("tag_type", "special")->column("name");
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
