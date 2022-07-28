@@ -254,6 +254,7 @@ class StudyMonthy extends Admin
         $tag_special = TagModel::where("tag_type", "special")->column("id,name");
 
         $tag_choose = StudyTagModel::where("study_id", $id)->column("tag_id");
+        echo json_encode($tag_common, 320);
         echo json_encode($tag_choose, 320);
         exit();
         $data = ZBuilder::make('form')
