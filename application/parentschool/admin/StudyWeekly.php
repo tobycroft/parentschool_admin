@@ -282,6 +282,7 @@ class StudyWeekly extends Admin
         print_r($tag_common);
         print_r($tag_choose);
         print_r(['k22' => '是a', 'k3' => '否d']);
+        print_r(["k22"]);
 
         exit();
         $data = ZBuilder::make('form')
