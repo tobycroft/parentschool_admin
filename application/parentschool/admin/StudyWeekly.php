@@ -280,9 +280,6 @@ class StudyWeekly extends Admin
                     break;
 
                 case "monthy":
-                    $end_date = $push_date + $data["tick_need"] * 86400 * 30 + 86400;
-                    break;
-
                 default:
                     $end_date = $push_date + $data["tick_need"] * 86400 * 30 + 86400;
                     break;
