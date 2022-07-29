@@ -286,7 +286,6 @@ class StudyWeekly extends Admin
                 default:
                     $data["end_date"] = time();
                     break;
-
             }
             $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
 
