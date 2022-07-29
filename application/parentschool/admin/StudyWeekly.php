@@ -270,7 +270,6 @@ class StudyWeekly extends Admin
             }
 
             $push_date = strtotime($data["push_date"]);
-
             switch ($data["tick_mode"]) {
                 case "daily":
                     $end_date = $push_date + $data["tick_need"] * 86400 + 86400;
@@ -289,7 +288,7 @@ class StudyWeekly extends Admin
                     break;
             }
             if ($end_date > strtotime($data["end_date"])) {
-                $data["end_date"] = $end_date;
+                $data["end_date"] = date("Y-m-d H:i:s", $end_date);
             }
 
 
