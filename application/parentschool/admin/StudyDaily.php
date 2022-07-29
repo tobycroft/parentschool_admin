@@ -222,7 +222,7 @@ class StudyDaily extends Admin
 
             // 非超级管理需要验证可选择角色
 
-            StudyTagModel::where("study_id", $data["id"])->delete();
+            StudyTagModel::where("study_id", $data["id"])->where("study_type", "daily")->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {

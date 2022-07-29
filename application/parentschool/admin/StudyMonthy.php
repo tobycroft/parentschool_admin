@@ -133,7 +133,7 @@ class StudyMonthy extends Admin
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
             if ($user = StudyMonthyModel::create($data)) {
-                StudyTagModel::where("study_id", $user->getLastInsID())->delete();
+                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "monthy")->delete();
                 $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
@@ -231,7 +231,7 @@ class StudyMonthy extends Admin
 
             // 非超级管理需要验证可选择角色
 
-            StudyTagModel::where("study_id", $data["id"])->delete();
+            StudyTagModel::where("study_id", $data["id"])->where("study_type", "monthy")->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {
