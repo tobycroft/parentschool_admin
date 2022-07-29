@@ -185,7 +185,7 @@ class StudyWeekly extends Admin
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
 
                 ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
-                ['text', 'tick_mode', '打卡模式', "打卡模式"],
+                ['text', 'tick_mode', '打卡模式', "打卡模式", "", ['default' => "未选择", 'daily' => "每日打卡", 'weekly' => "每周打卡", 'monthy' => "每月打卡"]],
                 ['text', 'tick_word', '打卡说明', "打卡说明"],
 
                 ['text', 'tick_y', '打卡Y轴', "打卡Y轴"],
