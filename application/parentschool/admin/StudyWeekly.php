@@ -75,7 +75,7 @@ class StudyWeekly extends Admin
                 ['push_date', '推送日期', 'text.edit'],
                 ['show_date', '展示日期', 'text.edit'],
                 ['end_date', '结束日期', 'text.edit'],
-                ['attach_type', '附件类型', 'text'],
+//                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
