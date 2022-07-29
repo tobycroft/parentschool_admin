@@ -13,6 +13,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
+use app\parentschool\model\StudyWeeklyModel;
 use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -39,7 +40,13 @@ class StudyMonthy extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyMonthyModel::where($map)->order($order)->paginate();
+        $data_list = StudyWeeklyModel::where($map)->order($order)->paginate()->each(function ($item, $key) {
+            $item["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("b.tag_type", "common")->column("name");
+            $item["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("b.tag_type", "special")->column("name");
+            $item["common_tag"] = join(",", $item["common_tag"]);
+            $item["special_tag"] = join(",", $item["special_tag"]);
+            return $item;
+        });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
