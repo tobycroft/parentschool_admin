@@ -40,7 +40,6 @@ class StudyWeekly extends Admin
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudyWeeklyModel::where($map)->order($order)->paginate();
-        $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
         $num1 = StudyWeeklyModel::where("date", ">", $todaytime)->count();
@@ -53,6 +52,8 @@ class StudyWeekly extends Admin
             $item["special_tag"] = join(",", $item["special_tag"]);
             $data_list[$key] = $item;
         }
+        $page = $data_list->render();
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
