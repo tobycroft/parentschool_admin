@@ -284,7 +284,7 @@ class StudyWeekly extends Admin
                     break;
 
                 default:
-                    $end_date = $push_date;
+                    $end_date = $push_date + $data["tick_need"] * 86400 * 30 + 86400;
                     break;
             }
             if ($end_date > strtotime($data["end_date"])) {
