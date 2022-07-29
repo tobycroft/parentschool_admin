@@ -284,7 +284,7 @@ class StudyWeekly extends Admin
                     break;
 
                 default:
-                    $end_date = time();
+                    $end_date = $push_date;
                     break;
             }
             if ($end_date > strtotime($data["end_date"])) {
