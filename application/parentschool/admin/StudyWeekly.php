@@ -44,6 +44,7 @@ class StudyWeekly extends Admin
             $item["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("b.tag_type", "special_tag")->column("name");
             $item["common_tag"] = join(",", $item["common_tag"]);
             $item["special_tag"] = join(",", $item["special_tag"]);
+            return $item;
         });
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
