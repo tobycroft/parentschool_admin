@@ -270,23 +270,26 @@ class StudyWeekly extends Admin
             }
 
             $push_date = strtotime($data["push_date"]);
-            switch ($data["tick_mode"]) {
-                case "daily":
-                    $data["end_date"] = $push_date + $data["tick_need"] * 86400 + 86400;
-                    break;
+            if ($push_date < strtotime($data["end_date"])) {
+                switch ($data["tick_mode"]) {
+                    case "daily":
+                        $data["end_date"] = $push_date + $data["tick_need"] * 86400 + 86400;
+                        break;
 
-                case "weekly":
-                    $data["end_date"] = $push_date + $data["tick_need"] * 86400 * 7 + 86400;
-                    break;
+                    case "weekly":
+                        $data["end_date"] = $push_date + $data["tick_need"] * 86400 * 7 + 86400;
+                        break;
 
-                case "monthy":
-                    $data["end_date"] = $push_date + $data["tick_need"] * 86400 * 30 + 86400;
-                    break;
+                    case "monthy":
+                        $data["end_date"] = $push_date + $data["tick_need"] * 86400 * 30 + 86400;
+                        break;
 
-                default:
-                    $data["end_date"] = time();
-                    break;
+                    default:
+                        $data["end_date"] = time();
+                        break;
+                }
             }
+
             $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
 
             if (StudyWeeklyModel::update($data)) {
