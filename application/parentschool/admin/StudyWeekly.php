@@ -119,7 +119,7 @@ class StudyWeekly extends Admin
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
             if ($user = StudyWeeklyModel::create($data)) {
-                StudyTagModel::where("study_id", $user->getLastInsID())->delete();
+                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "weelky")->delete();
                 $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {
                     StudyTagModel::create([
