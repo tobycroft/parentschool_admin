@@ -39,21 +39,17 @@ class StudyWeekly extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyWeeklyModel::where($map)->order($order)->paginate();
+        $data_list = StudyWeeklyModel::where($map)->order($order)->paginate()->each(function ($item, $key) {
+            $item["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("b.tag_type", "common")->column("name");
+            $item["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("b.tag_type", "special_tag")->column("name");
+            $item["common_tag"] = join(",", $item["common_tag"]);
+            $item["special_tag"] = join(",", $item["special_tag"]);
+        });
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
         $num1 = StudyWeeklyModel::where("date", ">", $todaytime)->count();
         $num2 = StudyWeeklyModel::count();
 
-        foreach ($data_list as $key => $item) {
-            echo "<br>";
-            echo $item["id"];
-            $item["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("b.tag_type", "common")->column("name");
-            $item["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("b.tag_type", "special_tag")->column("name");
-            $item["common_tag"] = join(",", $item["common_tag"]);
-            $item["special_tag"] = join(",", $item["special_tag"]);
-            $data_list[$key] = $item;
-        }
         $page = $data_list->render();
 
         return ZBuilder::make('table')
