@@ -118,6 +118,26 @@ class StudyWeekly extends Admin
             }
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
+            $push_date = strtotime($data["push_date"]);
+            switch ($data["tick_mode"]) {
+                case "daily":
+                    $data["end_date"] = $push_date + $data["tick_need"] * 86400 + 86400;
+                    break;
+
+                case "weekly":
+                    $data["end_date"] = $push_date + $data["tick_need"] * 86400 * 7 + 86400;
+                    break;
+
+                case "monthy":
+                    $data["end_date"] = $push_date + $data["tick_need"] * 86400 * 30 + 86400;
+                    break;
+
+                default:
+                    $data["end_date"] = time();
+                    break;
+
+            }
+            $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
 
             if ($user = StudyWeeklyModel::create($data)) {
                 StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "weelky")->delete();
@@ -181,7 +201,7 @@ class StudyWeekly extends Admin
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['datetime', 'end_date', '结束日期'],
+//                ['datetime', 'end_date', '结束日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
