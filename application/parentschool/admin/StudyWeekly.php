@@ -288,9 +288,10 @@ class StudyWeekly extends Admin
                         $data["end_date"] = time();
                         break;
                 }
+                $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
+
             }
 
-            $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
 
             if (StudyWeeklyModel::update($data)) {
                 $user = StudyWeeklyModel::get($data['id']);
