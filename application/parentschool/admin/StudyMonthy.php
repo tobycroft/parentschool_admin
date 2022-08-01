@@ -65,6 +65,18 @@ class StudyMonthy extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('study_monthy_topic/add', ['study_id' => '__id__'])
         ];
+        $btn_access3 = [
+            'title' => '新建数据',
+            'icon' => 'fa fa-plus',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
+        ];
+        $btn_access4 = [
+            'title' => '新建数据',
+            'icon' => 'fa fa-plus',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
+        ];
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -92,7 +104,12 @@ class StudyMonthy extends Admin
                 ['date', '创建时间'],
             ])
             ->addColumn('right_button', '操作', 'btn')
-            ->addRightButtons(["列出" => $btn_access, "新建" => $btn_access2])
+            ->addRightButtons([
+                "子课程列表" => $btn_access,
+                "新建" => $btn_access2,
+                "题目列表" => $btn_access3,
+                "新建题目" => $btn_access4,
+            ])
 //            ->addRightButton('新建', $btn_access2)
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
