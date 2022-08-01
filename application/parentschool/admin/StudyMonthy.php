@@ -66,13 +66,13 @@ class StudyMonthy extends Admin
             'href' => url('study_monthy_topic/add', ['study_id' => '__id__'])
         ];
         $btn_access3 = [
-            'title' => '新建数据',
-            'icon' => 'fa fa-plus',
+            'title' => '列出题目',
+            'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
         ];
         $btn_access4 = [
-            'title' => '新建数据',
+            'title' => '新建题目',
             'icon' => 'fa fa-plus',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
