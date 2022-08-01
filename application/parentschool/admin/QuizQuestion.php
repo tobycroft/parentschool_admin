@@ -43,6 +43,18 @@ class QuizQuestion extends Admin
 
 //        $num1 = QuizQuestionModel::where("date", ">", $todaytime)->count();
 //        $num2 = QuizQuestionModel::count();
+        $btn_access3 = [
+            'title' => '列出题目',
+            'icon' => 'fa fa-list',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('quiz_selection/index', ['search_field' => "question_id", "keyword" => "__id__"])
+        ];
+        $btn_access4 = [
+            'title' => '新建题目',
+            'icon' => 'fa fa-plus',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('quiz_selection/add', ['question_id' => '__id__',])
+        ];
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -65,6 +77,10 @@ class QuizQuestion extends Admin
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
+            ->addRightButtons([
+                "题目列表" => $btn_access3,
+                "新建题目" => $btn_access4,
+            ])
             ->fetch();
     }
 
