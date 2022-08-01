@@ -54,7 +54,7 @@ class StudyMonthy extends Admin
 
         $btn_access = [
             'title' => '对应课程',
-            'icon' => 'fa fa-fw fa-key',
+            'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('study_monthy_topic/index', ['search_field' => 'study_id', 'keyword' => '__id__'])
         ];
