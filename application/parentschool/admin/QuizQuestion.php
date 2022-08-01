@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\QuizQuestionModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -127,6 +127,8 @@ class QuizQuestion extends Admin
                 ['textarea', 'remark', '提示', ''],
                 ['image', 'img', '配图', ''],
             ])
+            ->setFormData(["study_id" => input("study_id")])
+            ->setFormData(["type" => input("study_type")])
             ->fetch();
     }
 
