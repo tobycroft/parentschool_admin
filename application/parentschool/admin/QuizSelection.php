@@ -120,7 +120,7 @@ class QuizSelection extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'question_id', '家长id', ''],
+                ['number', 'question_id', '问题id', ''],
                 ['number', 'rank', '排序', ''],
                 ['switch', 'is_answer', '是否是答案', ''],
                 ['textarea', 'title', '选项', ''],
