@@ -3,7 +3,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/public/min/lib/Minify/YUI" isTestSource="false" packagePrefix="com.yahoo.platform.yui.compressor" />
+      <sourceFolder url="file://$MODULE_DIR$/application" isTestSource="false" packagePrefix="app\" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
