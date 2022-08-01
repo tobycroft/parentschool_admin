@@ -69,7 +69,7 @@ class StudyMonthy extends Admin
             'title' => '列出题目',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
+            'href' => url('quiz_question/index', ['study_id' => '__id__', "study_type" => "monthy"])
         ];
         $btn_access4 = [
             'title' => '新建题目',
