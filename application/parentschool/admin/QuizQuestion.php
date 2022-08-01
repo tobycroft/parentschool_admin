@@ -127,8 +127,7 @@ class QuizQuestion extends Admin
                 ['textarea', 'remark', '提示', ''],
                 ['image', 'img', '配图', ''],
             ])
-            ->setFormData(["study_id" => input("study_id")])
-            ->setFormData(["type" => input("study_type")])
+            ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
     }
 
