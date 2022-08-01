@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\QuizSelectionModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -127,6 +127,7 @@ class QuizSelection extends Admin
                 ['textarea', 'content', '内容', ''],
                 ['textarea', 'remark', '错误提示', ''],
             ])
+            ->setFormData(["question_id" => input("question_id")])
             ->fetch();
     }
 
