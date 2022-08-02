@@ -60,7 +60,7 @@ class Rate extends Admin
                     ['share', '是否分享', 'switch'],
                     ['like', '是否点赞', 'switch'],
                     ['change_date', '修改时间'],
-                    ['date', '创建时间']
+                    ['date', '创建时间'],
                 ]
             )
             ->addColumn('right_button', '操作', 'btn')
