@@ -63,7 +63,7 @@ class Rate extends Admin
                     ['date', '创建时间'],
                 ]
             )
-            ->addFilter('like', ['like' => true])
+            ->addFilter('like', true)
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
