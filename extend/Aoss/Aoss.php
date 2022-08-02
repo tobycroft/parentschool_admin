@@ -24,6 +24,10 @@ class Aoss
         $response = curl_exec($ch);
         curl_close($ch);
         $json = json_decode($response, true);
+        if (empty($json) || empty($json["code"])) {
+            return false;
+        }
+
         if ($json["code"] == "0") {
             return $json["data"];
         } else {
