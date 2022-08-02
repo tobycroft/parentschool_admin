@@ -53,7 +53,7 @@ class Rate extends Admin
             ->addOrder('id')
             ->addColumns([
                     ['id', 'ID'],
-                    ['type', '类型'],
+                    ['type', '类型', "switch", \Study\Type::get_type()],
                     ['uid', '家长ID'],
                     ['study_id', '课程id', 'number'],
                     ['student_id', '学生ID', 'number'],
@@ -126,10 +126,9 @@ class Rate extends Admin
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['number', 'uid', '家长id', ''],
                 ['number', 'study_id', '课程id', ''],
-                ['number', 'score', '评分', ''],
-                ['textarea', 'content', '内容', ''],
-                ['image', 'img0', '图片', ''],
-                ['image', 'img1', '图片', ''],
+                ['student_id', '学生ID', 'number'],
+                ['share', '是否分享', 'switch'],
+                ['like', '是否点赞', 'switch'],
             ])
             ->fetch();
     }
