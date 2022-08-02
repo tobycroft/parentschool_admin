@@ -7,7 +7,7 @@ class Type
     public static function get_type()
     {
         return [
-            'daily' => '每日一课',
+            'daily' => '每日一学',
             'weekly' => '每周一做',
             'monthy' => '每月一练',
         ];
