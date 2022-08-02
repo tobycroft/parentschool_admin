@@ -184,10 +184,9 @@ class Rate extends Admin
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['number', 'uid', '家长id', ''],
                 ['number', 'study_id', '课程id', ''],
-                ['number', 'score', '评分', ''],
-                ['textarea', 'content', '内容', ''],
-                ['image', 'img0', '图片', ''],
-                ['image', 'img1', '图片', ''],
+                ['student_id', '学生ID', 'number'],
+                ['share', '是否分享', 'switch'],
+                ['like', '是否点赞', 'switch'],
             ]);
         $imgs = json_decode($info["imgs"], 1);
         if (!empty($imgs)) {
