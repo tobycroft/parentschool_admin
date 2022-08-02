@@ -57,8 +57,8 @@ class Rate extends Admin
                 ['uid', '家长ID'],
                 ['study_id', '课程id', 'number'],
                 ['student_id', '学生ID', 'number'],
-                ['share', '是否分享', 'number'],
-                ['like', '是否点赞%'],
+                ['share', '是否分享', 'switch'],
+                ['like', '是否点赞', 'switch'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间']
             )
