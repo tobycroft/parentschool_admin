@@ -150,7 +150,7 @@ class StudyMonthy extends Admin
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
             if ($user = StudyMonthyModel::create($data)) {
-                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "monthy")->delete();
+//                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "monthy")->delete();
                 $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {

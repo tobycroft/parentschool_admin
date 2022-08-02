@@ -140,7 +140,7 @@ class StudyWeekly extends Admin
             $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
 
             if ($user = StudyWeeklyModel::create($data)) {
-                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "weelky")->delete();
+//                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "weelky")->delete();
                 $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {
                     StudyTagModel::create([
