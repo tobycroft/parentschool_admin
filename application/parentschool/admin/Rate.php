@@ -51,19 +51,17 @@ class Rate extends Admin
             ->setPageTitle('列表')
             ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('id', 'ID')
-            ->addColumn('type', '评价课程类型', "select", \Study\Type::get_type())
-            ->addColumn('uid', '家长id', 'number')
-            ->addColumn('study_id', '课程id', 'number')
-            ->addColumn('score', '评分', 'number')
-            ->addColumn('content', '评价内容', 'text.edit')
-            ->addColumn('img0', '评价图片', 'picture')
-            ->addColumn('img1', '评价图片', 'picture')
-            ->addColumn('share', '分享', 'number')
-            ->addColumn('like', '点赞数', 'number')
-            ->addColumn('comment', '评论', 'number')
-            ->addColumn('change_date', '修改时间')
-            ->addColumn('date', '创建时间')
+            ->addColumns(
+                ['id', 'ID'],
+                ['type', '类型'],
+                ['uid', '家长ID'],
+                ['study_id', '课程id', 'number'],
+                ['student_id', '学生ID', 'number'],
+                ['share', '是否分享', 'number'],
+                ['like', '是否点赞%'],
+                ['change_date', '修改时间'],
+                ['date', '创建时间']
+            )
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
