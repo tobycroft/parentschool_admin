@@ -121,7 +121,6 @@ class StudyDaily extends Admin
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
             if ($user = StudyDailyModel::create($data)) {
-                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "daily")->delete();
                 $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
