@@ -126,9 +126,9 @@ class Rate extends Admin
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['number', 'uid', '家长id', ''],
                 ['number', 'study_id', '课程id', ''],
-                ['student_id', '学生ID', 'number'],
-                ['share', '是否分享', 'switch'],
-                ['like', '是否点赞', 'switch'],
+                ['number', 'student_id', '学生ID', 'number'],
+                ['switch', 'share', '是否分享'],
+                ['switch', 'like', '是否点赞'],
             ])
             ->fetch();
     }
@@ -184,9 +184,9 @@ class Rate extends Admin
                 ['select', 'type', '课程类型', '', \Study\Type::get_type()],
                 ['number', 'uid', '家长id', ''],
                 ['number', 'study_id', '课程id', ''],
-                ['student_id', '学生ID', 'number'],
-                ['share', '是否分享', 'switch'],
-                ['like', '是否点赞', 'switch'],
+                ['number', 'student_id', '学生ID', 'number'],
+                ['switch', 'share', '是否分享'],
+                ['switch', 'like', '是否点赞'],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
