@@ -53,7 +53,7 @@ class FamilyMember extends Admin
                 ['uid', '用户id', 'number'],
                 ['family_id', '家庭id', 'number'],
                 ['student_id', '学生id', 'number'],
-                ['family_role_id', '家长类型', 'select', "", $role],
+                ['family_role_id', '家长类型', 'select', $role],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('delete') //添加删除按钮
