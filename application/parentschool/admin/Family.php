@@ -59,6 +59,7 @@ class Family extends Admin
                 ['id', 'ID'],
                 ['name', '家庭名称', 'text.edit'],
                 ['face', '家庭头像', "picture"],
+                ['family_role_type', '家长类型', 'select', "", $type],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
