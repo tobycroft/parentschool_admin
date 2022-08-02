@@ -150,7 +150,7 @@ class Attachment extends Admin
         if ($send_ret["code"] != "0") {
             return $this->uploadError($from, $send_ret["data"], $callback);
         }
-        $file_path = $send_ret;
+        $file_path = $send_ret["data"];
         // 判断附件是否已存在
         if ($file_exists = AttachmentModel::get(['md5' => $file->hash('md5')])) {
 //            if ($file_exists['driver'] == 'local') {
