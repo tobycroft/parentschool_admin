@@ -14,7 +14,6 @@ use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
-use Student\Student;
 use think\Db;
 use think\facade\Hook;
 use util\Tree;
@@ -49,9 +48,10 @@ class FamilyMember extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['type', '类型（家长还是学生）', 'text.edit'],
-                ['family_id', '家庭id', 'number'],
                 ['uid', '用户id', 'number'],
+                ['family_id', '家庭id', 'number'],
+                ['student_id', '学生id', 'number'],
+                ['family_role_id', '家长类型', 'number'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('delete') //添加删除按钮
@@ -112,9 +112,10 @@ class FamilyMember extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'type', '名称', '请确认务必存在', Student::get_student_type()],
-                ['number', 'family_id', '家庭id', '请确认务必存在'],
-                ['number', 'uid', '用户对应id', '请确认务必存在'],
+                ['number', 'uid', '用户id',],
+                ['number', 'family_id', '家庭id',],
+                ['number', 'student_id', '学生id',],
+                ['number', 'family_role_id', '家长类型'],
             ])
             ->fetch();
     }
@@ -167,10 +168,10 @@ class FamilyMember extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'uid', '家长id', ''],
-                ['textarea', 'content', '内容'],
+                ['number', 'uid', '用户id',],
+                ['number', 'family_id', '家庭id',],
+                ['number', 'student_id', '学生id',],
+                ['number', 'family_role_id', '家长类型'],
             ]);
 
         return $data
