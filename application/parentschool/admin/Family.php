@@ -59,7 +59,7 @@ class Family extends Admin
                 ['id', 'ID'],
                 ['name', '家庭名称', 'text.edit'],
                 ['face', '家庭头像', "picture"],
-                ['family_role_type', '家长类型', 'select', $type],
+                ['family_type_id', '家长类型', 'select', $type],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
@@ -126,7 +126,7 @@ class Family extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '家庭名称', '请确认务必存在'],
                 ['image', 'face', '家庭头像', ''],
-                ['select', 'family_role_type', '家长类型', '', $type],
+                ['select', 'family_type_id', '家长类型', '', $type],
             ])
             ->fetch();
     }
@@ -182,7 +182,7 @@ class Family extends Admin
                 ['hidden', 'id'],
                 ['text', 'name', '家庭名称', '请确认务必存在'],
                 ['image', 'face', '家庭头像', ''],
-                ['select', 'family_role_type', '家长类型', '', $type],
+                ['select', 'family_type_id', '家长类型', '', $type],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
