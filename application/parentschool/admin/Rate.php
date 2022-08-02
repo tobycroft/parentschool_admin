@@ -51,16 +51,17 @@ class Rate extends Admin
             ->setPageTitle('列表')
             ->setSearch(['study_id' => '课程id']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumns(
-                ['id', 'ID'],
-                ['type', '类型'],
-                ['uid', '家长ID'],
-                ['study_id', '课程id', 'number'],
-                ['student_id', '学生ID', 'number'],
-                ['share', '是否分享', 'switch'],
-                ['like', '是否点赞', 'switch'],
-                ['change_date', '修改时间'],
-                ['date', '创建时间']
+            ->addColumns([
+                    ['id', 'ID'],
+                    ['type', '类型'],
+                    ['uid', '家长ID'],
+                    ['study_id', '课程id', 'number'],
+                    ['student_id', '学生ID', 'number'],
+                    ['share', '是否分享', 'switch'],
+                    ['like', '是否点赞', 'switch'],
+                    ['change_date', '修改时间'],
+                    ['date', '创建时间']
+                ]
             )
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
