@@ -12,6 +12,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyModel;
+use app\parentschool\model\FamilyTypeModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -43,6 +44,9 @@ class Family extends Admin
 
         $num1 = FamilyModel::where("date", ">", $todaytime)->count();
         $num2 = FamilyModel::count();
+
+        $type = FamilyTypeModel::column("id,name");
+
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
