@@ -147,7 +147,7 @@ class Attachment extends Admin
         if (!$send_ret) {
             return $this->uploadError($from, config('upload_url'), $callback);
         }
-        if (!$send_ret["code"] != "0") {
+        if ($send_ret["code"] != "0") {
             return $this->uploadError($from, $send_ret["data"], $callback);
         }
         $file_path = $send_ret;
