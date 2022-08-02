@@ -49,7 +49,7 @@ class Rate extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
+            ->setSearch(['study_id' => '课程id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumns(
                 ['id', 'ID'],
