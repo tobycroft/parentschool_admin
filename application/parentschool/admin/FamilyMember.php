@@ -109,6 +109,7 @@ class FamilyMember extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
+        $role = FamilyRoleModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
@@ -117,7 +118,7 @@ class FamilyMember extends Admin
                 ['number', 'uid', '用户id',],
                 ['number', 'family_id', '家庭id',],
                 ['number', 'student_id', '学生id',],
-                ['number', 'family_role_id', '家长类型'],
+                ['select', 'family_role_id', '家长类型', '', $role],
             ])
             ->fetch();
     }
@@ -164,6 +165,7 @@ class FamilyMember extends Admin
 
         // 获取数据
         $info = FamilyMemberModel::where('id', $id)->find();
+        $role = FamilyRoleModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -173,7 +175,7 @@ class FamilyMember extends Admin
                 ['number', 'uid', '用户id',],
                 ['number', 'family_id', '家庭id',],
                 ['number', 'student_id', '学生id',],
-                ['number', 'family_role_id', '家长类型'],
+                ['select', 'family_role_id', '家长类型', '', $role],
             ]);
 
         return $data
