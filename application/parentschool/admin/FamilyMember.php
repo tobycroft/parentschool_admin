@@ -12,6 +12,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
+use app\parentschool\model\FamilyRoleModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -39,6 +40,8 @@ class FamilyMember extends Admin
         // 读取用户数据
         $data_list = FamilyMemberModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
+        FamilyRoleModel::column("id,name");
+        family::column("id,name");
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2, 'danger')
