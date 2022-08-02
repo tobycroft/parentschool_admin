@@ -39,14 +39,14 @@ class RateThread extends Admin
         // 读取用户数据
         $data_list = RateThreadModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
-//        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
-
-//        $num1 = RateThreadModel::where("date", ">", $todaytime)->count();
-//        $num2 = RateThreadModel::count();
+        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
+//
+        $num1 = RateThreadModel::where("date", ">", $todaytime)->count();
+        $num2 = RateThreadModel::count();
 
         return ZBuilder::make('table')
-//            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
-//            ->setPageTips("总数量：" . $num2, 'danger')
+            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
