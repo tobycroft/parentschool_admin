@@ -118,6 +118,7 @@ class Family extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
+        $type = FamilyTypeModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
@@ -125,6 +126,7 @@ class Family extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '家庭名称', '请确认务必存在'],
                 ['image', 'face', '家庭头像', ''],
+                ['select', 'family_role_type', '家长类型', '', $type],
             ])
             ->fetch();
     }
@@ -171,16 +173,16 @@ class Family extends Admin
 
         // 获取数据
         $info = FamilyModel::where('id', $id)->find();
+        $type = FamilyTypeModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'uid', '家长id', ''],
-                ['textarea', 'content', '内容'],
+                ['text', 'name', '家庭名称', '请确认务必存在'],
+                ['image', 'face', '家庭头像', ''],
+                ['select', 'family_role_type', '家长类型', '', $type],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
