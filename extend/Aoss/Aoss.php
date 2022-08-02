@@ -24,7 +24,7 @@ class Aoss
         $response = curl_exec($ch);
         curl_close($ch);
         $json = json_decode($response, true);
-        if (empty($json) || empty($json["code"])) {
+        if (empty($json) || !isset($json["code"])) {
             return false;
         }
         if ($json["code"] == "0") {
@@ -47,9 +47,7 @@ class Aoss
         $response = curl_exec($ch);
         curl_close($ch);
         $json = json_decode($response, true);
-        if (empty($json) || empty($json["code"])) {
-            var_dump($json);
-            exit();
+        if (empty($json) || !isset($json["code"])) {
             return false;
         }
         return $json;
