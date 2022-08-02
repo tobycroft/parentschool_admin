@@ -48,6 +48,8 @@ class Aoss
         curl_close($ch);
         $json = json_decode($response, true);
         if (empty($json) || empty($json["code"])) {
+            var_dump($json);
+            exit();
             return false;
         }
         return $json;
