@@ -9,7 +9,9 @@
 
 namespace app\parentschool\admin;
 
+use Aoss\Aoss;
 use app\admin\controller\Admin;
+use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyTagModel;
@@ -120,6 +122,14 @@ class StudyDaily extends Admin
             }
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
+
+            $atta = new Attachment();
+            $md5 = $atta->getFileMd5($data["attach_url"]);
+            $Aoss = new Aoss(config("upload_prefix"), "complete");
+            $md5_data = $Aoss->md5($md5);
+            if (empty($md5_data->error)) {
+                $data["attach_duration"] = $md5_data->duration;
+            }
 
             if ($user = StudyDailyModel::create($data)) {
                 $special_tag = $data["special_tag"];
