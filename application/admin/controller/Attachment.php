@@ -214,7 +214,6 @@ class Attachment extends Admin
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename());
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
                         unlink($thumb_path_name);
-                        unlink($info->getPathname());
                         if (isset($thumb_ret->error)) {
                             return $this->uploadError($from, $thumb_ret->error, $callback);
                         } else {
@@ -228,7 +227,6 @@ class Attachment extends Admin
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename(), $thumb_size, $thumb_type);
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
                         unlink($thumb_path_name);
-                        unlink($info->getPathname());
                         if (isset($thumb_ret->error)) {
                             return $this->uploadError($from, $thumb_ret->error, $callback);
                         } else {
