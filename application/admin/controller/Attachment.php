@@ -240,7 +240,7 @@ class Attachment extends Admin
             }
             if (isset($md5_data->error)) {
                 $send_ret = $Aoss->send($file->getPathname(), $file->getMime(), $file_name);
-                unlink($file->getPathname());
+                unlink($info->getPathname());
                 if (isset($send_ret->error)) {
                     return $this->uploadError($from, $send_ret->error, $callback);
                 }
