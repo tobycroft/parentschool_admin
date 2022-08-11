@@ -125,10 +125,12 @@ class StudyDaily extends Admin
 
             $atta = new Attachment();
             $md5 = $atta->getFileMd5($data["attach_url"]);
-            $Aoss = new Aoss(config("upload_prefix"), "complete");
-            $md5_data = $Aoss->md5($md5);
-            if (empty($md5_data->error)) {
-                $data["attach_duration"] = $md5_data->duration;
+            if ($md5) {
+                $Aoss = new Aoss(config("upload_prefix"), "complete");
+                $md5_data = $Aoss->md5($md5);
+                if (empty($md5_data->error)) {
+                    $data["attach_duration"] = $md5_data->duration;
+                }
             }
 
             if ($user = StudyDailyModel::create($data)) {
@@ -235,12 +237,14 @@ class StudyDaily extends Admin
             // 非超级管理需要验证可选择角色
             $atta = new Attachment();
             $md5 = $atta->getFileMd5($data["attach_url"]);
-            $Aoss = new Aoss(config("upload_prefix"), "complete");
-            $md5_data = $Aoss->md5($md5);
-            if (empty($md5_data->error)) {
-                $data["attach_duration"] = $md5_data->duration;
+            if ($md5) {
+                $Aoss = new Aoss(config("upload_prefix"), "complete");
+                $md5_data = $Aoss->md5($md5);
+                if (empty($md5_data->error)) {
+                    $data["attach_duration"] = $md5_data->duration;
+                }
             }
-            
+
             StudyTagModel::where("study_id", $data["id"])->where("study_type", "daily")->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];

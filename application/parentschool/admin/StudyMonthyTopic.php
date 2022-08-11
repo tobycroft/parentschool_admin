@@ -106,10 +106,12 @@ class StudyMonthyTopic extends Admin
 
             $atta = new Attachment();
             $md5 = $atta->getFileMd5($data["attach_url"]);
-            $Aoss = new Aoss(config("upload_prefix"), "complete");
-            $md5_data = $Aoss->md5($md5);
-            if (empty($md5_data->error)) {
-                $data["attach_duration"] = $md5_data->duration;
+            if ($md5) {
+                $Aoss = new Aoss(config("upload_prefix"), "complete");
+                $md5_data = $Aoss->md5($md5);
+                if (empty($md5_data->error)) {
+                    $data["attach_duration"] = $md5_data->duration;
+                }
             }
 
             if ($user = StudyMonthyTopicModel::create($data)) {
@@ -175,11 +177,14 @@ class StudyMonthyTopic extends Admin
             // 非超级管理需要验证可选择角色
             $atta = new Attachment();
             $md5 = $atta->getFileMd5($data["attach_url"]);
-            $Aoss = new Aoss(config("upload_prefix"), "complete");
-            $md5_data = $Aoss->md5($md5);
-            if (empty($md5_data->error)) {
-                $data["attach_duration"] = $md5_data->duration;
+            if ($md5) {
+                $Aoss = new Aoss(config("upload_prefix"), "complete");
+                $md5_data = $Aoss->md5($md5);
+                if (empty($md5_data->error)) {
+                    $data["attach_duration"] = $md5_data->duration;
+                }
             }
+
 
             if (StudyMonthyTopicModel::update($data)) {
                 $user = StudyMonthyTopicModel::get($data['id']);
