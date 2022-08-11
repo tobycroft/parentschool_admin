@@ -213,6 +213,8 @@ class Attachment extends Admin
                     if (config('upload_image_thumb') != '') {
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename());
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
+                        unlink($thumb_path_name);
+                        unlink($info->getPathname());
                         if (isset($thumb_ret->error)) {
                             return $this->uploadError($from, $thumb_ret->error, $callback);
                         } else {
@@ -220,20 +222,25 @@ class Attachment extends Admin
                         }
                     }
                 } else {
+
                     if (strtolower($thumb) != 'close') {
                         list($thumb_size, $thumb_type) = explode('|', $thumb);
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename(), $thumb_size, $thumb_type);
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
+                        unlink($thumb_path_name);
+                        unlink($info->getPathname());
                         if (isset($thumb_ret->error)) {
                             return $this->uploadError($from, $thumb_ret->error, $callback);
                         } else {
                             $thumb_path_name = $thumb_ret->url;
                         }
+
                     }
                 }
             }
             if (isset($md5_data->error)) {
                 $send_ret = $Aoss->send($file->getPathname(), $file->getMime(), $file_name);
+                unlink($file->getPathname());
                 if (isset($send_ret->error)) {
                     return $this->uploadError($from, $send_ret->error, $callback);
                 }
@@ -244,12 +251,12 @@ class Attachment extends Admin
             // 获取附件信息
             $file_info = [
                 'uid' => session('user_auth.uid'),
-                'name' => $file->getInfo('name'),
-                'mime' => $file->getInfo('type'),
+                'name' => $send_ret->name,
+                'mime' => $send_ret->mime,
                 'path' => $send_ret->url,
-                'ext' => $info->getExtension(),
-                'size' => $info->getSize(),
-                'md5' => $info->hash('md5'),
+                'ext' => $send_ret->ext,
+                'size' => $send_ret->size,
+                'md5' => $send_ret->md5,
                 'sha1' => $info->hash('sha1'),
                 'thumb' => $thumb_path_name,
                 'module' => $module,
