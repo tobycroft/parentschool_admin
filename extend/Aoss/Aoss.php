@@ -81,6 +81,8 @@ class Aoss
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $response = curl_exec($ch);
         curl_close($ch);
+        var_dump($response);
+        exit();
         return new AossCompleteRet($response);
     }
 }
@@ -126,10 +128,8 @@ class AossCompleteRet
     {
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
-            var_dump($response);
-            exit();
             $this->error = $response;
-            return;
+            return $this;
         }
         if ($json["code"] == "0") {
             $this->data = $json["data"];
@@ -144,8 +144,10 @@ class AossCompleteRet
             $this->surl = $this->data["surl"];
             $this->duration_str = $this->data["duration_str"];
             $this->bitrate = $this->data["bitrate"];
+            return $this;
         } else {
             $this->error = $json["data"];
+            return $this;
         }
     }
 }
