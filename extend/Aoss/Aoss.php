@@ -81,8 +81,6 @@ class Aoss
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $response = curl_exec($ch);
         curl_close($ch);
-        var_dump($response);
-        exit();
         return new AossCompleteRet($response);
     }
 }
@@ -126,6 +124,8 @@ class AossCompleteRet
 
     public function __construct($response)
     {
+        var_dump($response);
+        exit();
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
             $this->error = $response;
