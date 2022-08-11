@@ -16,12 +16,13 @@
         }
     ],
     "require": {
-      "php": ">=7.4",
-      "topthink/framework": "5.1.*",
-      "topthink/think-captcha": "^2.0",
-      "topthink/think-image": "^1.0",
-      "topthink/think-helper": "^1.0",
-      "ezyang/htmlpurifier": "^4.9"
+        "php": ">=7.4",
+        "topthink/framework": "5.1.*",
+        "topthink/think-captcha": "^2.0",
+        "topthink/think-image": "^1.0",
+        "topthink/think-helper": "^1.0",
+        "ezyang/htmlpurifier": "^4.9",
+        "ext-curl": "*"
     },
     "autoload": {
         "psr-4": {
