@@ -144,8 +144,6 @@ class Attachment extends Admin
         $Aoss = new Aoss(config("upload_prefix"), "complete");
         $md5_data = $Aoss->md5($file->hash('md5'));
         if (empty($md5_data->error)) {
-            echo $md5_data->error;
-            exit();
             if ($file_exists = AttachmentModel::get(['md5' => $file->hash('md5')])) {
                 return $this->uploadSuccess($from, $md5_data->url, $md5_data->name, $file_exists['id'], $callback, $md5_data->data);
             }
@@ -239,6 +237,8 @@ class Attachment extends Admin
             if (isset($md5_data->error)) {
                 $send_ret = $Aoss->send($info->getPathname(), $info->getMime(), $file_name);
                 if (isset($send_ret->error)) {
+                    echo $send_ret->error;
+                    exit();
                     return $this->uploadError($from, $send_ret->error, $callback);
                 }
             } else {
