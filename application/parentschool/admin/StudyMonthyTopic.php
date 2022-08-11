@@ -9,14 +9,16 @@
 
 namespace app\parentschool\admin;
 
+use Aoss\Aoss;
 use app\admin\controller\Admin;
+use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyMonthyTopicModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -101,6 +103,15 @@ class StudyMonthyTopic extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
+
+            $atta = new Attachment();
+            $md5 = $atta->getFileMd5($data["attach_url"]);
+            $Aoss = new Aoss(config("upload_prefix"), "complete");
+            $md5_data = $Aoss->md5($md5);
+            if (empty($md5_data->error)) {
+                $data["attach_duration"] = $md5_data->duration;
+            }
+
             if ($user = StudyMonthyTopicModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
@@ -162,7 +173,13 @@ class StudyMonthyTopic extends Admin
             $data = $this->request->post();
 
             // 非超级管理需要验证可选择角色
-
+            $atta = new Attachment();
+            $md5 = $atta->getFileMd5($data["attach_url"]);
+            $Aoss = new Aoss(config("upload_prefix"), "complete");
+            $md5_data = $Aoss->md5($md5);
+            if (empty($md5_data->error)) {
+                $data["attach_duration"] = $md5_data->duration;
+            }
 
             if (StudyMonthyTopicModel::update($data)) {
                 $user = StudyMonthyTopicModel::get($data['id']);
