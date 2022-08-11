@@ -230,6 +230,8 @@ class Ajax extends Common
                     'data' => $md5_data->data,
                 ];
                 return json($data);
+            } else {
+                $this->error('文件不存在');
             }
         } else {
             $this->error('文件不存在');
