@@ -225,8 +225,8 @@ class Ajax extends Common
                     'code' => 1,
                     'info' => '上传成功',
                     'class' => 'success',
-                    'id' => $md5_data->path,
-                    'path' => $md5_data->path,
+                    'id' => $md5_data->url,
+                    'path' => $md5_data->url,
                     'data' => $md5_data->data,
                 ];
                 return json($data);
