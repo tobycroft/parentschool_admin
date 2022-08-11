@@ -4,14 +4,38 @@ namespace Aoss;
 
 class Aoss
 {
-    public $send_url = "";
+    private string $remote_url = "http://upload.tuuz.cc:81";
+    private string $send_url = "";
+    private string $token = "";
+    private string $mode = "";
+
+    public function __construct($token, $mode = "complete", $remote_url = "")
+    {
+        $this->send_url = $remote_url;
+        $this->token = $token;
+        $this->mode = $mode;
+
+        if (!isset($remote_url)) {
+            $this->send_url = $this->remote_url;
+            $this->send_url .= "/v1/file/index/up_complete";
+            $this->send_url .= "?token=" . $this->token;
+        }
+
+    }
 
     public function send($real_path, $mime_type, $file_name)
     {
-        return self::send_file_ret($this->send_url, $real_path, $mime_type, $file_name);
+        switch ($this->mode) {
+            case "complete":
+                return self::send_file_complete($this->send_url, $real_path, $mime_type, $file_name);
+
+            default:
+                return self::send_file_url($this->send_url, $real_path, $mime_type, $file_name);
+        }
     }
 
-    public static function send_file_url($send_url, $real_path, $mime_type, $file_name)
+
+    public static function send_file_url($send_url, $real_path, $mime_type, $file_name): AossSimpleRet
     {
         $postData = [
             'file' => new \CURLFile(realpath($real_path), $mime_type, $file_name)
@@ -23,33 +47,82 @@ class Aoss
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         $response = curl_exec($ch);
         curl_close($ch);
+        return new AossSimpleRet($response);
+    }
+
+    public static function send_file_complete($send_url, $real_path, $mime_type, $file_name): AossCompleteRet
+    {
+        $postData = [
+            'file' => new \CURLFile(realpath($real_path), $mime_type, $file_name)
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $send_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return new AossCompleteRet($response);
+    }
+}
+
+class AossSimpleRet
+{
+    public mixed $error = null;
+    public mixed $data = [];
+
+    public function __construct($response)
+    {
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
             return false;
         }
         if ($json["code"] == "0") {
-            return $json["data"];
+            $this->data = $json["data"];
         } else {
-            return false;
+            return $this->error = $json["data"];
         }
     }
+}
 
-    public static function send_file_ret($send_url, $real_path, $mime_type, $file_name)
+class AossCompleteRet
+{
+    public mixed $error = null;
+    public mixed $data = [];
+    public mixed $name = "";
+    public mixed $path = "";
+    public mixed $mime = "";
+    public mixed $size = 0;
+    public mixed $ext = "";
+    public mixed $md5 = "";
+    public mixed $src = "";
+    public mixed $url = "";
+    public mixed $surl = "";
+    public int $duration = 0;
+    public mixed $duration_str = "";
+    public mixed $bitrate = 0;
+
+    public function __construct($response)
     {
-        $postData = [
-            'file' => new \CURLFile(realpath($real_path), $mime_type, $file_name)
-        ];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $send_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        $response = curl_exec($ch);
-        curl_close($ch);
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
             return false;
         }
-        return $json;
+        if ($json["code"] == "0") {
+            $this->data = $json["data"];
+            $this->name = $this->data["name"];
+            $this->path = $this->data["path"];
+            $this->mime = $this->data["mime"];
+            $this->size = $this->data["size"];
+            $this->ext = $this->data["ext"];
+            $this->md5 = $this->data["md5"];
+            $this->src = $this->data["src"];
+            $this->url = $this->data["url"];
+            $this->surl = $this->data["surl"];
+            $this->duration_str = $this->data["duration_str"];
+            $this->bitrate = $this->data["bitrate"];
+        } else {
+            return $this->error = $json["data"];
+        }
     }
 }
