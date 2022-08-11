@@ -146,6 +146,8 @@ class AossCompleteRet
         } else {
             $this->error = $json["data"];
         }
+        echo $json["data"];
+        exit();
         return $this;
     }
 }
