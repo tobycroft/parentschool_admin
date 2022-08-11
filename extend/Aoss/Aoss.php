@@ -92,12 +92,13 @@ class AossSimpleRet
     {
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
-            return $this->error = $response;
+            $this->error = $response;
+            return;
         }
         if ($json["code"] == "0") {
             $this->data = $json["data"]["url"];
         } else {
-            return $this->error = $json["data"];
+            $this->error = $json["data"];
         }
     }
 }
@@ -123,7 +124,8 @@ class AossCompleteRet
     {
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
-            return $this->error = $response;
+            $this->error = $response;
+            return;
         }
         if ($json["code"] == "0") {
             $this->data = $json["data"];
@@ -139,7 +141,7 @@ class AossCompleteRet
             $this->duration_str = $this->data["duration_str"];
             $this->bitrate = $this->data["bitrate"];
         } else {
-            return $this->error = $json["data"];
+            $this->error = $json["data"];
         }
     }
 }
