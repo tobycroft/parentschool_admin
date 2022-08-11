@@ -126,12 +126,13 @@ class AossCompleteRet
     {
 
         $json = json_decode($response, true);
-        var_dump($json);
-        exit();
+
         if (empty($json) || !isset($json["code"])) {
             $this->error = $response;
             return $this;
         }
+        var_dump($json);
+        exit();
         if ($json["code"] == "0") {
             $this->data = $json["data"];
             $this->name = $this->data["name"];
