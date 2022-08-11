@@ -119,7 +119,7 @@ class AossCompleteRet
     public mixed $src = "";
     public mixed $url = "";
     public mixed $surl = "";
-    public int $duration = 0;
+    public mixed $duration = 0;
     public mixed $duration_str = "";
     public mixed $bitrate = 0;
 
