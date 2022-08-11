@@ -19,7 +19,7 @@ class Aoss
 
         if (!isset($remote_url)) {
             $this->send_url = $this->remote_url;
-            $this->send_url .= $this->send_path . "/complete";
+            $this->send_url .= $this->send_path . "/up_complete";
             $this->send_url .= $this->send_token . $this->token;
         }
 
