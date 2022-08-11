@@ -128,12 +128,9 @@ class AossCompleteRet
         $json = json_decode($response, true);
 
         if (empty($json) || !isset($json["code"])) {
-            var_dump($json);
-            exit();
             $this->error = $response;
             return $this;
         }
-
         if ($json["code"] == "0") {
             $this->data = $json["data"];
             $this->name = $this->data["name"];
@@ -149,6 +146,8 @@ class AossCompleteRet
             $this->bitrate = $this->data["bitrate"];
             return $this;
         } else {
+            var_dump($json);
+            exit();
             $this->error = $json["data"];
             return $this;
         }
