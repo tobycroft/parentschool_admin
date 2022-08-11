@@ -78,6 +78,7 @@ class StudyDaily extends Admin
                 ['show_date', '展示日期', 'text.edit'],
 //                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
+                ['attach_duration', '附件时长', 'number'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
