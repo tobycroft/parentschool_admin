@@ -240,7 +240,7 @@ class StudyDaily extends Admin
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
-                var_dump($md5_data);
+                var_dump($md5_data->duration);
                 exit();
                 if (empty($md5_data->error)) {
                     $data["attach_duration"] = $md5_data->duration;
