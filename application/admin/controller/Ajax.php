@@ -227,7 +227,7 @@ class Ajax extends Common
                     'class' => 'success',
                     'id' => $md5_data->path,
                     'path' => $md5_data->path,
-                    'data' => $md5_data->data
+                    'data' => $md5_data->data,
                 ]);
             }
         } else {
