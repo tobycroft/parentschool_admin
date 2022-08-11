@@ -237,6 +237,8 @@ class StudyDaily extends Admin
             // 非超级管理需要验证可选择角色
             $atta = new Attachment();
             $md5 = $atta->getFileMd5($data["attach_url"]);
+            var_dump($md5);
+            exit();
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
