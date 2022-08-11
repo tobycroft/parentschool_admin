@@ -212,8 +212,6 @@ class Attachment extends Admin
                 if ($thumb == '') {
                     if (config('upload_image_thumb') != '') {
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename());
-                        var_dump($thumb_path_name);
-                        exit();
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
                         unlink($thumb_path_name);
                         if (isset($thumb_ret->error)) {
