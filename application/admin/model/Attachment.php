@@ -86,4 +86,11 @@ class Attachment extends Model
     {
         return $this->where('id', $id)->value('name');
     }
+
+    public function getFileMd5($id = '')
+    {
+        return $this->where('id', $id)->value('md5');
+    }
+
+
 }
