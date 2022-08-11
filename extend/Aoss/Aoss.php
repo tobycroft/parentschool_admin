@@ -31,6 +31,11 @@ class Aoss
         };
     }
 
+    public function md5($md5): AossCompleteRet
+    {
+        return self::check_file_complete($this->send_url, $md5);
+    }
+
 
     public static function send_file_url($send_url, $real_path, $mime_type, $file_name): AossSimpleRet
     {
@@ -51,6 +56,21 @@ class Aoss
     {
         $postData = [
             'file' => new \CURLFile(realpath($real_path), $mime_type, $file_name)
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $send_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return new AossCompleteRet($response);
+    }
+
+    public static function check_file_complete($send_url, $md5): AossCompleteRet
+    {
+        $postData = [
+            'md5' => $md5
         ];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $send_url);
