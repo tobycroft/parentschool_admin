@@ -86,7 +86,7 @@ class Aoss
 class AossSimpleRet
 {
     public mixed $error = null;
-    public mixed $data = [];
+    public mixed $data = "";
 
     public function __construct($response)
     {
@@ -95,7 +95,7 @@ class AossSimpleRet
             return false;
         }
         if ($json["code"] == "0") {
-            $this->data = $json["data"];
+            $this->data = $json["data"]["url"];
         } else {
             return $this->error = $json["data"];
         }
