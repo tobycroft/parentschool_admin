@@ -92,7 +92,7 @@ class AossSimpleRet
     {
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
-            return false;
+            return $this->error = $response;
         }
         if ($json["code"] == "0") {
             $this->data = $json["data"]["url"];
