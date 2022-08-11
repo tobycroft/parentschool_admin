@@ -6,6 +6,8 @@ class Aoss
 {
     private string $remote_url = "http://upload.tuuz.cc:81";
     private string $send_url = "";
+    private string $send_path = "/v1/file/index";
+    protected string $send_token = "?token=";
     private string $token = "";
     private string $mode = "";
 
@@ -17,8 +19,8 @@ class Aoss
 
         if (!isset($remote_url)) {
             $this->send_url = $this->remote_url;
-            $this->send_url .= "/v1/file/index/up_complete";
-            $this->send_url .= "?token=" . $this->token;
+            $this->send_url .= $this->send_path . "/complete";
+            $this->send_url .= $this->send_token . $this->token;
         }
 
     }
@@ -33,7 +35,7 @@ class Aoss
 
     public function md5($md5): AossCompleteRet
     {
-        return self::check_file_complete($this->send_url, $md5);
+        return self::check_file_complete($this->remote_url . $this->send_path . "/md5" . $this->send_token . $this->token, $md5);
     }
 
 
