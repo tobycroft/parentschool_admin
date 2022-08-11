@@ -25,13 +25,10 @@ class Aoss
 
     public function send($real_path, $mime_type, $file_name)
     {
-        switch ($this->mode) {
-            case "complete":
-                return self::send_file_complete($this->send_url, $real_path, $mime_type, $file_name);
-
-            default:
-                return self::send_file_url($this->send_url, $real_path, $mime_type, $file_name);
-        }
+        return match ($this->mode) {
+            "complete" => self::send_file_complete($this->send_url, $real_path, $mime_type, $file_name),
+            default => self::send_file_url($this->send_url, $real_path, $mime_type, $file_name),
+        };
     }
 
 
