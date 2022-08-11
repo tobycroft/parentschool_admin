@@ -188,6 +188,7 @@ class StudyDaily extends Admin
                 ['datetime', 'show_date', '展示日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
+                ['number', 'attach_duration', '附件时长(秒)'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
             ->fetch();
@@ -285,6 +286,7 @@ class StudyDaily extends Admin
                 ['datetime', 'show_date', '展示日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
+                ['number', 'attach_duration', '附件时长(秒)'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
 
