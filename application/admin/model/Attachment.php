@@ -84,7 +84,7 @@ class Attachment extends Model
      */
     public function getFileName($id = '')
     {
-        return $this->where('id', $id)->value('name');
+        return $this->where('id', $id)->whereOr("path", $id)->value('name');
     }
 
     public function getFileMd5($path = '')
