@@ -124,9 +124,10 @@ class AossCompleteRet
 
     public function __construct($response)
     {
-        var_dump($response);
-        exit();
+
         $json = json_decode($response, true);
+        var_dump($json);
+        exit();
         if (empty($json) || !isset($json["code"])) {
             $this->error = $response;
             return $this;
