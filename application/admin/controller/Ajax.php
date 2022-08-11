@@ -221,14 +221,15 @@ class Ajax extends Common
         $md5_data = $Aoss->md5($md5);
         if (empty($md5_data->error)) {
             if ($file_exists = AttachmentModel::get(['md5' => $md5])) {
-                return json([
+                $data = [
                     'code' => 1,
                     'info' => '上传成功',
                     'class' => 'success',
                     'id' => $md5_data->path,
                     'path' => $md5_data->path,
                     'data' => $md5_data->data,
-                ]);
+                ];
+                return json($data);
             }
         } else {
             $this->error('文件不存在');
