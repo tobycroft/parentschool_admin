@@ -42,6 +42,7 @@ class TeacherClass extends Admin
         $data_list = TeacherClassModel::where($map)->order($order)->paginate()->each(function ($data) {
             $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
             $data["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . '}');
+            $data["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . ',"class_id":' . $data["class_id"] . '}');
         });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
@@ -70,6 +71,7 @@ class TeacherClass extends Admin
                 ['school_id', '学校ID', 'text.edit'],
                 ['year', '第几届', 'picture'],
                 ['url', '学校URL', "url"],
+                ['url', '班级URL', "class_url"],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
