@@ -47,12 +47,12 @@ class TeacherClass extends Admin
 
         $num1 = TeacherClassModel::where("date", ">", $todaytime)->count();
         $num2 = TeacherClassModel::count();
-
+        $url = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__}');
         $btn_access3 = [
             'title' => '列出题目',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__}')
+            'href' => $url
         ];
 
         return ZBuilder::make('table')
@@ -68,7 +68,7 @@ class TeacherClass extends Admin
                 ['teacher_id', '教师ID', 'text.edit'],
                 ['school_id', '学校ID', 'text.edit'],
                 ['year', '第几届', 'picture'],
-                ['url', '', ''],
+                ['url', 'URL', $url],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
