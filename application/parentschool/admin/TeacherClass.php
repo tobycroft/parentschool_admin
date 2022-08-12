@@ -11,6 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\TeacherClassModel;
 use app\parentschool\model\TeacherModel;
 use app\user\model\Role as RoleModel;
@@ -112,12 +113,14 @@ class TeacherClass extends Admin
             }
         }
         $teacher_data = TeacherModel::column("id,name");
+        $school_data = SchoolModel::column("id,name");
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', '教师ID', 'teacher_id', "", $teacher_data],
-                ['text', 'school_id', '学校ID'],
+                ['select', 'school_id', '学校ID', "", $school_data],
                 ['text', 'year', '第几届'],
             ])
             ->fetch();
