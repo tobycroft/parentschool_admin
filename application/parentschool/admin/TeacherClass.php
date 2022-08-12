@@ -116,9 +116,9 @@ class TeacherClass extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['teacher_id', '教师ID', 'select', "", $teacher_data],
-                ['school_id', '学校ID', 'text.edit'],
-                ['year', '第几届', 'picture'],
+                ['select', '教师ID', 'teacher_id', "", $teacher_data],
+                ['text', 'school_id', '学校ID'],
+                ['text', 'year', '第几届'],
             ])
             ->fetch();
     }
