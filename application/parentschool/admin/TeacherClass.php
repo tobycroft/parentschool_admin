@@ -118,14 +118,14 @@ class TeacherClass extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
-
+        $teacher_data = TeacherModel::column("id,name");
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'name', '姓名'],
-                ['textarea', 'info', '老师信息'],
-                ['image', 'img', '老师头像'],
+                ['teacher_id', '教师ID', 'select', "", $teacher_data],
+                ['school_id', '学校ID', 'text.edit'],
+                ['year', '第几届', 'picture'],
             ])
             ->fetch();
     }
