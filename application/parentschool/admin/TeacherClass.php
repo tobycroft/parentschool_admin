@@ -41,6 +41,7 @@ class TeacherClass extends Admin
         // 读取用户数据
         $data_list = TeacherClassModel::where($map)->order($order)->paginate()->each(function ($data) {
             $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
+            $data["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . '}');
         });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
