@@ -54,7 +54,7 @@ class TeacherClass extends Admin
             'title' => '列出题目',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => $url
+            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__}'
         ];
 
         return ZBuilder::make('table')
