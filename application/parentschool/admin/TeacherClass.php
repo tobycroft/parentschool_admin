@@ -111,13 +111,6 @@ class TeacherClass extends Admin
                 $this->error('新增失败');
             }
         }
-
-        // 角色列表
-        if (session('user_auth.role') != 1) {
-            $role_list = RoleModel::getTree(null, false, session('user_auth.role'));
-        } else {
-            $role_list = RoleModel::getTree(null, false);
-        }
         $teacher_data = TeacherModel::column("id,name");
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
