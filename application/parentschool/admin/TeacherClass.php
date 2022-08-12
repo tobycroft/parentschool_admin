@@ -119,7 +119,7 @@ class TeacherClass extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', '教师ID', 'teacher_id', "", $teacher_data],
+                ['select', 'teacher_id', '教师ID', "", $teacher_data],
                 ['select', 'school_id', '学校ID', "", $school_data],
                 ['text', 'year', '第几届'],
             ])
@@ -168,13 +168,14 @@ class TeacherClass extends Admin
 
         // 获取数据
         $info = TeacherClassModel::where('id', $id)->find();
-
+        $teacher_data = TeacherModel::column("id,name");
+        $school_data = SchoolModel::column("id,name");
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', '教师ID', 'teacher_id', "", $teacher_data],
+                ['select', 'teacher_id', '教师ID', "", $teacher_data],
                 ['select', 'school_id', '学校ID', "", $school_data],
                 ['text', 'year', '第几届'],
             ]);
