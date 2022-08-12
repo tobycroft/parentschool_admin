@@ -174,9 +174,9 @@ class TeacherClass extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'name', '姓名'],
-                ['textarea', 'info', '老师信息'],
-                ['image', 'img', '老师头像'],
+                ['select', '教师ID', 'teacher_id', "", $teacher_data],
+                ['select', 'school_id', '学校ID', "", $school_data],
+                ['text', 'year', '第几届'],
             ]);
 
         return $data
