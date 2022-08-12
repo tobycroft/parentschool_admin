@@ -91,7 +91,7 @@ class TeacherClass extends Admin
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
-            ->addRightButtons([$btn_school, $btn_grade, $btn_class])
+            ->addRightButtons(["" => $btn_school, "" => $btn_grade, "" => $btn_class])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
@@ -321,7 +321,8 @@ class TeacherClass extends Admin
                         } else {
                             $model_name = $curr_access_nodes['model_name'];
                         }
-                        $class = "app\\{$module}\\model\\" . $model_name;
+                        $class = "app\\{
+        $module}\\model\\" . $model_name;
                         $model = new $class;
                         try {
                             $model->afterAccessUpdate($post);
@@ -353,7 +354,8 @@ class TeacherClass extends Admin
                     } else {
                         $model_name = $curr_access_nodes['model_name'];
                     }
-                    $class = "app\\{$module}\\model\\" . $model_name;
+                    $class = "app\\{
+        $module}\\model\\" . $model_name;
                     $model = new $class;
 
                     try {
