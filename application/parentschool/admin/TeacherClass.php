@@ -12,6 +12,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\TeacherClassModel;
+use app\parentschool\model\TeacherModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -37,7 +38,9 @@ class TeacherClass extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = TeacherClassModel::where($map)->order($order)->paginate();
+        $data_list = TeacherClassModel::where($map)->order($order)->paginate()->each(function ($data) {
+            $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
+        });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
@@ -54,8 +57,9 @@ class TeacherClass extends Admin
             ->addColumns([
                 ['id', 'ID'],
                 ['name', '姓名', 'text.edit'],
-                ['info', '老师信息', 'textarea.edit'],
-                ['img', '老师头像', 'picture'],
+                ['teacher_id', '教师ID', 'text.edit'],
+                ['school_id', '学校ID', 'text.edit'],
+                ['year', '第几届', 'picture'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
