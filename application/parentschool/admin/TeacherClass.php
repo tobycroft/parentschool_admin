@@ -50,21 +50,21 @@ class TeacherClass extends Admin
         $num1 = TeacherClassModel::where("date", ">", $todaytime)->count();
         $num2 = TeacherClassModel::count();
         $btn_school = [
-            'title' => '列出题目',
+            'title' => '学校二维码',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__}'
         ];
 
         $btn_grade = [
-            'title' => '列出题目',
+            'title' => '年级二维码',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__}'
         ];
 
         $btn_class = [
-            'title' => '列出题目',
+            'title' => '班级二维码',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
