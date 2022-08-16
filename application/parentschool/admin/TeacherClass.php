@@ -82,6 +82,7 @@ class TeacherClass extends Admin
                 ['name', '姓名', 'text.edit'],
                 ['teacher_id', '教师ID', 'text.edit'],
                 ['school_id', '学校ID', 'text.edit'],
+                ['class_id', '班级id', 'text.edit'],
                 ['year', '第几届', 'picture'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
