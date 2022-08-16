@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\TeacherModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -53,9 +53,12 @@ class Teacher extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
+                ['school_id', '学校', 'text.edit'],
+                ['uid', '教师UID', 'text.edit'],
                 ['name', '姓名', 'text.edit'],
                 ['info', '老师信息', 'textarea.edit'],
                 ['img', '老师头像', 'picture'],
+                ['phone', '姓名', 'text.edit'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
