@@ -11,6 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\TeacherModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -118,14 +119,18 @@ class Teacher extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
-
+        $school = SchoolModel::column("id,name");
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
+                ['select', 'school_id', '学校', "", $school],
+                ['number', 'uid', '老师的UID'],
                 ['text', 'name', '姓名'],
                 ['textarea', 'info', '老师信息'],
                 ['image', 'img', '老师头像'],
+                ['number', 'phone', '绑定手机号'],
+                ['switch', 'status', '是否启用'],
             ])
             ->fetch();
     }
@@ -172,15 +177,20 @@ class Teacher extends Admin
 
         // 获取数据
         $info = TeacherModel::where('id', $id)->find();
+        $school = SchoolModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
+                ['select', 'school_id', '学校', "", $school],
+                ['number', 'uid', '老师的UID'],
                 ['text', 'name', '姓名'],
                 ['textarea', 'info', '老师信息'],
                 ['image', 'img', '老师头像'],
+                ['number', 'phone', '绑定手机号'],
+                ['switch', 'status', '是否启用'],
             ]);
 
         return $data
