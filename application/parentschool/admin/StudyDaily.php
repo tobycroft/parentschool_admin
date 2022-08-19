@@ -131,10 +131,12 @@ class StudyDaily extends Admin
                     $data["attach_duration"] = $md5_data->duration;
                 }
             }
-
+            $special_tag = $data["special_tag"];
+            $common_tag = $data["common_tag"];
+            unset($data["special_tag"]);
+            unset($data["common_tag"]);
             if ($user = StudyDailyModel::create($data)) {
                 $lastid = $user->getLastInsID();
-                $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
                         StudyTagModel::create([
@@ -144,7 +146,6 @@ class StudyDaily extends Admin
                         ]);
                     }
                 }
-                $common_tag = $data["common_tag"];
                 if ($common_tag) {
                     foreach ($common_tag as $id) {
                         StudyTagModel::create([

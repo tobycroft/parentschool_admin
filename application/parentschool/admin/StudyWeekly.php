@@ -138,10 +138,12 @@ class StudyWeekly extends Admin
 
             }
             $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
-
+            $special_tag = $data["special_tag"];
+            $common_tag = $data["common_tag"];
+            unset($data["special_tag"]);
+            unset($data["common_tag"]);
             if ($user = StudyWeeklyModel::create($data)) {
                 $lastid = $user->getLastInsID();
-                $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
                         StudyTagModel::create([
@@ -151,7 +153,6 @@ class StudyWeekly extends Admin
                         ]);
                     }
                 }
-                $common_tag = $data["common_tag"];
                 if ($common_tag) {
                     foreach ($common_tag as $id) {
                         StudyTagModel::create([

@@ -146,12 +146,12 @@ class StudyMonthy extends Admin
                     }
                 }
             }
-
-            $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
-
+            $special_tag = $data["special_tag"];
+            $common_tag = $data["common_tag"];
+            unset($data["special_tag"]);
+            unset($data["common_tag"]);
             if ($user = StudyMonthyModel::create($data)) {
                 $lastid = $user->getLastInsID();
-                $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
                         StudyTagModel::create([
@@ -161,7 +161,6 @@ class StudyMonthy extends Admin
                         ]);
                     }
                 }
-                $common_tag = $data["common_tag"];
                 if ($common_tag) {
                     foreach ($common_tag as $id) {
                         StudyTagModel::create([
