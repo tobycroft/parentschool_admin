@@ -121,7 +121,6 @@ class StudyDaily extends Admin
                 }
             }
 
-            $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
             $atta = new Attachment();
             $md5 = $atta->getFileMd5($data["attach_url"]);
