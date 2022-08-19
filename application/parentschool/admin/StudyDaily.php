@@ -133,11 +133,12 @@ class StudyDaily extends Admin
             }
 
             if ($user = StudyDailyModel::create($data)) {
+                $lastid = $user->getLastInsID();
                 $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
                         StudyTagModel::create([
-                            "study_id" => $user->getLastInsID(),
+                            "study_id" => $lastid,
                             "study_type" => "daily",
                             "tag_id" => $id,
                         ]);
@@ -147,7 +148,7 @@ class StudyDaily extends Admin
                 if ($common_tag) {
                     foreach ($common_tag as $id) {
                         StudyTagModel::create([
-                            "study_id" => $user->getLastInsID(),
+                            "study_id" => $lastid,
                             "study_type" => "daily",
                             "tag_id" => $id,
                         ]);

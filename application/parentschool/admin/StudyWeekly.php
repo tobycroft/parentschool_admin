@@ -140,22 +140,26 @@ class StudyWeekly extends Admin
             $data["end_date"] = date("Y-m-d H:i:s", $data["end_date"]);
 
             if ($user = StudyWeeklyModel::create($data)) {
-//                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "weelky")->delete();
+                $lastid = $user->getLastInsID();
                 $special_tag = $data["special_tag"];
-                foreach ($special_tag as $id) {
-                    StudyTagModel::create([
-                        "study_id" => $user->getLastInsID(),
-                        "study_type" => "weekly",
-                        "tag_id" => $id,
-                    ]);
+                if ($special_tag) {
+                    foreach ($special_tag as $id) {
+                        StudyTagModel::create([
+                            "study_id" => $lastid,
+                            "study_type" => "weekly",
+                            "tag_id" => $id,
+                        ]);
+                    }
                 }
                 $common_tag = $data["common_tag"];
-                foreach ($common_tag as $id) {
-                    StudyTagModel::create([
-                        "study_id" => $user->getLastInsID(),
-                        "study_type" => "weekly",
-                        "tag_id" => $id,
-                    ]);
+                if ($common_tag) {
+                    foreach ($common_tag as $id) {
+                        StudyTagModel::create([
+                            "study_id" => $lastid,
+                            "study_type" => "weekly",
+                            "tag_id" => $id,
+                        ]);
+                    }
                 }
                 Hook::listen('user_add', $user);
                 // 记录行为

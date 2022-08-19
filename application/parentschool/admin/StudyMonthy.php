@@ -150,12 +150,12 @@ class StudyMonthy extends Admin
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
             if ($user = StudyMonthyModel::create($data)) {
-//                StudyTagModel::where("study_id", $user->getLastInsID())->where("study_type", "monthy")->delete();
+                $lastid = $user->getLastInsID();
                 $special_tag = $data["special_tag"];
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
                         StudyTagModel::create([
-                            "study_id" => $user->getLastInsID(),
+                            "study_id" => $lastid,
                             "study_type" => "monthy",
                             "tag_id" => $id,
                         ]);
@@ -165,13 +165,12 @@ class StudyMonthy extends Admin
                 if ($common_tag) {
                     foreach ($common_tag as $id) {
                         StudyTagModel::create([
-                            "study_id" => $user->getLastInsID(),
+                            "study_id" => $lastid,
                             "study_type" => "monthy",
                             "tag_id" => $id,
                         ]);
                     }
                 }
-
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
