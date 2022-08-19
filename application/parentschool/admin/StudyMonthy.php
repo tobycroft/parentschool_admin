@@ -151,7 +151,7 @@ class StudyMonthy extends Admin
             unset($data["special_tag"]);
             unset($data["common_tag"]);
             if ($user = StudyMonthyModel::create($data)) {
-                $lastid = $user->id();
+                $lastid = $user->id;
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
                         StudyTagModel::create([
