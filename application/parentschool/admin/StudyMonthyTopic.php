@@ -13,6 +13,7 @@ use Aoss\Aoss;
 use app\admin\controller\Admin;
 use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyMonthyTopicModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -124,17 +125,15 @@ class StudyMonthyTopic extends Admin
             }
         }
 
-        // 角色列表
-        if (session('user_auth.role') != 1) {
-            $role_list = RoleModel::getTree(null, false, session('user_auth.role'));
-        } else {
-            $role_list = RoleModel::getTree(null, false);
-        }
         $study_id = input("study_id");
+
+        $monthy_list = StudyMonthyModel::column("id,title");
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
+                ['select', 'study_id', '课程id', '', $monthy_list],
                 ['number', 'study_id', '课程id', 'number'],
                 ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
@@ -196,6 +195,9 @@ class StudyMonthyTopic extends Admin
             }
         }
 
+
+        $monthy_list = StudyMonthyModel::column("id,title");
+
         // 获取数据
         $info = StudyMonthyTopicModel::where('id', $id)->find();
 
@@ -204,12 +206,12 @@ class StudyMonthyTopic extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'study_id', '课程id', 'number'],
+                ['select', 'study_id', '课程id', '', $monthy_list],
                 ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
                 ['ueditor', 'content', '字内容'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attah_url', '上传文件'],
+                ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ]);
 
