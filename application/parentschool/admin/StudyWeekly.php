@@ -277,16 +277,16 @@ class StudyWeekly extends Admin
             $push_date = strtotime($data["push_date"]);
             switch ($data["tick_mode"]) {
                 case "daily":
-                    $end_date = $push_date + $data["tick_need"] * 86400 + 86400;
+                    $end_date = $push_date + $data["tick_need"] * 86400;
                     break;
 
                 case "weekly":
-                    $end_date = $push_date + $data["tick_need"] * 86400 * 7 + 86400;
+                    $end_date = $push_date + $data["tick_need"] * 86400 * 7;
                     break;
 
                 case "monthy":
                 default:
-                    $end_date = $push_date + $data["tick_need"] * 86400 * 30 + 86400;
+                $end_date = $push_date + $data["tick_need"] * 86400 * 30;
                     break;
             }
             if ($end_date > strtotime($data["end_date"])) {
