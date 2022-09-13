@@ -94,7 +94,7 @@ class StudyMonthy extends Admin
                 ['school_id', '学校id', 'number'],
                 ['teacher_id', '老师的id', 'number'],
                 ['title', '标题'],
-//                ['slogan', '推荐金句'],
+                ['slogan', '推荐金句'],
                 ['special_tag', '特殊标签'],
                 ['common_tag', '特殊标签'],
 //                ['can_push', '是否可以推送', 'switch'],
