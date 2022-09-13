@@ -47,17 +47,17 @@ class Study extends Admin
         $data_list = StudyModel::where($map)->order($order)->paginate()->each(function ($item, $key) {
             switch ($item["study_type"]) {
                 case "daily":
-                    $data = StudyDailyModel::where("id", $item["study_id"]);
+                    $data = StudyDailyModel::where("id", $item["study_id"])->find();
                     $item["title"] = $data["title"];
                     $item["slogan"] = $data["slogan"];
                     return $item;
                 case "weekly":
-                    $data = StudyWeeklyModel::where("id", $item["study_id"]);
+                    $data = StudyWeeklyModel::where("id", $item["study_id"])->find();
                     $item["title"] = $data["title"];
                     $item["slogan"] = $data["slogan"];
                     return $item;
                 case "monthy":
-                    $data = StudyMonthyModel::where("id", $item["study_id"]);
+                    $data = StudyMonthyModel::where("id", $item["study_id"])->find();
                     $item["title"] = $data["title"];
                     $item["slogan"] = $data["slogan"];
                     return $item;
