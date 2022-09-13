@@ -43,22 +43,14 @@ class Study extends Admin
             return $item;
         });
         $page = $data_list->render();
-        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
-
-        $num1 = StudyModel::where("date", ">", $todaytime)->count();
-        $num2 = StudyModel::count();
-
 
         return ZBuilder::make('table')
-            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
-//            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-
                 ['area_id', '对应区域', 'number'],
                 ['school_id', '学校id', 'number'],
                 ['grade', '年级', 'number'],
