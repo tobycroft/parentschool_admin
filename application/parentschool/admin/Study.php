@@ -11,6 +11,10 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\SchoolAreaModel;
+use app\parentschool\model\SchoolClassModel;
+use app\parentschool\model\SchoolGradeModel;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
@@ -156,14 +160,19 @@ class Study extends Admin
             "每月一课" => $monthy,
         ];
 
+        $area = SchoolAreaModel::column("id,name");
+        $school_id = SchoolModel::column("id,name");
+        $grade = SchoolGradeModel::column("id,name");
+        $class = SchoolClassModel::column("id,name");
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'area_id', '对应区域'],
-                ['number', 'school_id', '学校id'],
-                ['number', 'grade', '年级'],
-                ['number', 'class', '班级'],
+                ['select', 'area_id', '对应区域', "", $area],
+                ['select', 'school_id', '学校id', "", $school_id],
+                ['select', 'grade', '年级', "", $grade],
+                ['select', 'class', '班级', "", $class],
                 ['switch', 'can_push', '是否可以推送'],
                 ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
@@ -240,14 +249,19 @@ class Study extends Admin
             "每月一课" => $monthy,
         ];
 
+        $area = SchoolAreaModel::column("id,name");
+        $school_id = SchoolModel::column("id,name");
+        $grade = SchoolGradeModel::column("id,name");
+        $class = SchoolClassModel::column("id,name");
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'area_id', '对应区域'],
-                ['number', 'school_id', '学校id'],
-                ['number', 'grade', '年级'],
-                ['number', 'class', '班级'],
+                ['select', 'area_id', '对应区域', "", $area],
+                ['select', 'school_id', '学校id', "", $school_id],
+                ['select', 'grade', '年级', "", $grade],
+                ['select', 'class', '班级', "", $class],
                 ['switch', 'can_push', '是否可以推送'],
                 ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
