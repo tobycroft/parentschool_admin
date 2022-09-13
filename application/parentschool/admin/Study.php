@@ -48,31 +48,6 @@ class Study extends Admin
         $num1 = StudyModel::where("date", ">", $todaytime)->count();
         $num2 = StudyModel::count();
 
-        $btn_access = [
-            'title' => '对应课程',
-            'icon' => 'fa fa-list',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('study_monthy_topic/index', ['search_field' => 'study_id', 'keyword' => '__id__'])
-        ];
-
-        $btn_access2 = [
-            'title' => '新建数据',
-            'icon' => 'fa fa-plus',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('study_monthy_topic/add', ['study_id' => '__id__'])
-        ];
-        $btn_access3 = [
-            'title' => '列出题目',
-            'icon' => 'fa fa-list',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('quiz_question/index', ['search_field' => "study_id", "keyword" => "__id__"])
-        ];
-        $btn_access4 = [
-            'title' => '新建题目',
-            'icon' => 'fa fa-plus',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
-        ];
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -83,29 +58,22 @@ class Study extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['grade', '年级', 'number'],
-                ['class', '班级', 'number'],
+
                 ['area_id', '对应区域', 'number'],
                 ['school_id', '学校id', 'number'],
-                ['teacher_id', '老师的id', 'number'],
-                ['title', '标题'],
+                ['grade', '年级', 'number'],
+                ['class', '班级', 'number'],
+//                ['title', '标题'],
 //                ['slogan', '推荐金句'],
-                ['special_tag', '特殊标签'],
-                ['common_tag', '特殊标签'],
                 ['can_push', '是否可以推送', 'switch'],
+                ['can_show', '是否展示', 'switch'],
                 ['push_date', '推送日期', 'text.edit'],
                 ['show_date', '展示日期', 'text.edit'],
-//                ['show_to', '展示给谁'],
+                ['end_date', '结束展示日期', 'text.edit'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
             ->addColumn('right_button', '操作', 'btn')
-            ->addRightButtons([
-                "子课程列表" => $btn_access,
-                "新建" => $btn_access2,
-                "题目列表" => $btn_access3,
-                "新建题目" => $btn_access4,
-            ])
 //            ->addRightButton('新建', $btn_access2)
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
