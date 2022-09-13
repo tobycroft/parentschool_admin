@@ -14,6 +14,7 @@ use app\admin\controller\Admin;
 use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyDailyModel;
+use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
@@ -155,6 +156,18 @@ class StudyDaily extends Admin
                         ]);
                     }
                 }
+                StudyModel::create([
+                    "area_id" => $data["area_id"],
+                    "school_id" => $data["school_id"],
+                    "grade" => $data["grade"],
+                    "push_date" => $data["push_date"],
+                    "show_date" => $data["show_date"],
+                    "end_date" => $data["end_date"],
+                    "can_push" => $data["can_push"],
+                    "can_show" => $data["can_show"],
+                    "study_type" => "daily",
+                    "study_id" => $lastid,
+                ]);
 
                 Hook::listen('user_add', $user);
                 // 记录行为
