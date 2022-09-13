@@ -77,9 +77,9 @@ class Study extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['area_id', '对应区域', 'select', "", $area],
-                ['school_id', '学校id', 'select', "", $school_id],
-                ['grade', '年级', 'select', "", $grade],
+                ['area_id', '对应区域', 'select', $area],
+                ['school_id', '学校id', 'select', $school_id],
+                ['grade', '年级', 'select', $grade],
                 ['title', '标题'],
                 ['slogan', '推荐金句'],
                 ['can_push', '是否可以推送', 'switch'],
