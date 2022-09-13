@@ -180,7 +180,7 @@ class StudyMonthy extends Admin
                     "end_date" => $data["end_date"],
                     "can_push" => $data["can_push"],
                     "can_show" => $data["can_show"],
-                    "study_type" => "daily",
+                    "study_type" => "monthy",
                     "study_id" => $lastid,
                 ]);
                 Hook::listen('user_add', $user);
