@@ -140,12 +140,12 @@ class Study extends Admin
             $item .= "-每日";
             $daily[$key] = $item;
         }
-        $weekly = StudyDailyModel::column("id,title");
+        $weekly = StudyWeeklyModel::column("id,title");
         foreach ($daily as $key => $item) {
             $item .= "-每周";
             $weekly[$key] = $item;
         }
-        $monthy = StudyDailyModel::column("id,title");
+        $monthy = StudyMonthyModel::column("id,title");
         foreach ($daily as $key => $item) {
             $item .= "-每月";
             $monthy[$key] = $item;
