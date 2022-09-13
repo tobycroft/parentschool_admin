@@ -141,10 +141,10 @@ class Study extends Admin
             }),
             "每周一做" => StudyWeeklyModel::column("id,title")->each(function ($item) {
                 $item["title"] += "每周-";
-            }), ,
+            }),
             "每月一课" => StudyMonthyModel::column("id,title")->each(function ($item) {
                 $item["title"] += "每月-";
-            }), ,
+            }),
         ];
 
         // 使用ZBuilder快速创建表单
