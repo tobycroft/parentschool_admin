@@ -66,6 +66,10 @@ class Study extends Admin
         });
         $page = $data_list->render();
 
+        $area = SchoolAreaModel::column("id,name");
+        $school_id = SchoolModel::column("id,name");
+        $grade = SchoolGradeModel::column("id,name");
+
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
@@ -73,9 +77,9 @@ class Study extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['area_id', '对应区域', 'number'],
-                ['school_id', '学校id', 'number'],
-                ['grade', '年级', 'number'],
+                ['area_id', '对应区域', 'select', "", $area],
+                ['school_id', '学校id', 'select', "", $school_id],
+                ['grade', '年级', 'select', "", $grade],
                 ['title', '标题'],
                 ['slogan', '推荐金句'],
                 ['can_push', '是否可以推送', 'switch'],
