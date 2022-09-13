@@ -70,8 +70,6 @@ class Study extends Admin
                 ['push_date', '推送日期', 'text.edit'],
                 ['show_date', '展示日期', 'text.edit'],
                 ['end_date', '结束展示日期', 'text.edit'],
-                ['change_date', '修改时间'],
-                ['date', '创建时间'],
             ])
             ->addColumn('right_button', '操作', 'btn')
 //            ->addRightButton('新建', $btn_access2)
