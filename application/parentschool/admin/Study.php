@@ -15,7 +15,6 @@ use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyWeeklyModel;
-use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -136,16 +135,6 @@ class Study extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
-        foreach ($tag_common as $key => $value) {
-            $tag_common[strval($key)] = $value;
-        }
-        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
-        foreach ($tag_special as $key => $value) {
-            $tag_special[strval($key)] = $value;
-        }
-
-
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -158,7 +147,7 @@ class Study extends Admin
                 ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['number', 'study_id', '课程id'],
+                ['number', 'study_id', '课包id'],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
             ])
             ->fetch();
