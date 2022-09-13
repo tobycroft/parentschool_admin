@@ -219,6 +219,27 @@ class Study extends Admin
 
         // 使用ZBuilder快速创建表单
 
+        $daily = StudyDailyModel::column("id,title");
+        foreach ($daily as $key => $item) {
+            $item .= "-每日";
+            $daily[$key] = $item;
+        }
+        $weekly = StudyWeeklyModel::column("id,title");
+        foreach ($daily as $key => $item) {
+            $item .= "-每周";
+            $weekly[$key] = $item;
+        }
+        $monthy = StudyMonthyModel::column("id,title");
+        foreach ($daily as $key => $item) {
+            $item .= "-每月";
+            $monthy[$key] = $item;
+        }
+        $groups = [
+            "每日一课" => $daily,
+            "每周一做" => $weekly,
+            "每月一课" => $monthy,
+        ];
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
@@ -231,7 +252,7 @@ class Study extends Admin
                 ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['number', 'study_id', '课程id'],
+                ['selectGroup', 'study_id', '课包id', "", $groups],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
             ]);
 
