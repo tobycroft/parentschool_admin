@@ -136,7 +136,9 @@ class StudyDaily extends Admin
             $common_tag = $data["common_tag"];
             unset($data["special_tag"]);
             unset($data["common_tag"]);
-            if ($user = StudyDailyModel::create($data)) {
+            $data2 = $data;
+            unset($data2["end_date"]);
+            if ($user = StudyDailyModel::create($data2)) {
                 $lastid = $user->id;
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
@@ -213,6 +215,7 @@ class StudyDaily extends Admin
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束展示日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
                 ['number', 'attach_duration', '附件时长(秒)'],
