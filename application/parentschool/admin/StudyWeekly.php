@@ -173,7 +173,7 @@ class StudyWeekly extends Admin
                     "end_date" => $data["end_date"],
                     "can_push" => $data["can_push"],
                     "can_show" => $data["can_show"],
-                    "study_type" => "daily",
+                    "study_type" => "weekly",
                     "study_id" => $lastid,
                 ]);
 
