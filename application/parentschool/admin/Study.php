@@ -135,6 +135,12 @@ class Study extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
+        $groups = [
+            "每日一课" => StudyDailyModel::column("id,title"),
+            "每周一做" => StudyWeeklyModel::column("id,title"),
+            "每月一课" => StudyMonthyModel::column("id,title"),
+        ];
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -147,7 +153,7 @@ class Study extends Admin
                 ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['number', 'study_id', '课包id'],
+                ['selectGroup', 'study_id', '课包id', "", $groups],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
             ])
             ->fetch();
