@@ -76,7 +76,6 @@ class Study extends Admin
                 ['area_id', '对应区域', 'number'],
                 ['school_id', '学校id', 'number'],
                 ['grade', '年级', 'number'],
-                ['class_id', '班级', 'number'],
                 ['title', '标题'],
                 ['slogan', '推荐金句'],
                 ['can_push', '是否可以推送', 'switch'],
