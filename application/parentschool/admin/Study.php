@@ -136,9 +136,15 @@ class Study extends Admin
         }
 
         $groups = [
-            "每日一课" => StudyDailyModel::column("id,title"),
-            "每周一做" => StudyWeeklyModel::column("id,title"),
-            "每月一课" => StudyMonthyModel::column("id,title"),
+            "每日一课" => StudyDailyModel::column("id,title")->each(function ($item) {
+                $item["title"] += "每日-";
+            }),
+            "每周一做" => StudyWeeklyModel::column("id,title")->each(function ($item) {
+                $item["title"] += "每周-";
+            }), ,
+            "每月一课" => StudyMonthyModel::column("id,title")->each(function ($item) {
+                $item["title"] += "每月-";
+            }), ,
         ];
 
         // 使用ZBuilder快速创建表单
