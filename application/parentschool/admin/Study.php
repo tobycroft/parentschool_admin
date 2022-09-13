@@ -11,8 +11,11 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
+use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
+use app\parentschool\model\StudyWeeklyModel;
 use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -40,7 +43,24 @@ class Study extends Admin
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudyModel::where($map)->order($order)->paginate()->each(function ($item, $key) {
-            return $item;
+            switch ($item["study_type"]) {
+                case "daily":
+                    $data = StudyDailyModel::where("id", $item["study_id"]);
+                    $item["title"] = $data["title"];
+                    $item["slogan"] = $data["slogan"];
+                    return $item;
+                case "weekly":
+                    $data = StudyWeeklyModel::where("id", $item["study_id"]);
+                    $item["title"] = $data["title"];
+                    $item["slogan"] = $data["slogan"];
+                    return $item;
+                case "monthy":
+                    $data = StudyMonthyModel::where("id", $item["study_id"]);
+                    $item["title"] = $data["title"];
+                    $item["slogan"] = $data["slogan"];
+                    return $item;
+
+            }
         });
         $page = $data_list->render();
 
