@@ -135,19 +135,25 @@ class Study extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
+        $daily = StudyDailyModel::column("id,title");
+        foreach ($daily as $key => $item) {
+            $item["title"] += "每周-";
+            $daily[$key] = $item;
+        }
+        $weekly = StudyDailyModel::column("id,title");
+        foreach ($daily as $key => $item) {
+            $item["title"] += "每周-";
+            $weekly[$key] = $item;
+        }
+        $monthy = StudyDailyModel::column("id,title");
+        foreach ($daily as $key => $item) {
+            $item["title"] += "每周-";
+            $monthy[$key] = $item;
+        }
         $groups = [
-            "每日一课" => StudyDailyModel::column("id,title")->each(function ($item, $key) {
-                $item["title"] += "每日-";
-                return $item;
-            }),
-            "每周一做" => StudyWeeklyModel::column("id,title")->each(function ($item, $key) {
-                $item["title"] += "每周-";
-                return $item;
-            }),
-            "每月一课" => StudyMonthyModel::column("id,title")->each(function ($item, $key) {
-                $item["title"] += "每月-";
-                return $item;
-            }),
+            "每日一课" => $daily,
+            "每周一做" => $weekly,
+            "每月一课" => $monthy,
         ];
 
         // 使用ZBuilder快速创建表单
