@@ -136,14 +136,17 @@ class Study extends Admin
         }
 
         $groups = [
-            "每日一课" => StudyDailyModel::column("id,title")->each(function ($item) {
+            "每日一课" => StudyDailyModel::column("id,title")->each(function ($item, $key) {
                 $item["title"] += "每日-";
+                return $item;
             }),
-            "每周一做" => StudyWeeklyModel::column("id,title")->each(function ($item) {
+            "每周一做" => StudyWeeklyModel::column("id,title")->each(function ($item, $key) {
                 $item["title"] += "每周-";
+                return $item;
             }),
-            "每月一课" => StudyMonthyModel::column("id,title")->each(function ($item) {
+            "每月一课" => StudyMonthyModel::column("id,title")->each(function ($item, $key) {
                 $item["title"] += "每月-";
+                return $item;
             }),
         ];
 
