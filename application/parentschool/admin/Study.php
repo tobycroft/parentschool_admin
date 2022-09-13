@@ -14,7 +14,6 @@ use app\common\builder\ZBuilder;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
-use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\StudyWeeklyModel;
 use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
@@ -120,30 +119,7 @@ class Study extends Admin
                     }
                 }
             }
-            $special_tag = $data["special_tag"];
-            $common_tag = $data["common_tag"];
-            unset($data["special_tag"]);
-            unset($data["common_tag"]);
             if ($user = StudyModel::create($data)) {
-                $lastid = $user->id;
-                if ($special_tag) {
-                    foreach ($special_tag as $id) {
-                        StudyTagModel::create([
-                            "study_id" => $lastid,
-                            "study_type" => "monthy",
-                            "tag_id" => $id,
-                        ]);
-                    }
-                }
-                if ($common_tag) {
-                    foreach ($common_tag as $id) {
-                        StudyTagModel::create([
-                            "study_id" => $lastid,
-                            "study_type" => "monthy",
-                            "tag_id" => $id,
-                        ]);
-                    }
-                }
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -174,19 +150,16 @@ class Study extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'grade', '年级'],
-                ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
-                ['text', 'title', '标题'],
-                ['text', 'slogan', '推荐金句'],
-                ['checkbox', 'special_tag', '特殊标签', "", $tag_special],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common],
-                ['ueditor', 'content', '内容'],
+                ['number', 'grade', '年级'],
+                ['number', 'class', '班级'],
                 ['switch', 'can_push', '是否可以推送'],
+                ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ['number', 'study_id', '课程id'],
+                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
             ])
             ->fetch();
     }
@@ -220,27 +193,6 @@ class Study extends Admin
 
             // 非超级管理需要验证可选择角色
 
-            StudyTagModel::where("study_id", $data["id"])->where("study_type", "monthy")->delete();
-            if (isset($data["special_tag"])) {
-                $special_tag = $data["special_tag"];
-                foreach ($special_tag as $id) {
-                    StudyTagModel::create([
-                        "study_id" => $data["id"],
-                        "study_type" => "monthy",
-                        "tag_id" => $id,
-                    ]);
-                }
-            }
-            if (isset($data["common_tag"])) {
-                $common_tag = $data["common_tag"];
-                foreach ($common_tag as $id) {
-                    StudyTagModel::create([
-                        "study_id" => $data["id"],
-                        "study_type" => "monthy",
-                        "tag_id" => $id,
-                    ]);
-                }
-            }
             if (StudyModel::update($data)) {
                 $user = StudyModel::get($data['id']);
                 // 记录行为
@@ -257,29 +209,20 @@ class Study extends Admin
 
         // 使用ZBuilder快速创建表单
 
-        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
-        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
-        $tag_choose = StudyTagModel::where("study_id", $id)->where("study_type", "monthy")->column("tag_id");
-        $info["special_tag"] = null;
-        $info["common_tag"] = null;
-
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'grade', '年级'],
-                ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
-                ['text', 'title', '标题'],
-                ['text', 'slogan', '推荐金句'],
-                ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
-                ['ueditor', 'content', '内容'],
+                ['number', 'grade', '年级'],
+                ['number', 'class', '班级'],
                 ['switch', 'can_push', '是否可以推送'],
+                ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ['number', 'study_id', '课程id'],
+                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
             ]);
 
         return $data
