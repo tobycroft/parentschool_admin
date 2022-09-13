@@ -65,11 +65,11 @@ class StudyDaily extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['grade', '年级', 'number'],
-                ['area_id', '对应区域', 'number'],
-                ['school_id', '学校id', 'number'],
+//                ['grade', '年级', 'number'],
+//                ['area_id', '对应区域', 'number'],
+//                ['school_id', '学校id', 'number'],
                 ['title', '标题'],
-//                ['slogan', '推荐金句'],
+                ['slogan', '推荐金句'],
                 ['special_tag', '特殊标签'],
                 ['common_tag', '特殊标签'],
 //                ['img', '小图头图', "picture"],
@@ -283,6 +283,7 @@ class StudyDaily extends Admin
                     ]);
                 }
             }
+            unset($data["end_date"]);
             if (StudyDailyModel::update($data)) {
                 $user = StudyDailyModel::get($data['id']);
                 // 记录行为
@@ -323,6 +324,7 @@ class StudyDaily extends Admin
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束展示日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
                 ['number', 'attach_duration', '附件时长(秒)'],
