@@ -52,7 +52,7 @@ class Study extends Admin
                         $item["slogan"] = $data["slogan"];
                     } else {
                         $item["title"] = "未找到课程";
-                        $item["slogan"] = "";
+                        $item["slogan"] = "未找到对应课程";
                     }
 
                     return $item;
