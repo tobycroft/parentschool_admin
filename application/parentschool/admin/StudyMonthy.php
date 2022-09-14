@@ -315,7 +315,7 @@ class StudyMonthy extends Admin
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
-            if (!StudyModel::where("id", $data["id"])->update($study_input)) {
+            if (!StudyModel::where("study_id", $data["id"])->update($study_input)) {
                 Db::rollback();
                 $this->error('StudyModel编辑失败');
             }
