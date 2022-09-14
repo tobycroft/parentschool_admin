@@ -317,7 +317,7 @@ class StudyMonthy extends Admin
             ];
             if (!StudyModel::where("id", $id)->update($study_input)) {
                 Db::rollback();
-                $this->error('编辑失败');
+                $this->error('StudyModel编辑失败');
             }
             if (StudyMonthyModel::where("id", $id)->update($monthy_input)) {
                 $user = StudyMonthyModel::get($data['id']);
