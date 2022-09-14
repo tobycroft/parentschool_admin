@@ -86,9 +86,9 @@ class StudentOutlet extends Admin
 //            ->addColumn('callsign', '座号', 'number')
 //            ->addColumn('remark', '备注', 'textarea.edit')
             ->addColumn('date', '创建时间')
-            ->addColumn('right_button', '操作', 'btn')
-            ->addRightButton('edit') // 添加编辑按钮
-            ->addRightButton('delete') //添加删除按钮
+//            ->addColumn('right_button', '操作', 'btn')
+//            ->addRightButton('edit') // 添加编辑按钮
+//            ->addRightButton('delete') //添加删除按钮
             ->setHeight(400)
             ->addRightButtons([
 //                "学校" => $btn_school,
