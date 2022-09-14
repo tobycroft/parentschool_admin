@@ -90,7 +90,8 @@ class StudentOutlet extends Admin
             ->addRightButtons([
 //                "学校" => $btn_school,
 //                "年级" => $btn_grade,
-                "班级" => $btn_class,])
+                "班级" => $btn_class,
+            ])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
