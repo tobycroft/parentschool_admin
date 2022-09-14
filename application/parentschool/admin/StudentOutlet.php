@@ -89,7 +89,7 @@ class StudentOutlet extends Admin
 //            ->addColumn('right_button', '操作', 'btn')
 //            ->addRightButton('edit') // 添加编辑按钮
 //            ->addRightButton('delete') //添加删除按钮
-            ->setHeight("auto")
+//            ->setHeight("auto")
             ->addRightButtons([
 //                "学校" => $btn_school,
 //                "年级" => $btn_grade,
