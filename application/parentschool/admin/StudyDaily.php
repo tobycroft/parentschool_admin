@@ -344,7 +344,8 @@ class StudyDaily extends Admin
 
         // 获取数据
         $info = StudyDailyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
-
+        var_dump($info);
+        return;
         // 使用ZBuilder快速创建表单
 
         $tag_common = TagModel::where("tag_type", "common")->column("id,name");
