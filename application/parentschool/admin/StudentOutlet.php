@@ -78,7 +78,7 @@ class StudentOutlet extends Admin
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('gender', '男女', 'number')
             ->addColumn('name', '姓名', 'text.edit')
-            ->addColumn('img', '头像', 'picture')
+            ->addColumn('img', '头像', 'image')
             ->addColumn('year', '入学年份', 'number')
             ->addColumn('grade', '年级', 'number')
             ->addColumn('class', '班级', 'number')
