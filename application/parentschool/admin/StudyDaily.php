@@ -324,6 +324,8 @@ class StudyDaily extends Admin
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
+            var_dump($id);
+            return;
             if (!StudyModel::where("id", $id)->update($study_input)) {
                 Db::rollback();
                 $this->error('StudyModel编辑失败');
