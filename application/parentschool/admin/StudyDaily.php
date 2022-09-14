@@ -156,8 +156,8 @@ class StudyDaily extends Admin
                 "push_date" => $data["push_date"],
                 "show_date" => $data["show_date"],
                 "end_date" => $data["end_date"],
-                "can_push" => $data["can_push"],
-                "can_show" => $data["can_show"],
+                "can_push" => $data["can_push"] == "on",
+                "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
             Db::startTrans();
@@ -320,8 +320,8 @@ class StudyDaily extends Admin
                 "push_date" => $data["push_date"],
                 "show_date" => $data["show_date"],
                 "end_date" => $data["end_date"],
-                "can_push" => $data["can_push"],
-                "can_show" => $data["can_show"],
+                "can_push" => $data["can_push"] == "on",
+                "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
             if (!StudyModel::where("id", $id)->update($study_input)) {
