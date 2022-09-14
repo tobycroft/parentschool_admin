@@ -314,7 +314,6 @@ class StudyDaily extends Admin
                 "show_to" => $data["show_to"],
             ];
             $study_input = [
-                "id" => $data["id"],
                 "area_id" => $data["area_id"],
                 "school_id" => $data["school_id"],
                 "grade" => $data["grade"],
@@ -325,11 +324,11 @@ class StudyDaily extends Admin
                 "can_show" => $data["can_show"],
                 "study_type" => $data["study_type"],
             ];
-            if (!StudyModel::update($study_input)) {
+            if (!StudyModel::where("id", $id)->update($study_input)) {
                 Db::rollback();
                 $this->error('编辑失败');
             }
-            if (StudyDailyModel::update($daily_input)) {
+            if (StudyDailyModel::where("id", $id)->update($daily_input)) {
                 Db::commit();
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
