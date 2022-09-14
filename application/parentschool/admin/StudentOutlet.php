@@ -43,6 +43,26 @@ class StudentOutlet extends Admin
 
 //        $num1 = StudentOutletModel::where("date", ">", $todaytime)->count();
 //        $num2 = StudentOutletModel::count();
+        $btn_school = [
+            'title' => '学校二维码',
+            'icon' => 'fa fa-list',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__}'
+        ];
+
+        $btn_grade = [
+            'title' => '年级二维码',
+            'icon' => 'fa fa-list',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__}'
+        ];
+
+        $btn_class = [
+            'title' => '班级二维码',
+            'icon' => 'fa fa-list',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
+        ];
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -67,6 +87,7 @@ class StudentOutlet extends Admin
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
+            ->addRightButtons(["学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
