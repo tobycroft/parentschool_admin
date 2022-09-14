@@ -301,7 +301,7 @@ class StudyWeekly extends Admin
 
                 case "monthy":
                 default:
-                $end_date = $push_date + $data["tick_need"] * 86400 * 30;
+                    $end_date = $push_date + $data["tick_need"] * 86400 * 30;
                     break;
             }
             if ($end_date > strtotime($data["end_date"])) {
@@ -320,7 +320,8 @@ class StudyWeekly extends Admin
         }
 
         // 获取数据
-        $info = StudyWeeklyModel::where('id', $id)->find();
+        $info = StudyWeeklyModel::alias("a")->rightJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
+
         // 使用ZBuilder快速创建表单
 
         $tag_common = TagModel::where("tag_type", "common")->column("id,name");
