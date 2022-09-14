@@ -82,7 +82,7 @@ class Study extends Admin
             ->addFilter('study_type')
             ->addColumns([
                 ['id', 'ID'],
-                ['study_type', '课程类型', "text"],
+                ['study_type', '课程类型', "select", '', \Study\Type::get_type()],
                 ['study_id', '课包id', 'number'],
                 ['area_id', '对应区域', 'select', $area],
                 ['school_id', '学校id', 'select', $school_id],
