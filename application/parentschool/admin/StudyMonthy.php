@@ -336,8 +336,17 @@ class StudyMonthy extends Admin
         }
 
         // 获取数据
-        $info = StudyMonthyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "monthy")->where('a.id', $id)->find();
 
+        $info2 = StudyModel::where("study_type", "monthy")->where("study_id", $id)->find();
+        if (!$info2) {
+            $study_input = [
+                "study_type" => "monthy",
+                "study_id" => $id,
+            ];
+            StudyModel::create($study_input);
+        }
+
+        $info = StudyMonthyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "monthy")->where('a.id', $id)->find();
 
         // 使用ZBuilder快速创建表单
 
