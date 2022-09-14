@@ -343,7 +343,7 @@ class StudyDaily extends Admin
         }
 
         // 获取数据
-        $info = StudyDailyModel::where("a.id", $id)->find();
+        $info = StudyDailyModel::where("id", $id)->find();
         $info2 = StudyModel::where("study_type", "daily")->find();
         $inf3 = array_merge($info, $info2);
 //        $info = StudyDailyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
