@@ -321,7 +321,7 @@ class StudyWeekly extends Admin
         }
 
         // 获取数据
-        $info = StudyWeeklyModel::alias("a")->rightJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
+        $info = StudyWeeklyModel::alias("a")->rightJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "weekly")->where('a.id', $id)->find();
 
         // 使用ZBuilder快速创建表单
 
