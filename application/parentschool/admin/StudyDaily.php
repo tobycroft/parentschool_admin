@@ -340,7 +340,7 @@ class StudyDaily extends Admin
         }
 
         // 获取数据
-        $info = StudyDailyModel::where('id', $id)->find();
+        $info = StudyDailyModel::rightJoin("ps_study on study_id=ps_study_daily.id")->where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
 
