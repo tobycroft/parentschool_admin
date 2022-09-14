@@ -409,12 +409,12 @@ class StudyWeekly extends Admin
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
 
                 ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
-                ['datetime', 'end_date', '结束日期'],
                 ['select', 'tick_mode', '打卡模式', "打卡模式", ['default' => "未选择", 'daily' => "每日打卡", 'weekly' => "每周打卡", 'monthy' => "每月打卡"]],
                 ['text', 'tick_word', '打卡说明', "打卡说明"],
 
