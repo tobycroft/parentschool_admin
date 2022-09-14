@@ -324,13 +324,11 @@ class StudyDaily extends Admin
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
-            var_dump($id);
-            return;
-            if (!StudyModel::where("id", $id)->update($study_input)) {
+            if (!StudyModel::where("id", $data["id"])->update($study_input)) {
                 Db::rollback();
                 $this->error('StudyModel编辑失败');
             }
-            if (StudyDailyModel::where("id", $id)->update($daily_input)) {
+            if (StudyDailyModel::where("id", $data["id"])->update($daily_input)) {
                 Db::commit();
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
