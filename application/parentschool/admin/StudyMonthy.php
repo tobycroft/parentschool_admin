@@ -321,6 +321,7 @@ class StudyMonthy extends Admin
                 ['switch', 'can_push', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束展示日期'],
                 ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
 
