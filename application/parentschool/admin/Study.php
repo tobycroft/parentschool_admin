@@ -79,6 +79,7 @@ class Study extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
             ->addOrder('id')
+            ->addFilter('study_type')
             ->addColumns([
                 ['id', 'ID'],
                 ['study_type', '课程类型', "select", '', \Study\Type::get_type()],
