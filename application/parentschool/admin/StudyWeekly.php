@@ -363,7 +363,7 @@ class StudyWeekly extends Admin
                 "study_type" => $data["study_type"],
             ];
             StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
-            if (StudyWeeklyModel::update($data)) {
+            if (StudyWeeklyModel::where("id", $data["id"])->update($weekly_input)) {
                 $user = StudyWeeklyModel::get($data['id']);
                 Db::commit();
                 // 记录行为
