@@ -315,6 +315,7 @@ class StudyMonthy extends Admin
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
+                "study_id" => $data["id"],
             ];
             $study = StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->find();
             if ($study) {
