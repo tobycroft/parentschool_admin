@@ -323,8 +323,15 @@ class StudyDaily extends Admin
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
+                "study_id" => $data["id"],
             ];
-            StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
+            $study = StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->find();
+            if ($study) {
+                StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
+            } else {
+                StudyModel::where("study_type", $data["study_type"])->insert($study_input);
+            }
+
             if (StudyDailyModel::where("id", $data["id"])->update($daily_input)) {
                 Db::commit();
                 // 记录行为
@@ -337,7 +344,7 @@ class StudyDaily extends Admin
         }
 
         // 获取数据
-        $info = StudyDailyModel::field("b.*,a.*")->alias("a")->rightJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
+        $info = StudyDailyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
 
         // 使用ZBuilder快速创建表单
 
