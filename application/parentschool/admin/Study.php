@@ -54,7 +54,6 @@ class Study extends Admin
                         $item["title"] = "未找到课程";
                         $item["slogan"] = "未找到对应课程";
                     }
-
                     return $item;
                 case "weekly":
                     $data = StudyWeeklyModel::where("id", $item["study_id"])->find();
