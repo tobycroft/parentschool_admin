@@ -81,6 +81,7 @@ class Study extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
+                ['study_type', '课程类型', "select", '', \Study\Type::get_type()],
                 ['area_id', '对应区域', 'select', $area],
                 ['school_id', '学校id', 'select', $school_id],
                 ['grade', '年级', 'select', $grade],
