@@ -187,6 +187,7 @@ class Study extends Admin
                 ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束日期'],
                 ['selectGroup', 'study_id', '课包id', "", $groups],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
             ])
@@ -276,6 +277,7 @@ class Study extends Admin
                 ['switch', 'can_show', '是否可以推送'],
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束日期'],
                 ['selectGroup', 'study_id', '选择课包', "", $groups],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
             ]);
