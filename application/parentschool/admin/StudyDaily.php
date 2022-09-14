@@ -275,7 +275,7 @@ class StudyDaily extends Admin
                     $data["attach_duration"] = $md5_data->duration;
                 }
             }
-
+            Db::startTrans();
             StudyTagModel::where("study_id", $data["id"])->where("study_type", "daily")->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
@@ -297,13 +297,41 @@ class StudyDaily extends Admin
                     ]);
                 }
             }
+            $daily_input = [
+                "id" => $data["id"],
+                "title" => $data["title"],
+                "slogan" => $data["slogan"],
+                "content" => $data["content"],
+                "img" => $data["img"],
+                "img_intro" => $data["img_intro"],
+                "from1" => $data["from1"],
+                "from2" => $data["from2"],
+                "attach_type" => $data["attach_type"],
+                "attach_url" => $data["attach_url"],
+                "attach_duration" => $data["attach_duration"],
+                "show_to" => $data["show_to"],
+            ];
+            $study_input = [
+                "id" => $data["id"],
+                "area_id" => $data["area_id"],
+                "school_id" => $data["school_id"],
+                "grade" => $data["grade"],
+                "push_date" => $data["push_date"],
+                "show_date" => $data["show_date"],
+                "end_date" => $data["end_date"],
+                "can_push" => $data["can_push"],
+                "can_show" => $data["can_show"],
+                "study_type" => $data["study_type"],
+            ];
+            StudyModel::update($study_input);
             unset($data["end_date"]);
-            if (StudyDailyModel::update($data)) {
-                $user = StudyDailyModel::get($data['id']);
+            if (StudyDailyModel::update($daily_input)) {
+                Db::commit();
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
             } else {
+                Db::rollback();
                 $this->error('编辑失败');
             }
         }
