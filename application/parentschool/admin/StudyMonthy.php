@@ -273,7 +273,7 @@ class StudyMonthy extends Admin
             $data = $this->request->post();
 
             // 非超级管理需要验证可选择角色
-
+            Db::startTrans();
             StudyTagModel::where("study_id", $data["id"])->where("study_type", "monthy")->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
@@ -295,12 +295,38 @@ class StudyMonthy extends Admin
                     ]);
                 }
             }
-            if (StudyMonthyModel::update($data)) {
+            $monthy_input = [
+                "teacher_id" => $data["teacher_id"],
+                "title" => $data["title"],
+                "slogan" => $data["slogan"],
+                "content" => $data["content"],
+                "img" => $data["img"],
+                "img_intro" => $data["img_intro"],
+                "show_to" => $data["show_to"],
+            ];
+            $study_input = [
+                "area_id" => $data["area_id"],
+                "school_id" => $data["school_id"],
+                "grade" => $data["grade"],
+                "push_date" => $data["push_date"],
+                "show_date" => $data["show_date"],
+                "end_date" => $data["end_date"],
+                "can_push" => $data["can_push"],
+                "can_show" => $data["can_show"],
+                "study_type" => $data["study_type"],
+            ];
+            if (!StudyModel::where("id", $id)->update($study_input)) {
+                Db::rollback();
+                $this->error('编辑失败');
+            }
+            if (StudyMonthyModel::where("id", $id)->update($monthy_input)) {
                 $user = StudyMonthyModel::get($data['id']);
+                Db::commit();
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
             } else {
+                Db::rollback();
                 $this->error('编辑失败');
             }
         }
