@@ -315,11 +315,11 @@ class StudyMonthy extends Admin
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
-            if (!StudyModel::where("id", $id)->update($study_input)) {
+            if (!StudyModel::where("id", $data["id"])->update($study_input)) {
                 Db::rollback();
                 $this->error('StudyModel编辑失败');
             }
-            if (StudyMonthyModel::where("id", $id)->update($monthy_input)) {
+            if (StudyMonthyModel::where("id", $data["id"])->update($monthy_input)) {
                 $user = StudyMonthyModel::get($data['id']);
                 Db::commit();
                 // 记录行为
