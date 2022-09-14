@@ -342,9 +342,6 @@ class StudyDaily extends Admin
             }
         }
 
-        var_dump($id);
-        return;
-
         // 获取数据
         $info = StudyDailyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
 
