@@ -143,7 +143,38 @@ class StudyWeekly extends Admin
             $common_tag = $data["common_tag"];
             unset($data["special_tag"]);
             unset($data["common_tag"]);
-            if ($user = StudyWeeklyModel::create($data)) {
+            $weekly_input = [
+                "title" => $data["title"],
+                "slogan" => $data["slogan"],
+                "content" => $data["content"],
+                "img" => $data["img"],
+                "img_intro" => $data["img_intro"],
+                "howto" => $data["howto"],
+                "notify" => $data["notify"],
+                "tick_need" => $data["tick_need"],
+                "tick_mode" => $data["tick_mode"],
+                "tick_word" => $data["tick_word"],
+                "tick_y" => $data["tick_y"],
+                "tick_x" => $data["tick_x"],
+                "tick_location" => $data["tick_location"],
+                "tick_area" => $data["tick_area"],
+                "attach_type" => $data["attach_type"],
+                "attach_url" => $data["attach_url"],
+                "show_to" => $data["show_to"],
+            ];
+            $study_input = [
+                "area_id" => $data["area_id"],
+                "school_id" => $data["school_id"],
+                "grade" => $data["grade"],
+                "push_date" => $data["push_date"],
+                "show_date" => $data["show_date"],
+                "end_date" => $data["end_date"],
+                "can_push" => $data["can_push"] == "on",
+                "can_show" => $data["can_show"] == "on",
+                "study_type" => $data["study_type"],
+            ];
+            Db::startTrans();
+            if ($user = StudyWeeklyModel::create($weekly_input)) {
                 $lastid = $user->id;
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
@@ -163,25 +194,18 @@ class StudyWeekly extends Admin
                         ]);
                     }
                 }
-
-                StudyModel::create([
-                    "area_id" => $data["area_id"],
-                    "school_id" => $data["school_id"],
-                    "grade" => $data["grade"],
-                    "push_date" => $data["push_date"],
-                    "show_date" => $data["show_date"],
-                    "end_date" => $data["end_date"],
-                    "can_push" => $data["can_push"],
-                    "can_show" => $data["can_show"],
-                    "study_type" => "weekly",
-                    "study_id" => $lastid,
-                ]);
-
+                $study_input["study_id"] = $lastid;
+                if (!StudyModel::create($study_input)) {
+                    Db::rollback();
+                    $this->error('StudyModel新增失败');
+                }
+                Db::commit();
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
                 $this->success('新增成功', url('index'));
             } else {
+                Db::rollback();
                 $this->error('新增失败');
             }
         }
