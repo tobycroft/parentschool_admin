@@ -44,7 +44,7 @@ class StudentOutlet extends Admin
                 "year" => $item["year"],
                 "class" => $item["class"],
             ];
-            $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . json_encode($dat, 320);
+            $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
         });
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
