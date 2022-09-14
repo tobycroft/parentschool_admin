@@ -343,11 +343,17 @@ class StudyDaily extends Admin
         }
 
         // 获取数据
-        $info = StudyDailyModel::where("id", $id)->find();
+
         $info2 = StudyModel::where("study_type", "daily")->where("study_id", $id)->find();
-        $inf3 = array_combine($info, $info2);
-//        $info = StudyDailyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
-        var_dump($inf3);
+        if ($info2) {
+            $study_input = [
+                "study_type" => $data["study_type"],
+                "study_id" => $data["id"],
+            ];
+            StudyModel::create($study_input);
+        }
+        $info = StudyDailyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
+        var_dump($info);
         return;
         // 使用ZBuilder快速创建表单
 
