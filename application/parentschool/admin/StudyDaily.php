@@ -345,10 +345,10 @@ class StudyDaily extends Admin
         // 获取数据
 
         $info2 = StudyModel::where("study_type", "daily")->where("study_id", $id)->find();
-        if ($info2) {
+        if (!$info2) {
             $study_input = [
-                "study_type" => $data["study_type"],
-                "study_id" => $data["id"],
+                "study_type" => "daily",
+                "study_id" => $id,
             ];
             StudyModel::create($study_input);
         }
