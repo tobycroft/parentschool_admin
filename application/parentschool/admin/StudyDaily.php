@@ -323,8 +323,10 @@ class StudyDaily extends Admin
                 "can_show" => $data["can_show"],
                 "study_type" => $data["study_type"],
             ];
-            StudyModel::update($study_input);
-            unset($data["end_date"]);
+            if (!StudyModel::update($study_input)) {
+                Db::rollback();
+                $this->error('编辑失败');
+            }
             if (StudyDailyModel::update($daily_input)) {
                 Db::commit();
                 // 记录行为
