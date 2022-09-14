@@ -151,7 +151,28 @@ class StudyMonthy extends Admin
             $common_tag = $data["common_tag"];
             unset($data["special_tag"]);
             unset($data["common_tag"]);
-            if ($user = StudyMonthyModel::create($data)) {
+            $monthy_input = [
+                "teacher_id" => $data["teacher_id"],
+                "title" => $data["title"],
+                "slogan" => $data["slogan"],
+                "content" => $data["content"],
+                "img" => $data["img"],
+                "img_intro" => $data["img_intro"],
+                "show_to" => $data["show_to"],
+            ];
+            $study_input = [
+                "area_id" => $data["area_id"],
+                "school_id" => $data["school_id"],
+                "grade" => $data["grade"],
+                "push_date" => $data["push_date"],
+                "show_date" => $data["show_date"],
+                "end_date" => $data["end_date"],
+                "can_push" => $data["can_push"],
+                "can_show" => $data["can_show"],
+                "study_type" => $data["study_type"],
+            ];
+            Db::startTrans();
+            if ($user = StudyMonthyModel::create($monthy_input)) {
                 $lastid = $user->id;
                 if ($special_tag) {
                     foreach ($special_tag as $id) {
@@ -171,23 +192,15 @@ class StudyMonthy extends Admin
                         ]);
                     }
                 }
-                StudyModel::create([
-                    "area_id" => $data["area_id"],
-                    "school_id" => $data["school_id"],
-                    "grade" => $data["grade"],
-                    "push_date" => $data["push_date"],
-                    "show_date" => $data["show_date"],
-                    "end_date" => $data["end_date"],
-                    "can_push" => $data["can_push"],
-                    "can_show" => $data["can_show"],
-                    "study_type" => "monthy",
-                    "study_id" => $lastid,
-                ]);
+                $study_input["study_id"] = $lastid;
+                StudyModel::create($study_input);
+                Db::commit();
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
                 $this->success('新增成功', url('index'));
             } else {
+                Db::rollback();
                 $this->error('新增失败');
             }
         }
