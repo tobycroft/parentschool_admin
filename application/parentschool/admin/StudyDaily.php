@@ -340,7 +340,7 @@ class StudyDaily extends Admin
         }
 
         // 获取数据
-        $info = StudyDailyModel::alias("a")->rightJoin(["ps_study" => "b"], "b.study_id=a.id")->where('a.id', $id)->find();
+        $info = StudyDailyModel::alias("a")->rightJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
 
         // 使用ZBuilder快速创建表单
 
