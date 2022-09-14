@@ -324,7 +324,7 @@ class StudyDaily extends Admin
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
-            StudyModel::where("study_id", $data["id"])->update($study_input);
+            StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
             if (StudyDailyModel::where("id", $data["id"])->update($daily_input)) {
                 Db::commit();
                 // 记录行为

@@ -291,7 +291,7 @@ class StudyWeekly extends Admin
             $data = $this->request->post();
 
             // 非超级管理需要验证可选择角色
-
+            Db::startTrans();
             StudyTagModel::where("study_id", $data["id"])->where("study_type", "weekly")->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
@@ -332,14 +332,45 @@ class StudyWeekly extends Admin
             if ($end_date > strtotime($data["end_date"])) {
                 $data["end_date"] = date("Y-m-d H:i:s", $end_date);
             }
-
-
+            $weekly_input = [
+                "title" => $data["title"],
+                "slogan" => $data["slogan"],
+                "content" => $data["content"],
+                "img" => $data["img"],
+                "img_intro" => $data["img_intro"],
+                "howto" => $data["howto"],
+                "notify" => $data["notify"],
+                "tick_need" => $data["tick_need"],
+                "tick_mode" => $data["tick_mode"],
+                "tick_word" => $data["tick_word"],
+                "tick_y" => $data["tick_y"],
+                "tick_x" => $data["tick_x"],
+                "tick_location" => $data["tick_location"],
+                "tick_area" => $data["tick_area"],
+                "attach_type" => $data["attach_type"],
+                "attach_url" => $data["attach_url"],
+                "show_to" => $data["show_to"],
+            ];
+            $study_input = [
+                "area_id" => $data["area_id"],
+                "school_id" => $data["school_id"],
+                "grade" => $data["grade"],
+                "push_date" => $data["push_date"],
+                "show_date" => $data["show_date"],
+                "end_date" => $data["end_date"],
+                "can_push" => $data["can_push"] == "on",
+                "can_show" => $data["can_show"] == "on",
+                "study_type" => $data["study_type"],
+            ];
+            StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
             if (StudyWeeklyModel::update($data)) {
                 $user = StudyWeeklyModel::get($data['id']);
+                Db::commit();
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
             } else {
+                Db::rollback();
                 $this->error('编辑失败');
             }
         }
