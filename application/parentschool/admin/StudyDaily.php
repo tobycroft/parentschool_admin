@@ -326,7 +326,7 @@ class StudyDaily extends Admin
             ];
             if (!StudyModel::where("id", $id)->update($study_input)) {
                 Db::rollback();
-                $this->error('编辑失败');
+                $this->error('StudyModel编辑失败');
             }
             if (StudyDailyModel::where("id", $id)->update($daily_input)) {
                 Db::commit();
