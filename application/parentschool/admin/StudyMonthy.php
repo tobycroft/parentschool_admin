@@ -316,7 +316,12 @@ class StudyMonthy extends Admin
                 "can_show" => $data["can_show"] == "on",
                 "study_type" => $data["study_type"],
             ];
-            StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
+            $study = StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->find();
+            if ($study) {
+                StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
+            } else {
+                StudyModel::where("study_type", $data["study_type"])->insert($study_input);
+            }
             if (StudyMonthyModel::where("id", $data["id"])->update($monthy_input)) {
                 $user = StudyMonthyModel::get($data['id']);
                 Db::commit();
