@@ -37,7 +37,9 @@ class StudentOutlet extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudentOutletModel::where($map)->order($order)->group("school_id,year,class")->paginate();
+        $data_list = StudentOutletModel::where($map)->order($order)->group("school_id,year,class")->paginate()->each(function ($item, $key) {
+            $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"year":' . $item["year"] . ',"class_id":' . $item["class"] . '}';
+        });
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
