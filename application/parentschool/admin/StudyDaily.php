@@ -331,7 +331,6 @@ class StudyDaily extends Admin
             } else {
                 StudyModel::where("study_type", $data["study_type"])->insert($study_input);
             }
-
             if (StudyDailyModel::where("id", $data["id"])->update($daily_input)) {
                 Db::commit();
                 // 记录行为
