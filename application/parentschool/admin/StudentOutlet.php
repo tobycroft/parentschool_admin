@@ -109,7 +109,7 @@ EOF;
                 "school_id" => 30,
                 "img" => 100,
             ])
-            ->setHeight(2000)
+            ->setHeight("auto")
             ->setExtraCss($css)
             ->setColumnWidth()
             ->addRightButtons([
