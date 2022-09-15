@@ -81,10 +81,11 @@ class StudentOutlet extends Admin
 //            ->addColumn('gender', '男女', 'number')
 //            ->addColumn('name', '姓名', 'text.edit')
             ->addColumn('img', '头像', 'img_url')
-            ->addColumn('year', '入学年份', 'number')
             ->addColumn('grade', '年级', 'number')
             ->addColumn('class', '班级', 'number')
-//            ->addColumn('special', '特殊班级', 'text.edit')
+            ->addColumn('year', '入学年份', 'number')
+
+            //            ->addColumn('special', '特殊班级', 'text.edit')
 //            ->addColumn('callsign', '座号', 'number')
 //            ->addColumn('remark', '备注', 'textarea.edit')
             ->addColumn('date', '创建时间')
