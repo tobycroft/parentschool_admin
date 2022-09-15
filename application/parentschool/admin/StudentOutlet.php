@@ -104,7 +104,7 @@ EOF;
             ->addColumn('year', '入学年份',)
             ->setColumnWidth([
                 "school_id" => 30,
-                "img" => 150,
+                "img" => 100,
             ])
             ->setExtraCss($css)
             ->setColumnWidth()
