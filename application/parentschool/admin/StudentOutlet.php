@@ -70,7 +70,7 @@ class StudentOutlet extends Admin
         $css = <<<EOF
 <style>
 .table-builder > tbody > tr > td .image {
-    height: 100px;
+    height: 200px;
 }
 </style>
 EOF;
@@ -90,6 +90,7 @@ EOF;
             ->addColumn('grade', '年级',)
             ->addColumn('class', '班级',)
             ->addColumn('year', '入学年份',)
+            ->setColumnWidth(["img"], 250)
             ->setExtraCss($css)
             ->setColumnWidth()
             ->addRightButtons([
