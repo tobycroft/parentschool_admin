@@ -69,30 +69,16 @@ class StudentOutlet extends Admin
         ];
 
         return ZBuilder::make('table')
-//            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
-//            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['school_id' => 'school_id']) // 设置搜索参数
             ->addOrder('id')
-//            ->addColumn('id', '问题ID')
-//            ->addColumn('uid', '家长id', 'number')
             ->addColumn('school_id', '学校id', 'number')
-//            ->addColumn('gender', '男女', 'number')
-//            ->addColumn('name', '姓名', 'text.edit')
             ->addColumn('img', '头像', 'img_url')
-            ->addColumn('grade', '年级', 'number')
-            ->addColumn('class', '班级', 'number')
-            ->addColumn('year', '入学年份', 'number')
-
-            //            ->addColumn('special', '特殊班级', 'text.edit')
-//            ->addColumn('callsign', '座号', 'number')
-//            ->addColumn('remark', '备注', 'textarea.edit')
+            ->addColumn('grade', '年级',)
+            ->addColumn('class', '班级',)
+            ->addColumn('year', '入学年份',)
             ->addColumn('date', '创建时间')
-//            ->addColumn('right_button', '操作', 'btn')
-//            ->addRightButton('edit') // 添加编辑按钮
-//            ->addRightButton('delete') //添加删除按钮
-//            ->setHeight("auto")
             ->addRightButtons([
 //                "学校" => $btn_school,
 //                "年级" => $btn_grade,
