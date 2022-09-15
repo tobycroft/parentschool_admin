@@ -75,7 +75,6 @@ class StudentOutlet extends Admin
 <style>
 .table-builder > tbody > tr > td .image {
     height: 200px;
-    display: flex;
 }
 .table-cell {
     overflow: hidden;
@@ -84,6 +83,15 @@ class StudentOutlet extends Admin
     box-sizing: border-box;
     min-height: 22px;
     font-size: 50px;
+}
+.table-builder > tbody > tr > td {
+    vertical-align: middle;
+    padding: 10px;
+    min-width: 0;
+    height: 48px;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
 }
 </style>
 EOF;
