@@ -75,6 +75,7 @@ class StudentOutlet extends Admin
 <style>
 .table-builder > tbody > tr > td .image {
     height: 200px;
+    display: flex;
 }
 .table-cell {
     overflow: hidden;
