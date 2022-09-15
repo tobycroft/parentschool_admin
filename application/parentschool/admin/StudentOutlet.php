@@ -102,7 +102,10 @@ EOF;
 //            ->addColumn('class', '班级',)
             ->addColumn('gc', '年级班级',)
             ->addColumn('year', '入学年份',)
-            ->setColumnWidth("img", 150)
+            ->setColumnWidth([
+                "school_id" => 30,
+                "img" => 150,
+            ])
             ->setExtraCss($css)
             ->setColumnWidth()
             ->addRightButtons([
