@@ -47,6 +47,7 @@ class StudentOutlet extends Admin
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
             $item["grade"] .= "年";
             $item["class"] .= "班";
+            $item["gc"] = $item["grade"] . $item["class"];
         });
         $page = $data_list->render();
         $btn_school = [
@@ -89,8 +90,9 @@ EOF;
             ->addOrder('id')
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('img', '头像', 'img_url')
-            ->addColumn('grade', '年级',)
-            ->addColumn('class', '班级',)
+//            ->addColumn('grade', '年级',)
+//            ->addColumn('class', '班级',)
+            ->addColumn('gc', '年级班级',)
             ->addColumn('year', '入学年份',)
             ->setColumnWidth(["img"], 400)
             ->setExtraCss($css)
