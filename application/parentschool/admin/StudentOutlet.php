@@ -75,6 +75,14 @@ class StudentOutlet extends Admin
 .table-builder > tbody > tr > td .image {
     height: 300px;
 }
+.table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    box-sizing: border-box;
+    min-height: 22px;
+    font-size: 50px;
+}
 </style>
 EOF;
         return ZBuilder::make('table')
