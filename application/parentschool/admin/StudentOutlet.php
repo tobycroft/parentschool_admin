@@ -73,6 +73,9 @@ class StudentOutlet extends Admin
             ->setPageTitle('列表')
             ->setSearchArea([
                 ['text', 'school_id', '学校id'],
+                ['text', 'year', '入学年份'],
+                ['text', 'grade', '年级'],
+                ['text', 'class', '班级'],
             ])
             ->setSearch(['school_id' => 'school_id']) // 设置搜索参数
             ->addOrder('id')
