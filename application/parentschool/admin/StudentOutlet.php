@@ -47,10 +47,6 @@ class StudentOutlet extends Admin
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
         });
         $page = $data_list->render();
-//        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
-
-//        $num1 = StudentOutletModel::where("date", ">", $todaytime)->count();
-//        $num2 = StudentOutletModel::count();
         $btn_school = [
             'title' => '学校二维码',
             'icon' => 'fa fa-list',
