@@ -74,7 +74,7 @@ class StudentOutlet extends Admin
         $css = <<<EOF
 <style>
 .table-builder > tbody > tr > td .image {
-    height: 300px;
+    height: 200px;
 }
 .table-cell {
     overflow: hidden;
