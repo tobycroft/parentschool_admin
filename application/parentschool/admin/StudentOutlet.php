@@ -90,7 +90,6 @@ EOF;
             ->addColumn('grade', '年级',)
             ->addColumn('class', '班级',)
             ->addColumn('year', '入学年份',)
-            ->addColumn('date', '创建时间')
             ->setExtraCss($css)
             ->setColumnWidth()
             ->addRightButtons([
