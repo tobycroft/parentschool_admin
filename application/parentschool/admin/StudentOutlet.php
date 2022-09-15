@@ -109,6 +109,7 @@ EOF;
                 "school_id" => 30,
                 "img" => 100,
             ])
+            ->setHeight(2000)
             ->setExtraCss($css)
             ->setColumnWidth()
             ->addRightButtons([
