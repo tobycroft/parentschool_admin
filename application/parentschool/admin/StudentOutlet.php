@@ -45,7 +45,8 @@ class StudentOutlet extends Admin
                 "class" => $item["class"],
             ];
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
-
+            $item["grade"] .= "年";
+            $item["class"] .= "班";
         });
         $page = $data_list->render();
         $btn_school = [
