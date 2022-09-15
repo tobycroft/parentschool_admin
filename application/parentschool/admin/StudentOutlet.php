@@ -11,6 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentOutletModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -85,6 +86,8 @@ class StudentOutlet extends Admin
 }
 </style>
 EOF;
+
+        $school = SchoolModel::column("id,name");
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
@@ -96,7 +99,7 @@ EOF;
             ])
             ->setSearch(['school_id' => 'school_id']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('school_id', '学校id')
+            ->addColumn('school_id', '学校id', "text", "", $school)
             ->addColumn('img', '头像', 'img_url')
 //            ->addColumn('grade', '年级',)
 //            ->addColumn('class', '班级',)
