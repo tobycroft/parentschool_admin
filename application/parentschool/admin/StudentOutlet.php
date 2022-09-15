@@ -71,6 +71,9 @@ class StudentOutlet extends Admin
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
+            ->setSearchArea([
+                ['text', 'school_id', '学校id'],
+            ])
             ->setSearch(['school_id' => 'school_id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('school_id', '学校id', 'number')
