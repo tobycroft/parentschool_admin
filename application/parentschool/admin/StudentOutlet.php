@@ -80,11 +80,12 @@ class StudentOutlet extends Admin
             ->setSearch(['school_id' => 'school_id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('school_id', '学校id', 'number')
-            ->addColumn('img', '头像', 'img_url')
+            ->addColumn('img', '头像', 'img_url', "", "", "height:80px")
             ->addColumn('grade', '年级',)
             ->addColumn('class', '班级',)
             ->addColumn('year', '入学年份',)
             ->addColumn('date', '创建时间')
+            ->setColumnWidth()
             ->addRightButtons([
 //                "学校" => $btn_school,
 //                "年级" => $btn_grade,
