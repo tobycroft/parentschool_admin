@@ -99,7 +99,7 @@ EOF;
             ])
 //            ->setSearch(['school_id' => 'school_id']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('school_id', '学校id', "text", "", $school)
+            ->addColumn('school_id', '学校id', "text",)
             ->addColumn('img', '头像', 'img_url')
 //            ->addColumn('grade', '年级',)
 //            ->addColumn('class', '班级',)
