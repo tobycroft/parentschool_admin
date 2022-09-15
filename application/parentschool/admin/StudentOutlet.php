@@ -45,6 +45,7 @@ class StudentOutlet extends Admin
                 "class" => $item["class"],
             ];
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
+
         });
         $page = $data_list->render();
         $btn_school = [
@@ -70,7 +71,7 @@ class StudentOutlet extends Admin
         $css = <<<EOF
 <style>
 .table-builder > tbody > tr > td .image {
-    height: 200px;
+    height: 300px;
 }
 </style>
 EOF;
@@ -90,7 +91,7 @@ EOF;
             ->addColumn('grade', '年级',)
             ->addColumn('class', '班级',)
             ->addColumn('year', '入学年份',)
-            ->setColumnWidth(["img"], 250)
+            ->setColumnWidth(["img"], 300)
             ->setExtraCss($css)
             ->setColumnWidth()
             ->addRightButtons([
