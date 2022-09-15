@@ -34,7 +34,7 @@ class StudentOutlet extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("id desc");
+        $order = $this->getOrder("year desc,grade asc,class asc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudentOutletModel::where($map)->order($order)->group("school_id,year,class")->paginate()->each(function ($item, $key) {
