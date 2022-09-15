@@ -67,7 +67,13 @@ class StudentOutlet extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
         ];
-
+        $css = <<<EOF
+<style>
+.table-builder > tbody > tr > td .image {
+    height: 100px;
+}
+</style>
+EOF;
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
@@ -80,11 +86,12 @@ class StudentOutlet extends Admin
             ->setSearch(['school_id' => 'school_id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('school_id', '学校id', 'number')
-            ->addColumn('img', '头像', 'img_url', "", "", "height:80px")
+            ->addColumn('img', '头像', 'img_url')
             ->addColumn('grade', '年级',)
             ->addColumn('class', '班级',)
             ->addColumn('year', '入学年份',)
             ->addColumn('date', '创建时间')
+            ->setExtraCss($css)
             ->setColumnWidth()
             ->addRightButtons([
 //                "学校" => $btn_school,
