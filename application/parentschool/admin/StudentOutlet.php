@@ -92,7 +92,7 @@ EOF;
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearchArea([
-                ['text', 'school_id', '学校id'],
+                ['select', 'school_id', '学校id', "", "", $school],
                 ['text', 'year', '入学年份'],
                 ['text', 'grade', '年级'],
                 ['text', 'class', '班级'],
