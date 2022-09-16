@@ -46,13 +46,9 @@ class StudentOutlet extends Admin
                 "class" => $item["class"],
             ];
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
-            $grade_time = strtotime($item["year"] . "-09-01");
             $now_time = strtotime("-8 month");
-            var_dump($now_time);
-            exit();
-            $the_time = $now_time - $grade_time;
-            $the_grade = floor($the_time / (86400 * 365));
-            $item["grade"] = $the_grade + 2 . "年";
+            $now_year = date("Y", $now_time);
+            $item["grade"] = $now_year - $item["year"] + 1 . "年";
             $item["class"] .= "班";
             $item["gc"] = $item["grade"] . $item["class"];
         });
