@@ -47,7 +47,7 @@ class StudentOutlet extends Admin
             ];
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
             $grade_time = strtotime($item["year"] . "-09-01");
-            $now_time = strtotime("-9 month");
+            $now_time = strtotime("-8 month");
             $the_time = $now_time - $grade_time;
             $the_grade = floor($the_time / (86400 * 365));
             $item["grade"] = $the_grade . "年";
