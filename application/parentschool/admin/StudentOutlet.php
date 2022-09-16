@@ -50,7 +50,7 @@ class StudentOutlet extends Admin
             $now_time = strtotime("-8 month");
             $the_time = $now_time - $grade_time;
             $the_grade = floor($the_time / (86400 * 365));
-            $item["grade"] = $the_grade . "年";
+            $item["grade"] = $the_grade + 1 . "年";
             $item["class"] .= "班";
             $item["gc"] = $item["grade"] . $item["class"];
         });
