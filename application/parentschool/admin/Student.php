@@ -11,6 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -43,11 +44,17 @@ class Student extends Admin
 
         $num1 = StudentModel::where("date", ">", $todaytime)->count();
         $num2 = StudentModel::count();
+        $school = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->addTopButton("add")
+            ->setSearchArea([
+                ['select', 'school_id', '学校id', "", "", $school],
+                ['text', 'year', '入学年份'],
+                ['text', 'grade', '年级'],
+                ['text', 'class', '班级'],
+            ])->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
