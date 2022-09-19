@@ -128,6 +128,8 @@ EOF;
                 ['date', '创建时间'],
             ])
             ->addColumn('right_button', '操作', 'btn')
+            ->setHeight("auto")
+            ->setExtraCss($css)
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->addRightButtons(["学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
