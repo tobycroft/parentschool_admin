@@ -48,13 +48,13 @@ class TeacherClass extends Admin
                 "type" => "register",
                 "school_id" => $item["school_id"],
                 "year" => $item["year"],
-                "class" => $item["class"],
+                "class" => $item["class_id"],
             ];
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
             $now_time = strtotime("-8 month");
             $now_year = date("Y", $now_time);
             $item["grade"] = $now_year - $item["year"] + 1 . "年";
-            $item["class"] .= "班";
+            $item["class_id"] .= "班";
             $item["gc"] = $item["grade"] . $item["class"];
             return $item;
         });
