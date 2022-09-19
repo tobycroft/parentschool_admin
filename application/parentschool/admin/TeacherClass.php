@@ -97,13 +97,13 @@ class TeacherClass extends Admin
     word-break: break-all;
     box-sizing: border-box;
     min-height: 22px;
-    font-size: 40px;
+    font-size: 35px;
 }
 .table-builder > tbody > tr > td {
     vertical-align: middle;
     padding: 10px;
     min-width: 0;
-    height: 40px;
+    height: 48px;
     box-sizing: border-box;
     text-align: center;
     text-overflow: ellipsis;
