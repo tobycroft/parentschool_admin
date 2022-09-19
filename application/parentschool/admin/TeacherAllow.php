@@ -44,6 +44,7 @@ class TeacherAllow extends Admin
 
             $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
             $data["wx_name"] = ParentModel::where("id", $data["uid"])->value("wx_name");
+            $data["school_name"] = SchoolModel::where("id", $data["school_id"])->value("name");
             $data["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . '}');
             $data["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . ',"class_id":' . $data["class_id"] . '}');
         });
@@ -87,6 +88,7 @@ class TeacherAllow extends Admin
                 ['uid', '家长id', 'text'],
                 ['wx_name', '家长名称', 'text'],
                 ['school_id', '学校ID', 'text.edit'],
+                ['school_name', '学校', 'text.edit'],
                 ['class_id', '第几班', 'text.edit'],
                 ['year', '第几届', 'text.edit'],
                 ['change_date', '修改时间'],
