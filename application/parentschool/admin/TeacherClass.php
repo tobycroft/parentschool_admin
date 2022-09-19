@@ -121,6 +121,7 @@ EOF;
                 ['name', '姓名', 'text.edit'],
                 ['teacher_id', '教师ID', 'text.edit'],
                 ['school_id', '学校ID', 'text.edit'],
+                ['img', '班级二维码', 'img_url'],
                 ['class_id', '第几班', 'text.edit'],
                 ['year', '第几届', 'text.edit'],
                 ['change_date', '修改时间'],
