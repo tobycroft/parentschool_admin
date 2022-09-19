@@ -11,8 +11,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\TagModel;
 use app\parentschool\model\TagTeacherModel;
+use app\parentschool\model\TeacherTagTeacherModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -38,12 +38,12 @@ class TeacherTag extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = TagTeacherModel::where($map)->order($order)->paginate();
+        $data_list = TeacherTagTeacherModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
 
 
         foreach ($data_list as $key => $item) {
-            $tag_info = TagModel::where("id", $item["tag_id"])->find();
+            $tag_info = TagTeacherModel::where("id", $item["tag_id"])->find();
             if ($tag_info) {
                 $item["tag_type"] = $tag_info["tag_type"];
                 $item["tag_name"] = $tag_info["name"];
@@ -104,7 +104,7 @@ class TeacherTag extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = TagTeacherModel::create($data)) {
+            if ($user = TeacherTagTeacherModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -120,7 +120,7 @@ class TeacherTag extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
-        $tag = TagModel::select();
+        $tag = TagTeacherModel::select();
         $tag_name = [];
         $tag_class = [];
         foreach ($tag as $item) {
@@ -167,8 +167,8 @@ class TeacherTag extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (TagTeacherModel::update($data)) {
-                $user = TagTeacherModel::get($data['id']);
+            if (TeacherTagTeacherModel::update($data)) {
+                $user = TeacherTagTeacherModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -178,8 +178,8 @@ class TeacherTag extends Admin
         }
 
         // 获取数据
-        $info = TagTeacherModel::where('id', $id)->find();
-        $tag = TagModel::select();
+        $info = TeacherTagTeacherModel::where('id', $id)->find();
+        $tag = TagTeacherModel::select();
         $tag_name = [];
         $tag_class = [];
         foreach ($tag as $item) {
@@ -426,17 +426,17 @@ class TeacherTag extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === TagTeacherModel::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === TeacherTagTeacherModel::where('id', 'in', $ids)->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === TagTeacherModel::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === TeacherTagTeacherModel::where('id', 'in', $ids)->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === TagTeacherModel::where('id', 'in', $ids)->delete()) {
+                if (false === TeacherTagTeacherModel::where('id', 'in', $ids)->delete()) {
                     $this->error('删除失败');
                 }
                 break;
@@ -526,7 +526,7 @@ class TeacherTag extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = TagTeacherModel::where("id", $id)->setField($field, $value);
+        $result = TeacherTagTeacherModel::where("id", $id)->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
