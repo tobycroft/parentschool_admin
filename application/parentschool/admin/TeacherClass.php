@@ -96,7 +96,7 @@ class TeacherClass extends Admin
     text-overflow: ellipsis;
     word-break: break-all;
     box-sizing: border-box;
-    min-height: 22px;
+    min-height: 44px;
     font-size: 35px;
 }
 .table-builder > tbody > tr > td {
