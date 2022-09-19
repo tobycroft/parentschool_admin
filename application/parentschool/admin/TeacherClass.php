@@ -39,10 +39,24 @@ class TeacherClass extends Admin
         $order = $this->getOrder();
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = TeacherClassModel::where($map)->order($order)->paginate()->each(function ($data) {
-            $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
-            $data["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . '}');
-            $data["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . ',"class_id":' . $data["class_id"] . '}');
+        $data_list = TeacherClassModel::where($map)->order($order)->paginate()->each(function ($item) {
+            $item["name"] = TeacherModel::where("id", $item["teacher_id"])->value("name");
+            $item["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . '}');
+            $item["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"class_id":' . $item["class_id"] . '}');
+
+            $dat = [
+                "type" => "register",
+                "school_id" => $item["school_id"],
+                "year" => $item["year"],
+                "class" => $item["class"],
+            ];
+            $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
+            $now_time = strtotime("-8 month");
+            $now_year = date("Y", $now_time);
+            $item["grade"] = $now_year - $item["year"] + 1 . "年";
+            $item["class"] .= "班";
+            $item["gc"] = $item["grade"] . $item["class"];
+            return $item;
         });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
@@ -69,6 +83,31 @@ class TeacherClass extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
         ];
+
+        $css = <<<EOF
+<style>
+.table-builder > tbody > tr > td .image {
+    height: 200px;
+}
+.table-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    box-sizing: border-box;
+    min-height: 22px;
+    font-size: 50px;
+}
+.table-builder > tbody > tr > td {
+    vertical-align: middle;
+    padding: 10px;
+    min-width: 0;
+    height: 48px;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+</style>
+EOF;
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
