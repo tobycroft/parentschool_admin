@@ -40,7 +40,9 @@ class TeacherAllow extends Admin
         $map = $this->getMap();
         // 读取用户数据
         $data_list = TeacherAllowModel::where($map)->order($order)->paginate()->each(function ($data) {
+
             $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
+            $data["name"] = User::where("id", $data["uid"])->value("wx_name");
             $data["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . '}');
             $data["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . ',"class_id":' . $data["class_id"] . '}');
         });
@@ -80,7 +82,9 @@ class TeacherAllow extends Admin
             ->addColumns([
                 ['id', 'ID'],
                 ['teacher_id', '教师ID', 'text'],
+                ['name', '教师名称', 'text'],
                 ['uid', '家长id', 'text'],
+                ['wx_name', '家长名称', 'text'],
                 ['school_id', '学校ID', 'text.edit'],
                 ['class_id', '第几班', 'text.edit'],
                 ['year', '第几届', 'text.edit'],
