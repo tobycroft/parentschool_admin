@@ -141,7 +141,7 @@ EOF;
                 "school_id" => "40",
                 "year" => "80",
                 "gc" => "250",
-                "img" => "100",
+                "img" => "150",
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->setHeight("auto")
