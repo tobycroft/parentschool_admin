@@ -96,14 +96,14 @@ class TeacherClass extends Admin
     text-overflow: ellipsis;
     word-break: break-all;
     box-sizing: border-box;
-    min-height: 44px;
+    min-height: 22px;
     font-size: 35px;
 }
 .table-builder > tbody > tr > td {
     vertical-align: middle;
     padding: 10px;
     min-width: 0;
-    height: 300px;
+    height: 48px;
     box-sizing: border-box;
     text-align: center;
     text-overflow: ellipsis;
@@ -130,8 +130,8 @@ EOF;
                 ['name', '姓名', 'text.edit'],
                 ['teacher_id', '教师ID', 'text.edit'],
                 ['school_id', '学校ID', 'text.edit'],
-                ['img', '班级二维码', 'img_url'],
                 ['gc', '班级', 'text'],
+                ['img', '班级二维码', 'img_url'],
                 ['year', '第几届', 'text.edit'],
 //                ['change_date', '修改时间'],
 //                ['date', '创建时间'],
