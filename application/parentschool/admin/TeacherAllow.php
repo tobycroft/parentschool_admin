@@ -11,6 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\ParentModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\TeacherAllowModel;
 use app\parentschool\model\TeacherModel;
@@ -42,7 +43,7 @@ class TeacherAllow extends Admin
         $data_list = TeacherAllowModel::where($map)->order($order)->paginate()->each(function ($data) {
 
             $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
-            $data["wx_name"] = User::where("id", $data["uid"])->value("wx_name");
+            $data["wx_name"] = ParentModel::where("id", $data["uid"])->value("wx_name");
             $data["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . '}');
             $data["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . ',"class_id":' . $data["class_id"] . '}');
         });
