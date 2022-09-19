@@ -88,7 +88,7 @@ class TeacherAllow extends Admin
                 ['uid', '家长id', 'text'],
                 ['wx_name', '家长名称', 'text'],
                 ['school_id', '学校ID', 'text.edit'],
-                ['school_name', '学校', 'text.edit'],
+                ['school_name', '学校', 'text'],
                 ['class_id', '第几班', 'text.edit'],
                 ['year', '第几届', 'text.edit'],
                 ['change_date', '修改时间'],
