@@ -45,10 +45,10 @@ class TeacherAllow extends Admin
             $data["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . ',"class_id":' . $data["class_id"] . '}');
         });
         $page = $data_list->render();
-        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
-
-        $num1 = TeacherAllowModel::where("date", ">", $todaytime)->count();
-        $num2 = TeacherAllowModel::count();
+//        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
+//
+//        $num1 = TeacherAllowModel::where("date", ">", $todaytime)->count();
+//        $num2 = TeacherAllowModel::count();
         $btn_school = [
             'title' => '学校二维码',
             'icon' => 'fa fa-list',
@@ -71,7 +71,7 @@ class TeacherAllow extends Admin
         ];
 
         return ZBuilder::make('table')
-            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+//            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
