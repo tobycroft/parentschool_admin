@@ -56,11 +56,7 @@ class SchoolAdmin extends Admin
                 ['id', 'ID'],
                 ['school_id', '学校', 'text.edit'],
                 ['uid', '教师UID', 'text.edit'],
-                ['name', '姓名', 'text.edit'],
-                ['info', '老师信息', 'textarea.edit'],
-                ['img', '老师头像', 'picture'],
                 ['phone', '绑定手机号', 'text.edit'],
-                ['status', '是否启用', 'switch'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
