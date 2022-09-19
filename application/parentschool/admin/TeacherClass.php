@@ -103,7 +103,7 @@ class TeacherClass extends Admin
     vertical-align: middle;
     padding: 10px;
     min-width: 0;
-    height: 48px;
+    height: 300px;
     box-sizing: border-box;
     text-align: center;
     text-overflow: ellipsis;
