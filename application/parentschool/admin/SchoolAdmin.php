@@ -122,11 +122,8 @@ class SchoolAdmin extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'school_id', '学校', "", $school],
                 ['number', 'uid', '老师的UID'],
-                ['text', 'name', '姓名'],
-                ['textarea', 'info', '老师信息'],
-                ['image', 'img', '老师头像'],
                 ['number', 'phone', '绑定手机号'],
-                ['switch', 'status', '是否启用'],
+//                ['switch', 'status', '是否启用'],
             ])
             ->fetch();
     }
@@ -182,11 +179,8 @@ class SchoolAdmin extends Admin
                 ['hidden', 'id'],
                 ['select', 'school_id', '学校', "", $school],
                 ['number', 'uid', '老师的UID'],
-                ['text', 'name', '姓名'],
-                ['textarea', 'info', '老师信息'],
-                ['image', 'img', '老师头像'],
                 ['number', 'phone', '绑定手机号'],
-                ['switch', 'status', '是否启用'],
+//                ['switch', 'status', '是否启用'],
             ]);
 
         return $data
