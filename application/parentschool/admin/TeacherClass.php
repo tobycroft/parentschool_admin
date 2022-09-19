@@ -136,6 +136,10 @@ EOF;
 //                ['change_date', '修改时间'],
 //                ['date', '创建时间'],
             ])
+            ->setColumnWidth([
+                "teacher_id" => "10",
+                "school_id" => "10",
+            ])
             ->addColumn('right_button', '操作', 'btn')
             ->setHeight("auto")
             ->setExtraCss($css)
