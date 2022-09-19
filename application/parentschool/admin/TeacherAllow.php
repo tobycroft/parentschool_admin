@@ -79,8 +79,8 @@ class TeacherAllow extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['teacher_id', '教师ID', 'text.edit'],
-                ['uid', '家长id', 'text.edit'],
+                ['teacher_id', '教师ID', 'text'],
+                ['uid', '家长id', 'text'],
                 ['school_id', '学校ID', 'text.edit'],
                 ['class_id', '第几班', 'text.edit'],
                 ['year', '第几届', 'text.edit'],
