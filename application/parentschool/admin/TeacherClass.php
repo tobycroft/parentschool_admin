@@ -43,12 +43,12 @@ class TeacherClass extends Admin
             $item["name"] = TeacherModel::where("id", $item["teacher_id"])->value("name");
             $item["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . '}');
             $item["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"class_id":' . $item["class_id"] . '}');
-
+            $item["school_name"] = SchoolModel::where("id", $item["school_id"])->value("name");
             $now_time = strtotime("-8 month");
             $now_year = date("Y", $now_time);
             $item["grade"] = $now_year - $item["year"] + 1 . "年";
             $item["class_id"] .= "班";
-            $item["gc"] = $item["grade"] . $item["class_id"];
+            $item["gc"] = $item["school_name"] . $item["grade"] . $item["class_id"];
 
             $dat = [
                 "type" => "register",
