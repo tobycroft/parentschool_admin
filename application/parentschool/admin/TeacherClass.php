@@ -126,8 +126,8 @@ EOF;
                 ['img', '班级二维码', 'img_url'],
                 ['class_id', '第几班', 'text.edit'],
                 ['year', '第几届', 'text.edit'],
-                ['change_date', '修改时间'],
-                ['date', '创建时间'],
+//                ['change_date', '修改时间'],
+//                ['date', '创建时间'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->setHeight("auto")
