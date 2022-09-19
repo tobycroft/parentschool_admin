@@ -89,7 +89,7 @@ class TeacherClass extends Admin
         $css = <<<EOF
 <style>
 .table-builder > tbody > tr > td .image {
-    height: 200px;
+    height: 150px;
 }
 .table-cell {
     overflow: hidden;
@@ -97,7 +97,7 @@ class TeacherClass extends Admin
     word-break: break-all;
     box-sizing: border-box;
     min-height: 22px;
-    font-size: 50px;
+    font-size: 40px;
 }
 .table-builder > tbody > tr > td {
     vertical-align: middle;
