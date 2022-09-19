@@ -45,9 +45,9 @@ class TeacherTag extends Admin
         foreach ($data_list as $key => $item) {
             $tag_info = TagTeacherModel::where("id", $item["tag_id"])->find();
             if ($tag_info) {
-                $item["tag_type"] = $tag_info["tag_type"];
+//                $item["tag_type"] = $tag_info["tag_type"];
                 $item["tag_name"] = $tag_info["name"];
-                $item["tag_class"] = $tag_info["class"];
+//                $item["tag_class"] = $tag_info["class"];
             }
 
             $data_list[$key] = $item;
@@ -61,8 +61,8 @@ class TeacherTag extends Admin
                 ['id', 'ID'],
                 ['teacher_id', '教师id', 'number'],
                 ['tag_id', '标签id', 'number'],
-                ['tag_type', '标签类型'],
-                ['tag_class', '标签分类'],
+//                ['tag_type', '标签类型'],
+//                ['tag_class', '标签分类'],
                 ['tag_name', '标签名称'],
             ])
             ->addColumn('right_button', '操作', 'btn')
