@@ -48,7 +48,7 @@ class TeacherClass extends Admin
             $now_year = date("Y", $now_time);
             $item["grade"] = $now_year - $item["year"] + 1 . "年";
             $item["class_id"] .= "班";
-            $item["gc"] = $item["grade"] . $item["class"];
+            $item["gc"] = $item["grade"] . $item["class_id"];
 
             $dat = [
                 "type" => "register",
