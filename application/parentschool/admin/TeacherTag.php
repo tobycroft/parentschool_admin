@@ -55,12 +55,11 @@ class TeacherTag extends Admin
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['study_id' => '课程id']) // 设置搜索参数
+            ->setSearch(['teacher_id' => '教师id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['study_id', '课程id', 'number'],
-                ['study_type', '课程类型', 'number'],
+                ['teacher_id', '教师id', 'number'],
                 ['tag_id', '标签id', 'number'],
                 ['tag_type', '标签类型'],
                 ['tag_class', '标签分类'],
@@ -132,8 +131,7 @@ class TeacherTag extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'study_id', '课程id'],
-                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['number', 'teacher_id', '教师id'],
                 ['select', 'tag_id', '标签id', '', $tag_name],
             ])
             ->fetch();
@@ -193,8 +191,7 @@ class TeacherTag extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'study_id', '课程id'],
-                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['number', 'teacher_id', '教师id'],
                 ['select', 'tag_id', '标签id', '', $tag_name],
             ]);
 
