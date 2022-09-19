@@ -137,9 +137,9 @@ EOF;
 //                ['date', '创建时间'],
             ])
             ->setColumnWidth([
-                "teacher_id" => "10",
-                "school_id" => "10",
-                "year" => "20",
+                "teacher_id" => "40",
+                "school_id" => "40",
+                "year" => "80",
 
             ])
             ->addColumn('right_button', '操作', 'btn')
