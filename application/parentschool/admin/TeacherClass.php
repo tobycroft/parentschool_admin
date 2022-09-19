@@ -44,6 +44,12 @@ class TeacherClass extends Admin
             $item["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . '}');
             $item["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"class_id":' . $item["class_id"] . '}');
 
+            $now_time = strtotime("-8 month");
+            $now_year = date("Y", $now_time);
+            $item["grade"] = $now_year - $item["year"] + 1 . "年";
+            $item["class_id"] .= "班";
+            $item["gc"] = $item["grade"] . $item["class"];
+
             $dat = [
                 "type" => "register",
                 "school_id" => $item["school_id"],
@@ -51,11 +57,7 @@ class TeacherClass extends Admin
                 "class" => $item["class_id"],
             ];
             $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
-            $now_time = strtotime("-8 month");
-            $now_year = date("Y", $now_time);
-            $item["grade"] = $now_year - $item["year"] + 1 . "年";
-            $item["class_id"] .= "班";
-            $item["gc"] = $item["grade"] . $item["class"];
+
             return $item;
         });
         $page = $data_list->render();
