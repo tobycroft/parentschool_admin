@@ -139,6 +139,8 @@ EOF;
             ->setColumnWidth([
                 "teacher_id" => "10",
                 "school_id" => "10",
+                "year" => "20",
+
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->setHeight("auto")
