@@ -140,7 +140,8 @@ EOF;
                 "teacher_id" => "40",
                 "school_id" => "40",
                 "year" => "80",
-                "gc" => "200"
+                "gc" => "200",
+                "img" => "200",
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->setHeight("auto")
