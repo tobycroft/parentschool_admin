@@ -139,7 +139,7 @@ EOF;
             ])
             ->setColumnWidth([
                 "uid" => "40",
-                "teacher_id" => "40",
+                "teacher_id" => "60",
                 "school_id" => "40",
                 "year" => "80",
                 "gc" => "250",
