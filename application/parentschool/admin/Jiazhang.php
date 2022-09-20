@@ -57,6 +57,7 @@ class Jiazhang extends Admin
             ->addOrder('id')
             ->addColumn('id', 'UID')
             ->addColumn('pid', '上级UID')
+            ->addColumn('phone', '手机号')
             ->addColumn('wx_name', '用户名')
             ->addColumn('wx_img', '头像', 'img_url')
             ->addColumn('share', '邀请码')
