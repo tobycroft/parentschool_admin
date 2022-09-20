@@ -85,6 +85,12 @@ class TeacherClass extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
         ];
+        $btn_access4 = [
+            'title' => 'jump',
+            'icon' => 'fa fa-plus',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('teacher/index', ['id' => '__id__'])
+        ];
 
         $css = <<<EOF
 <style>
@@ -148,7 +154,7 @@ EOF;
             ->setExtraCss($css)
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
-            ->addRightButtons(["学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
+            ->addRightButtons(["jump" => $btn_access4, "学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
