@@ -154,7 +154,7 @@ EOF;
             ->setExtraCss($css)
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
-            ->addRightButtons(["jump" => $btn_access4, "学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
+            ->addRightButtons(["jump" => $btn_access, "学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
