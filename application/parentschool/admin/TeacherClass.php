@@ -89,7 +89,7 @@ class TeacherClass extends Admin
             'title' => '对应课程',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('teacher/index', ['search_field' => 'id', 'keyword' => '__id__'])
+            'href' => url('teacher/index', ['search_field' => 'id', 'keyword' => '__teacher_id__'])
         ];
 
         $css = <<<EOF
