@@ -127,7 +127,6 @@ EOF;
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['uid', '老师uid', 'text'],
                 ['name', '姓名', 'text.edit'],
                 ['teacher_id', '教师ID', 'text.edit'],
                 ['school_id', '学校ID', 'text.edit'],
