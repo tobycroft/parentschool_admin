@@ -138,6 +138,7 @@ EOF;
 //                ['date', '创建时间'],
             ])
             ->setColumnWidth([
+                "uid" => "40",
                 "teacher_id" => "40",
                 "school_id" => "40",
                 "year" => "80",
