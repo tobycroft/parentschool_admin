@@ -87,7 +87,7 @@ class TeacherClass extends Admin
         ];
         $btn_access = [
             'title' => '对应课程',
-            'icon' => 'fa-fighter-jet',
+            'icon' => 'fa fa-fighter-jet',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('teacher/index', ['search_field' => 'id', 'keyword' => '__teacher_id__'])
         ];
