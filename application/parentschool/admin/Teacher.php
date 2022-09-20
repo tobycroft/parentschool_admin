@@ -45,6 +45,14 @@ class Teacher extends Admin
         $num1 = TeacherModel::where("date", ">", $todaytime)->count();
         $num2 = TeacherModel::count();
 
+        $btn_access = [
+            'title' => '对应课程',
+            'icon' => 'fa fa-list',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('jiazhang/index', ['search_field' => 'id', 'keyword' => '__uid__'])
+        ];
+
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -67,6 +75,9 @@ class Teacher extends Admin
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
+            ->addRightButtons([
+                "账号" => $btn_access,
+            ])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
