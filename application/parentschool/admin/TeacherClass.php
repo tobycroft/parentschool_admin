@@ -119,11 +119,11 @@ EOF;
             ->setSearchArea([
                 ['select', 'school_id', '学校id', "", "", $school],
                 ['text', 'year', '入学年份'],
-                ['text', 'grade', '年级'],
+//                ['text', 'grade', '年级'],
                 ['text', 'class_id', '班级'],
             ])
             ->setPageTitle('列表')
-            ->setSearch(['teacher_id' => '教师id', "name" => "教师名称", 'phione' => 'phone']) // 设置搜索参数
+            ->setSearch(['teacher_id' => '教师id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
