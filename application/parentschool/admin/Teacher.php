@@ -47,7 +47,7 @@ class Teacher extends Admin
 
         $btn_access = [
             'title' => '对应课程',
-            'icon' => 'fa fa-list',
+            'icon' => 'fa-fighter-jet',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('jiazhang/index', ['search_field' => 'id', 'keyword' => '__uid__'])
         ];
