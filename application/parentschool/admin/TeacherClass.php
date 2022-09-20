@@ -85,11 +85,11 @@ class TeacherClass extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
         ];
-        $btn_access4 = [
-            'title' => 'jump',
-            'icon' => 'fa fa-plus',
+        $btn_access = [
+            'title' => '对应课程',
+            'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('teacher/index', ['id' => '__id__'])
+            'href' => url('teacher/index', ['search_field' => 'id', 'keyword' => '__id__'])
         ];
 
         $css = <<<EOF
