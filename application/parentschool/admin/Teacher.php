@@ -46,7 +46,7 @@ class Teacher extends Admin
         $num2 = TeacherModel::count();
 
         $btn_access = [
-            'title' => '对应课程',
+            'title' => '对应老师',
             'icon' => 'fa fa-fighter-jet',
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('jiazhang/index', ['search_field' => 'id', 'keyword' => '__uid__'])
