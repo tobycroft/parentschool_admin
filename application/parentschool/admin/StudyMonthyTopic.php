@@ -215,6 +215,7 @@ class StudyMonthyTopic extends Admin
                 ['ueditor', 'content', '字内容'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '上传文件'],
+                ['chunk', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ]);
 
