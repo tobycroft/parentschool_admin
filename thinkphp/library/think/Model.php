@@ -467,19 +467,9 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      */
     public function save($data = [], $where = [], $sequence = null)
     {
-
         if (is_string($data)) {
             $sequence = $data;
             $data = [];
-        } else {
-            foreach ($data as $key => $value) {
-                if ($value == "on") {
-                    $value = 1;
-                } elseif ($value == "off") {
-                    $value = 0;
-                }
-                $data[$key] = $value;
-            }
         }
 
         if (!$this->checkBeforeSave($data, $where)) {
@@ -968,16 +958,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         if (!empty($field)) {
             $model->allowField($field);
         }
-        if (!is_string($data)) {
-            foreach ($data as $key => $value) {
-                if ($value == "on") {
-                    $value = 1;
-                } elseif ($value == "off") {
-                    $value = 0;
-                }
-                $data[$key] = $value;
-            }
-        }
+
         $model->isUpdate(true)->save($data, $where);
 
         return $model;
