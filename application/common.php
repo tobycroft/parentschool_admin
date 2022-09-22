@@ -291,7 +291,8 @@ if (!function_exists('parse_config')) {
             'select' => 5,
             'linkage' => 5,
             'checkbox' => 5,
-            'linkages' => 6
+            'linkages' => 6,
+            'chunk' => 4
         ];
         $result = [];
         foreach ($configs as $item) {
