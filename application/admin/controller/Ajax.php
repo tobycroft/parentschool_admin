@@ -242,8 +242,8 @@ class Ajax extends Common
                     'sha1' => $md5_data->sha1,
                     'thumb' => "",
                     'module' => "remote",
-                    'width' => 0,
-                    'height' => 0,
+                    'width' => $md5_data->width,
+                    'height' => $md5_data->height,
                     'driver' => "remote",
                 ];
                 // 写入数据库
