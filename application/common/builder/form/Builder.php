@@ -2119,15 +2119,15 @@ class Builder extends ZBuilder
                     break;
                 case 'date':
                 case 'daterange':
-                $this->_vars['_js_files'][] = 'datepicker_js';
-                $this->_vars['_css_files'][] = 'datepicker_css';
-                $this->_vars['_js_init'][] = 'datepicker';
+                    $this->_vars['_js_files'][] = 'datepicker_js';
+                    $this->_vars['_css_files'][] = 'datepicker_css';
+                    $this->_vars['_js_init'][] = 'datepicker';
                     break;
                 case 'datetime':
                 case 'time':
-                $this->_vars['_js_files'][] = 'datetimepicker_js';
-                $this->_vars['_css_files'][] = 'datetimepicker_css';
-                $this->_vars['_js_init'][] = 'datetimepicker';
+                    $this->_vars['_js_files'][] = 'datetimepicker_js';
+                    $this->_vars['_css_files'][] = 'datetimepicker_css';
+                    $this->_vars['_js_init'][] = 'datetimepicker';
                     break;
                 case 'editormd':
                     $this->_vars['_js_files'][] = 'editormd_js';
@@ -2138,8 +2138,8 @@ class Builder extends ZBuilder
                 case 'file':
                 case 'files':
                 case 'image':
-                $this->_vars['_js_files'][] = 'webuploader_js';
-                $this->_vars['_css_files'][] = 'webuploader_css';
+                    $this->_vars['_js_files'][] = 'webuploader_js';
+                    $this->_vars['_css_files'][] = 'webuploader_css';
                     break;
                 case 'icon':
                     $this->_vars['_icon'] = '1';
@@ -2152,9 +2152,9 @@ class Builder extends ZBuilder
                 case 'linkages':
                 case 'select':
                 case 'select2':
-                $this->_vars['_js_files'][] = 'select2_js';
-                $this->_vars['_css_files'][] = 'select2_css';
-                $this->_vars['_js_init'][] = 'select2';
+                    $this->_vars['_js_files'][] = 'select2_js';
+                    $this->_vars['_css_files'][] = 'select2_css';
+                    $this->_vars['_js_init'][] = 'select2';
                     break;
                 case 'masked':
                     $this->_vars['_js_files'][] = 'masked_inputs_js';
