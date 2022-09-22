@@ -529,7 +529,6 @@ jQuery(document).ready(function () {
             auto: true,
             // 去重
             duplicate: true,
-            withCredentials: false,
             // swf文件路径
             swf: dolphin.WebUploader_swf,
             // 文件接收服务端。
