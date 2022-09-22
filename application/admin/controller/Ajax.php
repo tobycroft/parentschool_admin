@@ -220,7 +220,7 @@ class Ajax extends Common
         if ($file_exists = AttachmentModel::get(['md5' => $md5])) {
             $data = [
                 'code' => 1,
-                'info' => '文件存在',
+                'info' => '文件已上传',
                 'class' => 'success',
                 'id' => $file_exists["path"],
                 'path' => $file_exists["path"],
