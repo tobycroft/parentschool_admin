@@ -273,6 +273,8 @@ class StudyDaily extends Admin
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
+                echo json_encode($md5_data);
+                exit();
                 if (empty($md5_data->error)) {
                     $data["attach_duration"] = $md5_data->duration;
                 } else {
