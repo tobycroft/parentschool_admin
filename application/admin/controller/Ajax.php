@@ -217,7 +217,6 @@ class Ajax extends Common
     public function check($md5 = '')
     {
         $md5 == '' && $this->error('参数错误');
-        $Aoss = new Aoss(config("upload_prefix"), "complete");
         if ($file_exists = AttachmentModel::get(['md5' => $md5])) {
             $data = [
                 'code' => 1,
@@ -229,6 +228,7 @@ class Ajax extends Common
             ];
             return json($data);
         }
+        $Aoss = new Aoss(config("upload_prefix"), "complete");
         $md5_data = $Aoss->md5($md5);
         if (empty($md5_data->error)) {
             $file_info = [
