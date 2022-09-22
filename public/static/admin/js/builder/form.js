@@ -3,15 +3,15 @@
  *  Author     : caiweiming <314013107@qq.com>
  *  Description: 表单构建器
  */
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     // 文件上传集合
     var webuploader = [];
     // 当前上传对象
     var curr_uploader = {};
     // editordm编辑器集合
-    var editormds   = {};
+    var editormds = {};
     // ueditor编辑器集合
-    var ueditors    = {};
+    var ueditors = {};
     // wangeditor编辑器集合
     var wangeditors = {};
     // 当前图标选择器
@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
     var layer_icon;
 
     // 打开图标选择器
-    $('.js-icon-picker').click(function(){
+    $('.js-icon-picker').click(function () {
         curr_icon_picker = $(this);
         var icon_input = curr_icon_picker.find('.icon_input');
         if (icon_input.is(':disabled')) {
@@ -40,13 +40,13 @@ jQuery(document).ready(function() {
     // 选择图标
     $('.js-icon-content li').click(function () {
         var icon = $(this).find('i').attr('class');
-        curr_icon_picker.find('.input-group-addon.icon').html('<i class="'+icon+'"></i>');
+        curr_icon_picker.find('.input-group-addon.icon').html('<i class="' + icon + '"></i>');
         curr_icon_picker.find('.icon_input').val(icon);
         layer.close(layer_icon);
     });
 
     // 清空图标
-    $('.delete-icon').click(function(event){
+    $('.delete-icon').click(function (event) {
         event.stopPropagation();
         if ($(this).prev().is(':disabled')) {
             return;
@@ -57,15 +57,15 @@ jQuery(document).ready(function() {
 
     // 百度地图
     $('.js-bmap').each(function () {
-        var $self         = $(this);
-        var map_canvas    = $self.find('.bmap').attr('id');
-        var address       = $self.find('.bmap-address');
-        var address_id    = address.attr('id');
-        var map_point     = $self.find('.bmap-point');
+        var $self = $(this);
+        var map_canvas = $self.find('.bmap').attr('id');
+        var address = $self.find('.bmap-address');
+        var address_id = address.attr('id');
+        var map_point = $self.find('.bmap-point');
         var search_result = $self.find('.searchResultPanel');
-        var point_lng     = 116.331398;
-        var point_lat     = 39.897445;
-        var map_level     = $self.data('level');
+        var point_lng = 116.331398;
+        var point_lat = 39.897445;
+        var map_level = $self.data('level');
 
         // 百度地图API功能
         var map = new BMap.Map(map_canvas);
@@ -101,23 +101,23 @@ jQuery(document).ready(function() {
 
         // 建立一个自动完成的对象
         var ac = new BMap.Autocomplete({
-            "input" : address_id,
-            "location" : map
+            "input": address_id,
+            "location": map
         });
         // 鼠标放在下拉列表上的事件
-        ac.addEventListener("onhighlight", function(e) {
+        ac.addEventListener("onhighlight", function (e) {
             var str = "";
             var _value = e.fromitem.value;
             var value = "";
             if (e.fromitem.index > -1) {
-                value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
             }
             str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
 
             value = "";
             if (e.toitem.index > -1) {
                 _value = e.toitem.value;
-                value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
             }
             str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
             search_result.html(str);
@@ -126,9 +126,9 @@ jQuery(document).ready(function() {
 
         // 鼠标点击下拉列表后的事件
         var myValue;
-        ac.addEventListener("onconfirm", function(e) {
+        ac.addEventListener("onconfirm", function (e) {
             var _value = e.item.value;
-            myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+            myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
             search_result.html("onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue);
 
             local.search(myValue);
@@ -144,7 +144,7 @@ jQuery(document).ready(function() {
             var curr_point = map_point.val().split(',');
             point_lng = curr_point[0];
             point_lat = curr_point[1];
-        } else if(address.val() != '') {
+        } else if (address.val() != '') {
             local.search(address.val());
         } else {
             // 根据ip获取当前城市，并定位到当前城市
@@ -162,37 +162,37 @@ jQuery(document).ready(function() {
             // 创建标注
             create_mark(point);
         }
-        if(address.val()!=''){
+        if (address.val() != '') {
             ac.setInputValue(address.val())
         }
     });
 
     // 图片裁剪
     $('.js-jcrop-interface').each(function () {
-        var jcrop_api         = '';
-        var $self             = $(this);
-        var $jcrop            = $self.find('.js-jcrop');
-        var $options          = $jcrop.data('options') || {};
-        var $thumb            = $jcrop.data('thumb');
-        var $watermark        = $jcrop.data('watermark');
-        var $jcrop_cut_btn    = $self.find('.js-jcrop-cut-btn');
+        var jcrop_api = '';
+        var $self = $(this);
+        var $jcrop = $self.find('.js-jcrop');
+        var $options = $jcrop.data('options') || {};
+        var $thumb = $jcrop.data('thumb');
+        var $watermark = $jcrop.data('watermark');
+        var $jcrop_cut_btn = $self.find('.js-jcrop-cut-btn');
         var $jcrop_upload_btn = $self.find('.js-jcrop-upload-btn');
-        var $jcrop_file       = $self.find('.js-jcrop-file');
-        var $jcrop_cut_info   = $self.find('.js-jcrop-cut-info');
-        var $jcrop_preview    = $self.find('.jcrop-preview');
-        var $jcrop_input      = $self.find('.js-jcrop-input');
-        var $remove_picture   = $self.find('.remove-picture');
-        var $thumbnail        = $self.find('.thumbnail');
-        var $modal            = $self.find('.modal-popin');
-        var $pic_height       = '';
+        var $jcrop_file = $self.find('.js-jcrop-file');
+        var $jcrop_cut_info = $self.find('.js-jcrop-cut-info');
+        var $jcrop_preview = $self.find('.jcrop-preview');
+        var $jcrop_input = $self.find('.js-jcrop-input');
+        var $remove_picture = $self.find('.remove-picture');
+        var $thumbnail = $self.find('.thumbnail');
+        var $modal = $self.find('.modal-popin');
+        var $pic_height = '';
 
         // 设置预览图监听
-        $options.onChange    = showPreview;
-        $options.onSelect    = showPreview;
-        $options.boxWidth    = 750;
-        $options.boxHeight   = 750;
-        $options.saveWidth   = $options.saveWidth || null;
-        $options.saveHeight  = $options.saveHeight || null;
+        $options.onChange = showPreview;
+        $options.onSelect = showPreview;
+        $options.boxWidth = 750;
+        $options.boxHeight = 750;
+        $options.saveWidth = $options.saveWidth || null;
+        $options.saveHeight = $options.saveHeight || null;
         $options.aspectRatio = $options.aspectRatio || ($options.saveWidth / $options.saveHeight);
 
         // 点击上传按钮，选择图片
@@ -205,7 +205,7 @@ jQuery(document).ready(function() {
             var img = new Image(); //创建一个Image对象，实现图片的预下载
             img.src = url;
 
-            if(img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
+            if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
                 callback.call(img);
                 return; // 直接返回，不用再处理onload事件
             }
@@ -215,18 +215,17 @@ jQuery(document).ready(function() {
         }
 
         // 实时显示预览图
-        function showPreview(coords)
-        {
+        function showPreview(coords) {
             var ratio = coords.w / coords.h; // 选区比例
-            var rx,ry;
-            var preview_width  = '';
+            var rx, ry;
+            var preview_width = '';
             var preview_height = '';
 
             if ((100 / ratio) > $pic_height) {
-                preview_width  = $pic_height * ratio;
+                preview_width = $pic_height * ratio;
                 preview_height = $pic_height;
             } else {
-                preview_width  = 100;
+                preview_width = 100;
                 preview_height = 100 / ratio;
             }
 
@@ -280,17 +279,17 @@ jQuery(document).ready(function() {
                                         $.Jcrop.component.DragState.prototype.touch = null;
                                     }
                                     $jcrop.Jcrop($options, function () {
-                                        jcrop_api   = this;
+                                        jcrop_api = this;
                                         $pic_height = Math.round(jcrop_api.getContainerSize()[1]);
                                         $modal.modal('show');
                                     });
                                 });
                             } else {
                                 Dolphin.loading('hide');
-                                Dolphin.notify(res.msg||'上传失败，请重新上传', 'warning');
+                                Dolphin.notify(res.msg || '上传失败，请重新上传', 'warning');
                             }
                         }
-                    }).fail(function(res) {
+                    }).fail(function (res) {
                         Dolphin.loading('hide');
                         Dolphin.notify($(res.responseText).find('h1').text() || '服务器内部错误~', 'danger');
                     });
@@ -333,21 +332,21 @@ jQuery(document).ready(function() {
                     dataType: 'json',
                     data: $data
                 })
-                .done(function(res) {
-                    Dolphin.loading('hide');
-                    if (res.code == '1') {
-                        $thumbnail.show().find('img').attr('src', res.thumb || res.src).attr('data-original', res.src);
-                        $jcrop_input.val(res.id);
-                        $jcrop_cut_info.val('');
-                        $modal.modal('hide');
-                    } else {
-                        Dolphin.notify(res.msg, 'danger');
-                    }
-                })
-                .fail(function(res) {
-                    Dolphin.loading('hide');
-                    Dolphin.notify($(res.responseText).find('h1').text() || '请求失败~', 'danger');
-                });
+                    .done(function (res) {
+                        Dolphin.loading('hide');
+                        if (res.code == '1') {
+                            $thumbnail.show().find('img').attr('src', res.thumb || res.src).attr('data-original', res.src);
+                            $jcrop_input.val(res.id);
+                            $jcrop_cut_info.val('');
+                            $modal.modal('hide');
+                        } else {
+                            Dolphin.notify(res.msg, 'danger');
+                        }
+                    })
+                    .fail(function (res) {
+                        Dolphin.loading('hide');
+                        Dolphin.notify($(res.responseText).find('h1').text() || '请求失败~', 'danger');
+                    });
             } else {
                 Dolphin.notify('请选择要裁剪的大小', 'warning');
             }
@@ -361,21 +360,21 @@ jQuery(document).ready(function() {
     $('.js-editormd').each(function () {
         var editormd_name = $(this).attr('name');
         var image_formats = $(this).data('image-formats') || [];
-        var watch         = $(this).data('watch');
+        var watch = $(this).data('watch');
 
         editormds[editormd_name] = editormd(editormd_name, {
             height: 500, // 高度
             placeholder: '海豚PHP，为提升开发效率而生！！',
-            watch : watch,
-            searchReplace : true,
+            watch: watch,
+            searchReplace: true,
             toolbarAutoFixed: false, // 取消工具栏固定
-            path : dolphin.editormd_mudule_path, // 用于自动加载其他模块
+            path: dolphin.editormd_mudule_path, // 用于自动加载其他模块
             codeFold: true, // 开启代码折叠
-            dialogLockScreen : false, // 设置弹出层对话框不锁屏
-            imageUpload : true, // 开启图片上传
-            imageFormats : image_formats, // 允许上传的图片后缀
-            imageUploadURL : dolphin.editormd_upload_url,
-            toolbarIcons : function() {
+            dialogLockScreen: false, // 设置弹出层对话框不锁屏
+            imageUpload: true, // 开启图片上传
+            imageFormats: image_formats, // 允许上传的图片后缀
+            imageUploadURL: dolphin.editormd_upload_url,
+            toolbarIcons: function () {
                 return [
                     "undo", "redo", "|",
                     "bold", "del", "italic", "quote", "|",
@@ -393,8 +392,8 @@ jQuery(document).ready(function() {
     $('.js-ueditor').each(function () {
         var ueditor_name = $(this).attr('name');
         ueditors[ueditor_name] = UE.getEditor(ueditor_name, {
-            initialFrameHeight:400,  //初始化编辑器高度,默认320
-            autoHeightEnabled:false,  //是否自动长高
+            initialFrameHeight: 400,  //初始化编辑器高度,默认320
+            autoHeightEnabled: false,  //是否自动长高
             maximumWords: 50000, //允许的最大字符数
             serverUrl: dolphin.ueditor_upload_url
         });
@@ -416,7 +415,7 @@ jQuery(document).ready(function() {
         // 配置文件名
         wangeditors[wangeditor_name].config.uploadImgFileName = 'file';
         // 去掉地图
-        wangeditors[wangeditor_name].config.menus = $.map(wangEditor.config.menus, function(item, key) {
+        wangeditors[wangeditor_name].config.menus = $.map(wangEditor.config.menus, function (item, key) {
             if (item === 'location') {
                 return null;
             }
@@ -435,14 +434,15 @@ jQuery(document).ready(function() {
     // 注册WebUploader事件，实现秒传
     if (window.WebUploader) {
         WebUploader.Uploader.register({
-            "before-send-file": "beforeSendFile" // 整个文件上传前
+            "before-send-file": "beforeSendFile", // 整个文件上传前
+            "after-send-file": "afterSendFile" // 整个文件上传前
         }, {
-            beforeSendFile:function(file){
-                var $li = $( '#'+file.id );
+            beforeSendFile: function (file) {
+                var $li = $('#' + file.id);
                 var deferred = WebUploader.Deferred();
                 var owner = this.owner;
 
-                owner.md5File(file).then(function(val){
+                owner.md5File(file).then(function (val) {
                     $.ajax({
                         type: "POST",
                         url: dolphin.upload_check_url,
@@ -452,20 +452,20 @@ jQuery(document).ready(function() {
                         cache: false,
                         timeout: 10000, // 超时的话，只能认为该文件不曾上传过
                         dataType: "json"
-                    }).then(function(res, textStatus, jqXHR){
-                        if(res.code){
+                    }).then(function (res, textStatus, jqXHR) {
+                        if (res.code) {
                             // 已上传，触发上传完成事件，实现秒传
                             deferred.reject();
                             curr_uploader.trigger('uploadSuccess', file, res);
                             curr_uploader.trigger('uploadComplete', file);
-                        }else{
+                        } else {
                             // 文件不存在，触发上传
                             deferred.resolve();
                             $li.find('.file-state').html('<span class="text-info">正在上传...</span>');
                             $li.find('.img-state').html('<div class="bg-info">正在上传...</div>');
                             $li.find('.progress').show();
                         }
-                    }, function(jqXHR, textStatus, errorThrown){
+                    }, function (jqXHR, textStatus, errorThrown) {
                         // 任何形式的验证失败，都触发重新上传
                         deferred.resolve();
                         $li.find('.file-state').html('<span class="text-info">正在上传...</span>');
@@ -474,22 +474,54 @@ jQuery(document).ready(function() {
                     });
                 });
                 return deferred.promise();
-            }
+            },
+            afterSendFile: function (file) {
+                var $li = $('#' + file.id);
+                var deferred = WebUploader.Deferred();
+                var owner = this.owner;
+
+                owner.md5File(file).then(function (val) {
+                    $.ajax({
+                        type: "POST",
+                        url: dolphin.upload_check_url,
+                        data: {
+                            md5: val
+                        },
+                        cache: false,
+                        timeout: 10000, // 超时的话，只能认为该文件不曾上传过
+                        dataType: "json"
+                    }).then(function (res, textStatus, jqXHR) {
+                        if (res.code) {
+                            // 已上传，触发上传完成事件，实现秒传
+                            deferred.reject();
+                            curr_uploader.trigger('uploadSuccess', file, res);
+                            curr_uploader.trigger('uploadComplete', file);
+                        } else {
+                            $li.find('.file-state').html('<span class="text-info">上传失败...</span>');
+                            $li.find('.img-state').html('<div class="bg-info">上传失败请重新上传...</div>');
+                        }
+                    }, function (jqXHR, textStatus, errorThrown) {
+                        $li.find('.file-state').html('<span class="text-info">上传失败...</span>');
+                        $li.find('.img-state').html('<div class="bg-info">上传失败请重新上传...</div>');
+                    });
+                });
+                return deferred.promise();
+            },
         });
     }
 
     // 文件上传
     $('.js-upload-file,.js-upload-files').each(function () {
-        var $input_file       = $(this).find('input');
-        var $input_file_name  = $input_file.attr('name');
+        var $input_file = $(this).find('input');
+        var $input_file_name = $input_file.attr('name');
         // 是否多文件上传
-        var $multiple         = $input_file.data('multiple');
+        var $multiple = $input_file.data('multiple');
         // 允许上传的后缀
-        var $ext              = $input_file.data('ext');
+        var $ext = $input_file.data('ext');
         // 文件限制大小
-        var $size             = $input_file.data('size');
+        var $size = $input_file.data('size');
         // 文件列表
-        var $file_list        = $('#file_list_' + $input_file_name);
+        var $file_list = $('#file_list_' + $input_file_name);
 
         // 实例化上传
         var uploader = WebUploader.create({
@@ -517,13 +549,13 @@ jQuery(document).ready(function() {
         });
 
         // 当有文件添加进来的时候
-        uploader.on( 'fileQueued', function( file ) {
+        uploader.on('fileQueued', function (file) {
             var $li = '<li id="' + file.id + '" class="list-group-item file-item">' +
                 '<span class="pull-right file-state"><span class="text-info"><i class="fa fa-sun-o fa-spin"></i> 正在读取文件信息...</span></span>' +
                 '<i class="fa fa-file"></i> ' +
                 file.name +
                 ' [<a href="javascript:void(0);" class="download-file">下载</a>] [<a href="javascript:void(0);" class="remove-file">删除</a>]' +
-                '<div class="progress progress-mini remove-margin active" style="display: none"><div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div>'+
+                '<div class="progress progress-mini remove-margin active" style="display: none"><div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div>' +
                 '</li>';
 
             if ($multiple) {
@@ -539,14 +571,14 @@ jQuery(document).ready(function() {
         });
 
         // 文件上传过程中创建进度条实时显示。
-        uploader.on( 'uploadProgress', function( file, percentage ) {
-            var $percent = $( '#'+file.id ).find('.progress-bar');
-            $percent.css( 'width', percentage * 100 + '%' );
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $percent = $('#' + file.id).find('.progress-bar');
+            $percent.css('width', percentage * 100 + '%');
         });
 
         // 文件上传成功
-        uploader.on( 'uploadSuccess', function( file, response ) {
-            var $li = $( '#'+file.id );
+        uploader.on('uploadSuccess', function (file, response) {
+            var $li = $('#' + file.id);
             if (response.code) {
                 if ($multiple) {
                     if ($input_file.val()) {
@@ -560,55 +592,55 @@ jQuery(document).ready(function() {
                 }
             }
             // 加入提示信息
-            $li.find('.file-state').html('<span class="text-'+ response.class +'">'+ response.info +'</span>');
+            $li.find('.file-state').html('<span class="text-' + response.class + '">' + response.info + '</span>');
             // 添加下载链接
             $li.find('.download-file').attr('href', response.path);
 
             // 文件上传成功后的自定义回调函数
             if (window['dp_file_upload_success'] !== undefined) window['dp_file_upload_success']();
             // 文件上传成功后的自定义回调函数
-            if (window['dp_file_upload_success_'+$input_file_name] !== undefined) window['dp_file_upload_success_'+$input_file_name]();
+            if (window['dp_file_upload_success_' + $input_file_name] !== undefined) window['dp_file_upload_success_' + $input_file_name]();
         });
 
         // 文件上传失败，显示上传出错。
-        uploader.on( 'uploadError', function( file ) {
-            var $li = $( '#'+file.id );
+        uploader.on('uploadError', function (file) {
+            var $li = $('#' + file.id);
             $li.find('.file-state').html('<span class="text-danger">服务器发生错误~</span>');
 
             // 文件上传出错后的自定义回调函数
             if (window['dp_file_upload_error'] !== undefined) window['dp_file_upload_error']();
             // 文件上传出错后的自定义回调函数
-            if (window['dp_file_upload_error_'+$input_file_name] !== undefined) window['dp_file_upload_error_'+$input_file_name]();
+            if (window['dp_file_upload_error_' + $input_file_name] !== undefined) window['dp_file_upload_error_' + $input_file_name]();
         });
 
         // 文件验证不通过
         uploader.on('error', function (type) {
             switch (type) {
                 case 'Q_TYPE_DENIED':
-                    Dolphin.notify('文件类型不正确，只允许上传后缀名为：'+$ext+'，请重新上传！', 'danger');
+                    Dolphin.notify('文件类型不正确，只允许上传后缀名为：' + $ext + '，请重新上传！', 'danger');
                     break;
                 case 'F_EXCEED_SIZE':
-                    Dolphin.notify('文件不得超过'+ ($size/1024) +'kb，请重新上传！', 'danger');
+                    Dolphin.notify('文件不得超过' + ($size / 1024) + 'kb，请重新上传！', 'danger');
                     break;
             }
         });
 
         // 完成上传完了，成功或者失败，先删除进度条。
-        uploader.on( 'uploadComplete', function( file ) {
-            setTimeout(function(){
-                $('#'+file.id).find('.progress').remove();
+        uploader.on('uploadComplete', function (file) {
+            setTimeout(function () {
+                $('#' + file.id).find('.progress').remove();
             }, 500);
 
             // 文件上传完成后的自定义回调函数
             if (window['dp_file_upload_complete'] !== undefined) window['dp_file_upload_complete']();
             // 文件上传完成后的自定义回调函数
-            if (window['dp_file_upload_complete_'+$input_file_name] !== undefined) window['dp_file_upload_complete_'+$input_file_name]();
+            if (window['dp_file_upload_complete_' + $input_file_name] !== undefined) window['dp_file_upload_complete_' + $input_file_name]();
         });
 
         // 删除文件
-        $file_list.delegate('.remove-file', 'click', function(){
+        $file_list.delegate('.remove-file', 'click', function () {
             if ($multiple) {
-                var id  = $(this).data('id'),
+                var id = $(this).data('id'),
                     ids = $input_file.val().split(',');
 
                 if (id) {
@@ -632,25 +664,25 @@ jQuery(document).ready(function() {
 
     // 图片上传
     $('.js-upload-image,.js-upload-images').each(function () {
-        var $input_file       = $(this).find('input');
-        var $input_file_name  = $input_file.attr('name');
+        var $input_file = $(this).find('input');
+        var $input_file_name = $input_file.attr('name');
         // 是否多图片上传
-        var $multiple         = $input_file.data('multiple');
+        var $multiple = $input_file.data('multiple');
         // 允许上传的后缀
-        var $ext              = $input_file.data('ext');
+        var $ext = $input_file.data('ext');
         // 图片限制大小
-        var $size             = $input_file.data('size');
+        var $size = $input_file.data('size');
         // 缩略图参数
-        var $thumb            = $input_file.data('thumb');
+        var $thumb = $input_file.data('thumb');
         // 水印参数
-        var $watermark        = $input_file.data('watermark');
+        var $watermark = $input_file.data('watermark');
         // 图片列表
-        var $file_list        = $('#file_list_' + $input_file_name);
+        var $file_list = $('#file_list_' + $input_file_name);
         // 优化retina, 在retina下这个值是2
-        var ratio             = window.devicePixelRatio || 1;
+        var ratio = window.devicePixelRatio || 1;
         // 缩略图大小
-        var thumbnailWidth    = 100 * ratio;
-        var thumbnailHeight   = 100 * ratio;
+        var thumbnailWidth = 100 * ratio;
+        var thumbnailHeight = 100 * ratio;
         // 实例化上传
         var uploader = WebUploader.create({
             // 选完图片后，是否自动上传。
@@ -686,7 +718,7 @@ jQuery(document).ready(function() {
         });
 
         // 当有文件添加进来的时候
-        uploader.on( 'fileQueued', function( file ) {
+        uploader.on('fileQueued', function (file) {
             var $li = $(
                     '<div id="' + file.id + '" class="file-item js-gallery thumbnail">' +
                     '<img>' +
@@ -702,36 +734,36 @@ jQuery(document).ready(function() {
                 $img = $li.find('img');
 
             if ($multiple) {
-                $file_list.append( $li );
+                $file_list.append($li);
             } else {
-                $file_list.html( $li );
+                $file_list.html($li);
                 $input_file.val('');
             }
 
             // 创建缩略图
             // 如果为非图片文件，可以不用调用此方法。
             // thumbnailWidth x thumbnailHeight 为 100 x 100
-            uploader.makeThumb( file, function( error, src ) {
-                if ( error ) {
+            uploader.makeThumb(file, function (error, src) {
+                if (error) {
                     $img.replaceWith('<span>不能预览</span>');
                     return;
                 }
-                $img.attr( 'src', src );
-            }, thumbnailWidth, thumbnailHeight );
+                $img.attr('src', src);
+            }, thumbnailWidth, thumbnailHeight);
 
             // 设置当前上传对象
             curr_uploader = uploader;
         });
 
         // 文件上传过程中创建进度条实时显示。
-        uploader.on( 'uploadProgress', function( file, percentage ) {
-            var $percent = $( '#'+file.id ).find('.progress-bar');
-            $percent.css( 'width', percentage * 100 + '%' );
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $percent = $('#' + file.id).find('.progress-bar');
+            $percent.css('width', percentage * 100 + '%');
         });
 
         // 文件上传成功
-        uploader.on( 'uploadSuccess', function( file, response ) {
-            var $li = $( '#'+file.id );
+        uploader.on('uploadSuccess', function (file, response) {
+            var $li = $('#' + file.id);
 
             if (response.code) {
                 if ($multiple) {
@@ -746,7 +778,7 @@ jQuery(document).ready(function() {
                 }
             }
 
-            $li.find('.file-state').html('<div class="bg-'+response.class+'">'+response.info+'</div>');
+            $li.find('.file-state').html('<div class="bg-' + response.class + '">' + response.info + '</div>');
             $li.find('img').attr('data-original', response.path);
             // 上传成功后，再次初始化图片查看功能
             Dolphin.viewer();
@@ -754,46 +786,46 @@ jQuery(document).ready(function() {
             // 文件上传成功后的自定义回调函数
             if (window['dp_image_upload_success'] !== undefined) window['dp_image_upload_success']();
             // 文件上传成功后的自定义回调函数
-            if (window['dp_image_upload_success_'+$input_file_name] !== undefined) window['dp_image_upload_success_'+$input_file_name]();
+            if (window['dp_image_upload_success_' + $input_file_name] !== undefined) window['dp_image_upload_success_' + $input_file_name]();
         });
 
         // 文件上传失败，显示上传出错。
-        uploader.on( 'uploadError', function( file ) {
-            var $li = $( '#'+file.id );
+        uploader.on('uploadError', function (file) {
+            var $li = $('#' + file.id);
             $li.find('.file-state').html('<div class="bg-danger">服务器错误</div>');
 
             // 文件上传出错后的自定义回调函数
             if (window['dp_image_upload_error'] !== undefined) window['dp_image_upload_error']();
             // 文件上传出错后的自定义回调函数
-            if (window['dp_image_upload_error_'+$input_file_name] !== undefined) window['dp_image_upload_error_'+$input_file_name]();
+            if (window['dp_image_upload_error_' + $input_file_name] !== undefined) window['dp_image_upload_error_' + $input_file_name]();
         });
 
         // 文件验证不通过
         uploader.on('error', function (type) {
             switch (type) {
                 case 'Q_TYPE_DENIED':
-                    Dolphin.notify('图片类型不正确，只允许上传后缀名为：'+$ext+'，请重新上传！', 'danger');
+                    Dolphin.notify('图片类型不正确，只允许上传后缀名为：' + $ext + '，请重新上传！', 'danger');
                     break;
                 case 'F_EXCEED_SIZE':
-                    Dolphin.notify('图片不得超过'+ ($size/1024) +'kb，请重新上传！', 'danger');
+                    Dolphin.notify('图片不得超过' + ($size / 1024) + 'kb，请重新上传！', 'danger');
                     break;
             }
         });
 
         // 完成上传完了，成功或者失败，先删除进度条。
-        uploader.on( 'uploadComplete', function( file ) {
-            setTimeout(function(){
-                $( '#'+file.id ).find('.progress').remove();
+        uploader.on('uploadComplete', function (file) {
+            setTimeout(function () {
+                $('#' + file.id).find('.progress').remove();
             }, 500);
 
             // 文件上传完成后的自定义回调函数
             if (window['dp_image_upload_complete'] !== undefined) window['dp_image_upload_complete']();
             // 文件上传完成后的自定义回调函数
-            if (window['dp_image_upload_complete_'+$input_file_name] !== undefined) window['dp_image_upload_complete_'+$input_file_name]();
+            if (window['dp_image_upload_complete_' + $input_file_name] !== undefined) window['dp_image_upload_complete_' + $input_file_name]();
         });
 
         // 删除图片
-        $file_list.delegate('.remove-picture', 'click', function(){
+        $file_list.delegate('.remove-picture', 'click', function () {
             $(this).closest('.file-item').remove();
             if ($multiple) {
                 var ids = [];
@@ -834,7 +866,7 @@ jQuery(document).ready(function() {
 
     // 排序
     $('.nestable').each(function () {
-        $(this).nestable({maxDepth:1}).on('change', function(){
+        $(this).nestable({maxDepth: 1}).on('change', function () {
             var $items = $(this).nestable('serialize');
             var name = $(this).data('name');
             var value = [];
@@ -842,7 +874,7 @@ jQuery(document).ready(function() {
                 value.push($items[item].id);
             }
             if (value.length) {
-                $('input[name='+name+']').val(value.join(','));
+                $('input[name=' + name + ']').val(value.join(','));
             }
         });
     });
@@ -854,20 +886,20 @@ jQuery(document).ready(function() {
     });
 
     // 联动下拉框
-    $('.select-linkage').change(function(){
-        var self        = $(this), // 下拉框
-            value       = self.val(), // 下拉框选中值
-            ajax_url    = self.data('url'), // 异步请求地址
-            param       = self.data('param'), // 参数名称
-            next_items  = self.data('next-items').split(','), // 下级下拉框的表单名数组
-            next_item   = next_items[0], // 下一级下拉框表单名
+    $('.select-linkage').change(function () {
+        var self = $(this), // 下拉框
+            value = self.val(), // 下拉框选中值
+            ajax_url = self.data('url'), // 异步请求地址
+            param = self.data('param'), // 参数名称
+            next_items = self.data('next-items').split(','), // 下级下拉框的表单名数组
+            next_item = next_items[0], // 下一级下拉框表单名
             extra_param = self.data('extra-param'), // 额外参数
-            data        = param + "=" + value; // 发送的数据
+            data = param + "=" + value; // 发送的数据
 
         // 下级联动菜单恢复默认
         if (next_items.length > 0) {
             for (var i = 0; i < next_items.length; i++) {
-                $('#'+ next_items[i]).html('<option value="">请选择：</option>');
+                $('#' + next_items[i]).html('<option value="">请选择：</option>');
             }
         }
 
@@ -875,7 +907,7 @@ jQuery(document).ready(function() {
         if (extra_param !== '') {
             extra_param = extra_param.split(',');
             $.each(extra_param, function (index, item) {
-                var item_value = $('#'+item).val() || '';
+                var item_value = $('#' + item).val() || '';
                 data += '&' + item + '=' + item_value;
             });
         }
@@ -889,34 +921,34 @@ jQuery(document).ready(function() {
                 dataType: 'json',
                 data: data
             })
-            .done(function(res) {
-                Dolphin.loading('hide');
-                if (res.code) {
-                    var list = res.list;
-                    if (list) {
-                        $.each(list, function (index, item) {
-                            var option = $('<option></option>');
-                            option.val(item['key']).html(item['value']);
-                            $('#'+ next_item).append(option);
-                        });
+                .done(function (res) {
+                    Dolphin.loading('hide');
+                    if (res.code) {
+                        var list = res.list;
+                        if (list) {
+                            $.each(list, function (index, item) {
+                                var option = $('<option></option>');
+                                option.val(item['key']).html(item['value']);
+                                $('#' + next_item).append(option);
+                            });
+                        }
+                    } else {
+                        Dolphin.notify(res.msg, 'danger');
                     }
-                } else {
-                    Dolphin.notify(res.msg, 'danger');
-                }
-            })
-            .fail(function(res) {
-                Dolphin.loading('hide');
-                Dolphin.notify($(res.responseText).find('h1').text() || '数据请求失败~', 'danger');
-            });
+                })
+                .fail(function (res) {
+                    Dolphin.loading('hide');
+                    Dolphin.notify($(res.responseText).find('h1').text() || '数据请求失败~', 'danger');
+                });
         }
     });
 
     // 多级联动下拉框
     $('.select-linkages').change(function () {
-        var self       = $(this), // 下拉框
-            value      = self.val(), // 下拉框选中值
-            token      = self.data('token'), // token
-            pidkey     = self.data('pidkey') || 'pid',
+        var self = $(this), // 下拉框
+            value = self.val(), // 下拉框选中值
+            token = self.data('token'), // token
+            pidkey = self.data('pidkey') || 'pid',
             next_level = self.data('next-level'), // 下一级别
             next_level_id = self.data('next-level-id') || ''; // 下一级别的下拉框id
 
@@ -947,26 +979,26 @@ jQuery(document).ready(function() {
                     pidkey: pidkey
                 }
             })
-            .done(function(res) {
-                Dolphin.loading('hide');
-                if (res.code == '1') {
-                    var list = res.list;
-                    if (list) {
-                        for (var item in list) {
-                            var option = $('<option></option>');
-                            option.val(list[item].key).text(list[item].value);
-                            $('#' + next_level_id).append(option);
-                        }
-                    }
-                } else {
+                .done(function (res) {
                     Dolphin.loading('hide');
-                    Dolphin.notify(res.msg, 'danger');
-                }
-            })
-            .fail(function(res) {
-                Dolphin.loading('hide');
-                Dolphin.notify($(res.responseText).find('h1').text() || '数据请求失败~', 'danger');
-            });
+                    if (res.code == '1') {
+                        var list = res.list;
+                        if (list) {
+                            for (var item in list) {
+                                var option = $('<option></option>');
+                                option.val(list[item].key).text(list[item].value);
+                                $('#' + next_level_id).append(option);
+                            }
+                        }
+                    } else {
+                        Dolphin.loading('hide');
+                        Dolphin.notify(res.msg, 'danger');
+                    }
+                })
+                .fail(function (res) {
+                    Dolphin.loading('hide');
+                    Dolphin.notify($(res.responseText).find('h1').text() || '数据请求失败~', 'danger');
+                });
         }
     });
 
@@ -974,22 +1006,22 @@ jQuery(document).ready(function() {
     if (dolphin.triggers != '') {
         /* 依赖显示 */
         // 先隐藏依赖项
-        var $field_hide   = dolphin.field_hide.split(',') || [];
+        var $field_hide = dolphin.field_hide.split(',') || [];
         var $field_values = dolphin.field_values.split(',') || [];
         for (var index in $field_hide) {
-            $('#form_group_'+$field_hide[index]).addClass('form_group_hide');
+            $('#form_group_' + $field_hide[index]).addClass('form_group_hide');
         }
 
         var $form_builder = $('.form-builder');
 
         $.each(dolphin.triggers, function (trigger, content) {
-            $form_builder.delegate('[name='+ trigger +']', 'change', function (event, init) {
+            $form_builder.delegate('[name=' + trigger + ']', 'change', function (event, init) {
                 var $trigger = $(this);
-                var $value   = $trigger.val();
+                var $value = $trigger.val();
 
                 $(content).each(function () {
                     var $self = $(this);
-                    var $values  = $self[0].split(',') || [];
+                    var $values = $self[0].split(',') || [];
                     var $targets = $self[1].split(',') || [];
 
                     // 如果触发的元素是单选，且没有选中则设置值为空
@@ -1004,7 +1036,7 @@ jQuery(document).ready(function() {
                             if (!$targets.hasOwnProperty(index)) {
                                 continue;
                             }
-                            $('#form_group_'+$targets[index]).removeClass('form_group_hide');
+                            $('#form_group_' + $targets[index]).removeClass('form_group_hide');
                         }
                     } else {
                         for (var item in $targets) {
@@ -1013,12 +1045,12 @@ jQuery(document).ready(function() {
                             }
 
                             // 隐藏表单项
-                            var $form_item = $('#form_group_'+$targets[item]).addClass('form_group_hide');
+                            var $form_item = $('#form_group_' + $targets[item]).addClass('form_group_hide');
 
                             if (dolphin._field_clear[trigger] !== undefined && dolphin._field_clear[trigger] === 1) {
                                 if ($.type(ueditors) == 'object' && ueditors[$targets[item]] != undefined) {
                                     // 清除百度编辑器内容
-                                    ueditors[$targets[item]].ready(function(){
+                                    ueditors[$targets[item]].ready(function () {
                                         ueditors[$targets[item]].execCommand("cleardoc");
                                     });
                                 } else if ($.type(wangeditors) == 'object' && wangeditors[$targets[item]] != undefined) {
@@ -1034,18 +1066,18 @@ jQuery(document).ready(function() {
                                 }
 
                                 // 清除表单内容
-                                if ($form_item.find("[name='"+$targets[item]+"']").attr('type') == 'radio') {
-                                    $form_item.find("[name='"+$targets[item]+"']:checked").prop('checked', false).trigger("change");
-                                } else if ($form_item.find("[name='"+$targets[item]+"[]']").attr('type') == 'checkbox') {
-                                    $form_item.find("[name='"+$targets[item]+"[]']:checked").prop('checked', false).trigger("change");
-                                } else if ($form_item.find("[name='"+$targets[item]+"']").attr('data-ext') != undefined) {
-                                    $form_item.find("[name='"+$targets[item]+"']").val(null);
+                                if ($form_item.find("[name='" + $targets[item] + "']").attr('type') == 'radio') {
+                                    $form_item.find("[name='" + $targets[item] + "']:checked").prop('checked', false).trigger("change");
+                                } else if ($form_item.find("[name='" + $targets[item] + "[]']").attr('type') == 'checkbox') {
+                                    $form_item.find("[name='" + $targets[item] + "[]']:checked").prop('checked', false).trigger("change");
+                                } else if ($form_item.find("[name='" + $targets[item] + "']").attr('data-ext') != undefined) {
+                                    $form_item.find("[name='" + $targets[item] + "']").val(null);
                                 } else {
-                                    $form_item.find("[name^='"+$targets[item]+"']").val(null).trigger("change");
+                                    $form_item.find("[name^='" + $targets[item] + "']").val(null).trigger("change");
                                 }
 
                                 // 清除上传文件
-                                $form_item.find('#file_list_'+$targets[item]).empty();
+                                $form_item.find('#file_list_' + $targets[item]).empty();
 
                                 // 清空标签
                                 if ($form_item.find('.js-tags-input').length) {
@@ -1059,16 +1091,16 @@ jQuery(document).ready(function() {
 
             // 有默认值时触发
             var trigger_value = '';
-            if ($form_builder.find('[name='+ trigger +']').attr('type') == 'radio') {
-                trigger_value = $form_builder.find('[name='+ trigger +']:checked').val() || '';
+            if ($form_builder.find('[name=' + trigger + ']').attr('type') == 'radio') {
+                trigger_value = $form_builder.find('[name=' + trigger + ']:checked').val() || '';
                 if (trigger_value != '' && $.inArray(trigger_value, $field_values) >= 0) {
-                    var $radio_id = $('.form-builder [name='+ trigger +']:checked').attr('id');
-                    $('.form-builder #'+$radio_id).trigger("change", ['1']);
+                    var $radio_id = $('.form-builder [name=' + trigger + ']:checked').attr('id');
+                    $('.form-builder #' + $radio_id).trigger("change", ['1']);
                 }
             } else {
-                trigger_value = $form_builder.find('[name='+ trigger +']').val() || '';
+                trigger_value = $form_builder.find('[name=' + trigger + ']').val() || '';
                 if (trigger_value != '' && $.inArray(trigger_value, $field_values) >= 0) {
-                    $('.form-builder [name='+ trigger +']').trigger("change");
+                    $('.form-builder [name=' + trigger + ']').trigger("change");
                 }
             }
         });
@@ -1076,7 +1108,7 @@ jQuery(document).ready(function() {
 
     // 切换分组时，重新初始化上传组件
     $('.nav-tabs a').click(function () {
-        $.each(webuploader, function(index, el){
+        $.each(webuploader, function (index, el) {
             el.refresh();
         });
     });
@@ -1084,10 +1116,10 @@ jQuery(document).ready(function() {
     // 关闭弹窗按钮
     $('#close-pop').click(function () {
         try {
-            if(typeof window.layer_cancel === "function") {
+            if (typeof window.layer_cancel === "function") {
                 window.layer_cancel();
             }
-        } catch(e) {
+        } catch (e) {
 
         }
         // 获取窗口索引
