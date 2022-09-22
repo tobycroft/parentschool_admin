@@ -134,7 +134,7 @@ class StudyMonthyTopic extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', 'monthy_id', '课程id', '', $monthy_list],
-                ['number', 'monthy_id', '课程id', 'number'],
+//                ['number', 'monthy_id', '课程id', 'number'],
                 ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
                 ['ueditor', 'content', '字内容'],
