@@ -142,6 +142,9 @@ class StudyMonthyTopic extends Admin
                 ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ])
+            ->assign([
+                'file_upload_url' => "http://upload.tuuz.cc:81/v1/file/index/upfull?token=ps"
+            ])
             ->setFormData(["monthy_id" => $monthy_id])
             ->fetch();
     }
