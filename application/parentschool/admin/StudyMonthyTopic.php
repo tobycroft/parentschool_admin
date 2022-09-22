@@ -138,7 +138,7 @@ class StudyMonthyTopic extends Admin
                 ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
                 ['ueditor', 'content', '字内容'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['select', 'attach_type', '附件类型', 'video', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ])
@@ -213,7 +213,7 @@ class StudyMonthyTopic extends Admin
                 ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
                 ['ueditor', 'content', '字内容'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['select', 'attach_type', '附件类型', 'video', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ]);
