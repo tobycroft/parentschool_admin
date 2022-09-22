@@ -218,6 +218,8 @@ class Ajax extends Common
     {
         $md5 == '' && $this->error('参数错误');
         $file_exists = AttachmentModel::get(['md5' => $md5]);
+        var_dump($file_exists);
+        exit();
         if (!empty($file_exists)) {
             $data = [
                 'code' => 1,
