@@ -260,6 +260,8 @@ class Ajax extends Common
             } else {
                 $this->error('文件同步失败');
             }
+        } else {
+            $this->error('需要上传文件');
         }
     }
 
