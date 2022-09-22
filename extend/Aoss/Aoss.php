@@ -116,12 +116,13 @@ class AossCompleteRet
     public mixed $size = 0;
     public mixed $ext = "";
     public mixed $md5 = "";
+    public mixed $sha1 = "";
     public mixed $src = "";
     public mixed $url = "";
     public mixed $surl = "";
     public int $duration = 0;
     public mixed $duration_str = "";
-    public int $bitrate = 0;
+    public mixed $bitrate = 0;
 
     public function __construct($response)
     {
@@ -138,10 +139,10 @@ class AossCompleteRet
             $this->size = $this->data["size"];
             $this->ext = $this->data["ext"];
             $this->md5 = $this->data["md5"];
+            $this->sha1 = $this->data["sha1"];
             $this->src = $this->data["src"];
             $this->url = $this->data["url"];
             $this->surl = $this->data["surl"];
-            $this->duration = $this->data["duration"];
             $this->duration_str = $this->data["duration_str"];
             $this->bitrate = $this->data["bitrate"];
         } else {

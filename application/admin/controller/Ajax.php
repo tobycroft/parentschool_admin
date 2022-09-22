@@ -231,9 +231,27 @@ class Ajax extends Common
                 ];
                 return json($data);
             } else {
-                $this->error('文件不存在');
-            }
-        } else {
+                $file_info = [
+                    'uid' => session('user_auth.uid'),
+                    'name' => $md5_data->name,
+                    'mime' => $md5_data->mime,
+                    'path' => $md5_data->url,
+                    'ext' => $md5_data->ext,
+                    'size' => $md5_data->size,
+                    'md5' => $md5_data->md5,
+                    'sha1' => $md5_data->,
+                    'thumb' => $thumb_path_name,
+                    'module' => $module,
+                    'width' => $img_width,
+                    'height' => $img_height,
+                    'driver' => config('upload_driver'),
+                ];
+
+                // 写入数据库
+                if ($file_add = AttachmentModel::create($file_info)) {
+                    $this->error('文件不存在');
+                }
+            } else {
             $this->error('文件不存在');
         }
 //        // 判断附件是否已存在
