@@ -327,8 +327,6 @@ class StudyDaily extends Admin
                 "study_type" => $data["study_type"],
                 "study_id" => $data["id"],
             ];
-            echo json_encode($daily_input);
-            exit();
             $study = StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->find();
             if ($study) {
                 StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);

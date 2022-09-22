@@ -145,6 +145,7 @@ class AossCompleteRet
             $this->src = $this->data["src"];
             $this->url = $this->data["url"];
             $this->surl = $this->data["surl"];
+            $this->duration = $this->data["duration"];
             $this->duration_str = $this->data["duration_str"];
             $this->bitrate = $this->data["bitrate"];
             $this->width = $this->data["width"];
