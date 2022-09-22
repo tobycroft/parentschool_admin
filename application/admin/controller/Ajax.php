@@ -218,12 +218,39 @@ class Ajax extends Common
     {
         $md5 == '' && $this->error('参数错误');
         $Aoss = new Aoss(config("upload_prefix"), "complete");
+        if ($file_exists = AttachmentModel::get(['md5' => $md5])) {
+            $data = [
+                'code' => 1,
+                'info' => '上传成功',
+                'class' => 'success',
+                'id' => $file_exists["path"],
+                'path' => $file_exists["path"],
+                'data' => $file_exists,
+            ];
+            return json($data);
+        }
         $md5_data = $Aoss->md5($md5);
         if (empty($md5_data->error)) {
-            if ($file_exists = AttachmentModel::get(['md5' => $md5])) {
+            $file_info = [
+                'uid' => session('user_auth.uid'),
+                'name' => $md5_data->name,
+                'mime' => $md5_data->mime,
+                'path' => $md5_data->url,
+                'ext' => $md5_data->ext,
+                'size' => $md5_data->size,
+                'md5' => $md5_data->md5,
+                'sha1' => $md5_data->sha1,
+                'thumb' => "",
+                'module' => "remote",
+                'width' => $md5_data->width,
+                'height' => $md5_data->height,
+                'driver' => "remote",
+            ];
+            // 写入数据库
+            if (AttachmentModel::create($file_info)) {
                 $data = [
                     'code' => 1,
-                    'info' => '上传成功',
+                    'info' => '同步成功',
                     'class' => 'success',
                     'id' => $md5_data->url,
                     'path' => $md5_data->url,
@@ -231,38 +258,8 @@ class Ajax extends Common
                 ];
                 return json($data);
             } else {
-                $file_info = [
-                    'uid' => session('user_auth.uid'),
-                    'name' => $md5_data->name,
-                    'mime' => $md5_data->mime,
-                    'path' => $md5_data->url,
-                    'ext' => $md5_data->ext,
-                    'size' => $md5_data->size,
-                    'md5' => $md5_data->md5,
-                    'sha1' => $md5_data->sha1,
-                    'thumb' => "",
-                    'module' => "remote",
-                    'width' => $md5_data->width,
-                    'height' => $md5_data->height,
-                    'driver' => "remote",
-                ];
-                // 写入数据库
-                if (AttachmentModel::create($file_info)) {
-                    $data = [
-                        'code' => 1,
-                        'info' => '同步成功',
-                        'class' => 'success',
-                        'id' => $md5_data->url,
-                        'path' => $md5_data->url,
-                        'data' => $md5_data->data,
-                    ];
-                    return json($data);
-                } else {
-                    $this->error('文件同步失败');
-                }
+                $this->error('文件同步失败');
             }
-        } else {
-            $this->error('文件不存在');
         }
     }
 
