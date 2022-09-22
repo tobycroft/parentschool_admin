@@ -275,8 +275,6 @@ class StudyDaily extends Admin
                 $md5_data = $Aoss->md5($md5);
                 if (empty($md5_data->error)) {
                     $data["attach_duration"] = $md5_data->duration;
-                } else {
-                    $this->error('远程数据不正确');
                 }
             }
             Db::startTrans();
