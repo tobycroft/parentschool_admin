@@ -217,7 +217,7 @@ class Ajax extends Common
     public function check($md5 = '')
     {
         $md5 == '' && $this->error('参数错误');
-        if ($file_exists = AttachmentModel::get(['md5' => $md5])) {
+        if ($file_exists = AttachmentModel::get(['md5' => $md5]) && !empty($file_info)) {
             $data = [
                 'code' => 1,
                 'info' => '上传成功',
