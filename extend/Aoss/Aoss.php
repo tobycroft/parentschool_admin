@@ -120,6 +120,8 @@ class AossCompleteRet
     public mixed $src = "";
     public mixed $url = "";
     public mixed $surl = "";
+    public int $width = 0;
+    public int $height = 0;
     public int $duration = 0;
     public mixed $duration_str = "";
     public mixed $bitrate = 0;
@@ -145,6 +147,8 @@ class AossCompleteRet
             $this->surl = $this->data["surl"];
             $this->duration_str = $this->data["duration_str"];
             $this->bitrate = $this->data["bitrate"];
+            $this->width = $this->data["width"];
+            $this->height = $this->data["height"];
         } else {
             $this->error = $json["data"];
         }
