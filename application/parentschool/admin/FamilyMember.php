@@ -35,7 +35,7 @@ class FamilyMember extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder();
+        $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = FamilyMemberModel::where($map)->order($order)->paginate();

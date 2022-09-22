@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\TokenModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -34,7 +34,7 @@ class Token extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder();
+        $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = TokenModel::where($map)->order($order)->paginate();

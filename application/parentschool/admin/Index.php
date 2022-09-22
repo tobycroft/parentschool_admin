@@ -13,12 +13,12 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\BalanceRecordModel;
 use app\parentschool\model\ExchangeRecordModel;
+use app\parentschool\model\ParentModel;
 use app\parentschool\model\TransferInModel;
 use app\parentschool\model\TransferRecordModel;
-use app\parentschool\model\ParentModel;
-use util\Tree;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 
 /**
@@ -37,7 +37,7 @@ class Index extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder();
+        $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = ParentModel::where($map)->order($order)->paginate();

@@ -36,7 +36,7 @@ class ClassVirtual extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder();
+        $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = ClassVirtualModel::where($map)->order($order)->paginate()->each(function ($data) {
