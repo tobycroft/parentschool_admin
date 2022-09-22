@@ -258,7 +258,7 @@ class Ajax extends Common
                     ];
                     return json($data);
                 } else {
-                    $this->error('文件不存在');
+                    $this->error('文件同步失败');
                 }
             }
         } else {
