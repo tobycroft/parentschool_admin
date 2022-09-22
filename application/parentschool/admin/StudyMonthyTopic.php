@@ -52,11 +52,11 @@ class StudyMonthyTopic extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['study_id' => 'study_id']) // 设置搜索参数
+            ->setSearch(['monthy_id' => 'monthy_id']) // 设置搜索参数
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['study_id', '课程id', 'number'],
+                ['monthy_id', '课程id', 'number'],
                 ['rank', '排序', 'number'],
                 ['title', '标题'],
                 ['content', '字内容'],
@@ -125,7 +125,7 @@ class StudyMonthyTopic extends Admin
             }
         }
 
-        $study_id = input("study_id");
+        $monthy_id = input("monthy_id");
 
         $monthy_list = StudyMonthyModel::column("id,title");
 
@@ -133,8 +133,8 @@ class StudyMonthyTopic extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'study_id', '课程id', '', $monthy_list],
-                ['number', 'study_id', '课程id', 'number'],
+                ['select', 'monthy_id', '课程id', '', $monthy_list],
+                ['number', 'monthy_id', '课程id', 'number'],
                 ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
                 ['ueditor', 'content', '字内容'],
@@ -142,7 +142,7 @@ class StudyMonthyTopic extends Admin
                 ['file', 'attach_url', '上传文件'],
                 ['text', 'attach_duration', '播放时间'],
             ])
-            ->setFormData(["study_id" => $study_id])
+            ->setFormData(["monthy_id" => $monthy_id])
             ->fetch();
     }
 
@@ -206,7 +206,7 @@ class StudyMonthyTopic extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'study_id', '课程id', '', $monthy_list],
+                ['select', 'monthy_id', '课程id', '', $monthy_list],
                 ['number', 'rank', '排序', 'number'],
                 ['text', 'title', '标题'],
                 ['ueditor', 'content', '字内容'],
