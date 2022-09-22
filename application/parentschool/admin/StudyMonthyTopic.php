@@ -219,9 +219,9 @@ class StudyMonthyTopic extends Admin
             ]);
 
         return $data
-//            ->assign([
-//                'file_upload_url' => "https://upload.tuuz.cc:444/v1/file/dp/upload?token=ps"
-//            ])
+            ->assign([
+                'file_upload_url' => "https://upload.tuuz.cc:444/v1/file/dp/upload?token=ps"
+            ])
             ->setFormData($info) // 设置表单数据
             ->fetch();;
     }
