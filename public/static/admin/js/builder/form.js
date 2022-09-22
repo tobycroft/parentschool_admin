@@ -526,13 +526,19 @@ jQuery(document).ready(function () {
         // 实例化上传
         var uploader = WebUploader.create({
             // 选完文件后，是否自动上传。
-            auto: true, // 去重
-            duplicate: true, withCredentials: true, // swf文件路径
-            swf: dolphin.WebUploader_swf, // 文件接收服务端。
-            server: dolphin.file_upload_url, // 选择文件的按钮。可选。
+            auto: true,
+            // 去重
+            duplicate: true,
+            withCredentials: true,
+            // swf文件路径
+            swf: dolphin.WebUploader_swf,
+            // 文件接收服务端。
+            server: dolphin.file_upload_url,
+            // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: {
-                id: '#picker_' + $input_file_name, multiple: $multiple
+                id: '#picker_' + $input_file_name,
+                multiple: $multiple
             },
             // 文件限制大小
             fileSingleSizeLimit: $size,
