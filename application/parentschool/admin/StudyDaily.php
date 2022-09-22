@@ -273,8 +273,6 @@ class StudyDaily extends Admin
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
-                echo json_encode($md5_data);
-                exit();
                 if (empty($md5_data->error)) {
                     $data["attach_duration"] = $md5_data->duration;
                 } else {
@@ -329,6 +327,8 @@ class StudyDaily extends Admin
                 "study_type" => $data["study_type"],
                 "study_id" => $data["id"],
             ];
+            echo json_encode($daily_input);
+            exit();
             $study = StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->find();
             if ($study) {
                 StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
