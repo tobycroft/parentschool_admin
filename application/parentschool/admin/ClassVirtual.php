@@ -5,9 +5,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\ClassVirtualModel;
 use app\parentschool\model\SchoolModel;
-use app\parentschool\model\TeacherModel;
+use app\parentschool\model\StudentOutletModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -29,64 +28,24 @@ class ClassVirtual extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("id desc");
+        $order = $this->getOrder("callsign asc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = ClassVirtualModel::where($map)->order($order)->paginate()->each(function ($data) {
-            $data["name"] = TeacherModel::where("id", $data["teacher_id"])->value("name");
-            $data["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . '}');
-            $data["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data["school_id"] . ',"class_id":' . $data["class_id"] . '}');
-        });
+        $data_list = StudentOutletModel::where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = ClassVirtualModel::where("date", ">", $todaytime)->count();
-        $num2 = ClassVirtualModel::count();
-        $btn_school = [
-            'title' => '学校二维码',
-            'icon' => 'fa fa-list',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__}'
-        ];
+        $num1 = StudentOutletModel::where("date", ">", $todaytime)->count();
+        $num2 = StudentOutletModel::count();
+        $school = SchoolModel::column("id,name");
 
-        $btn_grade = [
-            'title' => '年级二维码',
-            'icon' => 'fa fa-list',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__}'
-        ];
-
-        $btn_class = [
-            'title' => '班级二维码',
-            'icon' => 'fa fa-list',
-//            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
-        ];
-
-        return ZBuilder::make('table')
-            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+        return ZBuilder::make('table')->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->addTopButton("add")
-            ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
-            ->addOrder('id')
-            ->addColumns([
-                ['id', 'ID'],
-                ['name', '姓名', 'text.edit'],
-                ['teacher_id', '教师ID', 'text.edit'],
-                ['school_id', '学校ID', 'text.edit'],
-                ['class_id', '第几班', 'text.edit'],
-                ['year', '第几届', 'text.edit'],
-                ['change_date', '修改时间'],
-                ['date', '创建时间'],
-            ])
-            ->addColumn('right_button', '操作', 'btn')
-            ->addRightButton('edit') // 添加编辑按钮
+            ->setSearchArea([['select', 'school_id', '学校id', "", "", $school], ['text', 'year', '入学年份'], ['text', 'grade', '年级'], ['text', 'class', '班级'],])->addTopButton("add")->setPageTitle('列表')->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
+            ->addOrder('id,callsign,year,class')->addColumn('id', '问题ID')->addColumn('uid', '家长id', 'number')->addColumn('school_id', '学校id', 'number')->addColumn('gender', '男女', 'number')->addColumn('name', '姓名', 'text.edit')->addColumn('img', '头像', 'picture')->addColumn('year', '入学年份', 'number')->addColumn('grade', '年级', 'number')->addColumn('class', '班级', 'number')->addColumn('special', '特殊班级', 'text.edit')->addColumn('callsign', '座号', 'number')->addColumn('remark', '备注', 'textarea.edit')->addColumn('date', '创建时间')->addColumn('right_button', '操作', 'btn')->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
-            ->addRightButtons(["学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
             ->setRowList($data_list) // 设置表格数据
-            ->setPages($page)
-            ->fetch();
+            ->setPages($page)->fetch();
     }
 
     /**
@@ -119,7 +78,7 @@ class ClassVirtual extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = ClassVirtualModel::create($data)) {
+            if ($user = StudentOutletModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -128,19 +87,18 @@ class ClassVirtual extends Admin
                 $this->error('新增失败');
             }
         }
-        $teacher_data = TeacherModel::column("id,name");
-        $school_data = SchoolModel::column("id,name");
+
+        // 角色列表
+        if (session('user_auth.role') != 1) {
+            $role_list = RoleModel::getTree(null, false, session('user_auth.role'));
+        } else {
+            $role_list = RoleModel::getTree(null, false);
+        }
 
         // 使用ZBuilder快速创建表单
-        return ZBuilder::make('form')
-            ->setPageTitle('新增') // 设置页面标题
-            ->addFormItems([ // 批量添加表单项
-                ['select', 'teacher_id', '教师ID', "", $teacher_data],
-                ['select', 'school_id', '学校ID', "", $school_data],
-                ['text', 'year', '第几届'],
-                ['text', 'class_id', '第几班'],
-            ])
-            ->fetch();
+        return ZBuilder::make('form')->setPageTitle('新增') // 设置页面标题
+        ->addFormItems([ // 批量添加表单项
+            ['number', 'uid', '家长id', '请确认务必存在'], ['number', 'school_id', '学校id', '请确认务必存在'], ['select', 'gender', '性别', '', \Student\Student::get_student_gender()], ['text', 'name', '姓名', ''], ['image', 'img', '头像', ''], ['number', 'year', '入学年份'], ['number', 'grade', '年段'], ['number', 'class', '班级'], ['text', 'special', '特殊班级'], ['number', 'callsign', '座号'], ['textarea', 'remark', '提示', ''],])->fetch();
     }
 
     /**
@@ -172,8 +130,8 @@ class ClassVirtual extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (ClassVirtualModel::update($data)) {
-                $user = ClassVirtualModel::get($data['id']);
+            if (StudentOutletModel::update($data)) {
+                $user = StudentOutletModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -183,23 +141,14 @@ class ClassVirtual extends Admin
         }
 
         // 获取数据
-        $info = ClassVirtualModel::where('id', $id)->find();
-        $teacher_data = TeacherModel::column("id,name");
-        $school_data = SchoolModel::column("id,name");
-        // 使用ZBuilder快速创建表单
-        $data = ZBuilder::make('form')
-            ->setPageTitle('编辑') // 设置页面标题
-            ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'],
-                ['select', 'teacher_id', '教师ID', "", $teacher_data],
-                ['select', 'school_id', '学校ID', "", $school_data],
-                ['text', 'year', '第几届'],
-                ['text', 'class_id', '第几班'],
-            ]);
+        $info = StudentOutletModel::where('id', $id)->find();
 
-        return $data
-            ->setFormData($info) // 设置表单数据
-            ->fetch();;
+        // 使用ZBuilder快速创建表单
+        $data = ZBuilder::make('form')->setPageTitle('编辑') // 设置页面标题
+        ->addFormItems([ // 批量添加表单项
+            ['hidden', 'id'], ['number', 'uid', '家长id', '请确认务必存在'], ['number', 'school_id', '学校id', '请确认务必存在'], ['select', 'gender', '性别', '', \Student\Student::get_student_gender()], ['text', 'name', '姓名', ''], ['image', 'img', '头像', ''], ['number', 'year', '入学年份'], ['number', 'grade', '年段'], ['number', 'class', '班级'], ['text', 'special', '特殊班级'], ['number', 'callsign', '座号'], ['textarea', 'remark', '提示', ''],]);
+        return $data->setFormData($info) // 设置表单数据
+        ->fetch();;
     }
 
 
@@ -229,10 +178,7 @@ class ClassVirtual extends Admin
         }
 
         // 获取所有授权配置信息
-        $list_module = ModuleModel::where('access', 'neq', '')
-            ->where('access', 'neq', '')
-            ->where('status', 1)
-            ->column('name,title,access');
+        $list_module = ModuleModel::where('access', 'neq', '')->where('access', 'neq', '')->where('status', 1)->column('name,title,access');
 
         if ($list_module) {
             // tab分组信息
@@ -240,28 +186,15 @@ class ClassVirtual extends Admin
             foreach ($list_module as $key => $value) {
                 $list_module[$key]['access'] = json_decode($value['access'], true);
                 // 配置分组信息
-                $tab_list[$value['name']] = [
-                    'title' => $value['title'],
-                    'url' => url('access', [
-                        'module' => $value['name'],
-                        'uid' => $uid
-                    ])
-                ];
+                $tab_list[$value['name']] = ['title' => $value['title'], 'url' => url('access', ['module' => $value['name'], 'uid' => $uid])];
             }
             $module = $module == '' ? current(array_keys($list_module)) : $module;
-            $this->assign('tab_nav', [
-                'tab_list' => $tab_list,
-                'curr_tab' => $module
-            ]);
+            $this->assign('tab_nav', ['tab_list' => $tab_list, 'curr_tab' => $module]);
 
             // 读取授权内容
             $access = $list_module[$module]['access'];
             foreach ($access as $key => $value) {
-                $access[$key]['url'] = url('access', [
-                    'module' => $module,
-                    'uid' => $uid,
-                    'tab' => $key
-                ]);
+                $access[$key]['url'] = url('access', ['module' => $module, 'uid' => $uid, 'tab' => $key]);
             }
 
             // 当前分组
@@ -282,13 +215,7 @@ class ClassVirtual extends Admin
                     $data_node = [];
                     foreach ($post['nodes'] as $node) {
                         list($group, $nid) = explode('|', $node);
-                        $data_node[] = [
-                            'module' => $module,
-                            'group' => $group,
-                            'uid' => $uid,
-                            'nid' => $nid,
-                            'tag' => $post['tag']
-                        ];
+                        $data_node[] = ['module' => $module, 'group' => $group, 'uid' => $uid, 'nid' => $nid, 'tag' => $post['tag']];
                     }
 
                     // 先删除原有授权
@@ -312,8 +239,7 @@ class ClassVirtual extends Admin
                         } else {
                             $model_name = $curr_access_nodes['model_name'];
                         }
-                        $class = "app\\{
-        $module}\\model\\" . $model_name;
+                        $class = "app\\{$module}\\model\\" . $model_name;
                         $model = new $class;
                         try {
                             $model->afterAccessUpdate($post);
@@ -345,8 +271,7 @@ class ClassVirtual extends Admin
                     } else {
                         $model_name = $curr_access_nodes['model_name'];
                     }
-                    $class = "app\\{
-        $module}\\model\\" . $model_name;
+                    $class = "app\\{$module}\\model\\" . $model_name;
                     $model = new $class;
 
                     try {
@@ -356,27 +281,15 @@ class ClassVirtual extends Admin
                     }
                 } else {
                     // 没有设置模型名，则按表名获取数据
-                    $fields = [
-                        $curr_access_nodes['primary_key'],
-                        $curr_access_nodes['parent_id'],
-                        $curr_access_nodes['node_name']
-                    ];
+                    $fields = [$curr_access_nodes['primary_key'], $curr_access_nodes['parent_id'], $curr_access_nodes['node_name']];
 
                     $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
-                    $tree_config = [
-                        'title' => $curr_access_nodes['node_name'],
-                        'id' => $curr_access_nodes['primary_key'],
-                        'pid' => $curr_access_nodes['parent_id']
-                    ];
+                    $tree_config = ['title' => $curr_access_nodes['node_name'], 'id' => $curr_access_nodes['primary_key'], 'pid' => $curr_access_nodes['parent_id']];
                     $nodes = Tree::config($tree_config)->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
-                $map = [
-                    'module' => $module,
-                    'tag' => $tab,
-                    'uid' => $uid
-                ];
+                $map = ['module' => $module, 'tag' => $tab, 'uid' => $uid];
                 $node_access = AccessModel::where($map)->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
@@ -401,56 +314,6 @@ class ClassVirtual extends Admin
     }
 
     /**
-     * 删除用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function delete($ids = [])
-    {
-        Hook::listen('user_delete', $ids);
-        action_log('user_delete', 'user', $ids, UID);
-        return $this->setStatus('delete');
-    }
-
-    /**
-     * 设置用户状态：删除、禁用、启用
-     * @param string $type 类型：delete/enable/disable
-     * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function setStatus($type = '', $record = [])
-    {
-        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
-        $ids = (array)$ids;
-
-        switch ($type) {
-            case 'enable':
-                if (false === ClassVirtualModel::where('id', 'in', $ids)->setField('status', 1)) {
-                    $this->error('启用失败');
-                }
-                break;
-            case 'disable':
-                if (false === ClassVirtualModel::where('id', 'in', $ids)->setField('status', 0)) {
-                    $this->error('禁用失败');
-                }
-                break;
-            case 'delete':
-                if (false === ClassVirtualModel::where('id', 'in', $ids)->delete()) {
-                    $this->error('删除失败');
-                }
-                break;
-            default:
-                $this->error('非法操作');
-        }
-
-        action_log('user_' . $type, 'admin_user', '', UID);
-
-        $this->success('操作成功');
-    }
-
-    /**
      * 构建jstree代码
      * @param array $nodes 节点
      * @param array $curr_access 当前授权信息
@@ -461,10 +324,7 @@ class ClassVirtual extends Admin
     {
         $result = '';
         if (!empty($nodes)) {
-            $option = [
-                'opened' => true,
-                'selected' => false
-            ];
+            $option = ['opened' => true, 'selected' => false];
             foreach ($nodes as $node) {
                 $key = $curr_access['group'] . '|' . $node[$curr_access['primary_key']];
                 $option['selected'] = isset($user_access[$key]) ? true : false;
@@ -478,6 +338,19 @@ class ClassVirtual extends Admin
         }
 
         return '<ul>' . $result . '</ul>';
+    }
+
+    /**
+     * 删除用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function delete($ids = [])
+    {
+        Hook::listen('user_delete', $ids);
+        action_log('user_delete', 'user', $ids, UID);
+        return $this->setStatus('delete');
     }
 
     /**
@@ -502,6 +375,43 @@ class ClassVirtual extends Admin
     {
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
+    }
+
+    /**
+     * 设置用户状态：删除、禁用、启用
+     * @param string $type 类型：delete/enable/disable
+     * @param array $record
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function setStatus($type = '', $record = [])
+    {
+        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
+        $ids = (array)$ids;
+
+        switch ($type) {
+            case 'enable':
+                if (false === StudentOutletModel::where('id', 'in', $ids)->setField('status', 1)) {
+                    $this->error('启用失败');
+                }
+                break;
+            case 'disable':
+                if (false === StudentOutletModel::where('id', 'in', $ids)->setField('status', 0)) {
+                    $this->error('禁用失败');
+                }
+                break;
+            case 'delete':
+                if (false === StudentOutletModel::where('id', 'in', $ids)->delete()) {
+                    $this->error('删除失败');
+                }
+                break;
+            default:
+                $this->error('非法操作');
+        }
+
+        action_log('user_' . $type, 'admin_user', '', UID);
+
+        $this->success('操作成功');
     }
 
 
@@ -534,7 +444,7 @@ class ClassVirtual extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = ClassVirtualModel::where("id", $id)->setField($field, $value);
+        $result = StudentOutletModel::where("id", $id)->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
