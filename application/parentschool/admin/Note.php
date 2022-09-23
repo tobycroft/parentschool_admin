@@ -38,26 +38,13 @@ class Note extends Admin
         $num1 = NoteRecordModel::where("date", ">", $todaytime)->count();
         $num2 = NoteRecordModel::count();
 
-        return ZBuilder::make('table')
-            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+        return ZBuilder::make('table')->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->addTopButton("add")
-            ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
-            ->addOrder('id')
-            ->addColumn('id', 'ID')
-            ->addColumn('type', '课程类型')
-            ->addColumn('study_id', '课程id', 'number')
-            ->addColumn('uid', '家长id', 'number')
-            ->addColumn('content', '内容', 'textarea.edit')
-            ->addColumn('change_date', '修改时间')
-            ->addColumn('date', '创建时间')
-            ->addColumn('right_button', '操作', 'btn')
-            ->addRightButton('edit') // 添加编辑按钮
+            ->addTopButton("add")->setPageTitle('列表')->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
+            ->addOrder('id')->addColumn('id', 'ID')->addColumn('type', '课程类型')->addColumn('study_id', '课程id', 'number')->addColumn('uid', '家长id', 'number')->addColumn('content', '内容', 'textarea.edit')->addColumn('change_date', '修改时间')->addColumn('date', '创建时间')->addColumn('right_button', '操作', 'btn')->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
-            ->setPages($page)
-            ->fetch();
+            ->setPages($page)->fetch();
     }
 
     /**
@@ -109,15 +96,9 @@ class Note extends Admin
         }
 
         // 使用ZBuilder快速创建表单
-        return ZBuilder::make('form')
-            ->setPageTitle('新增') // 设置页面标题
-            ->addFormItems([ // 批量添加表单项
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'uid', '家长id', ''],
-                ['textarea', 'content', '内容', ''],
-            ])
-            ->fetch();
+        return ZBuilder::make('form')->setPageTitle('新增') // 设置页面标题
+        ->addFormItems([ // 批量添加表单项
+            ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容', ''],])->fetch();
     }
 
     /**
@@ -164,18 +145,11 @@ class Note extends Admin
         $info = NoteRecordModel::where('id', $id)->find();
 
         // 使用ZBuilder快速创建表单
-        $data = ZBuilder::make('form')
-            ->setPageTitle('编辑') // 设置页面标题
-            ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'],
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['number', 'uid', '家长id', ''],
-                ['textarea', 'content', '内容'],
-            ]);
-        return $data
-            ->setFormData($info) // 设置表单数据
-            ->fetch();
+        $data = ZBuilder::make('form')->setPageTitle('编辑') // 设置页面标题
+        ->addFormItems([ // 批量添加表单项
+            ['hidden', 'id'], ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容'],]);
+        return $data->setFormData($info) // 设置表单数据
+        ->fetch();
     }
 
 
@@ -206,10 +180,7 @@ class Note extends Admin
         }
 
         // 获取所有授权配置信息
-        $list_module = ModuleModel::where('access', 'neq', '')
-            ->where('access', 'neq', '')
-            ->where('status', 1)
-            ->column('name,title,access');
+        $list_module = ModuleModel::where('access', 'neq', '')->where('access', 'neq', '')->where('status', 1)->column('name,title,access');
 
         if ($list_module) {
             // tab分组信息
@@ -217,28 +188,15 @@ class Note extends Admin
             foreach ($list_module as $key => $value) {
                 $list_module[$key]['access'] = json_decode($value['access'], true);
                 // 配置分组信息
-                $tab_list[$value['name']] = [
-                    'title' => $value['title'],
-                    'url' => url('access', [
-                        'module' => $value['name'],
-                        'uid' => $uid
-                    ])
-                ];
+                $tab_list[$value['name']] = ['title' => $value['title'], 'url' => url('access', ['module' => $value['name'], 'uid' => $uid])];
             }
             $module = $module == '' ? current(array_keys($list_module)) : $module;
-            $this->assign('tab_nav', [
-                'tab_list' => $tab_list,
-                'curr_tab' => $module
-            ]);
+            $this->assign('tab_nav', ['tab_list' => $tab_list, 'curr_tab' => $module]);
 
             // 读取授权内容
             $access = $list_module[$module]['access'];
             foreach ($access as $key => $value) {
-                $access[$key]['url'] = url('access', [
-                    'module' => $module,
-                    'uid' => $uid,
-                    'tab' => $key
-                ]);
+                $access[$key]['url'] = url('access', ['module' => $module, 'uid' => $uid, 'tab' => $key]);
             }
 
             // 当前分组
@@ -259,13 +217,7 @@ class Note extends Admin
                     $data_node = [];
                     foreach ($post['nodes'] as $node) {
                         list($group, $nid) = explode('|', $node);
-                        $data_node[] = [
-                            'module' => $module,
-                            'group' => $group,
-                            'uid' => $uid,
-                            'nid' => $nid,
-                            'tag' => $post['tag']
-                        ];
+                        $data_node[] = ['module' => $module, 'group' => $group, 'uid' => $uid, 'nid' => $nid, 'tag' => $post['tag']];
                     }
 
                     // 先删除原有授权
@@ -331,27 +283,15 @@ class Note extends Admin
                     }
                 } else {
                     // 没有设置模型名，则按表名获取数据
-                    $fields = [
-                        $curr_access_nodes['primary_key'],
-                        $curr_access_nodes['parent_id'],
-                        $curr_access_nodes['node_name']
-                    ];
+                    $fields = [$curr_access_nodes['primary_key'], $curr_access_nodes['parent_id'], $curr_access_nodes['node_name']];
 
                     $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
-                    $tree_config = [
-                        'title' => $curr_access_nodes['node_name'],
-                        'id' => $curr_access_nodes['primary_key'],
-                        'pid' => $curr_access_nodes['parent_id']
-                    ];
+                    $tree_config = ['title' => $curr_access_nodes['node_name'], 'id' => $curr_access_nodes['primary_key'], 'pid' => $curr_access_nodes['parent_id']];
                     $nodes = Tree::config($tree_config)->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
-                $map = [
-                    'module' => $module,
-                    'tag' => $tab,
-                    'uid' => $uid
-                ];
+                $map = ['module' => $module, 'tag' => $tab, 'uid' => $uid];
                 $node_access = AccessModel::where($map)->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
@@ -387,10 +327,7 @@ class Note extends Admin
     {
         $result = '';
         if (!empty($nodes)) {
-            $option = [
-                'opened' => true,
-                'selected' => false
-            ];
+            $option = ['opened' => true, 'selected' => false];
             foreach ($nodes as $node) {
                 $key = $curr_access['group'] . '|' . $node[$curr_access['primary_key']];
                 $option['selected'] = isset($user_access[$key]) ? true : false;
@@ -484,18 +421,28 @@ class Note extends Admin
         $this->success('操作成功');
     }
 
-    /**
-     * 快速编辑
-     * @param array $record 行为日志
-     * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
-     */
+
     public function quickEdit($record = [])
     {
-        $id = input('post.pk', '');
         $field = input('post.name', '');
         $value = input('post.value', '');
+        $type = input('post.type', '');
+        $id = input('post.pk', '');
 
+        switch ($type) {
+            // 日期时间需要转为时间戳
+            case 'combodate':
+                $value = strtotime($value);
+                break;
+            // 开关
+            case 'switch':
+                $value = $value == 'true' ? 1 : 0;
+                break;
+            // 开关
+            case 'password':
+                $value = Hash::make((string)$value);
+                break;
+        }
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));

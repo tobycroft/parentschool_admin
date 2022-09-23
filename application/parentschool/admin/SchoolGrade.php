@@ -6,11 +6,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\SchoolGradeModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -475,18 +475,28 @@ class SchoolGrade extends Admin
         $this->success('操作成功');
     }
 
-    /**
-     * 快速编辑
-     * @param array $record 行为日志
-     * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
-     */
+
     public function quickEdit($record = [])
     {
-        $id = input('post.pk', '');
         $field = input('post.name', '');
         $value = input('post.value', '');
+        $type = input('post.type', '');
+        $id = input('post.pk', '');
 
+        switch ($type) {
+            // 日期时间需要转为时间戳
+            case 'combodate':
+                $value = strtotime($value);
+                break;
+            // 开关
+            case 'switch':
+                $value = $value == 'true' ? 1 : 0;
+                break;
+            // 开关
+            case 'password':
+                $value = Hash::make((string)$value);
+                break;
+        }
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));

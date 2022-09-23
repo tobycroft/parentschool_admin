@@ -497,12 +497,7 @@ class Index extends Admin
         $this->success('操作成功');
     }
 
-    /**
-     * 快速编辑
-     * @param array $record 行为日志
-     * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
-     */
+
     public function quickEdit($record = [])
     {
         $id = input('post.pk', '');
