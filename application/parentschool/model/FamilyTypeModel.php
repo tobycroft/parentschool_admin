@@ -3,7 +3,6 @@
 
 namespace app\parentschool\model;
 
-use think\Model;
 
 /**
  * 后台用户模型
