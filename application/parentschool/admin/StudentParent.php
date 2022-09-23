@@ -38,7 +38,7 @@ class StudentParent extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudentModel::leftJoin("")->where($map)->order($order)->paginate();
+        $data_list = StudentModel::alias("a")->leftJoin(["ps_user" => "b"], "a.uid=b.id")->where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
