@@ -32,7 +32,7 @@ class StudentCompare extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2")
+        $data_list = StudentModel::field("count(a.id) as count,a.*,b.year as year2,b.class as class2,b.school_id as school_id2")
             ->alias("a")
             ->join(["ps_student_outlet" => "b"], "a.name=b.name")
             ->whereNotNull("b.id")
@@ -72,6 +72,7 @@ class StudentCompare extends Admin
             ->addOrder('id')
             ->addColumn('id')
             ->addColumn('name', '学生名字', 'text.edit')
+            ->addColumn('count', '重复数量', 'text.edit')
             ->addColumn('school_id', '学校id', 'number', "", $school)
             ->addColumn('school_id2', '导入的学校', 'number', "", $school)
             ->addColumn('year', '入学年份', 'number')
