@@ -42,7 +42,7 @@ class Student extends Admin
         return ZBuilder::make('table')->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->setSearchArea([['select', 'school_id', '学校id', "", "", $school], ['text', 'year', '入学年份'], ['text', 'grade', '年级'], ['text', 'class', '班级'],])->addTopButton("add")->setPageTitle('列表')->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
-            ->addOrder('id,callsign')
+            ->addOrder('id,callsign,year,class')
             ->addColumn('id', '问题ID')
             ->addColumn('uid', '家长id', 'number')
             ->addColumn('school_id', '学校id', 'number')
