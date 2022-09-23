@@ -124,6 +124,7 @@ class School extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '学校名称', ''],
+                ['text', 'domain', '学校网址标签', '例如yunxiao,进入的时候就用www.网址.com/admin/login?domain=这个标签，来进入'],
                 ['number', 'area_id', '学校所在id', ''],
                 ['textarea', 'detail', '学校详细信息', ''],
                 ['number', 'sight', '学校家长活动的可见性', ''],
@@ -184,6 +185,7 @@ class School extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['text', 'name', '学校名称', ''],
+                ['text', 'domain', '学校网址标签', '例如yunxiao,进入的时候就用www.网址.com/admin/login?domain=这个标签，来进入'],
                 ['number', 'area_id', '学校所在id', ''],
                 ['textarea', 'detail', '学校详细信息', ''],
                 ['number', 'sight', '学校家长活动的可见性', ''],
