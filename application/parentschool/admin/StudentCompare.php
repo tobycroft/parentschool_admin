@@ -72,7 +72,7 @@ class StudentCompare extends Admin
             ->addOrder('id')
             ->addColumn('id')
             ->addColumn('name', '学生名字', 'text.edit')
-            ->addColumn('count', '重复数量', 'text.edit')
+            ->addColumn('count', '重复数量', 'text')
             ->addColumn('school_id', '学校id', 'number', "", $school)
             ->addColumn('school_id2', '导入的学校', 'number', "", $school)
             ->addColumn('year', '入学年份', 'number')
