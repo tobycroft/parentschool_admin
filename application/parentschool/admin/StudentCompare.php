@@ -32,7 +32,7 @@ class StudentCompare extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2,c.wx_name")
+        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2,b.callsign as callsign2,c.wx_name")
             ->alias("a")
             ->join(["ps_student_outlet" => "b"], "a.name=b.name and (a.school_id!=b.school_id or a.year!=b.year or a.class != b.class)")
             ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
@@ -48,6 +48,9 @@ class StudentCompare extends Admin
                 }
                 if ($item["class"] != $item["class2"]) {
                     $item["class"] .= "❌";
+                }
+                if ($item["callsign"] != $item["callsign2"]) {
+                    $item["callsign"] .= "❌";
                 }
             });
         $page = $data_list->render();
@@ -82,6 +85,8 @@ class StudentCompare extends Admin
             ->addColumn('year2', '导入的年份', 'text')
             ->addColumn('class', '班级', 'number')
             ->addColumn('class2', '导入的班级', 'text')
+            ->addColumn('callsign', '座号', 'number')
+            ->addColumn('callsign2', '导入的座号', 'text')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
 //            ->addRightButton('edit') // 添加编辑按钮
@@ -469,7 +474,7 @@ class StudentCompare extends Admin
                 break;
             case 'delete':
 
-            if (false === StudentModel::where('id', 'in', $ids)
+                if (false === StudentModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
                 }
