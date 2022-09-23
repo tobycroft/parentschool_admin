@@ -495,10 +495,10 @@ class StudentCompare extends Admin
                     }
                 });
                 Db::commit();
-                if (false === StudentModel::where('id', 'in', $ids)
-                        ->delete()) {
-                    $this->error('删除失败');
-                }
+//                if (false === StudentModel::where('id', 'in', $ids)
+//                        ->delete()) {
+//                    $this->error('删除失败');
+//                }
                 break;
             default:
                 $this->error('非法操作');
