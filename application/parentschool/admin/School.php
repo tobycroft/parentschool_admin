@@ -56,8 +56,6 @@ class School extends Admin
             ->addColumn('img', '学校宣传图', 'picture')
             ->addColumn('dashboard', '学校端权限', 'switch')
             ->addColumn('screen', '大屏端权限', 'switch')
-            ->addColumn('change_date', '修改时间')
-            ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
