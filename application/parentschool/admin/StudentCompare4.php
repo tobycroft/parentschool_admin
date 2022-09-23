@@ -35,7 +35,7 @@ class StudentCompare4 extends Admin
 
         $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2,b.callsign as callsign2,c.wx_name")
             ->alias("a")
-            ->join(["ps_student_outlet" => "b"], "a.name=b.name and a.school_id=b.school_id and a.class = b.class ( a.year!=b.year )")
+            ->join(["ps_student_outlet" => "b"], "a.name=b.name and a.school_id=b.school_id and a.class = b.class and ( a.year!=b.year )")
             ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
             ->whereNotNull("b.id")
             ->where($map)
