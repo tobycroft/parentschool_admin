@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\SchoolModel;
+use app\parentschool\model\SystemParamModel;
 use app\parentschool\model\TeacherClassModel;
 use app\parentschool\model\TeacherModel;
 use app\user\model\Role as RoleModel;
@@ -36,8 +37,8 @@ class TeacherClass extends Admin
             ->order($order)
             ->paginate()
             ->each(function ($item) {
-                $item["name"] = TeacherModel::where("id", $item["teacher_id"])
-                    ->value("name");
+                $item["name"] = TeacherModel::where("id", $item["teacher_id"])->value("name");
+                SystemParamModel::where("key", "api_url")->value("val");
                 $item["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . '}');
                 $item["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"class_id":' . $item["class_id"] . '}');
                 $item["school_name"] = SchoolModel::where("id", $item["school_id"])

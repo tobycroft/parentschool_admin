@@ -6,7 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\ParentModel;
-use app\parentschool\model\SystemParam;
+use app\parentschool\model\SystemParamModel;
 use app\user\model\Role;
 use think\Db;
 use think\facade\Hook;
@@ -30,7 +30,7 @@ class System extends Admin
         // 获取排序
         $order = $this->getOrder();
 // 读取用户数据
-        $data_list = SystemParam::order($order)
+        $data_list = SystemParamModel::order($order)
             ->paginate();
         $page = $data_list->render();
         return ZBuilder::make('table')
@@ -145,7 +145,7 @@ class System extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (SystemParam::update($data)) {
+            if (SystemParamModel::update($data)) {
                 $this->success('编辑成功');
             } else {
                 $this->error('编辑失败');
@@ -153,7 +153,7 @@ class System extends Admin
         }
 
         // 获取数据
-        $info = SystemParam::where('id', $id)
+        $info = SystemParamModel::where('id', $id)
             ->find();
 
         // 使用ZBuilder快速创建表单
@@ -523,7 +523,7 @@ class System extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = SystemParam::where("id", $id)
+        $result = SystemParamModel::where("id", $id)
             ->setField($field, $value);
         if (false !== $result) {
             action_log('system_param_edit', 'system_param', $id, UID);
