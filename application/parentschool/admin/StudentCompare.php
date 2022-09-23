@@ -42,6 +42,12 @@ class StudentCompare extends Admin
                 if ($item["school_id"] != $item["school_id2"]) {
                     $item["school_id"] .= "❌";
                 }
+                if ($item["year"] != $item["year2"]) {
+                    $item["year"] .= "❌";
+                }
+                if ($item["class"] != $item["class2"]) {
+                    $item["class"] .= "❌";
+                }
             });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
