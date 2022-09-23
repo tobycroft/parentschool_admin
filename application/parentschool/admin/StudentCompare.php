@@ -77,7 +77,7 @@ class StudentCompare extends Admin
             ->addColumn('year', '入学年份', 'number')
             ->addColumn('year2', '导入的年份', 'text')
             ->addColumn('class', '班级', 'number')
-            ->addColumn('class2', '导入班级', 'text')
+            ->addColumn('class2', '导入的班级', 'text')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
