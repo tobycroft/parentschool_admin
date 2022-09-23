@@ -48,7 +48,7 @@ class ClassVirtual extends Admin
             ->setSearchArea([['select', 'school_id', '学校id', "", "", $school], ['text', 'year', '入学年份'], ['text', 'grade', '年级'], ['text', 'class', '班级'],])
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
+            ->setSearch(['id' => 'ID', 'name' => '用户名']) // 设置搜索参数
             ->addOrder('id,callsign,year,class')
             ->addColumn('id', '问题ID')
             ->addColumn('uid', '家长id', 'number')
