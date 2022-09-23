@@ -28,7 +28,7 @@ class Student extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("id desc");
+        $order = $this->getOrder("id desc,callsign asc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudentModel::where($map)->order($order)->paginate();
