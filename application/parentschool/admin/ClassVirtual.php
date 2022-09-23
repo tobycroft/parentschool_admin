@@ -97,8 +97,8 @@ class ClassVirtual extends Admin
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')->setPageTitle('新增') // 设置页面标题
-        ->addFormItems([ // 批量添加表单项
-            ['number', 'uid', '家长id', '请确认务必存在'], ['number', 'school_id', '学校id', '请确认务必存在'], ['select', 'gender', '性别', '', \Student\Student::get_student_gender()], ['text', 'name', '姓名', ''], ['image', 'img', '头像', ''], ['number', 'year', '入学年份'], ['number', 'grade', '年段'], ['number', 'class', '班级'], ['text', 'special', '特殊班级'], ['number', 'callsign', '座号'], ['textarea', 'remark', '提示', ''],])->fetch();
+            ->addFormItems([ // 批量添加表单项
+                ['number', 'uid', '家长id', '请确认务必存在'], ['number', 'school_id', '学校id', '请确认务必存在'], ['select', 'gender', '性别', '', \Student\Student::get_student_gender()], ['text', 'name', '姓名', ''], ['image', 'img', '头像', ''], ['number', 'year', '入学年份'], ['number', 'grade', '年段'], ['number', 'class', '班级'], ['text', 'special', '特殊班级'], ['number', 'callsign', '座号'], ['textarea', 'remark', '提示', ''],])->fetch();
     }
 
     /**
@@ -145,10 +145,10 @@ class ClassVirtual extends Admin
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')->setPageTitle('编辑') // 设置页面标题
-        ->addFormItems([ // 批量添加表单项
-            ['hidden', 'id'], ['number', 'uid', '家长id', '请确认务必存在'], ['number', 'school_id', '学校id', '请确认务必存在'], ['select', 'gender', '性别', '', \Student\Student::get_student_gender()], ['text', 'name', '姓名', ''], ['image', 'img', '头像', ''], ['number', 'year', '入学年份'], ['number', 'grade', '年段'], ['number', 'class', '班级'], ['text', 'special', '特殊班级'], ['number', 'callsign', '座号'], ['textarea', 'remark', '提示', ''],]);
+            ->addFormItems([ // 批量添加表单项
+                ['hidden', 'id'], ['number', 'uid', '家长id', '请确认务必存在'], ['number', 'school_id', '学校id', '请确认务必存在'], ['select', 'gender', '性别', '', \Student\Student::get_student_gender()], ['text', 'name', '姓名', ''], ['image', 'img', '头像', ''], ['number', 'year', '入学年份'], ['number', 'grade', '年段'], ['number', 'class', '班级'], ['text', 'special', '特殊班级'], ['number', 'callsign', '座号'], ['textarea', 'remark', '提示', ''],]);
         return $data->setFormData($info) // 设置表单数据
-        ->fetch();;
+            ->fetch();;
     }
 
 
