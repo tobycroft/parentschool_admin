@@ -38,7 +38,11 @@ class StudentCompare extends Admin
             ->whereNotNull("b.id")
             ->where($map)
             ->order($order)
-            ->paginate();
+            ->paginate()->each(function ($item) {
+                if ($item["school_id"] != $item["school_id2"]) {
+                    $item["school_id"] .= "❌";
+                }
+            });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
