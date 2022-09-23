@@ -66,7 +66,7 @@ class StudentCompare extends Admin
                 ['text', 'a.grade', '年级'],
                 ['text', 'a.class', '班级'],
             ])
-            ->addTopButton("add")
+            ->addTopButton("add", "学生id")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
