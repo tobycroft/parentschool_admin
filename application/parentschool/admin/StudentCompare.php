@@ -62,9 +62,9 @@ class StudentCompare extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->setSearchArea([
                 ['select', 'school_id', '学校id', "", "", $school],
-                ['text', 'year', '入学年份'],
-                ['text', 'grade', '年级'],
-                ['text', 'class', '班级'],
+                ['text', 'a.year', '入学年份'],
+                ['text', 'a.grade', '年级'],
+                ['text', 'a.class', '班级'],
             ])
             ->addTopButton("add")
             ->setPageTitle('列表')
