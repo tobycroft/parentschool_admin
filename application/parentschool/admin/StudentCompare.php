@@ -62,7 +62,6 @@ class StudentCompare extends Admin
             ->addOrder('id')
             ->addColumn('id', '问题ID', "hidden")
             ->addColumn('name', '学生名字', 'text.edit')
-            ->addColumn('wx_name', '家长姓名', 'text')
             ->addColumn('school_id', '学校id', 'number', "", $school)
             ->addColumn('school_id2', '标准学校', 'number', "", $school)
             ->addColumn('year', '入学年份', 'number')
