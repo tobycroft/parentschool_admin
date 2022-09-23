@@ -21,6 +21,8 @@ use util\Tree;
  */
 class TeacherClass extends Admin
 {
+    public $api_url;
+
     /**
      * 用户首页
      * @return mixed
@@ -29,6 +31,8 @@ class TeacherClass extends Admin
      */
     public function index()
     {
+        $this->api_url = SystemParamModel::where("key", "api_url")->value("val");
+
         // 获取排序
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
@@ -38,11 +42,9 @@ class TeacherClass extends Admin
             ->paginate()
             ->each(function ($item) {
                 $item["name"] = TeacherModel::where("id", $item["teacher_id"])->value("name");
-                SystemParamModel::where("key", "api_url")->value("val");
-                $item["url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . '}');
-                $item["class_url"] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"class_id":' . $item["class_id"] . '}');
-                $item["school_name"] = SchoolModel::where("id", $item["school_id"])
-                    ->value("name");
+                $item["url"] = url($this->api_url . '/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . '}');
+                $item["class_url"] = url($this->api_url . '/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"class_id":' . $item["class_id"] . '}');
+                $item["school_name"] = SchoolModel::where("id", $item["school_id"])->value("name");
                 $now_time = strtotime("-8 month");
                 $now_year = date("Y", $now_time);
                 $item["gc"] = $item["school_name"] . "</br>" . ($now_year - $item["year"] + 1) . "年" . $item["class_id"] . "班";
@@ -60,8 +62,7 @@ class TeacherClass extends Admin
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = TeacherClassModel::where("date", ">", $todaytime)
-            ->count();
+        $num1 = TeacherClassModel::where("date", ">", $todaytime)->count();
         $num2 = TeacherClassModel::count();
         $btn_school = [
             'title' => '学校二维码',
