@@ -35,6 +35,7 @@ class StudentCompare extends Admin
         $data_list = StudentModel::field("a.*")
             ->alias("a")
             ->leftJoin(["ps_student_outlet" => "b"], "a.name=b.name")
+            ->whereNotNull("b.id")
             ->where($map)
             ->order($order)
             ->paginate();
