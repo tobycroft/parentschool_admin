@@ -5,7 +5,6 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
@@ -33,10 +32,9 @@ class StudentCompare extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = FamilyMemberModel::field("c.*,b.wx_name")
+        $data_list = StudentModel::field("a.*")
             ->alias("a")
-            ->leftJoin(["ps_user" => "b"], "a.uid=b.id")
-            ->leftJoin(["ps_student" => "c"], "a.student_id=c.id")
+            ->leftJoin(["ps_student_outlet" => "b"], "a.name=b.name")
             ->where($map)
             ->order($order)
             ->paginate();
