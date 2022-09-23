@@ -32,7 +32,7 @@ class StudentCompare extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = StudentModel::field("count(a.name) as count,a.*,b.year as year2,b.class as class2,b.school_id as school_id2")
+        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2")
             ->alias("a")
             ->group("a.name")
             ->join(["ps_student_outlet" => "b"], "a.name=b.name")
