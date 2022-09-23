@@ -12,11 +12,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\SchoolModel;
-use app\user\model\User;
 use app\user\model\Role as RoleModel;
-use util\Tree;
+use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use util\Tree;
 
 /**
  * 用户默认控制器
@@ -58,6 +58,8 @@ class School extends Admin
             ->addColumn('sight', '可见性', 'number')
             ->addColumn('icon', '学校图标', 'picture')
             ->addColumn('img', '学校宣传图', 'picture')
+            ->addColumn('dashboard', '学校端权限', 'switch')
+            ->addColumn('screen', '大屏端权限', 'switch')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
