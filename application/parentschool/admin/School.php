@@ -53,6 +53,7 @@ class School extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '学校名称', 'text')
+            ->addColumn('domain', '学校标签', 'text.edit')
             ->addColumn('area_id', '学校所属区域', 'number')
             ->addColumn('detail', '详细说明')
             ->addColumn('sight', '可见性', 'number')
