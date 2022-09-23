@@ -32,10 +32,11 @@ class StudentCompare extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2")
+        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2,c.wx_name")
             ->alias("a")
             ->group("a.name")
             ->join(["ps_student_outlet" => "b"], "a.name=b.name and (a.school_id!=b.school_id or a.year!=b.year or a.class != b.class)")
+            ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
             ->whereNotNull("b.id")
             ->where($map)
             ->order($order)
@@ -73,6 +74,7 @@ class StudentCompare extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id')
+            ->addColumn('wx_name', '学生名字', 'text.edit')
             ->addColumn('name', '学生名字', 'text.edit')
             ->addColumn('count', '重复数量', 'text')
             ->addColumn('school_id', '学校id', 'number', "", $school)
@@ -83,7 +85,7 @@ class StudentCompare extends Admin
             ->addColumn('class2', '导入的班级', 'text')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
-            ->addRightButton('edit') // 添加编辑按钮
+//            ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
@@ -467,7 +469,8 @@ class StudentCompare extends Admin
                 }
                 break;
             case 'delete':
-                if (false === StudentModel::where('id', 'in', $ids)
+
+            if (false === StudentModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
                 }
