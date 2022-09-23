@@ -38,7 +38,8 @@ class StudentParent extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudentModel::alias("a")->leftJoin(["ps_user" => "b"], "a.uid=b.id")->where($map)->order($order)->paginate();
+
+        $data_list = FamilyMember::alias("a")->leftJoin(["ps_user" => "b"], "a.uid=b.id")->leftJoin(["ps_student" => "c"], "a.student_id=c.id")->where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
@@ -60,9 +61,10 @@ class StudentParent extends Admin
             ->addOrder('id')
             ->addColumn('id', '问题ID')
             ->addColumn('uid', '家长id', 'number')
+            ->addColumn('wx_name', '家长姓名', 'text')
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('gender', '男女', 'number')
-            ->addColumn('name', '姓名', 'text.edit')
+            ->addColumn('name', '学生名字', 'text.edit')
             ->addColumn('img', '头像', 'picture')
             ->addColumn('year', '入学年份', 'number')
             ->addColumn('grade', '年级', 'number')
