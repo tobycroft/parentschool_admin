@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
+use app\parentschool\model\FamilyModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
@@ -456,6 +457,10 @@ class Student extends Admin
                     $this->error('删除失败');
                 }
                 if (FamilyMemberModel::where("student_id", 'in', $ids)->delete()) {
+                    Db::rollback();
+                    $this->error('删除失败');
+                }
+                if (FamilyModel::where("student_id", 'in', $ids)->delete()) {
                     Db::rollback();
                     $this->error('删除失败');
                 }
