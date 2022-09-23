@@ -504,6 +504,15 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         if (!empty($data)) {
             // 数据对象赋值
             foreach ($data as $key => $value) {
+                switch ($value) {
+                    case "on":
+                        $value = true;
+                        break;
+
+                    case "off":
+                        $value = false;
+                        break;
+                }
                 $this->setAttr($key, $value, $data);
             }
 
