@@ -60,11 +60,11 @@ class StudentCompare extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('id', '问题ID')
+            ->addColumn('id', '问题ID', "hidden")
+            ->addColumn('name', '学生名字', 'text.edit')
             ->addColumn('wx_name', '家长姓名', 'text')
             ->addColumn('school_id', '学校id', 'number', "", $school)
             ->addColumn('school_id2', '标准学校', 'number', "", $school)
-            ->addColumn('name', '学生名字', 'text.edit')
             ->addColumn('year', '入学年份', 'number')
             ->addColumn('year2', '标准年份', 'text')
             ->addColumn('class', '班级', 'number')
