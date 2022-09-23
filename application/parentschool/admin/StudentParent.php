@@ -66,9 +66,6 @@ class StudentParent extends Admin
             ->addColumn('name', '学生名字', 'text.edit')
             ->addColumn('year', '入学年份', 'number')
             ->addColumn('class', '班级', 'number')
-            ->addColumn('special', '特殊班级', 'text.edit')
-            ->addColumn('callsign', '座号', 'number')
-            ->addColumn('remark', '备注', 'textarea.edit')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
