@@ -7,6 +7,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
+use app\parentschool\model\StudentOutletModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -474,10 +475,26 @@ class StudentCompare extends Admin
                 break;
             case 'delete':
                 //todo:
+                Db::startTrans();
                 StudentModel::where('id', 'in', $ids)->select()->each(function ($item) {
-                    StudentModel::field("count(0) as count,id")
-                        ->group("school_id,name,callsign");
+                    $num = StudentModel::where("name", $item["name"])
+                        ->where("callsign", $item["callsign"])
+                        ->where("school_id", $item["school_id"])
+                        ->count();
+                    $studentoutlet = StudentOutletModel::where("name", $item["name"])
+                        ->where("callsign", $item["callsign"])
+                        ->where("school_id", $item["school_id"])
+                        ->find();
+                    if ($studentoutlet) {
+                        $item["year"] = $studentoutlet["year"];
+                        $item["class"] = $studentoutlet["class"];
+                        StudentModel::where("name", $item["name"])
+                            ->where("callsign", $item["callsign"])
+                            ->where("school_id", $item["school_id"])
+                            ->update($item);
+                    }
                 });
+                Db::commit();
                 if (false === StudentModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
