@@ -473,7 +473,11 @@ class StudentCompare extends Admin
                 }
                 break;
             case 'delete':
-
+                //todo:
+                StudentModel::where('id', 'in', $ids)->select()->each(function ($item) {
+                    StudentModel::field("count(0) as count,id")
+                        ->group("school_id,name,callsign");
+                });
                 if (false === StudentModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
