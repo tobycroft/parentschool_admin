@@ -72,7 +72,7 @@ class StudentCompare2 extends Admin
                 ['text', 'a.class', '班级'],
             ])
             ->addTopButton("add", "学生id")
-            ->addTopButton("delete", "删除错误学生")
+//            ->addTopButton("delete", "删除错误学生")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', 'uid' => "uid", 'name' => '用户名']) // 设置搜索参数
             ->addOrder('id')
