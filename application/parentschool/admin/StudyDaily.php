@@ -35,24 +35,42 @@ class StudyDaily extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyDailyModel::where($map)->order($order)->paginate()->each(function ($item, $key) {
-            $item["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("a.study_type", "daily")->where("b.tag_type", "common")->column("name");
-            $item["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("a.study_type", "daily")->where("b.tag_type", "special")->column("name");
-            $item["common_tag"] = join(",", $item["common_tag"]);
-            $item["special_tag"] = join(",", $item["special_tag"]);
-            return $item;
-        });
+        $data_list = StudyDailyModel::where($map)
+            ->order($order)
+            ->paginate()
+            ->each(function ($item, $key) {
+                $item["common_tag"] = StudyTagModel::alias("a")
+                    ->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")
+                    ->where("study_id", $item["id"])
+                    ->where("a.study_type", "daily")
+                    ->where("b.tag_type", "common")
+                    ->column("name");
+                $item["special_tag"] = StudyTagModel::alias("a")
+                    ->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")
+                    ->where("study_id", $item["id"])
+                    ->where("a.study_type", "daily")
+                    ->where("b.tag_type", "special")
+                    ->column("name");
+                $item["common_tag"] = join(",", $item["common_tag"]);
+                $item["special_tag"] = join(",", $item["special_tag"]);
+                return $item;
+            });
 
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = StudyDailyModel::where("date", ">", $todaytime)->count();
+        $num1 = StudyDailyModel::where("date", ">", $todaytime)
+            ->count();
         $num2 = StudyDailyModel::count();
 
-        return ZBuilder::make('table')->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+        return ZBuilder::make('table')
+            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->addTopButton("add")->setPageTitle('列表')->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
-            ->addOrder('id')->addColumns([['id', 'ID'], //                ['grade', '年级', 'number'],
+            ->addTopButton("add")
+            ->setPageTitle('列表')
+            ->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
+            ->addOrder('id')
+            ->addColumns([['id', 'ID'], //                ['grade', '年级', 'number'],
 //                ['area_id', '对应区域', 'number'],
 //                ['school_id', '学校id', 'number'],
                 ['title', '标题'], ['slogan', '推荐金句'], ['special_tag', '特殊标签'], ['common_tag', '特殊标签'], //                ['img', '小图头图', "picture"],
@@ -62,10 +80,13 @@ class StudyDaily extends Admin
 //                ['show_date', '展示日期', 'text.edit'],
 //                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
-                ['attach_duration', '附件时长', 'number'], ['change_date', '修改时间'], ['date', '创建时间'],])->addColumn('right_button', '操作', 'btn')->addRightButton('edit') // 添加编辑按钮
+                ['attach_duration', '附件时长', 'number'], ['change_date', '修改时间'], ['date', '创建时间'],])
+            ->addColumn('right_button', '操作', 'btn')
+            ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
-            ->setPages($page)->fetch();
+            ->setPages($page)
+            ->fetch();
     }
 
     /**
@@ -145,19 +166,23 @@ class StudyDaily extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
+        $tag_common = TagModel::where("tag_type", "common")
+            ->column("id,name");
 //        foreach ($tag_common as $key => $value) {
 //            $tag_common[strval($key)] = $value;
 //        }
-        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
+        $tag_special = TagModel::where("tag_type", "special")
+            ->column("id,name");
 //        foreach ($tag_special as $key => $value) {
 //            $tag_special[strval($key)] = $value;
 //        }
 
         // 使用ZBuilder快速创建表单
-        return ZBuilder::make('form')->setPageTitle('新增') // 设置页面标题
-        ->addFormItems([ // 批量添加表单项
-            ['text', 'grade', '年级', 'number'], ['number', 'area_id', '对应区域'], ['number', 'school_id', '学校id'], ['select', 'study_type', '课程类型', '', \Study\Type::get_type()], ['text', 'title', '标题'], ['text', 'slogan', '推荐金句'], ['checkbox', 'special_tag', '特殊标签', "", $tag_special], ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common], ['ueditor', 'content', '内容'], ['image', 'img', '小图头图', "picture"], ['image', 'img_intro', '简介图', "picture"], ['text', 'from1', '内容来源1'], ['text', 'from2', '内容来源2'], ['switch', 'can_push', '是否可以推送'], ['switch', 'can_show', '是否可以展示'], ['datetime', 'push_date', '推送日期'], ['datetime', 'show_date', '展示日期'], ['datetime', 'end_date', '结束展示日期'], ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()], ['file', 'attach_url', '附件类型'], ['number', 'attach_duration', '附件时长(秒)'], ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],])->fetch();
+        return ZBuilder::make('form')
+            ->setPageTitle('新增') // 设置页面标题
+            ->addFormItems([ // 批量添加表单项
+                ['text', 'grade', '年级', 'number'], ['number', 'area_id', '对应区域'], ['number', 'school_id', '学校id'], ['select', 'study_type', '课程类型', '', \Study\Type::get_type()], ['text', 'title', '标题'], ['text', 'slogan', '推荐金句'], ['checkbox', 'special_tag', '特殊标签', "", $tag_special], ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common], ['ueditor', 'content', '内容'], ['image', 'img', '小图头图', "picture"], ['image', 'img_intro', '简介图', "picture"], ['text', 'from1', '内容来源1'], ['text', 'from2', '内容来源2'], ['switch', 'can_push', '是否可以推送'], ['switch', 'can_show', '是否可以展示'], ['datetime', 'push_date', '推送日期'], ['datetime', 'show_date', '展示日期'], ['datetime', 'end_date', '结束展示日期'], ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()], ['file', 'attach_url', '附件类型'], ['number', 'attach_duration', '附件时长(秒)'], ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],])
+            ->fetch();
     }
 
     /**
@@ -171,12 +196,14 @@ class StudyDaily extends Admin
      */
     public function edit($id = null)
     {
-        if ($id === null) $this->error('缺少参数');
+        if ($id === null)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -197,7 +224,9 @@ class StudyDaily extends Admin
                 }
             }
             Db::startTrans();
-            StudyTagModel::where("study_id", $data["id"])->where("study_type", "daily")->delete();
+            StudyTagModel::where("study_id", $data["id"])
+                ->where("study_type", "daily")
+                ->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {
@@ -212,13 +241,19 @@ class StudyDaily extends Admin
             }
             $daily_input = ["id" => $data["id"], "title" => $data["title"], "slogan" => $data["slogan"], "content" => $data["content"], "img" => $data["img"], "img_intro" => $data["img_intro"], "from1" => $data["from1"], "from2" => $data["from2"], "attach_type" => $data["attach_type"], "attach_url" => $data["attach_url"], "attach_duration" => $data["attach_duration"], "show_to" => $data["show_to"],];
             $study_input = ["area_id" => $data["area_id"], "school_id" => $data["school_id"], "grade" => $data["grade"], "push_date" => $data["push_date"], "show_date" => $data["show_date"], "end_date" => $data["end_date"], "can_push" => $data["can_push"] == "on", "can_show" => $data["can_show"] == "on", "study_type" => $data["study_type"], "study_id" => $data["id"],];
-            $study = StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->find();
+            $study = StudyModel::where("study_type", $data["study_type"])
+                ->where("study_id", $data["id"])
+                ->find();
             if ($study) {
-                StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
+                StudyModel::where("study_type", $data["study_type"])
+                    ->where("study_id", $data["id"])
+                    ->update($study_input);
             } else {
-                StudyModel::where("study_type", $data["study_type"])->insert($study_input);
+                StudyModel::where("study_type", $data["study_type"])
+                    ->insert($study_input);
             }
-            if (StudyDailyModel::where("id", $data["id"])->update($daily_input)) {
+            if (StudyDailyModel::where("id", $data["id"])
+                ->update($daily_input)) {
                 Db::commit();
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
@@ -231,28 +266,92 @@ class StudyDaily extends Admin
 
         // 获取数据
 
-        $info2 = StudyModel::where("study_type", "daily")->where("study_id", $id)->find();
+        $info2 = StudyModel::where("study_type", "daily")
+            ->where("study_id", $id)
+            ->find();
         if (!$info2) {
             $study_input = ["study_type" => "daily", "study_id" => $id,];
             StudyModel::create($study_input);
         }
-        $info = StudyDailyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "daily")->where('a.id', $id)->find();
+        $info = StudyDailyModel::field("b.*,a.*")
+            ->alias("a")
+            ->leftJoin(["ps_study" => "b"], "b.study_id=a.id")
+            ->where("b.study_type", "daily")
+            ->where('a.id', $id)
+            ->find();
         // 使用ZBuilder快速创建表单
 
-        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
-        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
-        $tag_choose = StudyTagModel::where("study_id", $id)->where("study_type", "daily")->column("tag_id");
+        $tag_common = TagModel::where("tag_type", "common")
+            ->column("id,name");
+        $tag_special = TagModel::where("tag_type", "special")
+            ->column("id,name");
+        $tag_choose = StudyTagModel::where("study_id", $id)
+            ->where("study_type", "daily")
+            ->column("tag_id");
         $info["special_tag"] = null;
         $info["common_tag"] = null;
 
-        $data = ZBuilder::make('form')->setPageTitle('编辑') // 设置页面标题
-        ->addFormItems([ // 批量添加表单项
-            ['hidden', 'id'], ['text', 'grade', '年级', 'number'], ['number', 'area_id', '对应区域'], ['number', 'school_id', '学校id'], ['select', 'study_type', '课程类型', '', \Study\Type::get_type()], ['text', 'title', '标题'], ['text', 'slogan', '推荐金句'], ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose], ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose], ['ueditor', 'content', '内容'], ['image', 'img', '小图头图', "picture"], ['image', 'img_intro', '简介图', "picture"], ['text', 'from1', '内容来源1'], ['text', 'from2', '内容来源2'], ['switch', 'can_push', '是否可以推送'], ['switch', 'can_show', '是否可以展示'], ['datetime', 'push_date', '推送日期'], ['datetime', 'show_date', '展示日期'], ['datetime', 'end_date', '结束展示日期'], ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()], ['file', 'attach_url', '附件类型'], ['number', 'attach_duration', '附件时长(秒)'], ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],]);
+        $data = ZBuilder::make('form')
+            ->setPageTitle('编辑') // 设置页面标题
+            ->addFormItems([ // 批量添加表单项
+                ['hidden', 'id'], ['text', 'grade', '年级', 'number'], ['number', 'area_id', '对应区域'], ['number', 'school_id', '学校id'], ['select', 'study_type', '课程类型', '', \Study\Type::get_type()], ['text', 'title', '标题'], ['text', 'slogan', '推荐金句'], ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose], ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose], ['ueditor', 'content', '内容'], ['image', 'img', '小图头图', "picture"], ['image', 'img_intro', '简介图', "picture"], ['text', 'from1', '内容来源1'], ['text', 'from2', '内容来源2'], ['switch', 'can_push', '是否可以推送'], ['switch', 'can_show', '是否可以展示'], ['datetime', 'push_date', '推送日期'], ['datetime', 'show_date', '展示日期'], ['datetime', 'end_date', '结束展示日期'], ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()], ['file', 'attach_url', '附件类型'], ['number', 'attach_duration', '附件时长(秒)'], ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],]);
 
         return $data->setFormData($info) // 设置表单数据
         ->fetch();;
     }
 
+    /**
+     * 删除用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function delete($ids = [])
+    {
+        Hook::listen('user_delete', $ids);
+        action_log('user_delete', 'user', $ids, UID);
+        return $this->setStatus('delete');
+    }
+
+    /**
+     * 设置用户状态：删除、禁用、启用
+     * @param string $type 类型：delete/enable/disable
+     * @param array $record
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function setStatus($type = '', $record = [])
+    {
+        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
+        $ids = (array)$ids;
+
+        switch ($type) {
+            case 'enable':
+                if (false === StudyDailyModel::where('id', 'in', $ids)
+                        ->setField('status', 1)) {
+                    $this->error('启用失败');
+                }
+                break;
+            case 'disable':
+                if (false === StudyDailyModel::where('id', 'in', $ids)
+                        ->setField('status', 0)) {
+                    $this->error('禁用失败');
+                }
+                break;
+            case 'delete':
+                if (false === StudyDailyModel::where('id', 'in', $ids)
+                        ->delete()) {
+                    $this->error('删除失败');
+                }
+                break;
+            default:
+                $this->error('非法操作');
+        }
+
+        action_log('user_' . $type, 'admin_user', '', UID);
+
+        $this->success('操作成功');
+    }
 
     /**
      * 授权
@@ -268,19 +367,24 @@ class StudyDaily extends Admin
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
-        if ($uid === 0) $this->error('缺少参数');
+        if ($uid === 0)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
 
         // 获取所有授权配置信息
-        $list_module = ModuleModel::where('access', 'neq', '')->where('access', 'neq', '')->where('status', 1)->column('name,title,access');
+        $list_module = ModuleModel::where('access', 'neq', '')
+            ->where('access', 'neq', '')
+            ->where('status', 1)
+            ->column('name,title,access');
 
         if ($list_module) {
             // tab分组信息
@@ -324,7 +428,8 @@ class StudyDaily extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     }
 
@@ -359,7 +464,8 @@ class StudyDaily extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     } else {
                         $this->success('操作成功');
@@ -385,14 +491,19 @@ class StudyDaily extends Admin
                     // 没有设置模型名，则按表名获取数据
                     $fields = [$curr_access_nodes['primary_key'], $curr_access_nodes['parent_id'], $curr_access_nodes['node_name']];
 
-                    $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
+                    $nodes = Db::name($curr_access_nodes['table_name'])
+                        ->order($curr_access_nodes['primary_key'])
+                        ->field($fields)
+                        ->select();
                     $tree_config = ['title' => $curr_access_nodes['node_name'], 'id' => $curr_access_nodes['primary_key'], 'pid' => $curr_access_nodes['parent_id']];
-                    $nodes = Tree::config($tree_config)->toLayer($nodes);
+                    $nodes = Tree::config($tree_config)
+                        ->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
                 $map = ['module' => $module, 'tag' => $tab, 'uid' => $uid];
-                $node_access = AccessModel::where($map)->select();
+                $node_access = AccessModel::where($map)
+                    ->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
                     $user_access[$item['group'] . '|' . $item['nid']] = 1;
@@ -443,19 +554,6 @@ class StudyDaily extends Admin
     }
 
     /**
-     * 删除用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function delete($ids = [])
-    {
-        Hook::listen('user_delete', $ids);
-        action_log('user_delete', 'user', $ids, UID);
-        return $this->setStatus('delete');
-    }
-
-    /**
      * 启用用户
      * @param array $ids 用户id
      * @throws \think\Exception
@@ -478,44 +576,6 @@ class StudyDaily extends Admin
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
-
-    /**
-     * 设置用户状态：删除、禁用、启用
-     * @param string $type 类型：delete/enable/disable
-     * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function setStatus($type = '', $record = [])
-    {
-        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
-        $ids = (array)$ids;
-
-        switch ($type) {
-            case 'enable':
-                if (false === StudyDailyModel::where('id', 'in', $ids)->setField('status', 1)) {
-                    $this->error('启用失败');
-                }
-                break;
-            case 'disable':
-                if (false === StudyDailyModel::where('id', 'in', $ids)->setField('status', 0)) {
-                    $this->error('禁用失败');
-                }
-                break;
-            case 'delete':
-                if (false === StudyDailyModel::where('id', 'in', $ids)->delete()) {
-                    $this->error('删除失败');
-                }
-                break;
-            default:
-                $this->error('非法操作');
-        }
-
-        action_log('user_' . $type, 'admin_user', '', UID);
-
-        $this->success('操作成功');
-    }
-
 
     public function quickEdit($record = [])
     {
@@ -541,12 +601,14 @@ class StudyDaily extends Admin
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));
-            $user_list = \app\user\model\User::where('role', 'in', $role_list)->column('id');
+            $user_list = \app\user\model\User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = StudyDailyModel::where("id", $id)->setField($field, $value);
+        $result = StudyDailyModel::where("id", $id)
+            ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');

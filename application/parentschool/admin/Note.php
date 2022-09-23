@@ -30,20 +30,36 @@ class Note extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = NoteRecordModel::where($map)->order($order)->paginate();
+        $data_list = NoteRecordModel::where($map)
+            ->order($order)
+            ->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = NoteRecordModel::where("date", ">", $todaytime)->count();
+        $num1 = NoteRecordModel::where("date", ">", $todaytime)
+            ->count();
         $num2 = NoteRecordModel::count();
 
-        return ZBuilder::make('table')->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+        return ZBuilder::make('table')
+            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->addTopButton("add")->setPageTitle('列表')->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
-            ->addOrder('id')->addColumn('id', 'ID')->addColumn('type', '课程类型')->addColumn('study_id', '课程id', 'number')->addColumn('uid', '家长id', 'number')->addColumn('content', '内容', 'textarea.edit')->addColumn('change_date', '修改时间')->addColumn('date', '创建时间')->addColumn('right_button', '操作', 'btn')->addRightButton('edit') // 添加编辑按钮
+            ->addTopButton("add")
+            ->setPageTitle('列表')
+            ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
+            ->addOrder('id')
+            ->addColumn('id', 'ID')
+            ->addColumn('type', '课程类型')
+            ->addColumn('study_id', '课程id', 'number')
+            ->addColumn('uid', '家长id', 'number')
+            ->addColumn('content', '内容', 'textarea.edit')
+            ->addColumn('change_date', '修改时间')
+            ->addColumn('date', '创建时间')
+            ->addColumn('right_button', '操作', 'btn')
+            ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
-            ->setPages($page)->fetch();
+            ->setPages($page)
+            ->fetch();
     }
 
     /**
@@ -94,9 +110,11 @@ class Note extends Admin
         }
 
         // 使用ZBuilder快速创建表单
-        return ZBuilder::make('form')->setPageTitle('新增') // 设置页面标题
-        ->addFormItems([ // 批量添加表单项
-            ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容', ''],])->fetch();
+        return ZBuilder::make('form')
+            ->setPageTitle('新增') // 设置页面标题
+            ->addFormItems([ // 批量添加表单项
+                ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容', ''],])
+            ->fetch();
     }
 
     /**
@@ -110,12 +128,14 @@ class Note extends Admin
      */
     public function edit($id = null)
     {
-        if ($id === null) $this->error('缺少参数');
+        if ($id === null)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -139,12 +159,14 @@ class Note extends Admin
         }
 
         // 获取数据
-        $info = NoteRecordModel::where('id', $id)->find();
+        $info = NoteRecordModel::where('id', $id)
+            ->find();
 
         // 使用ZBuilder快速创建表单
-        $data = ZBuilder::make('form')->setPageTitle('编辑') // 设置页面标题
-        ->addFormItems([ // 批量添加表单项
-            ['hidden', 'id'], ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容'],]);
+        $data = ZBuilder::make('form')
+            ->setPageTitle('编辑') // 设置页面标题
+            ->addFormItems([ // 批量添加表单项
+                ['hidden', 'id'], ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容'],]);
         return $data->setFormData($info) // 设置表单数据
         ->fetch();
     }
@@ -164,19 +186,24 @@ class Note extends Admin
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
-        if ($uid === 0) $this->error('缺少参数');
+        if ($uid === 0)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
 
         // 获取所有授权配置信息
-        $list_module = ModuleModel::where('access', 'neq', '')->where('access', 'neq', '')->where('status', 1)->column('name,title,access');
+        $list_module = ModuleModel::where('access', 'neq', '')
+            ->where('access', 'neq', '')
+            ->where('status', 1)
+            ->column('name,title,access');
 
         if ($list_module) {
             // tab分组信息
@@ -220,7 +247,8 @@ class Note extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     }
 
@@ -255,7 +283,8 @@ class Note extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     } else {
                         $this->success('操作成功');
@@ -281,14 +310,19 @@ class Note extends Admin
                     // 没有设置模型名，则按表名获取数据
                     $fields = [$curr_access_nodes['primary_key'], $curr_access_nodes['parent_id'], $curr_access_nodes['node_name']];
 
-                    $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
+                    $nodes = Db::name($curr_access_nodes['table_name'])
+                        ->order($curr_access_nodes['primary_key'])
+                        ->field($fields)
+                        ->select();
                     $tree_config = ['title' => $curr_access_nodes['node_name'], 'id' => $curr_access_nodes['primary_key'], 'pid' => $curr_access_nodes['parent_id']];
-                    $nodes = Tree::config($tree_config)->toLayer($nodes);
+                    $nodes = Tree::config($tree_config)
+                        ->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
                 $map = ['module' => $module, 'tag' => $tab, 'uid' => $uid];
-                $node_access = AccessModel::where($map)->select();
+                $node_access = AccessModel::where($map)
+                    ->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
                     $user_access[$item['group'] . '|' . $item['nid']] = 1;
@@ -309,6 +343,59 @@ class Note extends Admin
         $this->assign('tab', $tab);
         $this->assign('page_title', '数据授权');
         return $this->fetch();
+    }
+
+    /**
+     * 删除用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function delete($ids = [])
+    {
+        Hook::listen('user_delete', $ids);
+        action_log('user_delete', 'user', $ids, UID);
+        return $this->setStatus('delete');
+    }
+
+    /**
+     * 设置用户状态：删除、禁用、启用
+     * @param string $type 类型：delete/enable/disable
+     * @param array $record
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function setStatus($type = '', $record = [])
+    {
+        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
+        $ids = (array)$ids;
+
+        switch ($type) {
+            case 'enable':
+                if (false === NoteRecordModel::where('id', 'in', $ids)
+                        ->setField('status', 1)) {
+                    $this->error('启用失败');
+                }
+                break;
+            case 'disable':
+                if (false === NoteRecordModel::where('id', 'in', $ids)
+                        ->setField('status', 0)) {
+                    $this->error('禁用失败');
+                }
+                break;
+            case 'delete':
+                if (false === NoteRecordModel::where('id', 'in', $ids)
+                        ->delete()) {
+                    $this->error('删除失败');
+                }
+                break;
+            default:
+                $this->error('非法操作');
+        }
+
+        action_log('user_' . $type, 'admin_user', '', UID);
+
+        $this->success('操作成功');
     }
 
     /**
@@ -339,19 +426,6 @@ class Note extends Admin
     }
 
     /**
-     * 删除用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function delete($ids = [])
-    {
-        Hook::listen('user_delete', $ids);
-        action_log('user_delete', 'user', $ids, UID);
-        return $this->setStatus('delete');
-    }
-
-    /**
      * 启用用户
      * @param array $ids 用户id
      * @throws \think\Exception
@@ -374,44 +448,6 @@ class Note extends Admin
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
-
-    /**
-     * 设置用户状态：删除、禁用、启用
-     * @param string $type 类型：delete/enable/disable
-     * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function setStatus($type = '', $record = [])
-    {
-        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
-        $ids = (array)$ids;
-
-        switch ($type) {
-            case 'enable':
-                if (false === NoteRecordModel::where('id', 'in', $ids)->setField('status', 1)) {
-                    $this->error('启用失败');
-                }
-                break;
-            case 'disable':
-                if (false === NoteRecordModel::where('id', 'in', $ids)->setField('status', 0)) {
-                    $this->error('禁用失败');
-                }
-                break;
-            case 'delete':
-                if (false === NoteRecordModel::where('id', 'in', $ids)->delete()) {
-                    $this->error('删除失败');
-                }
-                break;
-            default:
-                $this->error('非法操作');
-        }
-
-        action_log('user_' . $type, 'admin_user', '', UID);
-
-        $this->success('操作成功');
-    }
-
 
     public function quickEdit($record = [])
     {
@@ -437,12 +473,14 @@ class Note extends Admin
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));
-            $user_list = \app\user\model\User::where('role', 'in', $role_list)->column('id');
+            $user_list = \app\user\model\User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = NoteRecordModel::where("id", $id)->setField($field, $value);
+        $result = NoteRecordModel::where("id", $id)
+            ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');

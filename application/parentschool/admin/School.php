@@ -30,7 +30,9 @@ class School extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = SchoolModel::where($map)->order($order)->paginate();
+        $data_list = SchoolModel::where($map)
+            ->order($order)
+            ->paginate();
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
@@ -139,12 +141,14 @@ class School extends Admin
      */
     public function edit($id = null)
     {
-        if ($id === null) $this->error('缺少参数');
+        if ($id === null)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -168,7 +172,8 @@ class School extends Admin
         }
 
         // 获取数据
-        $info = SchoolModel::where('id', $id)->find();
+        $info = SchoolModel::where('id', $id)
+            ->find();
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -205,12 +210,14 @@ class School extends Admin
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
-        if ($uid === 0) $this->error('缺少参数');
+        if ($uid === 0)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -283,7 +290,8 @@ class School extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     }
 
@@ -318,7 +326,8 @@ class School extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     } else {
                         $this->success('操作成功');
@@ -348,13 +357,17 @@ class School extends Admin
                         $curr_access_nodes['node_name']
                     ];
 
-                    $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
+                    $nodes = Db::name($curr_access_nodes['table_name'])
+                        ->order($curr_access_nodes['primary_key'])
+                        ->field($fields)
+                        ->select();
                     $tree_config = [
                         'title' => $curr_access_nodes['node_name'],
                         'id' => $curr_access_nodes['primary_key'],
                         'pid' => $curr_access_nodes['parent_id']
                     ];
-                    $nodes = Tree::config($tree_config)->toLayer($nodes);
+                    $nodes = Tree::config($tree_config)
+                        ->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
@@ -363,7 +376,8 @@ class School extends Admin
                     'tag' => $tab,
                     'uid' => $uid
                 ];
-                $node_access = AccessModel::where($map)->select();
+                $node_access = AccessModel::where($map)
+                    ->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
                     $user_access[$item['group'] . '|' . $item['nid']] = 1;
@@ -384,6 +398,59 @@ class School extends Admin
         $this->assign('tab', $tab);
         $this->assign('page_title', '数据授权');
         return $this->fetch();
+    }
+
+    /**
+     * 删除用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function delete($ids = [])
+    {
+        Hook::listen('user_delete', $ids);
+        action_log('user_delete', 'user', $ids, UID);
+        return $this->setStatus('delete');
+    }
+
+    /**
+     * 设置用户状态：删除、禁用、启用
+     * @param string $type 类型：delete/enable/disable
+     * @param array $record
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function setStatus($type = '', $record = [])
+    {
+        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
+        $ids = (array)$ids;
+
+        switch ($type) {
+            case 'enable':
+                if (false === SchoolModel::where('id', 'in', $ids)
+                        ->setField('status', 1)) {
+                    $this->error('启用失败');
+                }
+                break;
+            case 'disable':
+                if (false === SchoolModel::where('id', 'in', $ids)
+                        ->setField('status', 0)) {
+                    $this->error('禁用失败');
+                }
+                break;
+            case 'delete':
+                if (false === SchoolModel::where('id', 'in', $ids)
+                        ->delete()) {
+                    $this->error('删除失败');
+                }
+                break;
+            default:
+                $this->error('非法操作');
+        }
+
+        action_log('user_' . $type, 'admin_user', '', UID);
+
+        $this->success('操作成功');
     }
 
     /**
@@ -417,19 +484,6 @@ class School extends Admin
     }
 
     /**
-     * 删除用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function delete($ids = [])
-    {
-        Hook::listen('user_delete', $ids);
-        action_log('user_delete', 'user', $ids, UID);
-        return $this->setStatus('delete');
-    }
-
-    /**
      * 启用用户
      * @param array $ids 用户id
      * @throws \think\Exception
@@ -452,44 +506,6 @@ class School extends Admin
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
-
-    /**
-     * 设置用户状态：删除、禁用、启用
-     * @param string $type 类型：delete/enable/disable
-     * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function setStatus($type = '', $record = [])
-    {
-        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
-        $ids = (array)$ids;
-
-        switch ($type) {
-            case 'enable':
-                if (false === SchoolModel::where('id', 'in', $ids)->setField('status', 1)) {
-                    $this->error('启用失败');
-                }
-                break;
-            case 'disable':
-                if (false === SchoolModel::where('id', 'in', $ids)->setField('status', 0)) {
-                    $this->error('禁用失败');
-                }
-                break;
-            case 'delete':
-                if (false === SchoolModel::where('id', 'in', $ids)->delete()) {
-                    $this->error('删除失败');
-                }
-                break;
-            default:
-                $this->error('非法操作');
-        }
-
-        action_log('user_' . $type, 'admin_user', '', UID);
-
-        $this->success('操作成功');
-    }
-
 
     public function quickEdit($record = [])
     {
@@ -515,12 +531,14 @@ class School extends Admin
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));
-            $user_list = \app\user\model\User::where('role', 'in', $role_list)->column('id');
+            $user_list = \app\user\model\User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = SchoolModel::where("id", $id)->setField($field, $value);
+        $result = SchoolModel::where("id", $id)
+            ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');

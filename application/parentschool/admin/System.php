@@ -30,7 +30,8 @@ class System extends Admin
         // 获取排序
         $order = $this->getOrder();
 // 读取用户数据
-        $data_list = SystemParam::order($order)->paginate();
+        $data_list = SystemParam::order($order)
+            ->paginate();
         $page = $data_list->render();
         return ZBuilder::make('table')
             ->addOrder('id')
@@ -56,7 +57,8 @@ class System extends Admin
             // 验证
             $result = $this->validate($data, 'User');
             // 验证失败 输出错误信息
-            if (true !== $result) $this->error($result);
+            if (true !== $result)
+                $this->error($result);
 
             // 非超级管理需要验证可选择角色
             if (session('user_auth.role') != 1) {
@@ -123,12 +125,14 @@ class System extends Admin
      */
     public function edit($id = null)
     {
-        if ($id === null) $this->error('缺少参数');
+        if ($id === null)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
+            $user_list = ParentModel::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -149,7 +153,8 @@ class System extends Admin
         }
 
         // 获取数据
-        $info = SystemParam::where('id', $id)->find();
+        $info = SystemParam::where('id', $id)
+            ->find();
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
@@ -179,12 +184,14 @@ class System extends Admin
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
-        if ($uid === 0) $this->error('缺少参数');
+        if ($uid === 0)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
+            $user_list = ParentModel::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -257,7 +264,8 @@ class System extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     }
 
@@ -292,7 +300,8 @@ class System extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     } else {
                         $this->success('操作成功');
@@ -322,13 +331,17 @@ class System extends Admin
                         $curr_access_nodes['node_name']
                     ];
 
-                    $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
+                    $nodes = Db::name($curr_access_nodes['table_name'])
+                        ->order($curr_access_nodes['primary_key'])
+                        ->field($fields)
+                        ->select();
                     $tree_config = [
                         'title' => $curr_access_nodes['node_name'],
                         'id' => $curr_access_nodes['primary_key'],
                         'pid' => $curr_access_nodes['parent_id']
                     ];
-                    $nodes = Tree::config($tree_config)->toLayer($nodes);
+                    $nodes = Tree::config($tree_config)
+                        ->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
@@ -337,7 +350,8 @@ class System extends Admin
                     'tag' => $tab,
                     'uid' => $uid
                 ];
-                $node_access = AccessModel::where($map)->select();
+                $node_access = AccessModel::where($map)
+                    ->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
                     $user_access[$item['group'] . '|' . $item['nid']] = 1;
@@ -358,6 +372,71 @@ class System extends Admin
         $this->assign('tab', $tab);
         $this->assign('page_title', '数据授权');
         return $this->fetch();
+    }
+
+    /**
+     * 删除用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function delete($ids = [])
+    {
+        Hook::listen('user_delete', $ids);
+        return $this->setStatus('delete');
+    }
+
+    /**
+     * 设置用户状态：删除、禁用、启用
+     * @param string $type 类型：delete/enable/disable
+     * @param array $record
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function setStatus($type = '', $record = [])
+    {
+        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
+        $ids = (array)$ids;
+
+        // 当前用户所能操作的用户
+        $role_list = RoleModel::getChildsId(session('user_auth.role'));
+        $user_list = ParentModel::where('role', 'in', $role_list)
+            ->column('id');
+        if (session('user_auth.role') != 1 && !$user_list) {
+            $this->error('权限不足，没有可操作的用户');
+        }
+
+        $ids = array_intersect($user_list, $ids);
+        if (!$ids) {
+            $this->error('权限不足，没有可操作的用户');
+        }
+
+        switch ($type) {
+            case 'enable':
+                if (false === ParentModel::where('id', 'in', $ids)
+                        ->setField('status', 1)) {
+                    $this->error('启用失败');
+                }
+                break;
+            case 'disable':
+                if (false === ParentModel::where('id', 'in', $ids)
+                        ->setField('status', 0)) {
+                    $this->error('禁用失败');
+                }
+                break;
+            case 'delete':
+                if (false === ParentModel::where('id', 'in', $ids)
+                        ->delete()) {
+                    $this->error('删除失败');
+                }
+                break;
+            default:
+                $this->error('非法操作');
+        }
+
+        action_log('user_' . $type, 'admin_user', '', UID);
+
+        $this->success('操作成功');
     }
 
     /**
@@ -391,18 +470,6 @@ class System extends Admin
     }
 
     /**
-     * 删除用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function delete($ids = [])
-    {
-        Hook::listen('user_delete', $ids);
-        return $this->setStatus('delete');
-    }
-
-    /**
      * 启用用户
      * @param array $ids 用户id
      * @throws \think\Exception
@@ -425,56 +492,6 @@ class System extends Admin
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
-
-    /**
-     * 设置用户状态：删除、禁用、启用
-     * @param string $type 类型：delete/enable/disable
-     * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function setStatus($type = '', $record = [])
-    {
-        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
-        $ids = (array)$ids;
-
-        // 当前用户所能操作的用户
-        $role_list = RoleModel::getChildsId(session('user_auth.role'));
-        $user_list = ParentModel::where('role', 'in', $role_list)->column('id');
-        if (session('user_auth.role') != 1 && !$user_list) {
-            $this->error('权限不足，没有可操作的用户');
-        }
-
-        $ids = array_intersect($user_list, $ids);
-        if (!$ids) {
-            $this->error('权限不足，没有可操作的用户');
-        }
-
-        switch ($type) {
-            case 'enable':
-                if (false === ParentModel::where('id', 'in', $ids)->setField('status', 1)) {
-                    $this->error('启用失败');
-                }
-                break;
-            case 'disable':
-                if (false === ParentModel::where('id', 'in', $ids)->setField('status', 0)) {
-                    $this->error('禁用失败');
-                }
-                break;
-            case 'delete':
-                if (false === ParentModel::where('id', 'in', $ids)->delete()) {
-                    $this->error('删除失败');
-                }
-                break;
-            default:
-                $this->error('非法操作');
-        }
-
-        action_log('user_' . $type, 'admin_user', '', UID);
-
-        $this->success('操作成功');
-    }
-
 
     public function quickEdit($record = [])
     {
@@ -500,12 +517,14 @@ class System extends Admin
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));
-            $user_list = \app\user\model\User::where('role', 'in', $role_list)->column('id');
+            $user_list = \app\user\model\User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = SystemParam::where("id", $id)->setField($field, $value);
+        $result = SystemParam::where("id", $id)
+            ->setField($field, $value);
         if (false !== $result) {
             action_log('system_param_edit', 'system_param', $id, UID);
             $this->success('操作成功');

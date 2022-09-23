@@ -355,33 +355,6 @@ class ClassVirtual extends Admin
     }
 
     /**
-     * 构建jstree代码
-     * @param array $nodes 节点
-     * @param array $curr_access 当前授权信息
-     * @param array $user_access 用户授权信息
-     * @return string
-     */
-    private function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
-    {
-        $result = '';
-        if (!empty($nodes)) {
-            $option = ['opened' => true, 'selected' => false];
-            foreach ($nodes as $node) {
-                $key = $curr_access['group'] . '|' . $node[$curr_access['primary_key']];
-                $option['selected'] = isset($user_access[$key]) ? true : false;
-                if (isset($node['child'])) {
-                    $curr_access_child = isset($curr_access['child']) ? $curr_access['child'] : $curr_access;
-                    $result .= '<li id="' . $key . '" data-jstree=\'' . json_encode($option) . '\'>' . $node[$curr_access['node_name']] . $this->buildJsTree($node['child'], $curr_access_child, $user_access) . '</li>';
-                } else {
-                    $result .= '<li id="' . $key . '" data-jstree=\'' . json_encode($option) . '\'>' . $node[$curr_access['node_name']] . '</li>';
-                }
-            }
-        }
-
-        return '<ul>' . $result . '</ul>';
-    }
-
-    /**
      * 删除用户
      * @param array $ids 用户id
      * @throws \think\Exception
@@ -392,30 +365,6 @@ class ClassVirtual extends Admin
         Hook::listen('user_delete', $ids);
         action_log('user_delete', 'user', $ids, UID);
         return $this->setStatus('delete');
-    }
-
-    /**
-     * 启用用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function enable($ids = [])
-    {
-        Hook::listen('user_enable', $ids);
-        return $this->setStatus('enable');
-    }
-
-    /**
-     * 禁用用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function disable($ids = [])
-    {
-        Hook::listen('user_disable', $ids);
-        return $this->setStatus('disable');
     }
 
     /**
@@ -458,6 +407,56 @@ class ClassVirtual extends Admin
         $this->success('操作成功');
     }
 
+    /**
+     * 构建jstree代码
+     * @param array $nodes 节点
+     * @param array $curr_access 当前授权信息
+     * @param array $user_access 用户授权信息
+     * @return string
+     */
+    private function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
+    {
+        $result = '';
+        if (!empty($nodes)) {
+            $option = ['opened' => true, 'selected' => false];
+            foreach ($nodes as $node) {
+                $key = $curr_access['group'] . '|' . $node[$curr_access['primary_key']];
+                $option['selected'] = isset($user_access[$key]) ? true : false;
+                if (isset($node['child'])) {
+                    $curr_access_child = isset($curr_access['child']) ? $curr_access['child'] : $curr_access;
+                    $result .= '<li id="' . $key . '" data-jstree=\'' . json_encode($option) . '\'>' . $node[$curr_access['node_name']] . $this->buildJsTree($node['child'], $curr_access_child, $user_access) . '</li>';
+                } else {
+                    $result .= '<li id="' . $key . '" data-jstree=\'' . json_encode($option) . '\'>' . $node[$curr_access['node_name']] . '</li>';
+                }
+            }
+        }
+
+        return '<ul>' . $result . '</ul>';
+    }
+
+    /**
+     * 启用用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function enable($ids = [])
+    {
+        Hook::listen('user_enable', $ids);
+        return $this->setStatus('enable');
+    }
+
+    /**
+     * 禁用用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function disable($ids = [])
+    {
+        Hook::listen('user_disable', $ids);
+        return $this->setStatus('disable');
+    }
 
     public function quickEdit($record = [])
     {

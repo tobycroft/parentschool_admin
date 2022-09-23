@@ -33,17 +33,31 @@ class StudyMonthy extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyMonthyModel::where($map)->order($order)->paginate()->each(function ($item, $key) {
-            $item["common_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("a.study_type", "monthy")->where("b.tag_type", "common")->column("name");
-            $item["special_tag"] = StudyTagModel::alias("a")->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")->where("study_id", $item["id"])->where("a.study_type", "monthy")->where("b.tag_type", "special")->column("name");
-            $item["common_tag"] = join(",", $item["common_tag"]);
-            $item["special_tag"] = join(",", $item["special_tag"]);
-            return $item;
-        });
+        $data_list = StudyMonthyModel::where($map)
+            ->order($order)
+            ->paginate()
+            ->each(function ($item, $key) {
+                $item["common_tag"] = StudyTagModel::alias("a")
+                    ->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")
+                    ->where("study_id", $item["id"])
+                    ->where("a.study_type", "monthy")
+                    ->where("b.tag_type", "common")
+                    ->column("name");
+                $item["special_tag"] = StudyTagModel::alias("a")
+                    ->leftJoin(["ps_tag" => "b"], "a.tag_id=b.id")
+                    ->where("study_id", $item["id"])
+                    ->where("a.study_type", "monthy")
+                    ->where("b.tag_type", "special")
+                    ->column("name");
+                $item["common_tag"] = join(",", $item["common_tag"]);
+                $item["special_tag"] = join(",", $item["special_tag"]);
+                return $item;
+            });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = StudyMonthyModel::where("date", ">", $todaytime)->count();
+        $num1 = StudyMonthyModel::where("date", ">", $todaytime)
+            ->count();
         $num2 = StudyMonthyModel::count();
 
         $btn_access = [
@@ -204,11 +218,13 @@ class StudyMonthy extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
+        $tag_common = TagModel::where("tag_type", "common")
+            ->column("id,name");
         foreach ($tag_common as $key => $value) {
             $tag_common[strval($key)] = $value;
         }
-        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
+        $tag_special = TagModel::where("tag_type", "special")
+            ->column("id,name");
         foreach ($tag_special as $key => $value) {
             $tag_special[strval($key)] = $value;
         }
@@ -249,12 +265,14 @@ class StudyMonthy extends Admin
      */
     public function edit($id = null)
     {
-        if ($id === null) $this->error('缺少参数');
+        if ($id === null)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -266,7 +284,9 @@ class StudyMonthy extends Admin
 
             // 非超级管理需要验证可选择角色
             Db::startTrans();
-            StudyTagModel::where("study_id", $data["id"])->where("study_type", "monthy")->delete();
+            StudyTagModel::where("study_id", $data["id"])
+                ->where("study_type", "monthy")
+                ->delete();
             if (isset($data["special_tag"])) {
                 $special_tag = $data["special_tag"];
                 foreach ($special_tag as $id) {
@@ -308,13 +328,19 @@ class StudyMonthy extends Admin
                 "study_type" => $data["study_type"],
                 "study_id" => $data["id"],
             ];
-            $study = StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->find();
+            $study = StudyModel::where("study_type", $data["study_type"])
+                ->where("study_id", $data["id"])
+                ->find();
             if ($study) {
-                StudyModel::where("study_type", $data["study_type"])->where("study_id", $data["id"])->update($study_input);
+                StudyModel::where("study_type", $data["study_type"])
+                    ->where("study_id", $data["id"])
+                    ->update($study_input);
             } else {
-                StudyModel::where("study_type", $data["study_type"])->insert($study_input);
+                StudyModel::where("study_type", $data["study_type"])
+                    ->insert($study_input);
             }
-            if (StudyMonthyModel::where("id", $data["id"])->update($monthy_input)) {
+            if (StudyMonthyModel::where("id", $data["id"])
+                ->update($monthy_input)) {
                 $user = StudyMonthyModel::get($data['id']);
                 Db::commit();
                 // 记录行为
@@ -328,7 +354,9 @@ class StudyMonthy extends Admin
 
         // 获取数据
 
-        $info2 = StudyModel::where("study_type", "monthy")->where("study_id", $id)->find();
+        $info2 = StudyModel::where("study_type", "monthy")
+            ->where("study_id", $id)
+            ->find();
         if (!$info2) {
             $study_input = [
                 "study_type" => "monthy",
@@ -337,13 +365,22 @@ class StudyMonthy extends Admin
             StudyModel::create($study_input);
         }
 
-        $info = StudyMonthyModel::field("b.*,a.*")->alias("a")->leftJoin(["ps_study" => "b"], "b.study_id=a.id")->where("b.study_type", "monthy")->where('a.id', $id)->find();
+        $info = StudyMonthyModel::field("b.*,a.*")
+            ->alias("a")
+            ->leftJoin(["ps_study" => "b"], "b.study_id=a.id")
+            ->where("b.study_type", "monthy")
+            ->where('a.id', $id)
+            ->find();
 
         // 使用ZBuilder快速创建表单
 
-        $tag_common = TagModel::where("tag_type", "common")->column("id,name");
-        $tag_special = TagModel::where("tag_type", "special")->column("id,name");
-        $tag_choose = StudyTagModel::where("study_id", $id)->where("study_type", "monthy")->column("tag_id");
+        $tag_common = TagModel::where("tag_type", "common")
+            ->column("id,name");
+        $tag_special = TagModel::where("tag_type", "special")
+            ->column("id,name");
+        $tag_choose = StudyTagModel::where("study_id", $id)
+            ->where("study_type", "monthy")
+            ->column("tag_id");
         $info["special_tag"] = null;
         $info["common_tag"] = null;
 
@@ -374,6 +411,58 @@ class StudyMonthy extends Admin
             ->fetch();;
     }
 
+    /**
+     * 删除用户
+     * @param array $ids 用户id
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function delete($ids = [])
+    {
+        Hook::listen('user_delete', $ids);
+        action_log('user_delete', 'user', $ids, UID);
+        return $this->setStatus('delete');
+    }
+
+    /**
+     * 设置用户状态：删除、禁用、启用
+     * @param string $type 类型：delete/enable/disable
+     * @param array $record
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function setStatus($type = '', $record = [])
+    {
+        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
+        $ids = (array)$ids;
+
+        switch ($type) {
+            case 'enable':
+                if (false === StudyMonthyModel::where('id', 'in', $ids)
+                        ->setField('status', 1)) {
+                    $this->error('启用失败');
+                }
+                break;
+            case 'disable':
+                if (false === StudyMonthyModel::where('id', 'in', $ids)
+                        ->setField('status', 0)) {
+                    $this->error('禁用失败');
+                }
+                break;
+            case 'delete':
+                if (false === StudyMonthyModel::where('id', 'in', $ids)
+                        ->delete()) {
+                    $this->error('删除失败');
+                }
+                break;
+            default:
+                $this->error('非法操作');
+        }
+
+        action_log('user_' . $type, 'admin_user', '', UID);
+
+        $this->success('操作成功');
+    }
 
     /**
      * 授权
@@ -389,12 +478,14 @@ class StudyMonthy extends Admin
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
-        if ($uid === 0) $this->error('缺少参数');
+        if ($uid === 0)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -467,7 +558,8 @@ class StudyMonthy extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     }
 
@@ -502,7 +594,8 @@ class StudyMonthy extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     } else {
                         $this->success('操作成功');
@@ -532,13 +625,17 @@ class StudyMonthy extends Admin
                         $curr_access_nodes['node_name']
                     ];
 
-                    $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
+                    $nodes = Db::name($curr_access_nodes['table_name'])
+                        ->order($curr_access_nodes['primary_key'])
+                        ->field($fields)
+                        ->select();
                     $tree_config = [
                         'title' => $curr_access_nodes['node_name'],
                         'id' => $curr_access_nodes['primary_key'],
                         'pid' => $curr_access_nodes['parent_id']
                     ];
-                    $nodes = Tree::config($tree_config)->toLayer($nodes);
+                    $nodes = Tree::config($tree_config)
+                        ->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
@@ -547,7 +644,8 @@ class StudyMonthy extends Admin
                     'tag' => $tab,
                     'uid' => $uid
                 ];
-                $node_access = AccessModel::where($map)->select();
+                $node_access = AccessModel::where($map)
+                    ->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
                     $user_access[$item['group'] . '|' . $item['nid']] = 1;
@@ -601,19 +699,6 @@ class StudyMonthy extends Admin
     }
 
     /**
-     * 删除用户
-     * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function delete($ids = [])
-    {
-        Hook::listen('user_delete', $ids);
-        action_log('user_delete', 'user', $ids, UID);
-        return $this->setStatus('delete');
-    }
-
-    /**
      * 启用用户
      * @param array $ids 用户id
      * @throws \think\Exception
@@ -636,44 +721,6 @@ class StudyMonthy extends Admin
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
-
-    /**
-     * 设置用户状态：删除、禁用、启用
-     * @param string $type 类型：delete/enable/disable
-     * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
-     */
-    public function setStatus($type = '', $record = [])
-    {
-        $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
-        $ids = (array)$ids;
-
-        switch ($type) {
-            case 'enable':
-                if (false === StudyMonthyModel::where('id', 'in', $ids)->setField('status', 1)) {
-                    $this->error('启用失败');
-                }
-                break;
-            case 'disable':
-                if (false === StudyMonthyModel::where('id', 'in', $ids)->setField('status', 0)) {
-                    $this->error('禁用失败');
-                }
-                break;
-            case 'delete':
-                if (false === StudyMonthyModel::where('id', 'in', $ids)->delete()) {
-                    $this->error('删除失败');
-                }
-                break;
-            default:
-                $this->error('非法操作');
-        }
-
-        action_log('user_' . $type, 'admin_user', '', UID);
-
-        $this->success('操作成功');
-    }
-
 
     public function quickEdit($record = [])
     {
@@ -699,12 +746,14 @@ class StudyMonthy extends Admin
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));
-            $user_list = \app\user\model\User::where('role', 'in', $role_list)->column('id');
+            $user_list = \app\user\model\User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = StudyMonthyModel::where("id", $id)->setField($field, $value);
+        $result = StudyMonthyModel::where("id", $id)
+            ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');

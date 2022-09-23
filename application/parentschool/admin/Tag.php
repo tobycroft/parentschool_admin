@@ -30,7 +30,9 @@ class Tag extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = TagModel::where($map)->order($order)->paginate();
+        $data_list = TagModel::where($map)
+            ->order($order)
+            ->paginate();
         $page = $data_list->render();
 
 
@@ -124,12 +126,14 @@ class Tag extends Admin
      */
     public function edit($id = null)
     {
-        if ($id === null) $this->error('缺少参数');
+        if ($id === null)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -153,7 +157,8 @@ class Tag extends Admin
         }
 
         // 获取数据
-        $info = TagModel::where('id', $id)->find();
+        $info = TagModel::where('id', $id)
+            ->find();
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -186,12 +191,14 @@ class Tag extends Admin
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
-        if ($uid === 0) $this->error('缺少参数');
+        if ($uid === 0)
+            $this->error('缺少参数');
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
             $role_list = RoleModel::getChildsId(session('user_auth.role'));
-            $user_list = User::where('role', 'in', $role_list)->column('id');
+            $user_list = User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($uid, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
@@ -264,7 +271,8 @@ class Tag extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     }
 
@@ -299,7 +307,8 @@ class Tag extends Admin
                     $map['module'] = $post['module'];
                     $map['tag'] = $post['tag'];
                     $map['uid'] = $post['uid'];
-                    if (false === AccessModel::where($map)->delete()) {
+                    if (false === AccessModel::where($map)
+                            ->delete()) {
                         $this->error('清除旧授权失败');
                     } else {
                         $this->success('操作成功');
@@ -329,13 +338,17 @@ class Tag extends Admin
                         $curr_access_nodes['node_name']
                     ];
 
-                    $nodes = Db::name($curr_access_nodes['table_name'])->order($curr_access_nodes['primary_key'])->field($fields)->select();
+                    $nodes = Db::name($curr_access_nodes['table_name'])
+                        ->order($curr_access_nodes['primary_key'])
+                        ->field($fields)
+                        ->select();
                     $tree_config = [
                         'title' => $curr_access_nodes['node_name'],
                         'id' => $curr_access_nodes['primary_key'],
                         'pid' => $curr_access_nodes['parent_id']
                     ];
-                    $nodes = Tree::config($tree_config)->toLayer($nodes);
+                    $nodes = Tree::config($tree_config)
+                        ->toLayer($nodes);
                 }
 
                 // 查询当前用户的权限
@@ -344,7 +357,8 @@ class Tag extends Admin
                     'tag' => $tab,
                     'uid' => $uid
                 ];
-                $node_access = AccessModel::where($map)->select();
+                $node_access = AccessModel::where($map)
+                    ->select();
                 $user_access = [];
                 foreach ($node_access as $item) {
                     $user_access[$item['group'] . '|' . $item['nid']] = 1;
@@ -394,17 +408,20 @@ class Tag extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === TagModel::where('id', 'in', $ids)->setField('status', 1)) {
+                if (false === TagModel::where('id', 'in', $ids)
+                        ->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === TagModel::where('id', 'in', $ids)->setField('status', 0)) {
+                if (false === TagModel::where('id', 'in', $ids)
+                        ->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === TagModel::where('id', 'in', $ids)->delete()) {
+                if (false === TagModel::where('id', 'in', $ids)
+                        ->delete()) {
                     $this->error('删除失败');
                 }
                 break;
@@ -496,12 +513,14 @@ class Tag extends Admin
         // 非超级管理员检查可操作的用户
         if (session('user_auth.role') != 1) {
             $role_list = Role::getChildsId(session('user_auth.role'));
-            $user_list = \app\user\model\User::where('role', 'in', $role_list)->column('id');
+            $user_list = \app\user\model\User::where('role', 'in', $role_list)
+                ->column('id');
             if (!in_array($id, $user_list)) {
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = TagModel::where("id", $id)->setField($field, $value);
+        $result = TagModel::where("id", $id)
+            ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
             $this->success('操作成功');
