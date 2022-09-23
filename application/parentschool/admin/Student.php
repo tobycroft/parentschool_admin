@@ -5,6 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
@@ -448,10 +449,17 @@ class Student extends Admin
                 }
                 break;
             case 'delete':
+                Db::startTrans();
                 if (false === StudentModel::where('id', 'in', $ids)
                         ->delete()) {
+                    Db::rollback();
                     $this->error('删除失败');
                 }
+                if (FamilyMemberModel::where("student_id", 'in', $ids)->delete()) {
+                    Db::rollback();
+                    $this->error('删除失败');
+                }
+                Db::commit();
                 break;
             default:
                 $this->error('非法操作');
