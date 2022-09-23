@@ -55,7 +55,7 @@ class TeacherClass extends Admin
                     "year" => $item["year"],
                     "class" => $item["class_id"],
                 ];
-                $item["img"] = 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
+                $item["img"] = $this->api_url . '/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
 
                 return $item;
             });
@@ -68,21 +68,21 @@ class TeacherClass extends Admin
             'title' => '学校二维码',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__}'
+            'href' => $this->api_url . '/v1/parent/wechat/create?data={"school_id":__school_id__}'
         ];
 
         $btn_grade = [
             'title' => '年级二维码',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__}'
+            'href' => $this->api_url . '/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__}'
         ];
 
         $btn_class = [
             'title' => '班级二维码',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => 'http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
+            'href' => $this->api_url . '/v1/parent/wechat/create?data={"school_id":__school_id__,"year":__year__,"class_id":__class_id__}'
         ];
         $btn_access = [
             'title' => '对应老师',
