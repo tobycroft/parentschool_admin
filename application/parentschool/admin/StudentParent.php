@@ -40,7 +40,7 @@ class StudentParent extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = FamilyMemberModel::field("c.*")->alias("a")->leftJoin(["ps_user" => "b"], "a.uid=b.id")->leftJoin(["ps_student" => "c"], "a.student_id=c.id")->where($map)->order($order)->paginate();
+        $data_list = FamilyMemberModel::field("c.*,b.wx_name")->alias("a")->leftJoin(["ps_user" => "b"], "a.uid=b.id")->leftJoin(["ps_student" => "c"], "a.student_id=c.id")->where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
