@@ -37,6 +37,7 @@ class StudentCompare extends Admin
             ->group("a.id")
             ->join(["ps_student_outlet" => "b"], "a.name=b.name")
             ->whereNotNull("b.id")
+            ->where("count", ">", 1)
             ->where($map)
             ->order($order)
             ->paginate()->each(function ($item) {
