@@ -32,7 +32,7 @@ class StudentCompare extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = StudentModel::field("a.*")
+        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2")
             ->alias("a")
             ->join(["ps_student_outlet" => "b"], "a.name=b.name")
             ->whereNotNull("b.id")
@@ -63,9 +63,12 @@ class StudentCompare extends Admin
             ->addColumn('id', '问题ID')
             ->addColumn('wx_name', '家长姓名', 'text')
             ->addColumn('school_id', '学校id', 'number', "", $school)
+            ->addColumn('school_id2', '标准学校', 'number', "", $school)
             ->addColumn('name', '学生名字', 'text.edit')
             ->addColumn('year', '入学年份', 'number')
+            ->addColumn('year2', '标准年份', 'text')
             ->addColumn('class', '班级', 'number')
+            ->addColumn('class2', '班级', 'text')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
