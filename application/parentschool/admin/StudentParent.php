@@ -11,6 +11,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
@@ -39,7 +40,7 @@ class StudentParent extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = FamilyMember::alias("a")->leftJoin(["ps_user" => "b"], "a.uid=b.id")->leftJoin(["ps_student" => "c"], "a.student_id=c.id")->where($map)->order($order)->paginate();
+        $data_list = FamilyMemberModel::alias("a")->leftJoin(["ps_user" => "b"], "a.uid=b.id")->leftJoin(["ps_student" => "c"], "a.student_id=c.id")->where($map)->order($order)->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
