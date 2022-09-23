@@ -74,8 +74,8 @@ class StudentCompare extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id')
-            ->addColumn('wx_name', '学生名字', 'text.edit')
-            ->addColumn('name', '学生名字', 'text.edit')
+            ->addColumn('wx_name', '家长姓名', 'text')
+            ->addColumn('name', '学生名字', 'text')
             ->addColumn('count', '重复数量', 'text')
             ->addColumn('school_id', '学校id', 'number', "", $school)
             ->addColumn('school_id2', '导入的学校', 'number', "", $school)
