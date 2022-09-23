@@ -70,7 +70,7 @@ class StudentCompare extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
-            ->addHidden('id')
+            ->addColumn('id')
             ->addColumn('name', '学生名字', 'text.edit')
             ->addColumn('school_id', '学校id', 'number', "", $school)
             ->addColumn('school_id2', '导入的学校', 'number', "", $school)
