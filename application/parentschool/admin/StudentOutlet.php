@@ -24,7 +24,6 @@ class StudentOutlet extends Admin
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function index()
     {
@@ -131,7 +130,6 @@ EOF;
      * 新增
      * @return mixed
      * @throws \think\Exception
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function add()
     {
@@ -202,7 +200,6 @@ EOF;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function edit($id = null)
     {
@@ -271,7 +268,6 @@ EOF;
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
@@ -461,7 +457,6 @@ EOF;
      * @param array $ids 用户id
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function delete($ids = [])
     {
@@ -476,7 +471,6 @@ EOF;
      * @param array $record
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setStatus($type = '', $record = [])
     {
@@ -514,7 +508,6 @@ EOF;
      * @param array $curr_access 当前授权信息
      * @param array $user_access 用户授权信息
      * @return string
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
     {
@@ -544,7 +537,6 @@ EOF;
      * @param array $ids 用户id
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function enable($ids = [])
     {
@@ -557,7 +549,6 @@ EOF;
      * @param array $ids 用户id
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function disable($ids = [])
     {

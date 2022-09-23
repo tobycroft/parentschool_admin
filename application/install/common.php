@@ -254,7 +254,6 @@ function show_msg($msg, $class = ''){
  * 显示进度
  * @param $msg
  * @param string $class
- * @author 蔡伟明 <314013107@qq.com>
  */
 function show_progress($msg, $class = ''){
     echo "<script type=\"text/javascript\">show_progress(\"{$msg}\", \"{$class}\")</script>";

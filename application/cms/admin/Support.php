@@ -58,7 +58,6 @@ class Support extends Admin
 
     /**
      * 新增
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -100,7 +99,6 @@ class Support extends Admin
     /**
      * 编辑
      * @param null $id 客服id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -148,7 +146,6 @@ class Support extends Admin
     /**
      * 删除客服
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -160,7 +157,6 @@ class Support extends Admin
     /**
      * 启用客服
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -172,7 +168,6 @@ class Support extends Admin
     /**
      * 禁用客服
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -185,7 +180,6 @@ class Support extends Admin
      * 设置客服状态：删除、禁用、启用
      * @param string $type 类型：delete/enable/disable
      * @param array $record
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -199,7 +193,6 @@ class Support extends Admin
     /**
      * 快速编辑
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function quickEdit($record = [])

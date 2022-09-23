@@ -20,7 +20,6 @@ class Model extends ThinkModel
 
     /**
      * 获取内容模型列表
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|mixed
      */
     public static function getList()
@@ -39,7 +38,6 @@ class Model extends ThinkModel
     /**
      * 获取内容模型标题列表（只含id和title）
      * @param array $map 筛选条件
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|mixed
      */
     public static function getTitleList($map = [])
@@ -50,7 +48,6 @@ class Model extends ThinkModel
     /**
      * 删除附加表
      * @param null $model 内容模型id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public static function deleteTable($model = null)
@@ -66,7 +63,6 @@ class Model extends ThinkModel
     /**
      * 创建独立模型表
      * @param mixed $data 模型数据
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public static function createTable($data)

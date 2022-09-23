@@ -15,7 +15,6 @@ class Common extends Home
 {
     /**
      * 初始化方法
-     * @author 蔡伟明 <314013107@qq.com>
      */
     protected function initialize()
     {
@@ -31,7 +30,6 @@ class Common extends Home
 
     /**
      * 获取导航
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function getNav()
     {
@@ -66,7 +64,6 @@ class Common extends Home
 
     /**
      * 获取滚动图片
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function getSlider()
     {
@@ -75,7 +72,6 @@ class Common extends Home
 
     /**
      * 获取在线客服
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function getSupport()
     {

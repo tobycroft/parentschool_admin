@@ -18,7 +18,6 @@ class Menu extends Admin
     /**
      * 节点首页
      * @param string $group 分组
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \Exception
      */
@@ -76,7 +75,6 @@ class Menu extends Admin
      * 新增节点
      * @param string $module 所属模块
      * @param string $pid 所属节点id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \Exception
      */
@@ -147,7 +145,6 @@ class Menu extends Admin
     /**
      * 编辑节点
      * @param int $id 节点ID
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \Exception
      * @throws \think\db\exception\DataNotFoundException
@@ -225,7 +222,6 @@ class Menu extends Admin
      * 设置角色权限
      * @param string $role_id 角色id
      * @param array $roles 角色id
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \Exception
      */
     private function setRoleMenu($role_id = '', $roles = [])
@@ -306,7 +302,6 @@ class Menu extends Admin
     /**
      * 删除节点
      * @param array $record 行为日志内容
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
@@ -338,7 +333,6 @@ class Menu extends Admin
 
     /**
      * 保存节点排序
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function save()
     {
@@ -365,7 +359,6 @@ class Menu extends Admin
      * 添加子节点
      * @param array $data 节点数据
      * @param string $pid 父节点id
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function createChildNode($data = [], $pid = '')
     {
@@ -410,7 +403,6 @@ class Menu extends Admin
      * 递归解析节点
      * @param array $menus 节点数据
      * @param int $pid 上级节点id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array 解析成可以写入数据库的格式
      */
     private function parseMenu($menus = [], $pid = 0)
@@ -437,7 +429,6 @@ class Menu extends Admin
      * @param int $pid 父级id
      * @param int $max_level 最多返回多少层，0为不限制
      * @param int $curr_level 当前层数
-     * @author 蔡伟明 <314013107@qq.com>
      * @return string
      */
     private function getNestMenu($lists = [], $max_level = 0, $pid = 0, $curr_level = 1)
@@ -483,7 +474,6 @@ class Menu extends Admin
     /**
      * 启用节点
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
@@ -499,7 +489,6 @@ class Menu extends Admin
     /**
      * 禁用节点
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException

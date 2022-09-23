@@ -25,7 +25,6 @@ class Attachment extends Model
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function getFilePath($id = '', $type = 0)
     {
@@ -61,7 +60,6 @@ class Attachment extends Model
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function getThumbPath($path = '')
     {

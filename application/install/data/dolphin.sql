@@ -1011,11 +1011,9 @@ CREATE TABLE `dp_admin_plugin`
 -- Records of dp_admin_plugin
 -- ----------------------------
 INSERT INTO `dp_admin_plugin`
-VALUES ('1', 'SystemInfo', '系统环境信息', 'fa fa-fw fa-info-circle', '在后台首页显示服务器信息', '蔡伟明', 'http://www.caiweiming.com',
         '{\"display\":\"1\",\"width\":\"6\"}', '1.0.0', 'system_info.ming.plugin', '0', '1477757503', '1477757503',
         '100', '1');
 INSERT INTO `dp_admin_plugin`
-VALUES ('2', 'DevTeam', '开发团队成员信息', 'fa fa-fw fa-users', '开发团队成员信息', '蔡伟明', 'http://www.caiweiming.com',
         '{\"display\":\"1\",\"width\":\"6\"}', '1.0.0', 'dev_team.ming.plugin', '0', '1477755780', '1477755780', '100',
         '1');
 

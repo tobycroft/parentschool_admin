@@ -8,7 +8,6 @@ use app\common\controller\Plugin;
 /**
  * 演示插件
  * @package plugin\HelloWorld
- * @author 蔡伟明 <314013107@qq.com>
  */
 class HelloWorld extends Plugin
 {
@@ -27,7 +26,6 @@ class HelloWorld extends Plugin
         // 插件描述[选填]
         'description' => '这是一个演示插件，会在每个页面生成一个提示“Hello World”。您可以查看源码，里面包含了绝大部分插件所用到的方法，以及能做的事情。',
         // 插件作者[必填]
-        'author'      => '蔡伟明',
         // 作者主页[选填]
         'author_url'  => 'http://www.DThinkPHP.com',
         // 插件版本[必填],格式采用三段式：主版本号.次版本号.修订版本号
@@ -177,7 +175,6 @@ class HelloWorld extends Plugin
     /**
      * page_tips钩子方法
      * @param $params
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function pageTips($params)
     {
@@ -191,7 +188,6 @@ class HelloWorld extends Plugin
      * 安装方法必须实现
      * 一般只需返回true即可
      * 如果安装前有需要实现一些业务，可在此方法实现
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public function install(){
@@ -202,7 +198,6 @@ class HelloWorld extends Plugin
      * 卸载方法必须实现
      * 一般只需返回true即可
      * 如果安装前有需要实现一些业务，可在此方法实现
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public function uninstall(){

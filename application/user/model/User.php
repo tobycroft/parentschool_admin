@@ -37,7 +37,6 @@ class User extends Model
      * @param string $username 用户名
      * @param string $password 密码
      * @param bool $rememberme 记住登录
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool|mixed
      */
     public function login($username = '', $password = '', $rememberme = false)
@@ -99,7 +98,6 @@ class User extends Model
      * 自动登录
      * @param object $user 用户对象
      * @param bool $rememberme 是否记住登录，默认7天
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool|int
      */
     public function autoLogin($user, $rememberme = false)

@@ -16,7 +16,6 @@ class System extends Admin
     /**
      * 系统设置
      * @param string $group 分组
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\PDOException
@@ -168,7 +167,6 @@ class System extends Admin
      * @param string $table 表名
      * @param string $option
      * @param string $key
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool|string
      */
     private function createLinkagesToken($table = '', $option = '', $key = '')

@@ -16,7 +16,6 @@ class Column extends Common
     /**
      * 栏目文章列表
      * @param null $id 栏目id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -82,7 +81,6 @@ class Column extends Common
     /**
      * 获取栏目面包屑导航
      * @param $id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function getBreadcrumb($id)

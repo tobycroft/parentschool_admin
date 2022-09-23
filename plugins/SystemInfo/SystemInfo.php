@@ -8,7 +8,6 @@ use app\common\controller\Plugin;
 /**
  * 系统环境信息插件
  * @package plugins\SystemInfo
- * @author 蔡伟明 <314013107@qq.com>
  */
 class SystemInfo extends Plugin
 {
@@ -27,7 +26,6 @@ class SystemInfo extends Plugin
         // 插件描述[选填]
         'description' => '在后台首页显示服务器信息',
         // 插件作者[必填]
-        'author'      => '蔡伟明',
         // 作者主页[选填]
         'author_url'  => 'http://www.caiweiming.com',
         // 插件版本[必填],格式采用三段式：主版本号.次版本号.修订版本号
@@ -45,7 +43,6 @@ class SystemInfo extends Plugin
 
     /**
      * 后台首页钩子
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \Exception
      */
     public function adminIndex()
@@ -58,7 +55,6 @@ class SystemInfo extends Plugin
 
     /**
      * 安装方法
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public function install(){
@@ -67,7 +63,6 @@ class SystemInfo extends Plugin
 
     /**
      * 卸载方法必
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public function uninstall(){

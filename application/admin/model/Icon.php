@@ -19,7 +19,6 @@ class Icon extends Model
 
     /**
      * 图标列表
-     * @author 蔡伟明 <314013107@qq.com>
      * @return \think\model\relation\HasMany
      */
     public function icons()
@@ -29,7 +28,6 @@ class Icon extends Model
 
     /**
      * 获取图标css链接
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|string|\think\Collection
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException

@@ -18,7 +18,6 @@ class Index extends Admin
 {
     /**
      * 后台首页
-     * @author 蔡伟明 <314013107@qq.com>
      * @return string
      */
     public function index()
@@ -33,7 +32,6 @@ class Index extends Admin
 
     /**
      * 清空系统缓存
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function wipeCache()
     {
@@ -42,17 +40,17 @@ class Index extends Admin
             foreach ($wipe_cache_type as $item) {
                 switch ($item) {
                     case 'TEMP_PATH':
-                        array_map('unlink', glob(Env::get('runtime_path'). 'temp/*.*'));
+                        array_map('unlink', glob(Env::get('runtime_path') . 'temp/*.*'));
                         break;
                     case 'LOG_PATH':
-                        $dirs = (array) glob(Env::get('runtime_path') . 'log/*');
+                        $dirs = (array)glob(Env::get('runtime_path') . 'log/*');
                         foreach ($dirs as $dir) {
                             array_map('unlink', glob($dir . '/*.log'));
                         }
                         array_map('rmdir', $dirs);
                         break;
                     case 'CACHE_PATH':
-                        array_map('unlink', glob(Env::get('runtime_path'). 'cache/*.*'));
+                        array_map('unlink', glob(Env::get('runtime_path') . 'cache/*.*'));
                         break;
                 }
             }
@@ -65,7 +63,6 @@ class Index extends Admin
 
     /**
      * 个人设置
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function profile()
     {
@@ -95,65 +92,19 @@ class Index extends Admin
         $info = UserModel::where('id', UID)->field('password', true)->find();
 
         // 使用ZBuilder快速创建表单
-        return ZBuilder::make('form')
-            ->addFormItems([ // 批量添加表单项
-                ['static', 'username', '用户名', '不可更改'],
-                ['text', 'nickname', '昵称', '可以是中文'],
-                ['text', 'email', '邮箱', ''],
-                ['password', 'password', '密码', '必填，6-20位'],
-                ['text', 'mobile', '手机号'],
-                ['image', 'avatar', '头像']
-            ])
-            ->setFormData($info) // 设置表单数据
-            ->fetch();
+        return ZBuilder::make('form')->addFormItems([ // 批量添加表单项
+            ['static', 'username', '用户名', '不可更改'], ['text', 'nickname', '昵称', '可以是中文'], ['text', 'email', '邮箱', ''], ['password', 'password', '密码', '必填，6-20位'], ['text', 'mobile', '手机号'], ['image', 'avatar', '头像']])->setFormData($info) // 设置表单数据
+        ->fetch();
     }
 
     /**
      * 检查版本更新
-     * @author 蔡伟明 <314013107@qq.com>
      * @return \think\response\Json
      * @throws \think\db\exception\BindParamException
      * @throws \think\exception\PDOException
      */
     public function checkUpdate()
     {
-        $params = config('dolphin.');
-        $params['domain']  = request()->domain();
-        $params['website'] = config('web_site_title');
-        $params['ip']      = $_SERVER['SERVER_ADDR'];
-        $params['php_os']  = PHP_OS;
-        $params['php_version'] = PHP_VERSION;
-        $params['mysql_version'] = db()->query('select version() as version')[0]['version'];
-        $params['server_software'] = $_SERVER['SERVER_SOFTWARE'];
-        $params = http_build_query($params);
-
-        $opts = [
-            CURLOPT_TIMEOUT        => 20,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_URL            => config('dolphin.product_update'),
-            CURLOPT_USERAGENT      => $_SERVER['HTTP_USER_AGENT'],
-            CURLOPT_POST           => 1,
-            CURLOPT_POSTFIELDS     => $params
-        ];
-
-        // 初始化并执行curl请求
-        $ch = curl_init();
-        curl_setopt_array($ch, $opts);
-        $data  = curl_exec($ch);
-        curl_close($ch);
-
-        $result = json_decode($data, true);
-
-        if ($result['code'] == 1) {
-            return json([
-                'update' => '<a class="badge badge-primary" href="http://www.DThinkphp.com/download" target="_blank">有新版本：'.$result["version"].'</a>',
-                'auth'   => $result['auth']
-            ]);
-        } else {
-            return json([
-                'update' => '',
-                'auth'   => $result['auth']
-            ]);
-        }
+        return json(['update' => '', 'auth' => "thinkphp"]);
     }
 }

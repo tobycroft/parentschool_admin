@@ -27,7 +27,6 @@ class Plugin extends Model
      * 获取所有插件信息
      * @param string $keyword 查找关键词
      * @param string $status 查找状态
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|bool
      */
     public function getAll($keyword = '', $status = '')
@@ -196,7 +195,6 @@ class Plugin extends Model
     /**
      * 检查插件插件信息是否完整
      * @param string $info 插件插件信息
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     private function checkInfo($info = '')
@@ -214,7 +212,6 @@ class Plugin extends Model
      * 获取插件配置
      * @param string $name 插件名称
      * @param string $item 指定返回的插件配置项
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|mixed
      */
     public function getConfig($name = '', $item = '')

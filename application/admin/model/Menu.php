@@ -30,7 +30,6 @@ class Menu extends Model
      * 递归修改所属模型
      * @param int $id 父级节点id
      * @param string $module 模型名称
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public static function changeModule($id = 0, $module = '')
@@ -52,7 +51,6 @@ class Menu extends Model
      * @param int $id 需要隐藏的节点id
      * @param string $default 默认第一个节点项，默认为“顶级节点”，如果为false则不显示，也可传入其他名称
      * @param string $module 模型名
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public static function getMenuTree($id = 0, $default = '', $module = '')
@@ -94,7 +92,6 @@ class Menu extends Model
      * 获取顶部节点
      * @param string $max 最多返回多少个
      * @param string $cache_tag 缓存标签
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      */
     public static function getTopMenu($max = '', $cache_tag = '')
@@ -141,7 +138,6 @@ class Menu extends Model
      * @param string $id 模块id
      * @param string $module 模块名
      * @param string $controller 控制器名
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|mixed
      */
     public static function getSidebarMenu($id = '', $module = '', $controller = '')
@@ -192,7 +188,6 @@ class Menu extends Model
      * @param string $id 节点id，如果没有指定，则取当前节点id
      * @param bool $del_last_url 是否删除最后一个节点的url地址
      * @param bool $check 检查节点是否存在，不存在则抛出错误
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      * @throws \think\Exception
      */
@@ -245,7 +240,6 @@ class Menu extends Model
      * @param string $group 分组名称
      * @param bool|string $fields 要返回的字段
      * @param array $map 查找条件
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      */
     public static function getMenusByGroup($group = '', $fields = true, $map = [])
@@ -256,7 +250,6 @@ class Menu extends Model
 
     /**
      * 获取节点分组
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      */
     public static function getGroup()
@@ -270,7 +263,6 @@ class Menu extends Model
     /**
      * 获取所有子节点id
      * @param int $pid 父级id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      */
     public static function getChildsId($pid = 0)
@@ -285,7 +277,6 @@ class Menu extends Model
     /**
      * 获取所有父节点id
      * @param int $id 节点id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      */
     public static function getParentsId($id = 0)
@@ -302,7 +293,6 @@ class Menu extends Model
     /**
      * 根据节点id获取上下级的所有id
      * @param int $id 节点id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      */
     public static function getLinkIds($id = 0)

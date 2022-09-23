@@ -18,7 +18,6 @@ class Role extends Admin
 {
     /**
      * 角色列表页
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -69,7 +68,6 @@ class Role extends Admin
 
     /**
      * 新增
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function add()
@@ -173,7 +171,6 @@ class Role extends Admin
     /**
      * 编辑
      * @param null $id 角色id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function edit($id = null)
@@ -297,7 +294,6 @@ class Role extends Admin
      * 构建jstree代码
      * @param array $menus 菜单节点
      * @param array $user 用户信息
-     * @author 蔡伟明 <314013107@qq.com>
      * @return string
      */
     private function buildJsTree($menus = [], $user = [])
@@ -328,7 +324,6 @@ class Role extends Admin
     /**
      * 删除角色
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -340,7 +335,6 @@ class Role extends Admin
     /**
      * 启用角色
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -352,7 +346,6 @@ class Role extends Admin
     /**
      * 禁用角色
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -365,7 +358,6 @@ class Role extends Admin
      * 设置角色状态：删除、禁用、启用
      * @param string $type 类型：delete/enable/disable
      * @param array $record
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -424,7 +416,6 @@ class Role extends Admin
     /**
      * 快速编辑
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function quickEdit($record = [])

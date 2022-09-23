@@ -21,7 +21,6 @@ class Hook extends Model
      * 添加钩子
      * @param array $hooks 钩子
      * @param string $plugin_name
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -57,7 +56,6 @@ class Hook extends Model
     /**
      * 删除钩子
      * @param string $plugin_name 钩子名称
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      * @throws \think\Exception
      * @throws \think\exception\PDOException

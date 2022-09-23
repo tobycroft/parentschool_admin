@@ -8,7 +8,6 @@ use think\Validate;
 /**
  * 菜单验证器
  * @package app\cms\validate
- * @author 蔡伟明 <314013107@qq.com>
  */
 class Menu extends Validate
 {

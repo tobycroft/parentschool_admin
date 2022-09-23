@@ -18,7 +18,6 @@ class Document extends Common
      * 文档详情页
      * @param null $id 文档id
      * @param string $model 独立模型id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function detail($id = null, $model = '')
@@ -55,7 +54,6 @@ class Document extends Common
     /**
      * 获取栏目面包屑导航
      * @param int $id 栏目id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     private function getBreadcrumb($id)
@@ -73,7 +71,6 @@ class Document extends Common
      * 获取上一篇文档
      * @param int $id 当前文档id
      * @param string $model 独立模型id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|string|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -110,7 +107,6 @@ class Document extends Common
      * 获取下一篇文档
      * @param int $id 当前文档id
      * @param string $model 独立模型id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|string|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException

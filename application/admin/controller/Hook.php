@@ -16,7 +16,6 @@ class Hook extends Admin
 {
     /**
      * 钩子管理
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -56,7 +55,6 @@ class Hook extends Admin
 
     /**
      * 新增
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function add()
     {
@@ -91,7 +89,6 @@ class Hook extends Admin
     /**
      * 编辑
      * @param int $id 钩子id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -141,7 +138,6 @@ class Hook extends Admin
     /**
      * 快速编辑（启用/禁用）
      * @param string $status 状态
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function quickEdit($status = '')
@@ -161,7 +157,6 @@ class Hook extends Admin
     /**
      * 启用
      * @param array $record 行为日志内容
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -173,13 +168,11 @@ class Hook extends Admin
     /**
      * 禁用
      * @param array $record 行为日志内容
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     /**
      * 禁用
      * @param array $record 行为日志内容
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -191,7 +184,6 @@ class Hook extends Admin
     /**
      * 删除钩子
      * @param array $record 行为日志内容
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -215,7 +207,6 @@ class Hook extends Admin
      * 设置状态
      * @param string $type 类型
      * @param array $record 行为日志内容
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */

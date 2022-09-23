@@ -15,7 +15,6 @@ class Config extends Admin
     /**
      * 配置首页
      * @param string $group 分组
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -71,7 +70,6 @@ class Config extends Admin
     /**
      * 新增配置项
      * @param string $group 分组
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -137,7 +135,6 @@ class Config extends Admin
     /**
      * 编辑
      * @param int $id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
@@ -216,7 +213,6 @@ class Config extends Admin
     /**
      * 删除配置
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -228,7 +224,6 @@ class Config extends Admin
     /**
      * 启用配置
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -240,7 +235,6 @@ class Config extends Admin
     /**
      * 禁用配置
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -253,7 +247,6 @@ class Config extends Admin
      * 设置配置状态：删除、禁用、启用
      * @param string $type 类型：delete/enable/disable
      * @param array $record
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -268,7 +261,6 @@ class Config extends Admin
     /**
      * 快速编辑
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function quickEdit($record = [])

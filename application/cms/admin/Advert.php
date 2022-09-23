@@ -17,7 +17,6 @@ class Advert extends Admin
 {
     /**
      * 广告列表
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -66,7 +65,6 @@ class Advert extends Admin
 
     /**
      * 新增
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -179,7 +177,6 @@ class Advert extends Admin
     /**
      * 编辑
      * @param null $id 广告id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -234,7 +231,6 @@ class Advert extends Admin
     /**
      * 删除广告
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -246,7 +242,6 @@ class Advert extends Admin
     /**
      * 启用广告
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -258,7 +253,6 @@ class Advert extends Admin
     /**
      * 禁用广告
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -271,7 +265,6 @@ class Advert extends Admin
      * 设置广告状态：删除、禁用、启用
      * @param string $type 类型：delete/enable/disable
      * @param array $record
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -285,7 +278,6 @@ class Advert extends Admin
     /**
      * 快速编辑
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function quickEdit($record = [])

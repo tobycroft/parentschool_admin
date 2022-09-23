@@ -22,7 +22,6 @@ class Ajax extends Common
      * @param int $pid 父级ID
      * @param string $pidkey 父级id字段名
      * @return \think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function getLevelData($token = '', $pid = 0, $pidkey = 'pid')
     {
@@ -60,7 +59,6 @@ class Ajax extends Common
      * @param string $options 选项，用于显示转换
      * @param string $list 选项缓存列表名称
      * @return \think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function getFilterList($token = '', $map = [], $options = '', $list = '')
     {
@@ -137,7 +135,6 @@ class Ajax extends Common
      * 获取指定模块的菜单
      * @param string $module 模块名
      * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function getModuleMenus($module = '')
     {
@@ -156,7 +153,6 @@ class Ajax extends Common
     /**
      * 设置配色方案
      * @param string $theme 配色名称
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setTheme($theme = '')
     {
@@ -183,7 +179,6 @@ class Ajax extends Common
      * @param string $module 模型名
      * @param string $controller 控制器名
      * @return string
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function getSidebarMenu($module_id = '', $module = '', $controller = '')
     {
@@ -212,7 +207,6 @@ class Ajax extends Common
      * 检查附件是否存在
      * @param string $md5 文件md5
      * @return \think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function check($md5 = '')
     {
@@ -270,7 +264,6 @@ class Ajax extends Common
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function getMyRoles()
@@ -300,7 +293,6 @@ class Ajax extends Common
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function setMyRole($id = '')

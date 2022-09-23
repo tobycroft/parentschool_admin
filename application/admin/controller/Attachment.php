@@ -20,7 +20,6 @@ class Attachment extends Admin
 {
     /**
      * 附件列表
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function index()
     {
@@ -80,7 +79,6 @@ class Attachment extends Admin
      * @param string $from 来源，wangeditor：wangEditor编辑器, ueditor:ueditor编辑器, editormd:editormd编辑器等
      * @param string $module 来自哪个模块
      * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function upload($dir = '', $from = '', $module = '')
     {
@@ -107,7 +105,6 @@ class Attachment extends Admin
      * @param string $from 来源
      * @param string $module 来自哪个模块
      * @return string|\think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function saveFile($dir = '', $from = '', $module = '')
     {
@@ -276,7 +273,6 @@ class Attachment extends Admin
     /**
      * 处理ueditor上传
      * @return string|\think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private
     function ueditor()
@@ -344,7 +340,6 @@ class Attachment extends Admin
     /**
      * 保存涂鸦（ueditor）
      * @return \think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private
     function saveScrawl()
@@ -396,7 +391,6 @@ class Attachment extends Admin
      * @param string $type 类型
      * @param $config
      * @return \think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private
     function showFile($type, $config)
@@ -457,7 +451,6 @@ class Attachment extends Admin
 
     /**
      * 处理Jcrop图片裁剪
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function jcrop()
     {
@@ -593,7 +586,6 @@ class Attachment extends Admin
      * @param string $thumb_size 尺寸
      * @param string $thumb_type 裁剪类型
      * @return string 缩略图路径
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function create_thumb($file = '', $dir = '', $save_name = '', $thumb_size = '', $thumb_type = '')
     {
@@ -622,7 +614,6 @@ class Attachment extends Admin
      * @param string $watermark_img 水印图片id
      * @param string $watermark_pos 水印位置
      * @param string $watermark_alpha 水印透明度
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function create_water($file = '', $watermark_img = '', $watermark_pos = '', $watermark_alpha = '')
     {
@@ -648,7 +639,6 @@ class Attachment extends Admin
      * @param string $file_id
      * @param string $callback
      * @return string|\think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private
     function uploadSuccess($from, $file_path = '', $file_name = '', $file_id = '', $callback = '', $data = [])
@@ -694,7 +684,6 @@ class Attachment extends Admin
      * @param string $msg
      * @param string $callback
      * @return string|\think\response\Json
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private
     function uploadError($from, $msg = '', $callback = '')
@@ -727,7 +716,6 @@ class Attachment extends Admin
      * @param string $allowFiles 允许查看的类型
      * @param array $files 文件列表
      * @return array|null
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function getfiles($path = '', $allowFiles = '', &$files = array())
@@ -763,7 +751,6 @@ class Attachment extends Admin
      * 启用附件
      * @param array $record 行为日志
      * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function enable($record = [])
@@ -775,7 +762,6 @@ class Attachment extends Admin
      * 禁用附件
      * @param array $record 行为日志
      * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function disable($record = [])
@@ -789,7 +775,6 @@ class Attachment extends Admin
      * @param array $record
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function setStatus($type = '', $record = [])
@@ -804,7 +789,6 @@ class Attachment extends Admin
      * @param string $ids 附件id
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function delete($ids = '')
@@ -841,7 +825,6 @@ class Attachment extends Admin
      * 快速编辑
      * @param array $record 行为日志
      * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public
     function quickEdit($record = [])

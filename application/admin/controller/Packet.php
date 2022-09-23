@@ -15,7 +15,6 @@ class Packet extends Admin
     /**
      * 首页
      * @param string $group 分组
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed|string
      * @throws \think\Exception
      */
@@ -98,7 +97,6 @@ class Packet extends Admin
     /**
      * 安装
      * @param string $name 数据包名
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
@@ -129,7 +127,6 @@ class Packet extends Admin
     /**
      * 卸载
      * @param string $name 数据包名
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function uninstall($name = '')
     {

@@ -18,7 +18,6 @@ class Model extends Admin
 {
     /**
      * 内容模型列表
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function index()
     {
@@ -58,7 +57,6 @@ class Model extends Admin
 
     /**
      * 新增内容模型
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -133,7 +131,6 @@ class Model extends Admin
     /**
      * 编辑内容模型
      * @param null $id 模型id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -185,7 +182,6 @@ class Model extends Admin
     /**
      * 删除内容模型
      * @param null $ids 内容模型id
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException

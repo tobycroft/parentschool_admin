@@ -15,7 +15,6 @@ class Action extends Admin
 {
     /**
      * 首页
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException

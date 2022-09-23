@@ -19,7 +19,6 @@ class Access extends Model
      * 获取用户授权节点
      * @param int $uid 用户id
      * @param string $group 权限分组，可以以点分开模型名称和分组名称，如user.group
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array|bool
      */
     public function getAuthNode($uid = 0, $group = '')
@@ -49,7 +48,6 @@ class Access extends Model
      * @param int $uid 用户id
      * @param string $group $group 权限分组，可以以点分开模型名称和分组名称，如user.group
      * @param int $node 需要检查的节点id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return bool
      */
     public function checkAuthNode($uid = 0, $group = '', $node = 0)

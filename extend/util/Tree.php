@@ -66,7 +66,6 @@ class Tree
      * @param int $pid 父级id
      * @param int $max_level 最多返回多少层，0为不限制
      * @param int $curr_level 当前层数
-     * @author 蔡伟明 <314013107@qq.com>
      * @return array
      */
     public static function toLayer($lists = [], $pid = 0, $max_level = 0, $curr_level = 0)

@@ -21,7 +21,6 @@ class Index extends Admin
 {
     /**
      * 用户首页
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -80,7 +79,6 @@ class Index extends Admin
 
     /**
      * 新增
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -151,7 +149,6 @@ class Index extends Admin
     /**
      * 编辑
      * @param null $id 用户id
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
@@ -260,7 +257,6 @@ class Index extends Admin
      * @param string $module 模块名
      * @param int $uid 用户id
      * @param string $tab 分组tab
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
@@ -455,7 +451,6 @@ class Index extends Admin
      * @param array $nodes 节点
      * @param array $curr_access 当前授权信息
      * @param array $user_access 用户授权信息
-     * @author 蔡伟明 <314013107@qq.com>
      * @return string
      */
     private function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
@@ -484,7 +479,6 @@ class Index extends Admin
     /**
      * 删除用户
      * @param array $ids 用户id
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -497,7 +491,6 @@ class Index extends Admin
     /**
      * 启用用户
      * @param array $ids 用户id
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -510,7 +503,6 @@ class Index extends Admin
     /**
      * 禁用用户
      * @param array $ids 用户id
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -524,7 +516,6 @@ class Index extends Admin
      * 设置用户状态：删除、禁用、启用
      * @param string $type 类型：delete/enable/disable
      * @param array $record
-     * @author 蔡伟明 <314013107@qq.com>
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
@@ -573,7 +564,6 @@ class Index extends Admin
     /**
      * 快速编辑
      * @param array $record 行为日志
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function quickEdit($record = [])

@@ -13,7 +13,6 @@ class Common extends Controller
 {
     /**
      * 初始化
-     * @author 蔡伟明 <314013107@qq.com>
      */
     protected function initialize()
     {
@@ -27,7 +26,6 @@ class Common extends Controller
 
     /**
      * 获取筛选条件
-     * @author 蔡伟明 <314013107@qq.com>
      * @alter 小乌 <82950492@qq.com>
      * @return array
      */
@@ -112,7 +110,6 @@ class Common extends Controller
      * 获取字段排序
      * @param string $extra_order 额外的排序字段
      * @param bool $before 额外排序字段是否前置
-     * @author 蔡伟明 <314013107@qq.com>
      * @return string
      */
     final protected function getOrder($extra_order = '', $before = false)
@@ -136,7 +133,6 @@ class Common extends Controller
      * 渲染插件模板
      * @param string $template 模板名称
      * @param string $suffix 模板后缀
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     /**
@@ -145,7 +141,6 @@ class Common extends Controller
      * @param string $suffix 模板后缀
      * @param array $vars 模板输出变量
      * @param array $config 模板参数
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     final protected function pluginView($template = '', $suffix = '', $vars = [], $config = [])

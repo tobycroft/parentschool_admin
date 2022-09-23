@@ -16,7 +16,6 @@ class Admin extends Common
 {
     /**
      * 插件管理页
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -82,7 +81,6 @@ class Admin extends Common
 
     /**
      * 新增
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function add()
     {
@@ -116,7 +114,6 @@ class Admin extends Common
 
     /**
      * 编辑
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function edit()
     {
@@ -155,7 +152,6 @@ class Admin extends Common
 
     /**
      * 插件自定义方法
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -181,7 +177,6 @@ class Admin extends Common
      * @param string $table
      * @param string $name
      * @param string $age
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      * @throws \think\Exception
      */
@@ -202,7 +197,6 @@ class Admin extends Common
 
     /**
      * 自定义页面
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function testPage()

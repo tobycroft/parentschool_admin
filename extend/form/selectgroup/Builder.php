@@ -18,7 +18,6 @@ class Builder
      * @param string $default 默认值
      * @param string $extra_attr 额外属性
      * @param string $extra_class 额外css类名
-     * @author 蔡伟明 <314013107@qq.com>
      * @return mixed
      */
     public function item($name = '', $title = '', $tips = '', $options = [], $default = '', $extra_attr = '', $extra_class = '')

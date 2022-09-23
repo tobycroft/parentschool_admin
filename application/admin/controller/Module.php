@@ -28,7 +28,6 @@ class Module extends Admin
      * @param string $group 分组
      * @param string $type 显示类型
      * @return mixed
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function index($group = 'local', $type = '')
     {
@@ -87,7 +86,6 @@ class Module extends Admin
      * @param int $confirm 是否确认
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function install($name = '', $confirm = 0)
     {
@@ -218,7 +216,6 @@ class Module extends Admin
      * @return mixed
      * @throws \think\Exception
      * @throws \think\exception\PDOException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function uninstall($name = '', $confirm = 0)
     {
@@ -297,7 +294,6 @@ class Module extends Admin
     /**
      * 更新模块配置
      * @param string $name 模块名
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function update($name = '')
     {
@@ -338,7 +334,6 @@ class Module extends Admin
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function export($name = '')
     {
@@ -421,7 +416,6 @@ class Module extends Admin
      * @param array $menus 菜单
      * @param string $name 模块名
      * @return int
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function buildMenuFile($menus = [], $name = '')
     {
@@ -453,7 +447,6 @@ INFO;
      * @param array $info 模块配置信息
      * @param string $name 模块名
      * @return int
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function buildInfoFile($info = [], $name = '')
     {
@@ -487,7 +480,6 @@ INFO;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function setStatus($type = '', $record = [])
     {
@@ -521,7 +513,6 @@ INFO;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function disable($record = [])
     {
@@ -534,7 +525,6 @@ INFO;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     * @author 蔡伟明 <314013107@qq.com>
      */
     public function enable($record = [])
     {
@@ -547,7 +537,6 @@ INFO;
      * @param string $module 模型名称
      * @param int $pid 父级ID
      * @return bool
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function addMenus($menus = [], $module = '', $pid = 0)
     {
@@ -580,7 +569,6 @@ INFO;
      * @param string $type 类型：module/plugin
      * @param array $data 检查数据
      * @return array
-     * @author 蔡伟明 <314013107@qq.com>
      */
     private function checkDependence($type = '', $data = [])
     {
