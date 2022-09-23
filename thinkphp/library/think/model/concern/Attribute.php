@@ -421,13 +421,17 @@ trait Attribute
 
         switch ($type) {
             case 'integer':
-                $value = (int) $value;
+                echo $value;
+                echo "teansform";
+                exit();
+                $value = (int)$value;
+
                 break;
             case 'float':
                 if (empty($param)) {
-                    $value = (float) $value;
+                    $value = (float)$value;
                 } else {
-                    $value = (float) number_format($value, $param, '.', '');
+                    $value = (float)number_format($value, $param, '.', '');
                 }
                 break;
             case 'boolean':
