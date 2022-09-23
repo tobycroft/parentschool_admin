@@ -44,8 +44,7 @@ class TeacherClass extends Admin
                     ->value("name");
                 $now_time = strtotime("-8 month");
                 $now_year = date("Y", $now_time);
-                $item["grade"] = $now_year - $item["year"] + 1 . "年";
-                $item["gc"] = $item["school_name"] . "</br>" . $item["grade"] . $item["class_id"] . "班";
+                $item["gc"] = $item["school_name"] . "</br>" . ($now_year - $item["year"] + 1) . "年" . $item["class_id"] . "班";
 
                 $dat = [
                     "type" => "register",
