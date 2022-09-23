@@ -12,5 +12,5 @@ return [
 
     // 公司信息
     'company_name' => 'ThinkPHP',
-    'company_website' => 'http://www.zrthink.com',
+    'company_website' => 'http://www.thinkphp.cn',
 ];
