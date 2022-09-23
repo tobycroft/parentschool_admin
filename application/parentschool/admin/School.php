@@ -128,6 +128,8 @@ class School extends Admin
                 ['number', 'sight', '学校家长活动的可见性', ''],
                 ['image', 'icon', '学校图标', ''],
                 ['image', 'img', '学校图片', ''],
+                ['switch', 'dashboard', '学校端权限', ''],
+                ['switch', 'screen', '大屏端权限', ''],
             ])
             ->fetch();
     }
@@ -186,6 +188,8 @@ class School extends Admin
                 ['number', 'sight', '学校家长活动的可见性', ''],
                 ['image', 'icon', '学校图标', ''],
                 ['image', 'img', '学校图片', ''],
+                ['switch', 'dashboard', '学校端权限', ''],
+                ['switch', 'screen', '大屏端权限', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
