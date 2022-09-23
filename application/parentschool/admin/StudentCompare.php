@@ -477,10 +477,6 @@ class StudentCompare extends Admin
                 //todo:
                 Db::startTrans();
                 StudentModel::where('id', 'in', $ids)->select()->each(function ($item) {
-                    $num = StudentModel::where("name", $item["name"])
-                        ->where("callsign", $item["callsign"])
-                        ->where("school_id", $item["school_id"])
-                        ->count();
                     $studentoutlet = StudentOutletModel::where("name", $item["name"])
                         ->where("callsign", $item["callsign"])
                         ->where("school_id", $item["school_id"])
