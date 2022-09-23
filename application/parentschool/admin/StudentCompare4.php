@@ -18,7 +18,7 @@ use util\Tree;
  * 用户默认控制器
  * @package app\user\admin
  */
-class StudentCompare3 extends Admin
+class StudentCompare4 extends Admin
 {
     /**
      * 用户首页
