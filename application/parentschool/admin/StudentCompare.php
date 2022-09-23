@@ -487,7 +487,7 @@ class StudentCompare extends Admin
                         StudentModel::where("name", $item["name"])
                             ->where("callsign", $item["callsign"])
                             ->where("school_id", $item["school_id"])
-                            ->update($item);
+                            ->data($item)->isUpdate();
                     }
                 });
                 Db::commit();
