@@ -104,7 +104,7 @@ trait Attribute
     /**
      * 判断一个字段名是否为主键字段
      * @access public
-     * @param  string $key 名称
+     * @param string $key 名称
      * @return bool
      */
     protected function isPk($key)
@@ -137,7 +137,7 @@ trait Attribute
     /**
      * 设置允许写入的字段
      * @access public
-     * @param  array|string|true $field 允许写入的字段 如果为true只允许写入数据表字段
+     * @param array|string|true $field 允许写入的字段 如果为true只允许写入数据表字段
      * @return $this
      */
     public function allowField($field)
@@ -154,7 +154,7 @@ trait Attribute
     /**
      * 设置只读字段
      * @access public
-     * @param  array|string $field 只读字段
+     * @param array|string $field 只读字段
      * @return $this
      */
     public function readonly($field)
@@ -171,8 +171,8 @@ trait Attribute
     /**
      * 设置数据对象值
      * @access public
-     * @param  mixed $data  数据或者属性名
-     * @param  mixed $value 值
+     * @param mixed $data 数据或者属性名
+     * @param mixed $value 值
      * @return $this
      */
     public function data($data, $value = null)
@@ -191,7 +191,7 @@ trait Attribute
 
         if ($this->disuse) {
             // 废弃字段
-            foreach ((array) $this->disuse as $key) {
+            foreach ((array)$this->disuse as $key) {
                 if (array_key_exists($key, $data)) {
                     unset($data[$key]);
                 }
@@ -219,8 +219,8 @@ trait Attribute
     /**
      * 批量设置数据对象值
      * @access public
-     * @param  mixed $data  数据
-     * @param  bool  $set   是否需要进行数据处理
+     * @param mixed $data 数据
+     * @param bool $set 是否需要进行数据处理
      * @return $this
      */
     public function appendData($data, $set = false)
@@ -244,7 +244,7 @@ trait Attribute
     /**
      * 获取对象原始数据 如果不存在指定字段返回null
      * @access public
-     * @param  string $name 字段名 留空获取全部
+     * @param string $name 字段名 留空获取全部
      * @return mixed
      */
     public function getOrigin($name = null)
@@ -258,7 +258,7 @@ trait Attribute
     /**
      * 获取对象原始数据 如果不存在指定字段返回false
      * @access public
-     * @param  string $name 字段名 留空获取全部
+     * @param string $name 字段名 留空获取全部
      * @return mixed
      * @throws InvalidArgumentException
      */
@@ -308,9 +308,9 @@ trait Attribute
     /**
      * 修改器 设置数据对象值
      * @access public
-     * @param  string $name  属性名
-     * @param  mixed  $value 属性值
-     * @param  array  $data  数据
+     * @param string $name 属性名
+     * @param mixed $value 属性值
+     * @param array $data 数据
      * @return void
      */
     public function setAttr($name, $value, $data = [])
@@ -328,7 +328,7 @@ trait Attribute
 
             if (method_exists($this, $method)) {
                 $origin = $this->data;
-                $value  = $this->$method($value, array_merge($this->data, $data));
+                $value = $this->$method($value, array_merge($this->data, $data));
 
                 $this->set[$name] = true;
                 if (is_null($value) && $origin !== $this->data) {
@@ -347,7 +347,7 @@ trait Attribute
     /**
      * 是否需要自动写入时间字段
      * @access public
-     * @param  bool $auto
+     * @param bool $auto
      * @return $this
      */
     public function isAutoWriteTimestamp($auto)
@@ -360,7 +360,7 @@ trait Attribute
     /**
      * 自动写入时间戳
      * @access protected
-     * @param  string $name 时间戳字段
+     * @param string $name 时间戳字段
      * @return mixed
      */
     protected function autoWriteTimestamp($name)
@@ -384,10 +384,10 @@ trait Attribute
                     break;
             }
         } elseif (is_string($this->autoWriteTimestamp) && in_array(strtolower($this->autoWriteTimestamp), [
-            'datetime',
-            'date',
-            'timestamp',
-        ])) {
+                'datetime',
+                'date',
+                'timestamp',
+            ])) {
             $value = $this->formatDateTime('Y-m-d H:i:s.u');
         } else {
             $value = time();
@@ -399,8 +399,8 @@ trait Attribute
     /**
      * 数据写入 类型转换
      * @access protected
-     * @param  mixed        $value 值
-     * @param  string|array $type  要转换的类型
+     * @param mixed $value 值
+     * @param string|array $type 要转换的类型
      * @return mixed
      */
     protected function writeTransform($value, $type)
@@ -421,11 +421,7 @@ trait Attribute
 
         switch ($type) {
             case 'integer':
-                echo $value;
-                echo "teansform";
-                exit();
                 $value = (int)$value;
-
                 break;
             case 'float':
                 if (empty($param)) {
@@ -435,7 +431,7 @@ trait Attribute
                 }
                 break;
             case 'boolean':
-                $value = (bool) $value;
+                $value = (bool)$value;
                 break;
             case 'timestamp':
                 if (!is_numeric($value)) {
@@ -452,10 +448,10 @@ trait Attribute
                 }
                 break;
             case 'array':
-                $value = (array) $value;
+                $value = (array)$value;
             case 'json':
-                $option = !empty($param) ? (int) $param : JSON_UNESCAPED_UNICODE;
-                $value  = json_encode($value, $option);
+                $option = !empty($param) ? (int)$param : JSON_UNESCAPED_UNICODE;
+                $value = json_encode($value, $option);
                 break;
             case 'serialize':
                 $value = serialize($value);
@@ -468,8 +464,8 @@ trait Attribute
     /**
      * 获取器 获取数据对象的值
      * @access public
-     * @param  string $name 名称
-     * @param  array  $item 数据
+     * @param string $name 名称
+     * @param array $item 数据
      * @return mixed
      * @throws InvalidArgumentException
      */
@@ -477,28 +473,28 @@ trait Attribute
     {
         try {
             $notFound = false;
-            $value    = $this->getData($name);
+            $value = $this->getData($name);
         } catch (InvalidArgumentException $e) {
             $notFound = true;
-            $value    = null;
+            $value = null;
         }
 
         // 检测属性获取器
         $fieldName = Loader::parseName($name);
-        $method    = 'get' . Loader::parseName($name, 1) . 'Attr';
+        $method = 'get' . Loader::parseName($name, 1) . 'Attr';
 
         if (isset($this->withAttr[$fieldName])) {
             if ($notFound && $relation = $this->isRelationAttr($name)) {
                 $modelRelation = $this->$relation();
-                $value         = $this->getRelationData($modelRelation);
+                $value = $this->getRelationData($modelRelation);
             }
 
             $closure = $this->withAttr[$fieldName];
-            $value   = $closure($value, $this->data);
+            $value = $closure($value, $this->data);
         } elseif (method_exists($this, $method)) {
             if ($notFound && $relation = $this->isRelationAttr($name)) {
                 $modelRelation = $this->$relation();
-                $value         = $this->getRelationData($modelRelation);
+                $value = $this->getRelationData($modelRelation);
             }
 
             $value = $this->$method($value, $this->data);
@@ -507,10 +503,10 @@ trait Attribute
             $value = $this->readTransform($value, $this->type[$name]);
         } elseif ($this->autoWriteTimestamp && in_array($name, [$this->createTime, $this->updateTime])) {
             if (is_string($this->autoWriteTimestamp) && in_array(strtolower($this->autoWriteTimestamp), [
-                'datetime',
-                'date',
-                'timestamp',
-            ])) {
+                    'datetime',
+                    'date',
+                    'timestamp',
+                ])) {
                 $value = $this->formatDateTime($this->dateFormat, $value);
             } else {
                 $value = $this->formatDateTime($this->dateFormat, $value, true);
@@ -525,8 +521,8 @@ trait Attribute
     /**
      * 获取关联属性值
      * @access protected
-     * @param  string   $name  属性名
-     * @param  array    $item  数据
+     * @param string $name 属性名
+     * @param array $item 数据
      * @return mixed
      */
     protected function getRelationAttribute($name, &$item)
@@ -566,8 +562,8 @@ trait Attribute
     /**
      * 数据读取 类型转换
      * @access protected
-     * @param  mixed        $value 值
-     * @param  string|array $type  要转换的类型
+     * @param mixed $value 值
+     * @param string|array $type 要转换的类型
      * @return mixed
      */
     protected function readTransform($value, $type)
@@ -584,28 +580,28 @@ trait Attribute
 
         switch ($type) {
             case 'integer':
-                $value = (int) $value;
+                $value = (int)$value;
                 break;
             case 'float':
                 if (empty($param)) {
-                    $value = (float) $value;
+                    $value = (float)$value;
                 } else {
-                    $value = (float) number_format($value, $param, '.', '');
+                    $value = (float)number_format($value, $param, '.', '');
                 }
                 break;
             case 'boolean':
-                $value = (bool) $value;
+                $value = (bool)$value;
                 break;
             case 'timestamp':
                 if (!is_null($value)) {
                     $format = !empty($param) ? $param : $this->dateFormat;
-                    $value  = $this->formatDateTime($format, $value, true);
+                    $value = $this->formatDateTime($format, $value, true);
                 }
                 break;
             case 'datetime':
                 if (!is_null($value)) {
                     $format = !empty($param) ? $param : $this->dateFormat;
-                    $value  = $this->formatDateTime($format, $value);
+                    $value = $this->formatDateTime($format, $value);
                 }
                 break;
             case 'json':
@@ -637,8 +633,8 @@ trait Attribute
     /**
      * 设置数据字段获取器
      * @access public
-     * @param  string|array $name       字段名
-     * @param  callable     $callback   闭包获取器
+     * @param string|array $name 字段名
+     * @param callable $callback 闭包获取器
      * @return $this
      */
     public function withAttribute($name, $callback = null)
