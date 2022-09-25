@@ -544,7 +544,7 @@ jQuery(document).ready(function () {
 
 
         });
-        if (dolphin.file_upload_chunk == "1") {
+        if (dolphin.file_upload_chunk === "1") {
             uploader.chunked = true;
             uploader.chunkSize = 2 * 1024 * 1024;
         }
