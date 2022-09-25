@@ -536,16 +536,16 @@ jQuery(document).ready(function () {
             // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: {
-                id: '#picker_' + $input_file_name,
-                multiple: $multiple
-            },
-            // 文件限制大小
-            fileSingleSizeLimit: $size,
-            // 只允许选择文件文件。
+                id: '#picker_' + $input_file_name, multiple: $multiple
+            }, // 文件限制大小
+            fileSingleSizeLimit: $size, // 只允许选择文件文件。
             accept: {
-                title: 'Files',
-                extensions: $ext
-            }
+                title: 'Files', extensions: $ext
+            }, chunked: true,
+
+//每个分片的大小(这里设为4M)
+
+            chunkSize: 2 * 1024 * 1024
         });
 
         // 当有文件添加进来的时候
