@@ -541,11 +541,11 @@ jQuery(document).ready(function () {
             },
 
             //每个分片的大小(这里设为4M)
-            chunked: dolphin.file_upload_chunk,
 
 
         });
         if (dolphin.file_upload_chunk == "1") {
+            uploader.chunked = true;
             uploader.chunkSize = 2 * 1024 * 1024;
         }
 
