@@ -532,8 +532,7 @@ jQuery(document).ready(function () {
             // swf文件路径
             swf: dolphin.WebUploader_swf,
             // 文件接收服务端。
-            server: dolphin.file_upload_url,
-            // 选择文件的按钮。可选。
+            server: dolphin.file_upload_url, // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: {
                 id: '#picker_' + $input_file_name, multiple: $multiple
@@ -541,14 +540,12 @@ jQuery(document).ready(function () {
             fileSingleSizeLimit: $size, // 只允许选择文件文件。
             accept: {
                 title: 'Files', extensions: $ext
-            },
-            chunked: false,
+            }, chunked: dolphin.file_upload_chunk,
 
 //每个分片的大小(这里设为4M)
 
             chunkSize: 2 * 1024 * 1024
         });
-        uploader.chunked = true;
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function (file) {
