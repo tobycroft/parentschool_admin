@@ -509,7 +509,6 @@ jQuery(document).ready(function () {
             },
         });
     }
-    console.log(dolphin.file_upload_chunk)
 
     // 文件上传
     $('.js-upload-file,.js-upload-files').each(function () {
