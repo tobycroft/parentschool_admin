@@ -541,7 +541,8 @@ jQuery(document).ready(function () {
             fileSingleSizeLimit: $size, // 只允许选择文件文件。
             accept: {
                 title: 'Files', extensions: $ext
-            }, chunked: true,
+            },
+            chunked: true,
 
 //每个分片的大小(这里设为4M)
 
