@@ -553,7 +553,6 @@ jQuery(document).ready(function () {
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function (file) {
-            console.log("chunk>>", uploader.chunked)
             var $li = '<li id="' + file.id + '" class="list-group-item file-item">' +
                 '<span class="pull-right file-state"><span class="text-info"><i class="fa fa-sun-o fa-spin"></i> 正在读取文件信息...</span></span>' +
                 '<i class="fa fa-file"></i> ' +
