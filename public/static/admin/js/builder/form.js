@@ -539,10 +539,7 @@ jQuery(document).ready(function () {
             accept: {
                 title: 'Files', extensions: $ext
             },
-
             //每个分片的大小(这里设为4M)
-
-
         });
         if (dolphin.file_upload_chunk === "1") {
             uploader.chunked = dolphin.file_upload_chunk;

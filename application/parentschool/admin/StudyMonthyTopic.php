@@ -139,7 +139,7 @@ class StudyMonthyTopic extends Admin
             ])
             ->assign([
                 'file_upload_url' => "https://upload.tuuz.cc:444/v1/file/dp/upload?token=ps",
-                'file_upload_chunk' => false,
+                'file_upload_chunk' => true,
             ])
             ->setFormData(["monthy_id" => $monthy_id])
         ->fetch();
