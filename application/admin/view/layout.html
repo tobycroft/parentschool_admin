@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<!--[if IE 9]>         <html class="ie9 no-focus" lang="zh"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-focus" lang="zh"> <!--<![endif]-->
+<!--[if IE 9]>
+<html class="ie9 no-focus" lang="zh"> <![endif]-->
+<!--[if gt IE 9]><!--> <!--suppress BadExpressionStatementJS -->
+<html class="no-focus" lang="zh"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
 
@@ -107,7 +109,7 @@
             'ckeditor_img_upload_url': '{$ckeditor_img_upload_url ? $ckeditor_img_upload_url : url("admin/attachment/upload", ["dir" => "images", "from" => "ckeditor", "module" => request()->module()])}',
             'WebUploader_swf': '__LIBS__/webuploader/Uploader.swf',
             'file_upload_url': '{$file_upload_url ? $file_upload_url : url("admin/attachment/upload", ["dir" => "files", "module" => request()->module()])}',
-            'file_upload_chunk': '{$file_upload_chunk ? $file_upload_chunk : false}',
+            'file_upload_chunk': '{$file_upload_chunk!="" ? $file_upload_chunk : false}',
             'image_upload_url': '{$image_upload_url ? $image_upload_url : url("admin/attachment/upload", ["dir" => "images", "module" => request()->module()])}',
             'upload_check_url': '{$upload_check_url ? $upload_check_url : url("admin/ajax/check")}',
             'get_level_data': '{:url("admin/ajax/getLevelData")}',
