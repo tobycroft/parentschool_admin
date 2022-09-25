@@ -528,8 +528,7 @@ jQuery(document).ready(function () {
             // 选完文件后，是否自动上传。
             auto: true,
             // 去重
-            duplicate: true,
-            // swf文件路径
+            duplicate: true, // swf文件路径
             swf: dolphin.WebUploader_swf, // 文件接收服务端。
             server: dolphin.file_upload_url, // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -539,9 +538,11 @@ jQuery(document).ready(function () {
             fileSingleSizeLimit: $size, // 只允许选择文件文件。
             accept: {
                 title: 'Files', extensions: $ext
-            }, chunked: dolphin.file_upload_chunk,
+            },
 
-//每个分片的大小(这里设为4M)
+            //每个分片的大小(这里设为4M)
+            chunked: dolphin.file_upload_chunk,
+
 
             chunkSize: 2 * 1024 * 1024
         });
