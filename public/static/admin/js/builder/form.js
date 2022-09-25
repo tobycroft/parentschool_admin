@@ -524,7 +524,8 @@ jQuery(document).ready(function () {
         var $file_list = $('#file_list_' + $input_file_name);
 
         // 实例化上传
-        var uploader = WebUploader.create({
+
+        var config = {
             // 选完文件后，是否自动上传。
             auto: true,
             // 去重
@@ -540,11 +541,15 @@ jQuery(document).ready(function () {
                 title: 'Files', extensions: $ext
             },
             //每个分片的大小(这里设为4M)
-        });
+        };
+
         if (dolphin.file_upload_chunk === "1") {
-            uploader.chunked = dolphin.file_upload_chunk;
-            uploader.chunkSize = 2 * 1024 * 1024;
+            config["chunked"] = dolphin.file_upload_chunk;
+            config["chunkSize"] = 2 * 1024 * 1024;
         }
+
+        var uploader = WebUploader.create(config);
+
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function (file) {
