@@ -545,7 +545,7 @@ jQuery(document).ready(function () {
 
 
         });
-        if (Number(dolphin.file_upload_chunk) === 1) {
+        if (dolphin.file_upload_chunk == "1") {
             uploader.chunkSize = 2 * 1024 * 1024;
         }
 
