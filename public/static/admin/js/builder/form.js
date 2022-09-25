@@ -544,10 +544,10 @@ jQuery(document).ready(function () {
 
 
         });
-        // if (dolphin.file_upload_chunk === "1") {
-        //     uploader.chunked = dolphin.file_upload_chunk;
-        //     uploader.chunkSize = 2 * 1024 * 1024;
-        // }
+        if (dolphin.file_upload_chunk === "1") {
+            uploader.chunked = dolphin.file_upload_chunk;
+            uploader.chunkSize = 2 * 1024 * 1024;
+        }
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function (file) {
