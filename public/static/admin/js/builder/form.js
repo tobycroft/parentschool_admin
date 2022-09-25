@@ -509,6 +509,7 @@ jQuery(document).ready(function () {
             },
         });
     }
+    console.log(dolphin.file_upload_chunk)
 
     // 文件上传
     $('.js-upload-file,.js-upload-files').each(function () {
@@ -546,7 +547,6 @@ jQuery(document).ready(function () {
 
             chunkSize: 2 * 1024 * 1024
         });
-        console.log(dolphin.file_upload_chunk)
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function (file) {
