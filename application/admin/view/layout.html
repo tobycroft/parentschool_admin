@@ -109,7 +109,7 @@
             'ckeditor_img_upload_url': '{$ckeditor_img_upload_url ? $ckeditor_img_upload_url : url("admin/attachment/upload", ["dir" => "images", "from" => "ckeditor", "module" => request()->module()])}',
             'WebUploader_swf': '__LIBS__/webuploader/Uploader.swf',
             'file_upload_url': '{$file_upload_url ? $file_upload_url : url("admin/attachment/upload", ["dir" => "files", "module" => request()->module()])}',
-            'file_upload_chunk': '{$file_upload_chunk? true : false}',
+            'file_upload_chunk': '{$file_upload_chunk? 1 : 0}',
             'image_upload_url': '{$image_upload_url ? $image_upload_url : url("admin/attachment/upload", ["dir" => "images", "module" => request()->module()])}',
             'upload_check_url': '{$upload_check_url ? $upload_check_url : url("admin/ajax/check")}',
             'get_level_data': '{:url("admin/ajax/getLevelData")}',
