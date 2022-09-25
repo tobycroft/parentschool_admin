@@ -541,7 +541,7 @@ jQuery(document).ready(function () {
             },
 
             //每个分片的大小(这里设为4M)
-            chunked: dolphin.file_upload_chunk,
+            chunked: false,
 
 
             chunkSize: 2 * 1024 * 1024
