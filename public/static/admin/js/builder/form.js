@@ -542,12 +542,13 @@ jQuery(document).ready(function () {
             accept: {
                 title: 'Files', extensions: $ext
             },
-            chunked: true,
+            chunked: false,
 
 //每个分片的大小(这里设为4M)
 
             chunkSize: 2 * 1024 * 1024
         });
+        uploader.chunked = true;
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function (file) {
