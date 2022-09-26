@@ -74,7 +74,7 @@ class StudentCompare4 extends Admin
             ->addTopButton("add", "学生id")
 //            ->addTopButton("delete", "删除错误学生")
             ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', 'uid' => "uid", 'name' => '用户名']) // 设置搜索参数
+            ->setSearch(['a.id' => 'ID', 'a.uid' => "uid", 'a.name' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', "学生ID")
             ->addColumn('wx_name', '家长姓名', 'text')
