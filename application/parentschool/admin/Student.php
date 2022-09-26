@@ -33,7 +33,10 @@ class Student extends Admin
         $order = $this->getOrder("callsign asc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudentModel::where($map)
+        $data_list = StudentModel::field("a.*,c.wx_name")
+            ->alias("a")
+            ->where($map)
+            ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
             ->order($order)
             ->paginate();
         $page = $data_list->render();
