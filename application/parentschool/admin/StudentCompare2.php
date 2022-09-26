@@ -38,7 +38,7 @@ class StudentCompare2 extends Admin
             ->join(["ps_student_outlet" => "b"], "a.name=b.name and a.school_id=b.school_id and ( a.year!=b.year or a.class != b.class)")
             ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
             ->whereNotNull("b.id")
-            ->whereNotIn("a.id", "SELECT a.id FROM `ps_student` `a` INNER JOIN `ps_student_outlet` `b` ON `a`.`name`=b.NAME AND a.school_id=b.school_id AND a.YEAR=b.YEAR AND a.class=b.class LEFT JOIN `ps_user` `c` ON `a`.`uid`=`c`.`id` WHERE `b`.`id` IS NOT NULL ORDER BY `b`.`school_id` ASC,`b`.`year` DESC,`b`.`class` ASC")
+            ->where("a.id not in (SELECT a.id FROM `ps_student` `a` INNER JOIN `ps_student_outlet` `b` ON `a`.`name`=b.NAME AND a.school_id=b.school_id AND a.YEAR=b.YEAR AND a.class=b.class AND a.callsign=b.callsign WHERE `b`.`id` IS NOT NULL))")
             ->where($map)
             ->order($order)
             ->paginate()->each(function ($item, $key) {
