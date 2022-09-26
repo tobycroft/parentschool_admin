@@ -7,7 +7,6 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
-use app\parentschool\model\StudentOutletModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -42,9 +41,6 @@ class StudentCompare2 extends Admin
             ->where($map)
             ->order($order)
             ->paginate()->each(function ($item, $key) {
-                if (StudentOutletModel::where("year", $item["year"])->where("class", $item["class"])->where("callsign", $item["callsign"])->find()) {
-
-                }
                 if ($item["school_id"] != $item["school_id2"]) {
                     $item["school_id"] .= "❌";
                 }
@@ -480,19 +476,19 @@ class StudentCompare2 extends Admin
             case 'delete':
                 //todo:
                 Db::startTrans();
-                StudentModel::where('id', 'in', $ids)->select()->each(function ($item) {
-                    $studentoutlet = StudentOutletModel::where("name", $item["name"])
-//                        ->where("callsign", $item["callsign"])
-                        ->where("school_id", $item["school_id"])
-                        ->find();
-                    if ($studentoutlet) {
-                        $data["year"] = $studentoutlet["year"];
-                        $data["class"] = $studentoutlet["class"];
-                        $data["callsign"] = $studentoutlet["callsign"];
+                $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2,b.callsign as callsign2,c.wx_name")
+                    ->alias("a")
+                    ->join(["ps_student_outlet" => "b"], "a.name=b.name and a.school_id=b.school_id and ( a.year!=b.year or a.class != b.class)")
+                    ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
+                    ->whereNotNull("b.id")
+                    ->where("a.id not in (SELECT a.id FROM `ps_student` `a` INNER JOIN `ps_student_outlet` `b` ON `a`.`name`=b.NAME AND a.school_id=b.school_id AND a.YEAR=b.YEAR AND a.class=b.class WHERE `b`.`id` IS NOT NULL)")
+                    ->where("a.id", 'in', $ids)->select()->each(function ($item) {
+                        $data["year"] = $data["year2"];
+                        $data["class"] = $data["class2"];
+                        $data["callsign"] = $data["callsign2"];
                         StudentModel::where('id', $item["id"])
                             ->data($data)->Update();
-                    }
-                });
+                    });
                 Db::commit();
 //                if (false === StudentModel::where('id', 'in', $ids)
 //                        ->delete()) {
