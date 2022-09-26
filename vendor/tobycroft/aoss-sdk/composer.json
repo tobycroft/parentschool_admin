@@ -1,0 +1,23 @@
+{
+  "name": "tobycroft/aoss-sdk",
+  "description": "AOSS is an private platform with OSS upload,chunk upload,ExcelToJson",
+  "autoload": {
+    "psr-4": {
+      "Tobycroft\\AossSdk\\": "src/"
+    }
+  },
+  "type": "library",
+  "authors": [
+    {
+      "name": "火线兔",
+      "email": "silverhawk@foxmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.4",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+  }
+}
