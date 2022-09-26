@@ -58,7 +58,7 @@ class StudentComparep2 extends Admin
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
 //        $num1 = StudentModel::where("date", ">", $todaytime)
-            ->count();
+//            ->count();
 //        $num2 = StudentModel::count();
         $school = SchoolModel::column("id,name");
 
