@@ -3,7 +3,6 @@
 
 namespace app\parentschool\admin;
 
-use Aoss\Aoss;
 use app\admin\controller\Admin;
 use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
@@ -15,6 +14,7 @@ use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use Tobycroft\AossSdk\Aoss;
 use util\Tree;
 
 /**

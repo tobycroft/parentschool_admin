@@ -3,7 +3,6 @@
 
 namespace app\admin\controller;
 
-use Aoss\Aoss;
 use app\admin\model\Attachment as AttachmentModel;
 use app\common\builder\ZBuilder;
 use think\Db;
@@ -11,6 +10,7 @@ use think\facade\Env;
 use think\facade\Hook;
 use think\File;
 use think\Image;
+use Tobycroft\AossSdk\Aoss;
 
 /**
  * 附件控制器

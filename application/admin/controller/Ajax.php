@@ -3,12 +3,12 @@
 
 namespace app\admin\controller;
 
-use Aoss\Aoss;
 use app\admin\model\Attachment as AttachmentModel;
 use app\admin\model\Menu as MenuModel;
 use app\common\controller\Common;
 use think\Db;
 use think\facade\Cache;
+use Tobycroft\AossSdk\Aoss;
 
 /**
  * 用于处理ajax请求的控制器
