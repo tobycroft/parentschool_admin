@@ -41,6 +41,9 @@ class StudentCompare2 extends Admin
             ->where($map)
             ->order($order)
             ->paginate()->each(function ($item) {
+                if (StudentOutletModel::where("year", $item["year"])->where("class", $item["class"])->where("callsign", $item["callsign"])->find()) {
+                    return null;
+                }
                 if ($item["school_id"] != $item["school_id2"]) {
                     $item["school_id"] .= "❌";
                 }
