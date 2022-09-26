@@ -33,17 +33,15 @@ class StudentCompare2 extends Admin
         $map = $this->getMap();
         // 读取用户数据
 
-        $data_list = StudentModel::field("a.*,b.year as year2,b.class as class2,b.school_id as school_id2,b.callsign as callsign2,c.wx_name")
+        $data_list = StudentModel::field("aa.*,b.year as year2,b.class as class2,b.school_id as school_id2,b.callsign as callsign2,c.wx_name")
             ->alias("a")
-            ->leftJoin(["ps_student_outlet" => "b"], "a.name=b.name and a.school_id=b.school_id and ( a.year!=b.year or a.class != b.class)")
+            ->join(["ps_student_outlet" => "b"], "a.name=b.name and a.school_id=b.school_id and ( a.year!=b.year or a.class != b.class)")
             ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
             ->whereNotNull("b.id")
             ->where($map)
             ->order($order)
             ->paginate()->each(function ($item, $key) {
                 if (StudentOutletModel::where("year", $item["year"])->where("class", $item["class"])->where("callsign", $item["callsign"])->find()) {
-
-                } else {
 
                 }
                 if ($item["school_id"] != $item["school_id2"]) {
