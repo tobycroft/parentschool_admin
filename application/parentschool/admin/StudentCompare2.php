@@ -29,7 +29,7 @@ class StudentCompare2 extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("school_id asc,grade asc,class asc");
+        $order = $this->getOrder("b.school_id asc,b.year asc,b.class asc");
         $map = $this->getMap();
         // 读取用户数据
 
