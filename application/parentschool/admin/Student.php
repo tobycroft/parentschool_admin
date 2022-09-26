@@ -59,6 +59,7 @@ class Student extends Admin
             ->addColumn('uid', '家长id', 'number')
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('gender', '男女', 'number')
+            ->addColumn('wx_name', '家长姓名', 'text')
             ->addColumn('name', '姓名', 'text.edit')
             ->addColumn('img', '头像', 'picture')
             ->addColumn('year', '入学年份', 'number')
