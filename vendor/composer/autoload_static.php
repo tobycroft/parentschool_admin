@@ -24,6 +24,10 @@ class ComposerStaticInitea24a8d88377c9cd0962665edfe67ce8
         array (
             'app\\' => 4,
         ),
+        'T' => 
+        array (
+            'Tobycroft\\AossSdk\\' => 18,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -46,6 +50,10 @@ class ComposerStaticInitea24a8d88377c9cd0962665edfe67ce8
         'app\\' => 
         array (
             0 => __DIR__ . '/../..' . '/application',
+        ),
+        'Tobycroft\\AossSdk\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tobycroft/aoss-sdk/src',
         ),
     );
 
