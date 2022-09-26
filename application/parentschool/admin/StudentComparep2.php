@@ -65,12 +65,12 @@ class StudentComparep2 extends Admin
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->setSearchArea([
-                ['select', 'a.school_id', '学校id', "", "", $school],
-                ['text', 'a.year', '入学年份'],
-                ['text', 'a.grade', '年级'],
-                ['text', 'a.class', '班级'],
-            ])
+//            ->setSearchArea([
+//                ['select', 'a.school_id', '学校id', "", "", $school],
+//                ['text', 'a.year', '入学年份'],
+//                ['text', 'a.grade', '年级'],
+//                ['text', 'a.class', '班级'],
+//            ])
             ->addTopButton("add", "学生id")
 //            ->addTopButton("delete", "删除错误学生")
             ->setPageTitle('列表')
