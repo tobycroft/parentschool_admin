@@ -483,6 +483,7 @@ class StudentCompare2 extends Admin
                     ->whereNotNull("b.id")
                     ->where("a.id not in (SELECT a.id FROM `ps_student` `a` INNER JOIN `ps_student_outlet` `b` ON `a`.`name`=b.NAME AND a.school_id=b.school_id AND a.YEAR=b.YEAR AND a.class=b.class WHERE `b`.`id` IS NOT NULL)")
                     ->where("a.id", 'in', $ids)->select()->each(function ($item) {
+                        $data = [];
                         $data["year"] = $item["year2"];
                         $data["class"] = $item["class2"];
                         $data["callsign"] = $item["callsign2"];
