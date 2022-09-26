@@ -488,6 +488,7 @@ class StudentCompare2 extends Admin
                     if ($studentoutlet) {
                         $data["year"] = $studentoutlet["year"];
                         $data["class"] = $studentoutlet["class"];
+                        $data["callsign"] = $studentoutlet["callsign"];
                         StudentModel::where('id', $item["id"])
                             ->data($data)->Update();
                     }
