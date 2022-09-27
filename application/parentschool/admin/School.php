@@ -5,7 +5,9 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\SchoolModel;
+use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -32,7 +34,13 @@ class School extends Admin
         // 读取用户数据
         $data_list = SchoolModel::where($map)
             ->order($order)
-            ->paginate();
+            ->paginate()->each(function ($item) {
+                $item["count_student"] = StudentModel::where("school_id", $item["id"])->count();
+                $item["count_parent"] = FamilyMemberModel::alias("a")
+                    ->leftJoin(["ps_student" => "b"], "b.id=a.student_id")
+                    ->where("school_id", $item["id"])
+                    ->count();
+            });
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
