@@ -73,14 +73,20 @@ class StudyDaily extends Admin
             ->addColumns([['id', 'ID'], //                ['grade', '年级', 'number'],
 //                ['area_id', '对应区域', 'number'],
 //                ['school_id', '学校id', 'number'],
-                ['title', '标题'], ['slogan', '推荐金句'], ['special_tag', '特殊标签'], ['common_tag', '特殊标签'], //                ['img', '小图头图', "picture"],
+                ['title', '标题'],
+                ['slogan', '推荐金句'],
+                ['special_tag', '特殊标签'],
+                ['common_tag', '特殊标签'], //                ['img', '小图头图', "picture"],
 //                ['img_intro', '简介图', "picture"],
-                ['from1', '内容来源1'], ['from2', '内容来源2'], //                ['can_push', '是否可以推送', 'switch'],
+                ['from1', '内容来源1'],
+                ['from2', '内容来源2'], //                ['can_push', '是否可以推送', 'switch'],
 //                ['push_date', '推送日期', 'text.edit'],
 //                ['show_date', '展示日期', 'text.edit'],
 //                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
-                ['attach_duration', '附件时长', 'number'], ['change_date', '修改时间'], ['date', '创建时间'],])
+                ['attach_duration', '附件时长', 'number'],
+                ['change_date', '修改时间'],
+                ['date', '创建时间'],])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
@@ -131,8 +137,26 @@ class StudyDaily extends Admin
             $common_tag = $data["common_tag"];
             unset($data["special_tag"]);
             unset($data["common_tag"]);
-            $daily_input = ["title" => $data["title"], "slogan" => $data["slogan"], "content" => $data["content"], "img" => $data["img"], "img_intro" => $data["img_intro"], "from1" => $data["from1"], "from2" => $data["from2"], "attach_type" => $data["attach_type"], "attach_url" => $data["attach_url"], "attach_duration" => $data["attach_duration"], "show_to" => $data["show_to"],];
-            $study_input = ["area_id" => $data["area_id"], "school_id" => $data["school_id"], "grade" => $data["grade"], "push_date" => $data["push_date"], "show_date" => $data["show_date"], "end_date" => $data["end_date"], "can_push" => $data["can_push"] == "on", "can_show" => $data["can_show"] == "on", "study_type" => $data["study_type"],];
+            $daily_input = ["title" => $data["title"],
+                "slogan" => $data["slogan"],
+                "content" => $data["content"],
+                "img" => $data["img"],
+                "img_intro" => $data["img_intro"],
+                "from1" => $data["from1"],
+                "from2" => $data["from2"],
+                "attach_type" => $data["attach_type"],
+                "attach_url" => $data["attach_url"],
+                "attach_duration" => $data["attach_duration"],
+                "show_to" => $data["show_to"],];
+            $study_input = ["area_id" => $data["area_id"],
+                "school_id" => $data["school_id"],
+                "grade" => $data["grade"],
+                "push_date" => $data["push_date"],
+                "show_date" => $data["show_date"],
+                "end_date" => $data["end_date"],
+                "can_push" => $data["can_push"] == "on",
+                "can_show" => $data["can_show"] == "on",
+                "study_type" => $data["study_type"],];
             Db::startTrans();
             if ($user = StudyDailyModel::create($daily_input)) {
                 $lastid = $user->id;
@@ -181,7 +205,28 @@ class StudyDaily extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'grade', '年级', 'number'], ['number', 'area_id', '对应区域'], ['number', 'school_id', '学校id'], ['select', 'study_type', '课程类型', '', \Study\Type::get_type()], ['text', 'title', '标题'], ['text', 'slogan', '推荐金句'], ['checkbox', 'special_tag', '特殊标签', "", $tag_special], ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common], ['ueditor', 'content', '内容'], ['image', 'img', '小图头图', "picture"], ['image', 'img_intro', '简介图', "picture"], ['text', 'from1', '内容来源1'], ['text', 'from2', '内容来源2'], ['switch', 'can_push', '是否可以推送'], ['switch', 'can_show', '是否可以展示'], ['datetime', 'push_date', '推送日期'], ['datetime', 'show_date', '展示日期'], ['datetime', 'end_date', '结束展示日期'], ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()], ['file', 'attach_url', '附件类型'], ['number', 'attach_duration', '附件时长(秒)'], ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],])
+                ['text', 'grade', '年级', 'number'],
+                ['number', 'area_id', '对应区域'],
+                ['number', 'school_id', '学校id'],
+                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['text', 'title', '标题'],
+                ['text', 'slogan', '推荐金句'],
+                ['checkbox', 'special_tag', '特殊标签', "", $tag_special],
+                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common],
+                ['ueditor', 'content', '内容'],
+                ['image', 'img', '小图头图', "picture"],
+                ['image', 'img_intro', '简介图', "picture"],
+                ['text', 'from1', '内容来源1'],
+                ['text', 'from2', '内容来源2'],
+                ['switch', 'can_push', '是否可以推送'],
+                ['switch', 'can_show', '是否可以展示'],
+                ['datetime', 'push_date', '推送日期'],
+                ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束展示日期'],
+                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['file', 'attach_url', '附件类型'],
+                ['number', 'attach_duration', '附件时长(秒)'],
+                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],])
             ->fetch();
     }
 
@@ -239,8 +284,28 @@ class StudyDaily extends Admin
                     StudyTagModel::create(["study_id" => $data["id"], "study_type" => "daily", "tag_id" => $id,]);
                 }
             }
-            $daily_input = ["id" => $data["id"], "title" => $data["title"], "slogan" => $data["slogan"], "content" => $data["content"], "img" => $data["img"], "img_intro" => $data["img_intro"], "from1" => $data["from1"], "from2" => $data["from2"], "attach_type" => $data["attach_type"], "attach_url" => $data["attach_url"], "attach_duration" => $data["attach_duration"], "show_to" => $data["show_to"],];
-            $study_input = ["area_id" => $data["area_id"], "school_id" => $data["school_id"], "grade" => $data["grade"], "push_date" => $data["push_date"], "show_date" => $data["show_date"], "end_date" => $data["end_date"], "can_push" => $data["can_push"] == "on", "can_show" => $data["can_show"] == "on", "study_type" => $data["study_type"], "study_id" => $data["id"],];
+            $daily_input = ["id" => $data["id"],
+                "title" => $data["title"],
+                "slogan" => $data["slogan"],
+                "content" => $data["content"],
+                "img" => $data["img"],
+                "img_intro" => $data["img_intro"],
+                "from1" => $data["from1"],
+                "from2" => $data["from2"],
+                "attach_type" => $data["attach_type"],
+                "attach_url" => $data["attach_url"],
+                "attach_duration" => $data["attach_duration"],
+                "show_to" => $data["show_to"],];
+            $study_input = ["area_id" => $data["area_id"],
+                "school_id" => $data["school_id"],
+                "grade" => $data["grade"],
+                "push_date" => $data["push_date"],
+                "show_date" => $data["show_date"],
+                "end_date" => $data["end_date"],
+                "can_push" => $data["can_push"] == "on",
+                "can_show" => $data["can_show"] == "on",
+                "study_type" => $data["study_type"],
+                "study_id" => $data["id"],];
             $study = StudyModel::where("study_type", $data["study_type"])
                 ->where("study_id", $data["id"])
                 ->find();
@@ -294,7 +359,29 @@ class StudyDaily extends Admin
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'], ['text', 'grade', '年级', 'number'], ['number', 'area_id', '对应区域'], ['number', 'school_id', '学校id'], ['select', 'study_type', '课程类型', '', \Study\Type::get_type()], ['text', 'title', '标题'], ['text', 'slogan', '推荐金句'], ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose], ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose], ['ueditor', 'content', '内容'], ['image', 'img', '小图头图', "picture"], ['image', 'img_intro', '简介图', "picture"], ['text', 'from1', '内容来源1'], ['text', 'from2', '内容来源2'], ['switch', 'can_push', '是否可以推送'], ['switch', 'can_show', '是否可以展示'], ['datetime', 'push_date', '推送日期'], ['datetime', 'show_date', '展示日期'], ['datetime', 'end_date', '结束展示日期'], ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()], ['file', 'attach_url', '附件类型'], ['number', 'attach_duration', '附件时长(秒)'], ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],]);
+                ['hidden', 'id'],
+                ['text', 'grade', '年级', 'number'],
+                ['number', 'area_id', '对应区域'],
+                ['number', 'school_id', '学校id'],
+                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['text', 'title', '标题'],
+                ['text', 'slogan', '推荐金句'],
+                ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
+                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
+                ['ueditor', 'content', '内容'],
+                ['image', 'img', '小图头图', "picture"],
+                ['image', 'img_intro', '简介图', "picture"],
+                ['text', 'from1', '内容来源1'],
+                ['text', 'from2', '内容来源2'],
+                ['switch', 'can_push', '是否可以推送'],
+                ['switch', 'can_show', '是否可以展示'],
+                ['datetime', 'push_date', '推送日期'],
+                ['datetime', 'show_date', '展示日期'],
+                ['datetime', 'end_date', '结束展示日期'],
+                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['file', 'attach_url', '附件类型'],
+                ['number', 'attach_duration', '附件时长(秒)'],
+                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],]);
 
         return $data->setFormData($info) // 设置表单数据
         ->fetch();;
