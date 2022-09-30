@@ -42,17 +42,17 @@ class School extends Admin
                     ->where("school_id", $item["id"])
                     ->count();
                 $item["count_daily"] = StudyRecordModel::alias("a")
-                    ->where("study_type", "daily")
+                    ->where("a.type", "daily")
                     ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
                     ->where("b.school_id", $item["id"])
                     ->count();
                 $item["count_weekly"] = StudyRecordModel::alias("a")
-                    ->where("study_type", "weekly")
+                    ->where("a.type", "weekly")
                     ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
                     ->where("b.school_id", $item["id"])
                     ->count();
                 $item["count_monthy"] = StudyRecordModel::alias("a")
-                    ->where("study_type", "monthy")
+                    ->where("a.type", "monthy")
                     ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
                     ->where("b.school_id", $item["id"])
                     ->count();
