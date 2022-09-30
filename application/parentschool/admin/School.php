@@ -46,6 +46,16 @@ class School extends Admin
                     ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
                     ->where("b.school_id", $item["id"])
                     ->count();
+                $item["count_weekly"] = StudyRecordModel::alias("a")
+                    ->where("study_type", "weekly")
+                    ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
+                    ->where("b.school_id", $item["id"])
+                    ->count();
+                $item["count_monthy"] = StudyRecordModel::alias("a")
+                    ->where("study_type", "monthy")
+                    ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
+                    ->where("b.school_id", $item["id"])
+                    ->count();
             });
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
