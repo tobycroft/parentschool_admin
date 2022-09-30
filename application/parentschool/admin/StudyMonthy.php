@@ -9,6 +9,7 @@ use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\TagModel;
+use app\parentschool\model\TeacherModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -229,7 +230,7 @@ class StudyMonthy extends Admin
             $tag_special[strval($key)] = $value;
         }
 
-
+        $teacher_list = TeacherModel::column("id,name");
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -238,6 +239,7 @@ class StudyMonthy extends Admin
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
+                ['select', 'teacher_id', '教师ID', '', $teacher_list],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
@@ -383,6 +385,7 @@ class StudyMonthy extends Admin
             ->column("tag_id");
         $info["special_tag"] = null;
         $info["common_tag"] = null;
+        $teacher_list = TeacherModel::column("id,name");
 
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
@@ -392,6 +395,7 @@ class StudyMonthy extends Admin
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
+                ['select', 'teacher_id', '教师ID', '', $teacher_list],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'title', '标题'],
                 ['text', 'slogan', '推荐金句'],
