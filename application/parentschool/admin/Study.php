@@ -53,16 +53,24 @@ class Study extends Admin
                         }
                         return $item;
                     case "weekly":
-                        $data = StudyWeeklyModel::where("id", $item["study_id"])
-                            ->find();
-                        $item["title"] = $data["title"];
-                        $item["slogan"] = $data["slogan"];
+                        if ($data = StudyWeeklyModel::where("id", $item["study_id"])
+                            ->find()) {
+                            $item["title"] = $data["title"];
+                            $item["slogan"] = $data["slogan"];
+                        } else {
+                            $item["title"] = "未找到课程";
+                            $item["slogan"] = "未找到对应课程";
+                        }
                         return $item;
                     case "monthy":
-                        $data = StudyMonthyModel::where("id", $item["study_id"])
-                            ->find();
-                        $item["title"] = $data["title"];
-                        $item["slogan"] = $data["slogan"];
+                        if ($data = StudyMonthyModel::where("id", $item["study_id"])
+                            ->find()) {
+                            $item["title"] = $data["title"];
+                            $item["slogan"] = $data["slogan"];
+                        } else {
+                            $item["title"] = "未找到课程";
+                            $item["slogan"] = "未找到对应课程";
+                        }
                         return $item;
 
                 }
