@@ -8,6 +8,7 @@ use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
+use app\parentschool\model\StudyRecordModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -40,6 +41,11 @@ class School extends Admin
                     ->leftJoin(["ps_student" => "b"], "b.id=a.student_id")
                     ->where("school_id", $item["id"])
                     ->count();
+                $item["count_daily"] = StudyRecordModel::alias("a")
+                    ->where("study_type", "daily")
+                    ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
+                    ->where("b.school_id", $item["id"])
+                    ->count();
             });
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
@@ -58,6 +64,9 @@ class School extends Admin
             ->addColumn('name', '学校名称', 'text')
             ->addColumn('count_student', '学生数量', 'text')
             ->addColumn('count_parent', '家长数量', 'text')
+            ->addColumn('count_daily', '每日', 'text')
+            ->addColumn('count_weekly', '每周', 'text')
+            ->addColumn('count_monthy', '每月', 'text')
             ->addColumn('domain', '学校标签', 'text.edit')
             ->addColumn('area_id', '学校所属区域', 'number')
             ->addColumn('detail', '详细说明')
