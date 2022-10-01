@@ -34,7 +34,7 @@ class Study extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("id desc");
+        $order = $this->getOrder("show_date desc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudyModel::where($map)
@@ -83,9 +83,14 @@ class Study extends Admin
 
         return ZBuilder::make('table')
             ->addTopButton("add")
+            ->setSearchArea([
+                ['text', 'a.year', '入学年份'],
+                ['text', 'a.grade', '年级'],
+                ['date_time', 'show_date', '班级'],
+            ])
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
-            ->addOrder('id')
+            ->addOrder('show_date')
             ->addFilter(['study_type' => "ps_study"])
             ->addColumns([
                 ['id', 'ID'],
