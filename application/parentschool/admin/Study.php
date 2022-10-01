@@ -84,7 +84,7 @@ class Study extends Admin
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setSearchArea([
-                ['select', 'study_type', '课程类型', \Study\Type::get_type()],
+                ['select', 'study_type', '课程类型', "", "", \Study\Type::get_type()],
                 ['datetime', 'show_date', '展示日期'],
             ])
             ->setPageTitle('列表')
