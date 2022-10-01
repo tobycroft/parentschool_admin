@@ -85,7 +85,7 @@ class Study extends Admin
             ->addTopButton("add")
             ->setSearchArea([
                 ['select', 'study_type', '课程类型', \Study\Type::get_type()],
-                ['date_time', 'show_date', '展示日期'],
+                ['datetime', 'show_date', '展示日期'],
             ])
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
