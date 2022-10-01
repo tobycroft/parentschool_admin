@@ -89,7 +89,7 @@ class Study extends Admin
             ])
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
-            ->addOrder('show_date')
+            ->addOrder('show_date,push_date,end_date,id')
             ->addFilter(['study_type' => "ps_study"])
             ->addColumns([
                 ['id', 'ID'],
