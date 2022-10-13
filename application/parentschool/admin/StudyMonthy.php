@@ -65,14 +65,14 @@ class StudyMonthy extends Admin
             'title' => '对应课程',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('study_monthy_topic/index', ['search_field' => 'study_id', 'keyword' => '__id__'])
+            'href' => url('study_monthy_topic/index', ['search_field' => 'monthy_id', 'keyword' => '__id__'])
         ];
 
         $btn_access2 = [
             'title' => '新建数据',
             'icon' => 'fa fa-plus',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('study_monthy_topic/add', ['study_id' => '__id__'])
+            'href' => url('study_monthy_topic/add', ['monthy_id' => '__id__'])
         ];
         $btn_access3 = [
             'title' => '列出题目',
