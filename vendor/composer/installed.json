@@ -66,17 +66,17 @@
         },
         {
             "name": "tobycroft/aoss-sdk",
-            "version": "v1.1.0",
-            "version_normalized": "1.1.0.0",
+            "version": "v1.2.1",
+            "version_normalized": "1.2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tobycroft/AossSdk.git",
-                "reference": "09c920a1b734feb5ccaa61be7da2df78db130c22"
+                "reference": "c70c9fcebb36b5843e21d8f318c9edddaa203edd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tobycroft/AossSdk/zipball/09c920a1b734feb5ccaa61be7da2df78db130c22",
-                "reference": "09c920a1b734feb5ccaa61be7da2df78db130c22",
+                "url": "https://api.github.com/repos/tobycroft/AossSdk/zipball/c70c9fcebb36b5843e21d8f318c9edddaa203edd",
+                "reference": "c70c9fcebb36b5843e21d8f318c9edddaa203edd",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "ext-gd": "*",
                 "php": ">=8.0"
             },
-            "time": "2022-10-10T06:04:18+00:00",
+            "time": "2022-10-13T06:49:09+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -99,10 +99,10 @@
                     "email": "silverhawk@foxmail.com"
                 }
             ],
-            "description": "AOSS is an private platform with OSS upload,chunk upload,ExcelToJson",
+            "description": "AOSS is a private platform support OSS upload,ExcelToJson,Image canvas,Gen Wechat code,Gen qrcode,Gen barcode",
             "support": {
                 "issues": "https://github.com/tobycroft/AossSdk/issues",
-                "source": "https://github.com/tobycroft/AossSdk/tree/v1.1.0"
+                "source": "https://github.com/tobycroft/AossSdk/tree/v1.2.1"
             },
             "install-path": "../tobycroft/aoss-sdk"
         },
