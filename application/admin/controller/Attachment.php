@@ -140,7 +140,7 @@ class Attachment extends Admin
 
         $Aoss = new Aoss(config("upload_prefix"), "complete");
         $md5_data = $Aoss->md5($file->hash('md5'));
-        var_dump($$md5_data->isSuccess());
+        var_dump($md5_data->isSuccess());
 
         exit();
         if ($md5_data->isSuccess()) {
