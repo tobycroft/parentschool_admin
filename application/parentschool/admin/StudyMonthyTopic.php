@@ -105,7 +105,7 @@ class StudyMonthyTopic extends Admin
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
-                if (empty($md5_data->error)) {
+                if ($md5_data->isSuccess()) {
                     $data["attach_duration"] = $md5_data->duration;
                 }
             }
@@ -179,7 +179,7 @@ class StudyMonthyTopic extends Admin
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
-                if (empty($md5_data->error)) {
+                if ($md5_data->isSuccess()) {
                     $data["attach_duration"] = $md5_data->duration;
                 }
             }
