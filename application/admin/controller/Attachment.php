@@ -140,9 +140,6 @@ class Attachment extends Admin
 
         $Aoss = new Aoss(config("upload_prefix"), "complete");
         $md5_data = $Aoss->md5($file->hash('md5'));
-        var_dump($md5_data->isSuccess());
-
-        exit();
         if ($md5_data->isSuccess()) {
             if ($file_exists = AttachmentModel::get(['md5' => $file->hash('md5')])) {
                 return $this->uploadSuccess($from, $md5_data->url, $md5_data->name, $file_exists['id'], $callback, $md5_data->data);
@@ -220,7 +217,6 @@ class Attachment extends Admin
                         }
                     }
                 } else {
-
                     if (strtolower($thumb) != 'close') {
                         list($thumb_size, $thumb_type) = explode('|', $thumb);
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename(), $thumb_size, $thumb_type);
@@ -234,7 +230,7 @@ class Attachment extends Admin
                     }
                 }
             }
-            if ($md5_data->isSuccess()) {
+            if (!$md5_data->isSuccess()) {
                 $send_ret = $Aoss->send($info->getPathname(), $info->getMime(), $file_name);
                 if ($send_ret->isSuccess()) {
                     return $this->uploadError($from, $send_ret->getError(), $callback);
