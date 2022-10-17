@@ -64,7 +64,7 @@ class School extends Admin
             'title' => '对应课程',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('http://school.familyeducation.org.cn/admin/login?id=__id__')
+            'href' => "http://school.familyeducation.org.cn/admin/login?id=__id__"
         ];
 
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
