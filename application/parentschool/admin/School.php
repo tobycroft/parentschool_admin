@@ -95,7 +95,7 @@ class School extends Admin
             ->addColumn('dashboard', '学校端权限', 'switch')
             ->addColumn('screen', '大屏端权限', 'switch')
             ->addColumn('right_button', '操作', 'btn')
-            ->addRightButton($btn_access)
+            ->addRightButton(["jump" => $btn_access])
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
