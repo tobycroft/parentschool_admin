@@ -64,6 +64,7 @@ class School extends Admin
             'title' => '对应课程',
             'icon' => 'fa fa-list',
 //            'class' => 'btn btn-xs btn-default ajax-get',
+            "target" => "about_blank",
             'href' => "http://school.familyeducation.org.cn/admin/login?id=__id__"
         ];
 
