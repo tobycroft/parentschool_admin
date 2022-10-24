@@ -275,26 +275,35 @@ class Study extends Admin
 
         // 使用ZBuilder快速创建表单
 
-        $daily = StudyDailyModel::column("id,title");
-        foreach ($daily as $key => $item) {
-            $item .= "-每日";
-            $daily[$key] = $item;
+        switch ($info['study_type']) {
+            case "daily":
+                $daily = StudyDailyModel::column('id,title');
+                foreach ($daily as $key => $item) {
+                    $item .= '-每日';
+                    $daily[$key] = $item;
+                }
+                $groups = ["每日一课" => $daily];
+                break;
+
+            case "weekly":
+                $weekly = StudyWeeklyModel::column('id,title');
+                foreach ($weekly as $key => $item) {
+                    $item .= '-每周';
+                    $weekly[$key] = $item;
+                }
+                $groups = ['每周一做' => $weekly];
+                break;
+
+            case "monthy":
+                $monthy = StudyMonthyModel::column('id,title');
+                foreach ($monthy as $key => $item) {
+                    $item .= '-每月';
+                    $monthy[$key] = $item;
+                }
+                $groups = ['每月一课' => $monthy];
+                break;
         }
-        $weekly = StudyWeeklyModel::column("id,title");
-        foreach ($daily as $key => $item) {
-            $item .= "-每周";
-            $weekly[$key] = $item;
-        }
-        $monthy = StudyMonthyModel::column("id,title");
-        foreach ($daily as $key => $item) {
-            $item .= "-每月";
-            $monthy[$key] = $item;
-        }
-        $groups = [
-            "每日一课" => $daily,
-            "每周一做" => $weekly,
-            "每月一课" => $monthy,
-        ];
+
 
         $area = SchoolAreaModel::column("id,name");
         $school_id = SchoolModel::column("id,name");
