@@ -61,7 +61,7 @@ class Study extends Admin
 		slogan 
 	FROM
 		ps_study_monthy 
-	) AS e", "b.study_id = e.id and b.study_type= e.study_type")
+	) AS e", "b.study_id = e.id and b.study_type = e.study_type")
             ->order($order)
             ->paginate()
             ->each(function ($item, $key) {
