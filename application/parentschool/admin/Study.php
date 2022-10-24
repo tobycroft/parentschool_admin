@@ -37,7 +37,31 @@ class Study extends Admin
         $order = $this->getOrder("show_date desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyModel::where($map)
+        $data_list = StudyModel::alias("b")
+            ->where($map)
+            ->leftJoin(" (
+	SELECT
+		id,
+		\"daily\" AS study_type,
+		title,
+		slogan 
+	FROM
+		ps_study_daily UNION
+	SELECT
+		id,
+		\"weekly\" AS study_type,
+		title,
+		slogan 
+	FROM
+		ps_study_weekly UNION
+	SELECT
+		id,
+		\"monthy\" AS study_type,
+		title,
+		slogan 
+	FROM
+		ps_study_monthy 
+	) AS e ON b.study_id = e.id ")
             ->order($order)
             ->paginate()
             ->each(function ($item, $key) {
