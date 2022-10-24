@@ -65,39 +65,39 @@ class Study extends Admin
             ->order($order)
             ->paginate()
             ->each(function ($item, $key) {
-                switch ($item["study_type"]) {
-                    case "daily":
-                        if ($data = StudyDailyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-                    case "weekly":
-                        if ($data = StudyWeeklyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-                    case "monthy":
-                        if ($data = StudyMonthyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-
-                }
+//                switch ($item["study_type"]) {
+//                    case "daily":
+//                        if ($data = StudyDailyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//                    case "weekly":
+//                        if ($data = StudyWeeklyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//                    case "monthy":
+//                        if ($data = StudyMonthyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//
+//                }
             });
         $page = $data_list->render();
 
