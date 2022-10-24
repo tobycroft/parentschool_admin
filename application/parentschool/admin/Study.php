@@ -39,65 +39,65 @@ class Study extends Admin
         // 读取用户数据
         $data_list = StudyModel::alias("b")
             ->where($map)
-//            ->leftJoin(" (
-//	SELECT
-//		id,
-//		\"daily\" AS study_type,
-//		title,
-//		slogan
-//	FROM
-//		ps_study_daily UNION
-//	SELECT
-//		id,
-//		\"weekly\" AS study_type,
-//		title,
-//		slogan
-//	FROM
-//		ps_study_weekly UNION
-//	SELECT
-//		id,
-//		\"monthy\" AS study_type,
-//		title,
-//		slogan
-//	FROM
-//		ps_study_monthy
-//	) AS e", "b.study_id = e.id and b.study_type = e.study_type")
+            ->leftJoin(" (
+	SELECT
+		id as study_id,
+		\"daily\" AS study_type,
+		title,
+		slogan
+	FROM
+		ps_study_daily UNION
+	SELECT
+		id as study_id,
+		\"weekly\" AS study_type,
+		title,
+		slogan
+	FROM
+		ps_study_weekly UNION
+	SELECT
+		id as study_id,
+		\"monthy\" AS study_type,
+		title,
+		slogan
+	FROM
+		ps_study_monthy
+	) AS e", "b.study_id = e.study_id and b.study_type = e.study_type")
             ->order($order)
             ->paginate()
             ->each(function ($item, $key) {
-                switch ($item["study_type"]) {
-                    case "daily":
-                        if ($data = StudyDailyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-                    case "weekly":
-                        if ($data = StudyWeeklyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-                    case "monthy":
-                        if ($data = StudyMonthyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-
-                }
+//                switch ($item["study_type"]) {
+//                    case "daily":
+//                        if ($data = StudyDailyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//                    case "weekly":
+//                        if ($data = StudyWeeklyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//                    case "monthy":
+//                        if ($data = StudyMonthyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//
+//                }
             });
         $page = $data_list->render();
 
