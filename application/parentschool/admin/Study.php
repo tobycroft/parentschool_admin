@@ -39,7 +39,7 @@ class Study extends Admin
         // 读取用户数据
         $data_list = StudyModel::alias("b")
             ->where($map)
-            ->leftJoin(" (
+            ->join(" (
 	SELECT
 		id as study_id,
 		\"daily\" AS study_type,
