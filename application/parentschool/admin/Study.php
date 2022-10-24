@@ -39,29 +39,29 @@ class Study extends Admin
         // 读取用户数据
         $data_list = StudyModel::alias("b")
             ->where($map)
-            ->leftJoin(" (
-	SELECT
-		id,
-		\"daily\" AS study_type,
-		title,
-		slogan 
-	FROM
-		ps_study_daily UNION
-	SELECT
-		id,
-		\"weekly\" AS study_type,
-		title,
-		slogan 
-	FROM
-		ps_study_weekly UNION
-	SELECT
-		id,
-		\"monthy\" AS study_type,
-		title,
-		slogan 
-	FROM
-		ps_study_monthy 
-	) AS e", "b.study_id = e.id and b.study_type = e.study_type")
+//            ->leftJoin(" (
+//	SELECT
+//		id,
+//		\"daily\" AS study_type,
+//		title,
+//		slogan
+//	FROM
+//		ps_study_daily UNION
+//	SELECT
+//		id,
+//		\"weekly\" AS study_type,
+//		title,
+//		slogan
+//	FROM
+//		ps_study_weekly UNION
+//	SELECT
+//		id,
+//		\"monthy\" AS study_type,
+//		title,
+//		slogan
+//	FROM
+//		ps_study_monthy
+//	) AS e", "b.study_id = e.id and b.study_type = e.study_type")
             ->order($order)
             ->paginate()
             ->each(function ($item, $key) {
