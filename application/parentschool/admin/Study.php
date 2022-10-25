@@ -193,17 +193,17 @@ class Study extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $daily = StudyDailyModel::column("id,title");
+        $daily = StudyDailyModel::order("id desc")->column("id,title");
         foreach ($daily as $key => $item) {
             $item .= "-每日";
             $daily[$key] = $item;
         }
-        $weekly = StudyWeeklyModel::column("id,title");
+        $weekly = StudyWeeklyModel::order('id desc')->column("id,title");
         foreach ($weekly as $key => $item) {
             $item .= "-每周";
             $weekly[$key] = $item;
         }
-        $monthy = StudyMonthyModel::column("id,title");
+        $monthy = StudyMonthyModel::order('id desc')->column("id,title");
         foreach ($monthy as $key => $item) {
             $item .= "-每月";
             $monthy[$key] = $item;
