@@ -65,6 +65,7 @@ class StudyDaily extends Admin
         $num2 = StudyDailyModel::count();
 
         $family_role = FamilyRoleModel::column("id,name");
+        $family_role[0] = "全部展示";
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
