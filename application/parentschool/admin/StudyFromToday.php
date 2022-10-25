@@ -193,17 +193,17 @@ class StudyFromToday extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $daily = StudyDailyModel::column('id,title');
+        $daily = StudyDailyModel::order('id desc')->column('id,title');
         foreach ($daily as $key => $item) {
             $item .= '-每日';
             $daily[$key] = $item;
         }
-        $weekly = StudyWeeklyModel::column('id,title');
+        $weekly = StudyWeeklyModel::order('id desc')->column('id,title');
         foreach ($weekly as $key => $item) {
             $item .= '-每周';
             $weekly[$key] = $item;
         }
-        $monthy = StudyMonthyModel::column('id,title');
+        $monthy = StudyMonthyModel::order('id desc')->column('id,title');
         foreach ($monthy as $key => $item) {
             $item .= '-每月';
             $monthy[$key] = $item;
@@ -290,7 +290,7 @@ class StudyFromToday extends Admin
 
         switch ($info['study_type']) {
             case 'daily':
-                $daily = StudyDailyModel::column('id,title');
+                $daily = StudyDailyModel::order('id desc')->column('id,title');
                 foreach ($daily as $key => $item) {
                     $item .= '-每日';
                     $daily[$key] = $item;
@@ -299,7 +299,7 @@ class StudyFromToday extends Admin
                 break;
 
             case 'weekly':
-                $weekly = StudyWeeklyModel::column('id,title');
+                $weekly = StudyWeeklyModel::order('id desc')->column('id,title');
                 foreach ($weekly as $key => $item) {
                     $item .= '-每周';
                     $weekly[$key] = $item;
@@ -308,7 +308,7 @@ class StudyFromToday extends Admin
                 break;
 
             case 'monthy':
-                $monthy = StudyMonthyModel::column('id,title');
+                $monthy = StudyMonthyModel::order('id desc')->column('id,title');
                 foreach ($monthy as $key => $item) {
                     $item .= '-每月';
                     $monthy[$key] = $item;
