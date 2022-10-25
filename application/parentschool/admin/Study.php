@@ -166,14 +166,22 @@ class Study extends Admin
                     }
                 }
             }
-            if ($user = StudyModel::create($data)) {
-                Hook::listen('user_add', $user);
-                // 记录行为
-                action_log('user_add', 'admin_user', $user['id'], UID);
-                $this->success('新增成功', url('index'));
-            } else {
-                $this->error('新增失败');
+            $grades = $data['grades'];
+            unset($data['grades']);
+            Db::startTrans();
+            if ($grades) {
+                foreach ($grades as $grade) {
+                    $data["grade"] = $grade;
+                    if (!$user = StudyModel::create($data)) {
+                        Hook::listen('user_add', $user);
+                        // 记录行为
+                        action_log('user_add', 'admin_user', $user['id'], UID);
+                        $this->error('新增失败');
+
+                    }
+                }
             }
+            $this->success('新增成功', url('index'));
         }
 
         // 角色列表
@@ -209,13 +217,15 @@ class Study extends Admin
         $grade = SchoolGradeModel::column("id,name");
         $class = SchoolClassModel::column("id,name");
 
-        // 使用ZBuilder快速创建表单
+// 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', 'area_id', '对应区域', "", $area],
                 ['select', 'school_id', '学校id', "", $school_id],
-                ['select', 'grade', '年级', "", $grade],
+//                ['select', 'grade', '年级', "", $grade],
+                ['checkbox', 'grades', '年级', '', $grade],
+
 //                ['select', 'class', '班级', "", $class],
                 ['switch', 'can_push', '是否可以推送'],
                 ['switch', 'can_show', '是否可以推送'],
@@ -237,7 +247,8 @@ class Study extends Admin
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function edit($id = null)
+    public
+    function edit($id = null)
     {
         if ($id === null)
             $this->error('缺少参数');
@@ -344,7 +355,8 @@ class Study extends Admin
      * @throws \think\exception\DbException
      * @throws \think\exception\PDOException
      */
-    public function access($module = '', $uid = 0, $tab = '')
+    public
+    function access($module = '', $uid = 0, $tab = '')
     {
         if ($uid === 0)
             $this->error('缺少参数');
@@ -542,7 +554,8 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function delete($ids = [])
+    public
+    function delete($ids = [])
     {
         Hook::listen('user_delete', $ids);
         action_log('user_delete', 'user', $ids, UID);
@@ -556,7 +569,8 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function setStatus($type = '', $record = [])
+    public
+    function setStatus($type = '', $record = [])
     {
         $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
         $ids = (array)$ids;
@@ -596,7 +610,8 @@ class Study extends Admin
      * @param array $user_access 用户授权信息
      * @return string
      */
-    private function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
+    private
+    function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
     {
         $result = '';
         if (!empty($nodes)) {
@@ -625,7 +640,8 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function enable($ids = [])
+    public
+    function enable($ids = [])
     {
         Hook::listen('user_enable', $ids);
         return $this->setStatus('enable');
@@ -637,14 +653,16 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function disable($ids = [])
+    public
+    function disable($ids = [])
     {
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
 
 
-    public function quickEdit($record = [])
+    public
+    function quickEdit($record = [])
     {
         $field = input('post.name', '');
         $value = input('post.value', '');
