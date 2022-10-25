@@ -176,11 +176,13 @@ class Study extends Admin
                         Hook::listen('user_add', $user);
                         // 记录行为
                         action_log('user_add', 'admin_user', $user['id'], UID);
+                        Db::rollback();
                         $this->error('新增失败');
-
+                        return;
                     }
                 }
             }
+            Db::commit();
             $this->success('新增成功', url('index'));
         }
 
