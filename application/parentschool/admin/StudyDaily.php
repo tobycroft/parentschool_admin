@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyTagModel;
@@ -63,6 +64,8 @@ class StudyDaily extends Admin
             ->count();
         $num2 = StudyDailyModel::count();
 
+        $family_role = FamilyRoleModel::column("id,name");
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -84,7 +87,7 @@ class StudyDaily extends Admin
 //                ['show_date', '展示日期', 'text.edit'],
 //                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
-                ['attach_duration', '附件时长', 'number'],
+                ['show_to_role_id', '展示给谁', 'select', $family_role],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],])
             ->addColumn('right_button', '操作', 'btn')
