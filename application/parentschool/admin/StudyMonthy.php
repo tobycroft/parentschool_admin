@@ -169,6 +169,7 @@ class StudyMonthy extends Admin
                 "content" => $data["content"],
                 "img" => $data["img"],
                 "img_intro" => $data["img_intro"],
+                "show_to_role_id" => $data["show_to_role_id"],
 //                "show_to" => $data["show_to"],
             ];
             $study_input = [
@@ -235,6 +236,11 @@ class StudyMonthy extends Admin
         }
 
         $teacher_list = TeacherModel::column("id,name");
+
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -257,6 +263,8 @@ class StudyMonthy extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'end_date', '结束日期'],
                 ['datetime', 'show_date', '展示日期'],
+                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
 //                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
             ->fetch();
@@ -322,6 +330,8 @@ class StudyMonthy extends Admin
                 "content" => $data["content"],
                 "img" => $data["img"],
                 "img_intro" => $data["img_intro"],
+                'show_to_role_id' => $data['show_to_role_id'],
+
 //                "show_to" => $data["show_to"],
             ];
             $study_input = [
@@ -393,6 +403,10 @@ class StudyMonthy extends Admin
         $info["common_tag"] = null;
         $teacher_list = TeacherModel::column("id,name");
 
+
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
@@ -415,6 +429,8 @@ class StudyMonthy extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
                 ['datetime', 'end_date', '结束展示日期'],
+                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
 //                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
 

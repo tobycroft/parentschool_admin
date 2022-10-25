@@ -151,6 +151,7 @@ class StudyDaily extends Admin
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
                 "attach_duration" => $data["attach_duration"],
+                "show_to_role_id" => $data["show_to_role_id"],
 //                "show_to" => $data["show_to"],
             ];
             $study_input = ["area_id" => $data["area_id"],
@@ -233,7 +234,8 @@ class StudyDaily extends Admin
                     ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                     ['file', 'attach_url', '附件类型'],
                     ['number', 'attach_duration', '附件时长(秒)'],
-                    ['select', 'show_to_role_id', '课程类型', '', $family_role],
+                    ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
 //                    ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
                 ]
             )
@@ -305,6 +307,7 @@ class StudyDaily extends Admin
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
                 "attach_duration" => $data["attach_duration"],
+                "show_to_role_id" => $data["show_to_role_id"],
 //                "show_to" => $data["show_to"],
             ];
             $study_input = ["area_id" => $data["area_id"],
@@ -394,7 +397,7 @@ class StudyDaily extends Admin
                     ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                     ['file', 'attach_url', '附件类型'],
                     ['number', 'attach_duration', '附件时长(秒)'],
-                    ['select', 'show_to_role_id', '课程类型', '', $family_role],
+                    ['select', 'show_to_role_id', '展示给谁', '', $family_role],
 
 //                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
                 ]
