@@ -5,6 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
@@ -86,7 +87,8 @@ class StudyMonthy extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
         ];
-
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -105,6 +107,8 @@ class StudyMonthy extends Admin
                 ['slogan', '推荐金句'],
                 ['special_tag', '特殊标签'],
                 ['common_tag', '特殊标签'],
+                ['show_to_role_id', '展示给谁', 'select', $family_role],
+
 //                ['can_push', '是否可以推送', 'switch'],
 //                ['push_date', '推送日期', 'text.edit'],
 //                ['show_date', '展示日期', 'text.edit'],

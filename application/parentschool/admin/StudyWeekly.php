@@ -5,6 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\StudyWeeklyModel;
@@ -60,6 +61,8 @@ class StudyWeekly extends Admin
         $num2 = StudyWeeklyModel::count();
 
         $page = $data_list->render();
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -85,6 +88,8 @@ class StudyWeekly extends Admin
 //                ['end_date', '结束日期', 'text.edit'],
 //                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
+                ['show_to_role_id', '展示给谁', 'select', $family_role],
+
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
