@@ -280,7 +280,8 @@ class StudyWeekly extends Admin
                 ['text', 'tick_x', '打卡X轴', "打卡X轴"],
                 ['text', 'tick_location', '打卡点名字', "打卡点名字"],
                 ['text', 'tick_area', '打卡范围m', "打卡范围m"],
-                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+                ['select', 'show_to_role_id', '展示给谁', '全部展示', $family_role, '0'],
+
 
             ])
             ->fetch();

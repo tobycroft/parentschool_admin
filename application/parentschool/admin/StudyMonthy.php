@@ -263,7 +263,7 @@ class StudyMonthy extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'end_date', '结束日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+                ['select', 'show_to_role_id', '展示给谁', '全部展示', $family_role, '0'],
 
 //                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
