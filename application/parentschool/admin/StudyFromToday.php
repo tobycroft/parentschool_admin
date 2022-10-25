@@ -34,7 +34,7 @@ class StudyFromToday extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("b.show_date asc");
+        $order = $this->getOrder("show_date asc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudyModel::alias("b")
