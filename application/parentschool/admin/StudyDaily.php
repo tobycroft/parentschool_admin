@@ -206,7 +206,8 @@ class StudyDaily extends Admin
 //        foreach ($tag_special as $key => $value) {
 //            $tag_special[strval($key)] = $value;
 //        }
-
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -232,6 +233,7 @@ class StudyDaily extends Admin
                     ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                     ['file', 'attach_url', '附件类型'],
                     ['number', 'attach_duration', '附件时长(秒)'],
+                    ['select', 'show_to_role_id', '课程类型', '', $family_role],
 //                    ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
                 ]
             )
@@ -365,6 +367,8 @@ class StudyDaily extends Admin
         $info["special_tag"] = null;
         $info["common_tag"] = null;
 
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
@@ -390,6 +394,8 @@ class StudyDaily extends Admin
                     ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                     ['file', 'attach_url', '附件类型'],
                     ['number', 'attach_duration', '附件时长(秒)'],
+                    ['select', 'show_to_role_id', '课程类型', '', $family_role],
+
 //                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
                 ]
             );
