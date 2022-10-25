@@ -151,7 +151,8 @@ class StudyDaily extends Admin
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
                 "attach_duration" => $data["attach_duration"],
-                "show_to" => $data["show_to"],];
+//                "show_to" => $data["show_to"],
+            ];
             $study_input = ["area_id" => $data["area_id"],
                 "school_id" => $data["school_id"],
                 "grade" => $data["grade"],
@@ -160,7 +161,8 @@ class StudyDaily extends Admin
                 "end_date" => $data["end_date"],
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],];
+                "study_type" => $data["study_type"],
+            ];
             Db::startTrans();
             if ($user = StudyDailyModel::create($daily_input)) {
                 $lastid = $user->id;
@@ -209,28 +211,30 @@ class StudyDaily extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'grade', '年级', 'number'],
-                ['number', 'area_id', '对应区域'],
-                ['number', 'school_id', '学校id'],
-                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'title', '标题'],
-                ['text', 'slogan', '推荐金句'],
-                ['checkbox', 'special_tag', '特殊标签', "", $tag_special],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common],
-                ['ueditor', 'content', '内容'],
-                ['image', 'img', '小图头图', "picture"],
-                ['image', 'img_intro', '简介图', "picture"],
-                ['text', 'from1', '内容来源1'],
-                ['text', 'from2', '内容来源2'],
-                ['switch', 'can_push', '是否可以推送'],
-                ['switch', 'can_show', '是否可以展示'],
-                ['datetime', 'push_date', '推送日期'],
-                ['datetime', 'show_date', '展示日期'],
-                ['datetime', 'end_date', '结束展示日期'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attach_url', '附件类型'],
-                ['number', 'attach_duration', '附件时长(秒)'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],])
+                    ['text', 'grade', '年级', 'number'],
+                    ['number', 'area_id', '对应区域'],
+                    ['number', 'school_id', '学校id'],
+                    ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                    ['text', 'title', '标题'],
+                    ['text', 'slogan', '推荐金句'],
+                    ['checkbox', 'special_tag', '特殊标签', "", $tag_special],
+                    ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common],
+                    ['ueditor', 'content', '内容'],
+                    ['image', 'img', '小图头图', "picture"],
+                    ['image', 'img_intro', '简介图', "picture"],
+                    ['text', 'from1', '内容来源1'],
+                    ['text', 'from2', '内容来源2'],
+                    ['switch', 'can_push', '是否可以推送'],
+                    ['switch', 'can_show', '是否可以展示'],
+                    ['datetime', 'push_date', '推送日期'],
+                    ['datetime', 'show_date', '展示日期'],
+                    ['datetime', 'end_date', '结束展示日期'],
+                    ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                    ['file', 'attach_url', '附件类型'],
+                    ['number', 'attach_duration', '附件时长(秒)'],
+//                    ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ]
+            )
             ->fetch();
     }
 
@@ -299,7 +303,8 @@ class StudyDaily extends Admin
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
                 "attach_duration" => $data["attach_duration"],
-                "show_to" => $data["show_to"],];
+//                "show_to" => $data["show_to"],
+            ];
             $study_input = ["area_id" => $data["area_id"],
                 "school_id" => $data["school_id"],
                 "grade" => $data["grade"],
@@ -363,29 +368,31 @@ class StudyDaily extends Admin
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'],
-                ['text', 'grade', '年级', 'number'],
-                ['number', 'area_id', '对应区域'],
-                ['number', 'school_id', '学校id'],
-                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'title', '标题'],
-                ['text', 'slogan', '推荐金句'],
-                ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
-                ['ueditor', 'content', '内容'],
-                ['image', 'img', '小图头图', "picture"],
-                ['image', 'img_intro', '简介图', "picture"],
-                ['text', 'from1', '内容来源1'],
-                ['text', 'from2', '内容来源2'],
-                ['switch', 'can_push', '是否可以推送'],
-                ['switch', 'can_show', '是否可以展示'],
-                ['datetime', 'push_date', '推送日期'],
-                ['datetime', 'show_date', '展示日期'],
-                ['datetime', 'end_date', '结束展示日期'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attach_url', '附件类型'],
-                ['number', 'attach_duration', '附件时长(秒)'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],]);
+                    ['hidden', 'id'],
+                    ['text', 'grade', '年级', 'number'],
+                    ['number', 'area_id', '对应区域'],
+                    ['number', 'school_id', '学校id'],
+                    ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                    ['text', 'title', '标题'],
+                    ['text', 'slogan', '推荐金句'],
+                    ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
+                    ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
+                    ['ueditor', 'content', '内容'],
+                    ['image', 'img', '小图头图', "picture"],
+                    ['image', 'img_intro', '简介图', "picture"],
+                    ['text', 'from1', '内容来源1'],
+                    ['text', 'from2', '内容来源2'],
+                    ['switch', 'can_push', '是否可以推送'],
+                    ['switch', 'can_show', '是否可以展示'],
+                    ['datetime', 'push_date', '推送日期'],
+                    ['datetime', 'show_date', '展示日期'],
+                    ['datetime', 'end_date', '结束展示日期'],
+                    ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                    ['file', 'attach_url', '附件类型'],
+                    ['number', 'attach_duration', '附件时长(秒)'],
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ]
+            );
 
         return $data->setFormData($info) // 设置表单数据
         ->fetch();;

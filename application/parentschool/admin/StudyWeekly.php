@@ -171,7 +171,7 @@ class StudyWeekly extends Admin
                 "tick_area" => $data["tick_area"],
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
-                "show_to" => $data["show_to"],
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
@@ -263,7 +263,7 @@ class StudyWeekly extends Admin
 //                ['datetime', 'end_date', '结束日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
 
                 ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
                 ['select', 'tick_mode', '打卡模式', "打卡模式", ['default' => "未选择", 'daily' => "每日打卡", 'weekly' => "每周打卡", 'monthy' => "每月打卡"]],
@@ -366,7 +366,7 @@ class StudyWeekly extends Admin
                 "tick_area" => $data["tick_area"],
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
-                "show_to" => $data["show_to"],
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
@@ -461,7 +461,7 @@ class StudyWeekly extends Admin
                 ['datetime', 'end_date', '结束日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
 
                 ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
                 ['select', 'tick_mode', '打卡模式', "打卡模式", ['default' => "未选择", 'daily' => "每日打卡", 'weekly' => "每周打卡", 'monthy' => "每月打卡"]],

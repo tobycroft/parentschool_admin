@@ -169,7 +169,7 @@ class StudyMonthy extends Admin
                 "content" => $data["content"],
                 "img" => $data["img"],
                 "img_intro" => $data["img_intro"],
-                "show_to" => $data["show_to"],
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
@@ -257,7 +257,7 @@ class StudyMonthy extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'end_date', '结束日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
             ->fetch();
     }
@@ -322,7 +322,7 @@ class StudyMonthy extends Admin
                 "content" => $data["content"],
                 "img" => $data["img"],
                 "img_intro" => $data["img_intro"],
-                "show_to" => $data["show_to"],
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
@@ -415,7 +415,7 @@ class StudyMonthy extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
                 ['datetime', 'end_date', '结束展示日期'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
 
         return $data
