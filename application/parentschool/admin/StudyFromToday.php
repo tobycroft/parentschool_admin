@@ -39,7 +39,7 @@ class StudyFromToday extends Admin
         // 读取用户数据
         $data_list = StudyModel::alias("b")
             ->where($map)
-            ->where("show_date>current_timestamp()")
+            ->where("show_date>=current_timestamp()")
             ->leftJoin(" (
 	SELECT
 		id as study_id,
