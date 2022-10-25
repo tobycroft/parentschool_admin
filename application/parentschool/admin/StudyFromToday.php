@@ -23,7 +23,7 @@ use util\Tree;
  * 用户默认控制器
  * @package app\user\admin
  */
-class Study extends Admin
+class StudyFromToday extends Admin
 {
     /**
      * 用户首页
