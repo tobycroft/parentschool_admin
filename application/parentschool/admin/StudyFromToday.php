@@ -38,7 +38,7 @@ class Study extends Admin
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudyModel::alias('b')
-            ->where($map)
+            ->where('b.show_date', '>=', date('Y-m-d', time()))
             ->leftJoin(" (
 	SELECT
 		id as study_id,
