@@ -34,12 +34,12 @@ class StudyFromToday extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("show_date asc");
+        $order = $this->getOrder("b.show_date asc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = StudyModel::alias("b")
             ->where($map)
-            ->where("show_date", ">", date("Y-m-d", time()))
+            ->where("b.show_date", ">", date("Y-m-d", time()))
             ->leftJoin(" (
 	SELECT
 		id as study_id,
