@@ -171,6 +171,8 @@ class StudyWeekly extends Admin
                 "tick_area" => $data["tick_area"],
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
+                'show_to_role_id' => $data['show_to_role_id'],
+
 //                "show_to" => $data["show_to"],
             ];
             $study_input = [
@@ -239,6 +241,11 @@ class StudyWeekly extends Admin
             $tag_special[strval($key)] = $value;
         }
 
+
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -273,6 +280,8 @@ class StudyWeekly extends Admin
                 ['text', 'tick_x', '打卡X轴', "打卡X轴"],
                 ['text', 'tick_location', '打卡点名字', "打卡点名字"],
                 ['text', 'tick_area', '打卡范围m', "打卡范围m"],
+                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
             ])
             ->fetch();
     }
@@ -366,6 +375,8 @@ class StudyWeekly extends Admin
                 "tick_area" => $data["tick_area"],
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
+                'show_to_role_id' => $data['show_to_role_id'],
+
 //                "show_to" => $data["show_to"],
             ];
             $study_input = [
@@ -437,6 +448,10 @@ class StudyWeekly extends Admin
         $info["special_tag"] = null;
         $info["common_tag"] = null;
 
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
@@ -471,6 +486,8 @@ class StudyWeekly extends Admin
                 ['text', 'tick_x', '打卡X轴', "打卡X轴"],
                 ['text', 'tick_location', '打卡点名字', "打卡点名字"],
                 ['text', 'tick_area', '打卡范围m', "打卡范围m"],
+                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
             ]);
 
         return $data

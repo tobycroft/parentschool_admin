@@ -234,7 +234,7 @@ class StudyDaily extends Admin
                     ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                     ['file', 'attach_url', '附件类型'],
                     ['number', 'attach_duration', '附件时长(秒)'],
-                    ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+                    ['select', 'show_to_role_id', '展示给谁', '0', $family_role],
 
 //                    ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
                 ]
