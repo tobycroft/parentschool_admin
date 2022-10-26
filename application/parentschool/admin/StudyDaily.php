@@ -10,7 +10,6 @@ use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
-use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
@@ -325,12 +324,14 @@ class StudyDaily extends Admin
             ];
             $grades = $data['grades'];
             unset($data['grades']);
-            $scount = StudyModel::where('study_type', $data['study_type'])
-                ->where('study_id', $data['id'])
-                ->count();
+            $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
+            Db::startTrans();
             if ($scount != count($grades)) {
-                Db::startTrans();
-                StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete();
+                if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
+                    Db::rollback();
+                    $this->error('编辑失败');
+                    return;
+                }
                 foreach ($grades as $grade) {
                     $study_input["grade"] = $grade;
                     if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
@@ -339,22 +340,21 @@ class StudyDaily extends Admin
                         return;
                     }
                 }
-                if (!StudyMonthyModel::where('id', $data['id'])
-                    ->update($daily_input)) {
+                if (false === StudyDailyModel::where('id', $data['id'])->update($daily_input)) {
                     Db::rollback();
                     $this->error('编辑失败');
                     return;
                 }
-                action_log('user_edit', 'user', $id, UID);
-                Db::commit();
-                $this->success('编辑成功');
             } else {
-                StudyModel::where('study_type', $data['study_type'])
-                    ->where('study_id', $data['id'])
-                    ->update($study_input);
+                if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->update($study_input)) {
+                    Db::rollback();
+                    $this->error('编辑失败');
+                    return;
+                }
             }
-
-
+            Db::commit();
+            action_log('user_edit', 'user', $id, UID);
+            $this->success('编辑成功');
         }
 
         // 获取数据

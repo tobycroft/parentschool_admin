@@ -347,28 +347,41 @@ class StudyMonthy extends Admin
                 "study_type" => $data["study_type"],
                 "study_id" => $data["id"],
             ];
-            $study = StudyModel::where("study_type", $data["study_type"])
-                ->where("study_id", $data["id"])
-                ->find();
-            if ($study) {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->where("study_id", $data["id"])
-                    ->update($study_input);
+
+            $grades = $data['grades'];
+            unset($data['grades']);
+            $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
+            Db::startTrans();
+            if ($scount != count($grades)) {
+                if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
+                    Db::rollback();
+                    $this->error('编辑失败');
+                    return;
+                }
+                foreach ($grades as $grade) {
+                    $study_input['grade'] = $grade;
+                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                }
+                if (false === StudyMonthyModel::where('id', $data['id'])->update($monthy_input)) {
+                    Db::rollback();
+                    $this->error('编辑失败');
+                    return;
+                }
             } else {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->insert($study_input);
+                if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->update($study_input)) {
+                    Db::rollback();
+                    $this->error('编辑失败');
+                    return;
+                }
             }
-            if (StudyMonthyModel::where("id", $data["id"])
-                ->update($monthy_input)) {
-                $user = StudyMonthyModel::get($data['id']);
-                Db::commit();
-                // 记录行为
-                action_log('user_edit', 'user', $id, UID);
-                $this->success('编辑成功');
-            } else {
-                Db::rollback();
-                $this->error('编辑失败');
-            }
+            Db::commit();
+            action_log('user_edit', 'user', $id, UID);
+            $this->success('编辑成功');
+
         }
 
         // 获取数据
@@ -409,7 +422,7 @@ class StudyMonthy extends Admin
         $family_role[0] = '全部展示';
 
         $grade = SchoolGradeModel::column('id,name');
-        $ids = StudyModel::where('study_type', 'daily')->where('study_id', $id)->column('grade');
+        $ids = StudyModel::where('study_type', 'monthy')->where('study_id', $id)->column('grade');
 
 
         $data = ZBuilder::make('form')
