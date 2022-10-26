@@ -162,6 +162,7 @@ class School extends Admin
                 ['number', 'sight', '学校家长活动的可见性', ''],
                 ['image', 'icon', '学校图标', ''],
                 ['image', 'img', '学校图片', ''],
+                ['image', 'bg_img', '学校背景图', ''],
                 ['switch', 'dashboard', '学校端权限', ''],
                 ['switch', 'screen', '大屏端权限', ''],
             ])
@@ -224,7 +225,8 @@ class School extends Admin
                 ['textarea', 'detail', '学校详细信息', ''],
                 ['number', 'sight', '学校家长活动的可见性', ''],
                 ['image', 'icon', '学校图标', ''],
-                ['image', 'img', '学校图片', ''],
+                ['image', 'img', '学校Banner', ''],
+                ['image', 'bg_img', '学校背景图', ''],
                 ['switch', 'dashboard', '学校端权限', ''],
                 ['switch', 'screen', '大屏端权限', ''],
             ]);
