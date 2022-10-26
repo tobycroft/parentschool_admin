@@ -242,11 +242,13 @@ class StudyMonthy extends Admin
         $family_role[0] = '全部展示';
 
 
+        $grade = SchoolGradeModel::column('id,name');
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'grade', '年级'],
+                ['checkbox', 'grades', '年级', '', $grade],
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],

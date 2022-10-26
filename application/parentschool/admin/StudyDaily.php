@@ -210,11 +210,15 @@ class StudyDaily extends Admin
 //        }
         $family_role = FamilyRoleModel::column('id,name');
         $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                    ['text', 'grade', '年级', 'number'],
+                    ['checkbox', 'grades', '年级', '', $grade],
                     ['number', 'area_id', '对应区域'],
                     ['number', 'school_id', '学校id'],
                     ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
