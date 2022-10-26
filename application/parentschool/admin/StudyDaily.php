@@ -7,8 +7,10 @@ use app\admin\controller\Admin;
 use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyRoleModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
+use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\TagModel;
 use app\user\model\Role as RoleModel;
@@ -310,37 +312,49 @@ class StudyDaily extends Admin
                 "show_to_role_id" => $data["show_to_role_id"],
 //                "show_to" => $data["show_to"],
             ];
-            $study_input = ["area_id" => $data["area_id"],
-                "school_id" => $data["school_id"],
-                "grade" => $data["grade"],
-                "push_date" => $data["push_date"],
-                "show_date" => $data["show_date"],
-                "end_date" => $data["end_date"],
-                "can_push" => $data["can_push"] == "on",
-                "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],
-                "study_id" => $data["id"],];
-            $study = StudyModel::where("study_type", $data["study_type"])
-                ->where("study_id", $data["id"])
-                ->find();
-            if ($study) {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->where("study_id", $data["id"])
-                    ->update($study_input);
-            } else {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->insert($study_input);
-            }
-            if (StudyDailyModel::where("id", $data["id"])
-                ->update($daily_input)) {
-                Db::commit();
-                // 记录行为
+
+            $study_input = ['area_id' => $data['area_id'],
+                'school_id' => $data['school_id'],
+                'push_date' => $data['push_date'],
+                'show_date' => $data['show_date'],
+                'end_date' => $data['end_date'],
+                'can_push' => $data['can_push'] == 'on',
+                'can_show' => $data['can_show'] == 'on',
+                'study_type' => $data['study_type'],
+                'study_id' => $data['id'],
+            ];
+            $grades = $data['grades'];
+            unset($data['grades']);
+            $scount = StudyModel::where('study_type', $data['study_type'])
+                ->where('study_id', $data['id'])
+                ->count();
+            if ($scount != count($grades)) {
+                Db::startTrans();
+                StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete();
+                foreach ($grades as $grade) {
+                    $study_input["grade"] = $grade;
+                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                        Db::rollback();
+                        $this->error("编辑失败");
+                        return;
+                    }
+                }
+                if (!StudyMonthyModel::where('id', $data['id'])
+                    ->update($daily_input)) {
+                    Db::rollback();
+                    $this->error('编辑失败');
+                    return;
+                }
                 action_log('user_edit', 'user', $id, UID);
+                Db::commit();
                 $this->success('编辑成功');
             } else {
-                Db::rollback();
-                $this->error('编辑失败');
+                StudyModel::where('study_type', $data['study_type'])
+                    ->where('study_id', $data['id'])
+                    ->update($study_input);
             }
+
+
         }
 
         // 获取数据
@@ -372,11 +386,14 @@ class StudyDaily extends Admin
 
         $family_role = FamilyRoleModel::column('id,name');
         $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                     ['hidden', 'id'],
-                    ['text', 'grade', '年级', 'number'],
+                    ['checkbox', 'grades', '年级', '', $grade],
                     ['number', 'area_id', '对应区域'],
                     ['number', 'school_id', '学校id'],
                     ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
