@@ -388,12 +388,13 @@ class StudyDaily extends Admin
         $family_role[0] = '全部展示';
 
         $grade = SchoolGradeModel::column('id,name');
+        $ids = StudyModel::where('study_type', "daily")->where('study_id', $id)->column("id");
 
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                     ['hidden', 'id'],
-                    ['checkbox', 'grades', '年级', '', $grade],
+                    ['checkbox', 'grades', '年级', '', $grade, $ids],
                     ['number', 'area_id', '对应区域'],
                     ['number', 'school_id', '学校id'],
                     ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
