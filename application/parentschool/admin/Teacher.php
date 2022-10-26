@@ -48,6 +48,13 @@ class Teacher extends Admin
             'href' => url('jiazhang/index', ['search_field' => 'id', 'keyword' => '__uid__'])
         ];
 
+        $btn_access = [
+            'title' => '教师班级',
+            'icon' => 'fa fa-address-book',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            'href' => url('teacher_class/index', ['search_field' => 'teacher_id', 'keyword' => '__id__'])
+        ];
+
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
