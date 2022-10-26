@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyRoleModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\StudyWeeklyModel;
@@ -452,12 +453,14 @@ class StudyWeekly extends Admin
         $family_role = FamilyRoleModel::column('id,name');
         $family_role[0] = '全部展示';
 
+        $grade = SchoolGradeModel::column('id,name');
+        $ids = StudyModel::where('study_type', 'daily')->where('study_id', $id)->column('grade');
 
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'grade', '年级', 'number'],
+                ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],

@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyRoleModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
@@ -407,11 +408,15 @@ class StudyMonthy extends Admin
         $family_role = FamilyRoleModel::column('id,name');
         $family_role[0] = '全部展示';
 
+        $grade = SchoolGradeModel::column('id,name');
+        $ids = StudyModel::where('study_type', 'daily')->where('study_id', $id)->column('grade');
+
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'grade', '年级'],
+                ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
