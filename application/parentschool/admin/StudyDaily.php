@@ -388,7 +388,7 @@ class StudyDaily extends Admin
         $family_role[0] = '全部展示';
 
         $grade = SchoolGradeModel::column('id,name');
-        $ids = StudyModel::where('study_type', "daily")->where('study_id', $id)->column("id");
+        $ids = StudyModel::where('study_type', "daily")->where('study_id', $id)->column("grade");
 
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
