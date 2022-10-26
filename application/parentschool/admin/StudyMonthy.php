@@ -241,7 +241,6 @@ class StudyMonthy extends Admin
         $family_role = FamilyRoleModel::column('id,name');
         $family_role[0] = '全部展示';
 
-
         $grade = SchoolGradeModel::column('id,name');
 
         // 使用ZBuilder快速创建表单
