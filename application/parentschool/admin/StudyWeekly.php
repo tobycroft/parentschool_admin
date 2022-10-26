@@ -486,7 +486,7 @@ class StudyWeekly extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['switch', 'only_today', '本课程尽可以在如下年级和时间展示，删除本课程在其他日期的展示'],
+                ['switch', 'only_today', '本课程仅可以在如下年级和时间展示，删除本课程在其他日期的展示'],
                 ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
