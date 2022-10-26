@@ -48,7 +48,7 @@ class Teacher extends Admin
             'href' => url('jiazhang/index', ['search_field' => 'id', 'keyword' => '__uid__'])
         ];
 
-        $btn_access = [
+        $btn_access2 = [
             'title' => '教师班级',
             'icon' => 'fa fa-address-book',
 //            'class' => 'btn btn-xs btn-default ajax-get',
@@ -80,6 +80,7 @@ class Teacher extends Admin
             ->addRightButton('delete') //添加删除按钮
             ->addRightButtons([
                 "账号" => $btn_access,
+                "班级" => $btn_access2,
             ])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
