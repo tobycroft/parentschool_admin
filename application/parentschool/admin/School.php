@@ -93,6 +93,7 @@ class School extends Admin
             ->addColumn('sight', '可见性', 'number')
             ->addColumn('icon', '学校图标', 'picture')
             ->addColumn('img', '学校宣传图', 'picture')
+            ->addColumn('bg_img', '学校背景图', 'picture')
             ->addColumn('dashboard', '学校端权限', 'switch')
             ->addColumn('screen', '大屏端权限', 'switch')
             ->addColumn('right_button', '操作', 'btn')
