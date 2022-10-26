@@ -182,7 +182,7 @@ class StudyMonthy extends Admin
                 "end_date" => $data["end_date"],
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],
+                "study_type" => 'monthy',
             ];
             Db::startTrans();
             if ($user = StudyMonthyModel::create($monthy_input)) {
@@ -206,7 +206,17 @@ class StudyMonthy extends Admin
                     }
                 }
                 $study_input["study_id"] = $lastid;
-                StudyModel::create($study_input);
+
+                $grades = $data['grades'];
+                unset($data['grades']);
+                foreach ($grades as $grade) {
+                    $study_input['grade'] = $grade;
+                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                        $this->error('编辑失败');
+                        return;
+                    }
+                }
+
                 Db::commit();
                 Hook::listen('user_add', $user);
                 // 记录行为

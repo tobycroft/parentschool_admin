@@ -185,7 +185,7 @@ class StudyWeekly extends Admin
                 "end_date" => $data["end_date"],
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],
+                "study_type" => 'weekly',
             ];
             Db::startTrans();
             if ($user = StudyWeeklyModel::create($weekly_input)) {
@@ -209,10 +209,17 @@ class StudyWeekly extends Admin
                     }
                 }
                 $study_input["study_id"] = $lastid;
-                if (!StudyModel::create($study_input)) {
-                    Db::rollback();
-                    $this->error('StudyModel新增失败');
+
+                $grades = $data['grades'];
+                unset($data['grades']);
+                foreach ($grades as $grade) {
+                    $study_input['grade'] = $grade;
+                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                        $this->error('编辑失败');
+                        return;
+                    }
                 }
+
                 Db::commit();
                 Hook::listen('user_add', $user);
                 // 记录行为
@@ -248,7 +255,7 @@ class StudyWeekly extends Admin
 
         $grade = SchoolGradeModel::column('id,name');
 
-        
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
