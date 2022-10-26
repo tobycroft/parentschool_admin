@@ -408,31 +408,33 @@ class StudyWeekly extends Admin
             unset($data['grades']);
             $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
             Db::startTrans();
-            if ($scount != count($grades)) {
-                if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
-                    Db::rollback();
-                    $this->error('编辑失败');
-                    return;
-                }
-                foreach ($grades as $grade) {
-                    $study_input['grade'] = $grade;
-                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+            if ($data["only_today"] == 'on') {
+                if ($scount != count($grades)) {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                    foreach ($grades as $grade) {
+                        $study_input['grade'] = $grade;
+                        if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                            Db::rollback();
+                            $this->error('编辑失败');
+                            return;
+                        }
+                    }
+                } else {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->update($study_input)) {
                         Db::rollback();
                         $this->error('编辑失败');
                         return;
                     }
                 }
-                if (false === StudyWeeklyModel::where('id', $data['id'])->update($weekly_input)) {
-                    Db::rollback();
-                    $this->error('编辑失败');
-                    return;
-                }
-            } else {
-                if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->update($study_input)) {
-                    Db::rollback();
-                    $this->error('编辑失败');
-                    return;
-                }
+            }
+            if (false === StudyWeeklyModel::where('id', $data['id'])->update($weekly_input)) {
+                Db::rollback();
+                $this->error('编辑失败');
+                return;
             }
             Db::commit();
             action_log('user_edit', 'user', $id, UID);
@@ -484,6 +486,7 @@ class StudyWeekly extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
+                ['switch', 'only_today', '本课程尽可以在如下年级和时间展示，删除本课程在其他日期的展示'],
                 ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
