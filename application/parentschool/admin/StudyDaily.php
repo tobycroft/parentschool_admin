@@ -340,7 +340,7 @@ class StudyDaily extends Admin
             unset($data['grades']);
             $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
             Db::startTrans();
-            if ($data['only_today'] == 'on') {
+            if (isset($data['only_today']) && $data['only_today'] == 'on') {
                 if ($scount != count($grades)) {
                     if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
                         Db::rollback();
