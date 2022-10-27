@@ -407,7 +407,6 @@ class StudyWeekly extends Admin
             $grades = $data['grades'];
             unset($data['grades']);
             $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
-            Db::startTrans();
             if (isset($data['only_today']) && $data['only_today'] == 'on') {
                 if ($scount != count($grades)) {
                     if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
