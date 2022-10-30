@@ -6,6 +6,8 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyRoleModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyTagModel;
@@ -63,6 +65,9 @@ class StudyDaily extends Admin
             ->count();
         $num2 = StudyDailyModel::count();
 
+        $family_role = FamilyRoleModel::column("id,name");
+        $family_role[0] = "全部展示";
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -84,7 +89,7 @@ class StudyDaily extends Admin
 //                ['show_date', '展示日期', 'text.edit'],
 //                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
-                ['attach_duration', '附件时长', 'number'],
+                ['show_to_role_id', '展示给谁', 'select', $family_role],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],])
             ->addColumn('right_button', '操作', 'btn')
@@ -129,7 +134,7 @@ class StudyDaily extends Admin
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
-                if (empty($md5_data->error)) {
+                if ($md5_data->isSuccess()) {
                     $data["attach_duration"] = $md5_data->duration;
                 }
             }
@@ -147,16 +152,18 @@ class StudyDaily extends Admin
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
                 "attach_duration" => $data["attach_duration"],
-                "show_to" => $data["show_to"],];
+                "show_to_role_id" => $data["show_to_role_id"],
+//                "show_to" => $data["show_to"],
+            ];
             $study_input = ["area_id" => $data["area_id"],
                 "school_id" => $data["school_id"],
-                "grade" => $data["grade"],
                 "push_date" => $data["push_date"],
                 "show_date" => $data["show_date"],
                 "end_date" => $data["end_date"],
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],];
+                "study_type" => 'daily',
+            ];
             Db::startTrans();
             if ($user = StudyDailyModel::create($daily_input)) {
                 $lastid = $user->id;
@@ -171,7 +178,17 @@ class StudyDaily extends Admin
                     }
                 }
                 $study_input["study_id"] = $lastid;
-                StudyModel::create($study_input);
+
+                $grades = $data['grades'];
+                unset($data['grades']);
+                foreach ($grades as $grade) {
+                    $study_input['grade'] = $grade;
+                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                        $this->error('编辑失败');
+                        return;
+                    }
+                }
+
                 Db::commit();
                 Hook::listen('user_add', $user);
                 // 记录行为
@@ -200,33 +217,42 @@ class StudyDaily extends Admin
 //        foreach ($tag_special as $key => $value) {
 //            $tag_special[strval($key)] = $value;
 //        }
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'grade', '年级', 'number'],
-                ['number', 'area_id', '对应区域'],
-                ['number', 'school_id', '学校id'],
-                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'title', '标题'],
-                ['text', 'slogan', '推荐金句'],
-                ['checkbox', 'special_tag', '特殊标签', "", $tag_special],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common],
-                ['ueditor', 'content', '内容'],
-                ['image', 'img', '小图头图', "picture"],
-                ['image', 'img_intro', '简介图', "picture"],
-                ['text', 'from1', '内容来源1'],
-                ['text', 'from2', '内容来源2'],
-                ['switch', 'can_push', '是否可以推送'],
-                ['switch', 'can_show', '是否可以展示'],
-                ['datetime', 'push_date', '推送日期'],
-                ['datetime', 'show_date', '展示日期'],
-                ['datetime', 'end_date', '结束展示日期'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attach_url', '附件类型'],
-                ['number', 'attach_duration', '附件时长(秒)'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],])
+                    ['checkbox', 'grades', '年级', '', $grade],
+                    ['number', 'area_id', '对应区域'],
+                    ['number', 'school_id', '学校id'],
+                    ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                    ['text', 'title', '标题'],
+                    ['text', 'slogan', '推荐金句'],
+                    ['checkbox', 'special_tag', '特殊标签', "", $tag_special],
+                    ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common],
+                    ['ueditor', 'content', '内容'],
+                    ['image', 'img', '小图头图', "picture"],
+                    ['image', 'img_intro', '简介图', "picture"],
+                    ['text', 'from1', '内容来源1'],
+                    ['text', 'from2', '内容来源2'],
+                    ['switch', 'can_push', '是否可以推送'],
+                    ['switch', 'can_show', '是否可以展示'],
+                    ['datetime', 'push_date', '推送日期'],
+                    ['datetime', 'show_date', '展示日期'],
+                    ['datetime', 'end_date', '结束展示日期'],
+                    ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                    ['file', 'attach_url', '附件类型'],
+                    ['number', 'attach_duration', '附件时长(秒)'],
+                    ['select', 'show_to_role_id', '展示给谁', '全部展示', $family_role, '0'],
+
+//                    ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ]
+            )
             ->fetch();
     }
 
@@ -264,7 +290,7 @@ class StudyDaily extends Admin
             if ($md5) {
                 $Aoss = new Aoss(config("upload_prefix"), "complete");
                 $md5_data = $Aoss->md5($md5);
-                if (empty($md5_data->error)) {
+                if ($md5_data->isSuccess()) {
                     $data["attach_duration"] = $md5_data->duration;
                 }
             }
@@ -295,38 +321,54 @@ class StudyDaily extends Admin
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
                 "attach_duration" => $data["attach_duration"],
-                "show_to" => $data["show_to"],];
-            $study_input = ["area_id" => $data["area_id"],
-                "school_id" => $data["school_id"],
-                "grade" => $data["grade"],
-                "push_date" => $data["push_date"],
-                "show_date" => $data["show_date"],
-                "end_date" => $data["end_date"],
-                "can_push" => $data["can_push"] == "on",
-                "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],
-                "study_id" => $data["id"],];
-            $study = StudyModel::where("study_type", $data["study_type"])
-                ->where("study_id", $data["id"])
-                ->find();
-            if ($study) {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->where("study_id", $data["id"])
-                    ->update($study_input);
-            } else {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->insert($study_input);
+                "show_to_role_id" => $data["show_to_role_id"],
+//                "show_to" => $data["show_to"],
+            ];
+
+            $study_input = ['area_id' => $data['area_id'],
+                'school_id' => $data['school_id'],
+                'push_date' => $data['push_date'],
+                'show_date' => $data['show_date'],
+                'end_date' => $data['end_date'],
+                'can_push' => $data['can_push'] == 'on',
+                'can_show' => $data['can_show'] == 'on',
+                'study_type' => $data['study_type'],
+                'study_id' => $data['id'],
+            ];
+            $grades = $data['grades'];
+            unset($data['grades']);
+            $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
+            if (isset($data['only_today']) && $data['only_today'] == 'on') {
+                if ($scount != count($grades)) {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                    foreach ($grades as $grade) {
+                        $study_input['grade'] = $grade;
+                        if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                            Db::rollback();
+                            $this->error('编辑失败');
+                            return;
+                        }
+                    }
+                } else {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->update($study_input)) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                }
             }
-            if (StudyDailyModel::where("id", $data["id"])
-                ->update($daily_input)) {
-                Db::commit();
-                // 记录行为
-                action_log('user_edit', 'user', $id, UID);
-                $this->success('编辑成功');
-            } else {
+            if (false === StudyDailyModel::where('id', $data['id'])->update($daily_input)) {
                 Db::rollback();
                 $this->error('编辑失败');
+                return;
             }
+            Db::commit();
+            action_log('user_edit', 'user', $id, UID);
+            $this->success('编辑成功');
         }
 
         // 获取数据
@@ -356,32 +398,43 @@ class StudyDaily extends Admin
         $info["special_tag"] = null;
         $info["common_tag"] = null;
 
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+        $ids = StudyModel::where('study_type', "daily")->where('study_id', $id)->column("grade");
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'],
-                ['text', 'grade', '年级', 'number'],
-                ['number', 'area_id', '对应区域'],
-                ['number', 'school_id', '学校id'],
-                ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'title', '标题'],
-                ['text', 'slogan', '推荐金句'],
-                ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
-                ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
-                ['ueditor', 'content', '内容'],
-                ['image', 'img', '小图头图', "picture"],
-                ['image', 'img_intro', '简介图', "picture"],
-                ['text', 'from1', '内容来源1'],
-                ['text', 'from2', '内容来源2'],
-                ['switch', 'can_push', '是否可以推送'],
-                ['switch', 'can_show', '是否可以展示'],
-                ['datetime', 'push_date', '推送日期'],
-                ['datetime', 'show_date', '展示日期'],
-                ['datetime', 'end_date', '结束展示日期'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
-                ['file', 'attach_url', '附件类型'],
-                ['number', 'attach_duration', '附件时长(秒)'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],]);
+                    ['hidden', 'id'],
+                    ['switch', 'only_today', '本课程仅可以在如下年级和时间展示，并删除本课程在其他日期的展示'],
+                    ['checkbox', 'grades', '年级', '', $grade, $ids],
+                    ['number', 'area_id', '对应区域'],
+                    ['number', 'school_id', '学校id'],
+                    ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                    ['text', 'title', '标题'],
+                    ['text', 'slogan', '推荐金句'],
+                    ['checkbox', 'special_tag', '特殊标签', "", $tag_special, $tag_choose],
+                    ['checkbox', 'common_tag', '普通/推荐标签', "", $tag_common, $tag_choose],
+                    ['ueditor', 'content', '内容'],
+                    ['image', 'img', '小图头图', "picture"],
+                    ['image', 'img_intro', '简介图', "picture"],
+                    ['text', 'from1', '内容来源1'],
+                    ['text', 'from2', '内容来源2'],
+                    ['switch', 'can_push', '是否可以推送'],
+                    ['switch', 'can_show', '是否可以展示'],
+                    ['datetime', 'push_date', '推送日期'],
+                    ['datetime', 'show_date', '展示日期'],
+                    ['datetime', 'end_date', '结束展示日期'],
+                    ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                    ['file', 'attach_url', '附件类型'],
+                    ['number', 'attach_duration', '附件时长(秒)'],
+                    ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ]
+            );
 
         return $data->setFormData($info) // 设置表单数据
         ->fetch();;

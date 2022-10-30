@@ -6,12 +6,12 @@ use CURLFile;
 
 class Aoss
 {
-    private string $remote_url = "http://upload.tuuz.cc:81";
-    private string $send_url;
-    private string $send_path = "/v1/file/index";
+    protected string $remote_url = "http://upload.tuuz.cc:81";
+    protected string $send_url;
+    protected string $send_path = "/v1/file/index";
     protected string $send_token = "?token=";
-    private string $token;
-    private string $mode;
+    protected string $token;
+    protected string $mode;
 
     /**
      * @discription 构建传入token,token可以发送邮件到aoss@tuuz.cc获取
@@ -32,9 +32,20 @@ class Aoss
         }
     }
 
-    /*
-     *
-     */
+
+    public static function raw_post($send_url, $postData): bool|string
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $send_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+
+
     /**
      * @send("文件地址","文件类型","文件名称")
      * @param $real_path

@@ -140,7 +140,7 @@ class Attachment extends Admin
 
         $Aoss = new Aoss(config("upload_prefix"), "complete");
         $md5_data = $Aoss->md5($file->hash('md5'));
-        if (empty($md5_data->error)) {
+        if ($md5_data->isSuccess()) {
             if ($file_exists = AttachmentModel::get(['md5' => $file->hash('md5')])) {
                 return $this->uploadSuccess($from, $md5_data->url, $md5_data->name, $file_exists['id'], $callback, $md5_data->data);
             }
@@ -210,20 +210,19 @@ class Attachment extends Admin
                     if (config('upload_image_thumb') != '') {
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename());
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
-                        if (isset($thumb_ret->error)) {
-                            return $this->uploadError($from, $thumb_ret->error, $callback);
+                        if ($thumb_ret->isSuccess()) {
+                            return $this->uploadError($from, $thumb_ret->getError(), $callback);
                         } else {
                             $thumb_path_name = $thumb_ret->url;
                         }
                     }
                 } else {
-
                     if (strtolower($thumb) != 'close') {
                         list($thumb_size, $thumb_type) = explode('|', $thumb);
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename(), $thumb_size, $thumb_type);
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
-                        if (isset($thumb_ret->error)) {
-                            return $this->uploadError($from, $thumb_ret->error, $callback);
+                        if ($thumb_ret->isSuccess()) {
+                            return $this->uploadError($from, $thumb_ret->getError(), $callback);
                         } else {
                             $thumb_path_name = $thumb_ret->url;
                         }
@@ -231,12 +230,10 @@ class Attachment extends Admin
                     }
                 }
             }
-            if (isset($md5_data->error)) {
+            if (!$md5_data->isSuccess()) {
                 $send_ret = $Aoss->send($info->getPathname(), $info->getMime(), $file_name);
-                if (isset($send_ret->error)) {
-                    echo $send_ret->error;
-                    exit();
-                    return $this->uploadError($from, $send_ret->error, $callback);
+                if ($send_ret->isSuccess()) {
+                    return $this->uploadError($from, $send_ret->getError(), $callback);
                 }
             } else {
                 $send_ret = $md5_data;

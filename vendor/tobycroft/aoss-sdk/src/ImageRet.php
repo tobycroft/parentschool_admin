@@ -2,11 +2,11 @@
 
 namespace Tobycroft\AossSdk;
 
-class AossSimpleRet
+class ImageRet
 {
     public string $response;
     protected mixed $error = null;
-    protected mixed $data = "";
+    protected mixed $data = [];
 
     public function __construct($response)
     {
@@ -14,23 +14,12 @@ class AossSimpleRet
         $json = json_decode($response, true);
         if (empty($json) || !isset($json["code"])) {
             $this->error = $response;
-        } else {
-            if ($json["code"] == "0") {
-                $this->data = $json["data"]["url"];
-            } else {
-                $this->error = $json["echo"];
-            }
         }
-    }
-
-    public function url()
-    {
-        return $this->data;
-    }
-
-    public function isSuccess(): bool
-    {
-        return empty($this->error);
+        if ($json["code"] == "0") {
+            $this->data = $json["data"];
+        } else {
+            $this->error = $json["echo"];
+        }
     }
 
     /**
@@ -40,4 +29,20 @@ class AossSimpleRet
     {
         return $this->error;
     }
+
+    public function isSuccess(): bool
+    {
+        return empty($this->error);
+    }
+
+    public function file(): string
+    {
+        return $this->data;
+    }
+
+    public function base64(): string
+    {
+        return $this->data;
+    }
+
 }
