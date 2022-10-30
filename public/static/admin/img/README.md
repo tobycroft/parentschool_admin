@@ -1,4 +1,4 @@
-DThinkPHP
+DThinkphp
 ===============
 
 # 系统图片目录

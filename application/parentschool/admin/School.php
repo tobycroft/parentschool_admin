@@ -58,6 +58,16 @@ class School extends Admin
                     ->count();
             });
         $page = $data_list->render();
+
+
+        $btn_access = [
+            'title' => '对应课程',
+            'icon' => 'fa fa-list',
+//            'class' => 'btn btn-xs btn-default ajax-get',
+            "target" => "_blank",
+            'href' => "http://school.familyeducation.org.cn/admin/login?id=__id__"
+        ];
+
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
 //        $num1 = SchoolModel::where("date", ">", $todaytime)->count();
@@ -83,9 +93,11 @@ class School extends Admin
             ->addColumn('sight', '可见性', 'number')
             ->addColumn('icon', '学校图标', 'picture')
             ->addColumn('img', '学校宣传图', 'picture')
+            ->addColumn('bg_img', '学校背景图', 'picture')
             ->addColumn('dashboard', '学校端权限', 'switch')
             ->addColumn('screen', '大屏端权限', 'switch')
             ->addColumn('right_button', '操作', 'btn')
+            ->addRightButtons(["jump" => $btn_access])
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
@@ -151,6 +163,7 @@ class School extends Admin
                 ['number', 'sight', '学校家长活动的可见性', ''],
                 ['image', 'icon', '学校图标', ''],
                 ['image', 'img', '学校图片', ''],
+                ['image', 'bg_img', '学校背景图', ''],
                 ['switch', 'dashboard', '学校端权限', ''],
                 ['switch', 'screen', '大屏端权限', ''],
             ])
@@ -213,7 +226,8 @@ class School extends Admin
                 ['textarea', 'detail', '学校详细信息', ''],
                 ['number', 'sight', '学校家长活动的可见性', ''],
                 ['image', 'icon', '学校图标', ''],
-                ['image', 'img', '学校图片', ''],
+                ['image', 'img', '学校Banner', ''],
+                ['image', 'bg_img', '学校背景图', ''],
                 ['switch', 'dashboard', '学校端权限', ''],
                 ['switch', 'screen', '大屏端权限', ''],
             ]);

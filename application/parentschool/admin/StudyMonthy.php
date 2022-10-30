@@ -5,6 +5,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyRoleModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyTagModel;
@@ -86,7 +88,8 @@ class StudyMonthy extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('quiz_question/add', ['study_id' => '__id__', "study_type" => "monthy"])
         ];
-
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -105,6 +108,8 @@ class StudyMonthy extends Admin
                 ['slogan', '推荐金句'],
                 ['special_tag', '特殊标签'],
                 ['common_tag', '特殊标签'],
+                ['show_to_role_id', '展示给谁', 'select', $family_role],
+
 //                ['can_push', '是否可以推送', 'switch'],
 //                ['push_date', '推送日期', 'text.edit'],
 //                ['show_date', '展示日期', 'text.edit'],
@@ -165,18 +170,18 @@ class StudyMonthy extends Admin
                 "content" => $data["content"],
                 "img" => $data["img"],
                 "img_intro" => $data["img_intro"],
-                "show_to" => $data["show_to"],
+                "show_to_role_id" => $data["show_to_role_id"],
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
                 "school_id" => $data["school_id"],
-                "grade" => $data["grade"],
                 "push_date" => $data["push_date"],
                 "show_date" => $data["show_date"],
                 "end_date" => $data["end_date"],
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],
+                "study_type" => 'monthy',
             ];
             Db::startTrans();
             if ($user = StudyMonthyModel::create($monthy_input)) {
@@ -200,7 +205,17 @@ class StudyMonthy extends Admin
                     }
                 }
                 $study_input["study_id"] = $lastid;
-                StudyModel::create($study_input);
+
+                $grades = $data['grades'];
+                unset($data['grades']);
+                foreach ($grades as $grade) {
+                    $study_input['grade'] = $grade;
+                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                        $this->error('编辑失败');
+                        return;
+                    }
+                }
+
                 Db::commit();
                 Hook::listen('user_add', $user);
                 // 记录行为
@@ -231,11 +246,17 @@ class StudyMonthy extends Admin
         }
 
         $teacher_list = TeacherModel::column("id,name");
+
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['number', 'grade', '年级'],
+                ['checkbox', 'grades', '年级', '', $grade],
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
@@ -253,7 +274,9 @@ class StudyMonthy extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'end_date', '结束日期'],
                 ['datetime', 'show_date', '展示日期'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ['select', 'show_to_role_id', '展示给谁', '全部展示', $family_role, '0'],
+
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ])
             ->fetch();
     }
@@ -318,7 +341,9 @@ class StudyMonthy extends Admin
                 "content" => $data["content"],
                 "img" => $data["img"],
                 "img_intro" => $data["img_intro"],
-                "show_to" => $data["show_to"],
+                'show_to_role_id' => $data['show_to_role_id'],
+
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
@@ -332,28 +357,42 @@ class StudyMonthy extends Admin
                 "study_type" => $data["study_type"],
                 "study_id" => $data["id"],
             ];
-            $study = StudyModel::where("study_type", $data["study_type"])
-                ->where("study_id", $data["id"])
-                ->find();
-            if ($study) {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->where("study_id", $data["id"])
-                    ->update($study_input);
-            } else {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->insert($study_input);
+
+            $grades = $data['grades'];
+            unset($data['grades']);
+            $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
+            if (isset($data['only_today']) && $data['only_today'] == 'on') {
+                if ($scount != count($grades)) {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                    foreach ($grades as $grade) {
+                        $study_input['grade'] = $grade;
+                        if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                            Db::rollback();
+                            $this->error('编辑失败');
+                            return;
+                        }
+                    }
+                } else {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->update($study_input)) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                }
             }
-            if (StudyMonthyModel::where("id", $data["id"])
-                ->update($monthy_input)) {
-                $user = StudyMonthyModel::get($data['id']);
-                Db::commit();
-                // 记录行为
-                action_log('user_edit', 'user', $id, UID);
-                $this->success('编辑成功');
-            } else {
+            if (false === StudyMonthyModel::where('id', $data['id'])->update($monthy_input)) {
                 Db::rollback();
                 $this->error('编辑失败');
+                return;
             }
+            Db::commit();
+            action_log('user_edit', 'user', $id, UID);
+            $this->success('编辑成功');
+
         }
 
         // 获取数据
@@ -389,11 +428,20 @@ class StudyMonthy extends Admin
         $info["common_tag"] = null;
         $teacher_list = TeacherModel::column("id,name");
 
+
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+        $ids = StudyModel::where('study_type', 'monthy')->where('study_id', $id)->column('grade');
+
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'grade', '年级'],
+                ['switch', 'only_today', '本课程仅可以在如下年级和时间展示，并删除本课程在其他日期的展示'],
+                ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
@@ -411,7 +459,9 @@ class StudyMonthy extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
                 ['datetime', 'end_date', '结束展示日期'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
             ]);
 
         return $data

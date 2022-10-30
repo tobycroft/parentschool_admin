@@ -5,6 +5,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyRoleModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyTagModel;
 use app\parentschool\model\StudyWeeklyModel;
@@ -60,6 +62,8 @@ class StudyWeekly extends Admin
         $num2 = StudyWeeklyModel::count();
 
         $page = $data_list->render();
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -85,6 +89,8 @@ class StudyWeekly extends Admin
 //                ['end_date', '结束日期', 'text.edit'],
 //                ['attach_type', '附件类型', 'text'],
 //                ['show_to', '展示给谁'],
+                ['show_to_role_id', '展示给谁', 'select', $family_role],
+
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
             ])
@@ -166,18 +172,19 @@ class StudyWeekly extends Admin
                 "tick_area" => $data["tick_area"],
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
-                "show_to" => $data["show_to"],
+                'show_to_role_id' => $data['show_to_role_id'],
+
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
                 "school_id" => $data["school_id"],
-                "grade" => $data["grade"],
                 "push_date" => $data["push_date"],
                 "show_date" => $data["show_date"],
                 "end_date" => $data["end_date"],
                 "can_push" => $data["can_push"] == "on",
                 "can_show" => $data["can_show"] == "on",
-                "study_type" => $data["study_type"],
+                "study_type" => 'weekly',
             ];
             Db::startTrans();
             if ($user = StudyWeeklyModel::create($weekly_input)) {
@@ -201,10 +208,17 @@ class StudyWeekly extends Admin
                     }
                 }
                 $study_input["study_id"] = $lastid;
-                if (!StudyModel::create($study_input)) {
-                    Db::rollback();
-                    $this->error('StudyModel新增失败');
+
+                $grades = $data['grades'];
+                unset($data['grades']);
+                foreach ($grades as $grade) {
+                    $study_input['grade'] = $grade;
+                    if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                        $this->error('编辑失败');
+                        return;
+                    }
                 }
+
                 Db::commit();
                 Hook::listen('user_add', $user);
                 // 记录行为
@@ -234,11 +248,18 @@ class StudyWeekly extends Admin
             $tag_special[strval($key)] = $value;
         }
 
+
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+
+
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'grade', '年级', 'number'],
+                ['checkbox', 'grades', '年级', '', $grade],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
@@ -258,7 +279,7 @@ class StudyWeekly extends Admin
 //                ['datetime', 'end_date', '结束日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
 
                 ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
                 ['select', 'tick_mode', '打卡模式', "打卡模式", ['default' => "未选择", 'daily' => "每日打卡", 'weekly' => "每周打卡", 'monthy' => "每月打卡"]],
@@ -268,6 +289,9 @@ class StudyWeekly extends Admin
                 ['text', 'tick_x', '打卡X轴', "打卡X轴"],
                 ['text', 'tick_location', '打卡点名字', "打卡点名字"],
                 ['text', 'tick_area', '打卡范围m', "打卡范围m"],
+                ['select', 'show_to_role_id', '展示给谁', '全部展示', $family_role, '0'],
+
+
             ])
             ->fetch();
     }
@@ -361,7 +385,9 @@ class StudyWeekly extends Admin
                 "tick_area" => $data["tick_area"],
                 "attach_type" => $data["attach_type"],
                 "attach_url" => $data["attach_url"],
-                "show_to" => $data["show_to"],
+                'show_to_role_id' => $data['show_to_role_id'],
+
+//                "show_to" => $data["show_to"],
             ];
             $study_input = [
                 "area_id" => $data["area_id"],
@@ -375,28 +401,44 @@ class StudyWeekly extends Admin
                 "study_type" => $data["study_type"],
                 "study_id" => $data["id"],
             ];
-            $study = StudyModel::where("study_type", $data["study_type"])
-                ->where("study_id", $data["id"])
-                ->find();
-            if ($study) {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->where("study_id", $data["id"])
-                    ->update($study_input);
-            } else {
-                StudyModel::where("study_type", $data["study_type"])
-                    ->insert($study_input);
+
+
+            $grades = $data['grades'];
+            unset($data['grades']);
+            $scount = StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->count();
+            if (isset($data['only_today']) && $data['only_today'] == 'on') {
+                if ($scount != count($grades)) {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->delete()) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                    foreach ($grades as $grade) {
+                        $study_input['grade'] = $grade;
+                        if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
+                            Db::rollback();
+                            $this->error('编辑失败');
+                            return;
+                        }
+                    }
+                } else {
+                    if (false === StudyModel::where('study_type', $data['study_type'])->where('study_id', $data['id'])->update($study_input)) {
+                        Db::rollback();
+                        $this->error('编辑失败');
+                        return;
+                    }
+                }
             }
-            if (StudyWeeklyModel::where("id", $data["id"])
-                ->update($weekly_input)) {
-                $user = StudyWeeklyModel::get($data['id']);
-                Db::commit();
-                // 记录行为
-                action_log('user_edit', 'user', $id, UID);
-                $this->success('编辑成功');
-            } else {
+            if (false === StudyWeeklyModel::where('id', $data['id'])->update($weekly_input)) {
                 Db::rollback();
                 $this->error('编辑失败');
+                return;
             }
+            Db::commit();
+            action_log('user_edit', 'user', $id, UID);
+            $this->success('编辑成功');
+
+
         }
 
         // 获取数据
@@ -432,11 +474,18 @@ class StudyWeekly extends Admin
         $info["special_tag"] = null;
         $info["common_tag"] = null;
 
+        $family_role = FamilyRoleModel::column('id,name');
+        $family_role[0] = '全部展示';
+
+        $grade = SchoolGradeModel::column('id,name');
+        $ids = StudyModel::where('study_type', 'weekly')->where('study_id', $id)->column('grade');
+
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'grade', '年级', 'number'],
+                ['switch', 'only_today', '本课程仅可以在如下年级和时间展示，并删除本课程在其他日期的展示'],
+                ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
@@ -456,7 +505,7 @@ class StudyWeekly extends Admin
                 ['datetime', 'end_date', '结束日期'],
                 ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
                 ['file', 'attach_url', '附件类型'],
-                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
+//                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
 
                 ['text', 'tick_need', '需要打卡几次', "需要打卡几次"],
                 ['select', 'tick_mode', '打卡模式', "打卡模式", ['default' => "未选择", 'daily' => "每日打卡", 'weekly' => "每周打卡", 'monthy' => "每月打卡"]],
@@ -466,6 +515,8 @@ class StudyWeekly extends Admin
                 ['text', 'tick_x', '打卡X轴', "打卡X轴"],
                 ['text', 'tick_location', '打卡点名字', "打卡点名字"],
                 ['text', 'tick_area', '打卡范围m', "打卡范围m"],
+                ['select', 'show_to_role_id', '展示给谁', '', $family_role],
+
             ]);
 
         return $data

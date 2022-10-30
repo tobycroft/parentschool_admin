@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "topthink/framework": "5.1.*",
         "topthink/think-captcha": "^2.0",
         "topthink/think-image": "^1.0",

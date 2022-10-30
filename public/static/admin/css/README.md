@@ -1,4 +1,4 @@
-DThinkPHP
+DThinkphp
 ===============
 
 # 系统样式目录

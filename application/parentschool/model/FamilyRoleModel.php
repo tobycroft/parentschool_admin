@@ -3,6 +3,9 @@
 
 namespace app\parentschool\model;
 
+
+use think\Model;
+
 /**
  * 后台用户模型
  * @package app\admin\model

@@ -224,7 +224,7 @@ class Ajax extends Common
         }
         $Aoss = new Aoss(config("upload_prefix"), "complete");
         $md5_data = $Aoss->md5($md5);
-        if (empty($md5_data->error)) {
+        if ($md5_data->isSuccess()) {
             $file_info = [
                 'uid' => session('user_auth.uid'),
                 'name' => $md5_data->name,

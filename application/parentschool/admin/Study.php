@@ -37,43 +37,67 @@ class Study extends Admin
         $order = $this->getOrder("show_date desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyModel::where($map)
+        $data_list = StudyModel::alias("b")
+            ->where($map)
+            ->leftJoin(" (
+	SELECT
+		id as study_id,
+		\"daily\" AS study_type,
+		title,
+		slogan
+	FROM
+		ps_study_daily UNION
+	SELECT
+		id as study_id,
+		\"weekly\" AS study_type,
+		title,
+		slogan
+	FROM
+		ps_study_weekly UNION
+	SELECT
+		id as study_id,
+		\"monthy\" AS study_type,
+		title,
+		slogan
+	FROM
+		ps_study_monthy
+	) AS e", "b.study_id = e.study_id and b.study_type = e.study_type")
             ->order($order)
             ->paginate()
             ->each(function ($item, $key) {
-                switch ($item["study_type"]) {
-                    case "daily":
-                        if ($data = StudyDailyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-                    case "weekly":
-                        if ($data = StudyWeeklyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-                    case "monthy":
-                        if ($data = StudyMonthyModel::where("id", $item["study_id"])
-                            ->find()) {
-                            $item["title"] = $data["title"];
-                            $item["slogan"] = $data["slogan"];
-                        } else {
-                            $item["title"] = "未找到课程";
-                            $item["slogan"] = "未找到对应课程";
-                        }
-                        return $item;
-
-                }
+//                switch ($item["study_type"]) {
+//                    case "daily":
+//                        if ($data = StudyDailyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//                    case "weekly":
+//                        if ($data = StudyWeeklyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//                    case "monthy":
+//                        if ($data = StudyMonthyModel::where("id", $item["study_id"])
+//                            ->find()) {
+//                            $item["title"] = $data["title"];
+//                            $item["slogan"] = $data["slogan"];
+//                        } else {
+//                            $item["title"] = "未找到课程";
+//                            $item["slogan"] = "未找到对应课程";
+//                        }
+//                        return $item;
+//
+//                }
             });
         $page = $data_list->render();
 
@@ -88,7 +112,7 @@ class Study extends Admin
                 ['datetime', 'show_date', '展示日期'],
             ])
             ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
+            ->setSearch(['b.id' => 'ID', "title" => "标题", 'slogan' => 'slogan']) // 设置搜索参数
             ->addOrder('show_date,push_date,end_date,id')
             ->addFilter(['study_type' => "ps_study"])
             ->addColumns([
@@ -142,14 +166,24 @@ class Study extends Admin
                     }
                 }
             }
-            if ($user = StudyModel::create($data)) {
-                Hook::listen('user_add', $user);
-                // 记录行为
-                action_log('user_add', 'admin_user', $user['id'], UID);
-                $this->success('新增成功', url('index'));
-            } else {
-                $this->error('新增失败');
+            $grades = $data['grades'];
+            unset($data['grades']);
+            Db::startTrans();
+            if ($grades) {
+                foreach ($grades as $grade) {
+                    $data["grade"] = $grade;
+                    if (!$user = StudyModel::create($data)) {
+                        Hook::listen('user_add', $user);
+                        // 记录行为
+                        action_log('user_add', 'admin_user', $user['id'], UID);
+                        Db::rollback();
+                        $this->error('新增失败');
+                        return;
+                    }
+                }
             }
+            Db::commit();
+            $this->success('新增成功', url('index'));
         }
 
         // 角色列表
@@ -159,17 +193,17 @@ class Study extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $daily = StudyDailyModel::column("id,title");
+        $daily = StudyDailyModel::order("id desc")->column("id,title");
         foreach ($daily as $key => $item) {
             $item .= "-每日";
             $daily[$key] = $item;
         }
-        $weekly = StudyWeeklyModel::column("id,title");
+        $weekly = StudyWeeklyModel::order('id desc')->column("id,title");
         foreach ($weekly as $key => $item) {
             $item .= "-每周";
             $weekly[$key] = $item;
         }
-        $monthy = StudyMonthyModel::column("id,title");
+        $monthy = StudyMonthyModel::order('id desc')->column("id,title");
         foreach ($monthy as $key => $item) {
             $item .= "-每月";
             $monthy[$key] = $item;
@@ -185,13 +219,15 @@ class Study extends Admin
         $grade = SchoolGradeModel::column("id,name");
         $class = SchoolClassModel::column("id,name");
 
-        // 使用ZBuilder快速创建表单
+// 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', 'area_id', '对应区域', "", $area],
                 ['select', 'school_id', '学校id', "", $school_id],
-                ['select', 'grade', '年级', "", $grade],
+//                ['select', 'grade', '年级', "", $grade],
+                ['checkbox', 'grades', '年级', '', $grade],
+
 //                ['select', 'class', '班级', "", $class],
                 ['switch', 'can_push', '是否可以推送'],
                 ['switch', 'can_show', '是否可以推送'],
@@ -213,7 +249,8 @@ class Study extends Admin
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function edit($id = null)
+    public
+    function edit($id = null)
     {
         if ($id === null)
             $this->error('缺少参数');
@@ -251,26 +288,35 @@ class Study extends Admin
 
         // 使用ZBuilder快速创建表单
 
-        $daily = StudyDailyModel::column("id,title");
-        foreach ($daily as $key => $item) {
-            $item .= "-每日";
-            $daily[$key] = $item;
+        switch ($info['study_type']) {
+            case "daily":
+                $daily = StudyDailyModel::order('id desc')->column('id,title');
+                foreach ($daily as $key => $item) {
+                    $item .= '-每日';
+                    $daily[$key] = $item;
+                }
+                $groups = ["每日一课" => $daily];
+                break;
+
+            case "weekly":
+                $weekly = StudyWeeklyModel::order('id desc')->column('id,title');
+                foreach ($weekly as $key => $item) {
+                    $item .= '-每周';
+                    $weekly[$key] = $item;
+                }
+                $groups = ['每周一做' => $weekly];
+                break;
+
+            case "monthy":
+                $monthy = StudyMonthyModel::order('id desc')->column('id,title');
+                foreach ($monthy as $key => $item) {
+                    $item .= '-每月';
+                    $monthy[$key] = $item;
+                }
+                $groups = ['每月一课' => $monthy];
+                break;
         }
-        $weekly = StudyWeeklyModel::column("id,title");
-        foreach ($daily as $key => $item) {
-            $item .= "-每周";
-            $weekly[$key] = $item;
-        }
-        $monthy = StudyMonthyModel::column("id,title");
-        foreach ($daily as $key => $item) {
-            $item .= "-每月";
-            $monthy[$key] = $item;
-        }
-        $groups = [
-            "每日一课" => $daily,
-            "每周一做" => $weekly,
-            "每月一课" => $monthy,
-        ];
+
 
         $area = SchoolAreaModel::column("id,name");
         $school_id = SchoolModel::column("id,name");
@@ -311,7 +357,8 @@ class Study extends Admin
      * @throws \think\exception\DbException
      * @throws \think\exception\PDOException
      */
-    public function access($module = '', $uid = 0, $tab = '')
+    public
+    function access($module = '', $uid = 0, $tab = '')
     {
         if ($uid === 0)
             $this->error('缺少参数');
@@ -509,7 +556,8 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function delete($ids = [])
+    public
+    function delete($ids = [])
     {
         Hook::listen('user_delete', $ids);
         action_log('user_delete', 'user', $ids, UID);
@@ -523,7 +571,8 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function setStatus($type = '', $record = [])
+    public
+    function setStatus($type = '', $record = [])
     {
         $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
         $ids = (array)$ids;
@@ -563,7 +612,8 @@ class Study extends Admin
      * @param array $user_access 用户授权信息
      * @return string
      */
-    private function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
+    private
+    function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
     {
         $result = '';
         if (!empty($nodes)) {
@@ -592,7 +642,8 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function enable($ids = [])
+    public
+    function enable($ids = [])
     {
         Hook::listen('user_enable', $ids);
         return $this->setStatus('enable');
@@ -604,14 +655,16 @@ class Study extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function disable($ids = [])
+    public
+    function disable($ids = [])
     {
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
 
 
-    public function quickEdit($record = [])
+    public
+    function quickEdit($record = [])
     {
         $field = input('post.name', '');
         $value = input('post.value', '');
