@@ -5,7 +5,9 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\ParentModel;
 use app\parentschool\model\RateThreadModel;
+use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -32,7 +34,14 @@ class RateThread extends Admin
         // 读取用户数据
         $data_list = RateThreadModel::where($map)
             ->order($order)
-            ->paginate();
+            ->paginate()->each(function ($item) {
+                $userinfo = ParentModel::where("id", $item["uid"])->find();
+                $item["wx_name"] = $userinfo["wx_name"];
+                $stu = StudentModel::where("id", $item["student_id"])->find();
+                $item["name"] = $stu["name"];
+                return $item;
+
+            });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 //
