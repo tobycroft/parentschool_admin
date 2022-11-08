@@ -59,7 +59,10 @@ class RateThread extends Admin
             ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearchArea([['select', 'school_id', '学校id', '', '', $school], ['text', 'year', '入学年份'], ['text', 'grade', '年级'], ['text', 'class', '班级'],])
+            ->setSearchArea([['select', 'study_type', '学习类型', '', '', ["daily" => "每日", "weekly" => "周", "monthy" => "月"]],
+                ['text', 'year', '入学年份'],
+                ['text', 'grade', '年级'],
+                ['text', 'class', '班级'],])
             ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
