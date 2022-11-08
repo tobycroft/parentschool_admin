@@ -42,7 +42,7 @@ class RateThread extends Admin
                 $stu = StudentModel::where("id", $item["student_id"])->find();
                 $item["name"] = $stu["name"];
                 $fm = FamilyMemberModel::where("uid", $item["uid"])->where("student_id", $item["Student_id"])->find();
-                $role = FamilyRoleModel::where("id", $fm["family_role_id"]->value("name");
+                $role = FamilyRoleModel::where("id", $fm["family_role_id"])->value("name");
                 $item["role"] = $role;
                 return $item;
 
