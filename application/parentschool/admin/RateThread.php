@@ -5,6 +5,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyMemberModel;
+use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\ParentModel;
 use app\parentschool\model\RateThreadModel;
 use app\parentschool\model\StudentModel;
@@ -39,6 +41,9 @@ class RateThread extends Admin
                 $item["wx_name"] = $userinfo["wx_name"];
                 $stu = StudentModel::where("id", $item["student_id"])->find();
                 $item["name"] = $stu["name"];
+                $fm = FamilyMemberModel::where("uid", $item["uid"])->where("student_id", $item["Student_id"])->find();
+                $role = FamilyRoleModel::where("id", $fm["family_role_id"]->value("name");
+                $item["role"] = $role;
                 return $item;
 
             });
@@ -58,7 +63,10 @@ class RateThread extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('type', '评价课程类型', "select", \Study\Type::get_type())
-            ->addColumn('uid', '家长id', 'number')
+            ->addColumn('wx_name', '家长名称', 'text')
+            ->addColumn('name', '学生姓名', 'text')
+            ->addColumn('relation', '学生姓名', 'text')
+            ->addColumn('role', '关系', 'text')
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('score', '评分', 'number')
             ->addColumn('content', '评价内容', 'text.edit')
