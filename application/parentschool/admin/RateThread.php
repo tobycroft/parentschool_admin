@@ -65,7 +65,6 @@ class RateThread extends Admin
             ->addColumn('type', '评价课程类型', "select", \Study\Type::get_type())
             ->addColumn('wx_name', '家长名称', 'text')
             ->addColumn('name', '学生姓名', 'text')
-            ->addColumn('relation', '学生姓名', 'text')
             ->addColumn('role', '关系', 'text')
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('score', '评分', 'number')
