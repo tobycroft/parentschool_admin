@@ -61,7 +61,7 @@ class RateThread extends Admin
             ->setPageTitle('列表')
             ->setSearchArea([['select', 'study_type', '学习类型', '', '', ["daily" => "每日", "weekly" => "周", "monthy" => "月"]],
                 ['text', 'year', '入学年份'],
-                ['text', 'grade', '年级'],
+//                ['text', 'grade', '年级'],
                 ['text', 'class', '班级'],])
             ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
             ->addOrder('id')
