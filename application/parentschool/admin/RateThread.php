@@ -37,7 +37,7 @@ class RateThread extends Admin
         $data_list = RateThreadModel::where($map)
             ->order($order)
             ->paginate()->each(function ($item) {
-                $userinfo = ParentModel::where("id", $item["uid"])->find();
+                $userinfo = ParentModel::alias("a")->leftJoin(['ps_student' => "b"], "b.id=a.student_id")->where("a.id", $item["uid"])->find();
                 $item["wx_name"] = $userinfo["wx_name"];
                 $stu = StudentModel::where("id", $item["student_id"])->find();
                 $item["name"] = $stu["name"];
@@ -59,6 +59,7 @@ class RateThread extends Admin
             ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
+            ->setSearchArea([['select', 'school_id', '学校id', '', '', $school], ['text', 'year', '入学年份'], ['text', 'grade', '年级'], ['text', 'class', '班级'],])
             ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
