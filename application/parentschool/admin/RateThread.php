@@ -34,10 +34,10 @@ class RateThread extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = RateThreadModel::where($map)
+        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where($map)
             ->order($order)
             ->paginate()->each(function ($item) {
-                $userinfo = ParentModel::alias("a")->leftJoin(['ps_student' => "b"], "b.id=a.student_id")->where("a.id", $item["uid"])->find();
+                $userinfo = ParentModel::where("a.id", $item["uid"])->find();
                 $item["wx_name"] = $userinfo["wx_name"];
                 $stu = StudentModel::where("id", $item["student_id"])->find();
                 $item["name"] = $stu["name"];
