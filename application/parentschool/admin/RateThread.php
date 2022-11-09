@@ -9,6 +9,7 @@ use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\ParentModel;
 use app\parentschool\model\RateThreadModel;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -54,12 +55,15 @@ class RateThread extends Admin
             ->count();
         $num2 = RateThreadModel::count();
 
+        $school = SchoolModel::column("id,name");
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
             ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearchArea([['select', 'type', '学习类型', '', '', ["daily" => "每日", "weekly" => "周", "monthy" => "月"]],
+                ['select', 'school_id', "学校", '', '', $school],
                 ['text', 'year', '入学年份'],
 //                ['text', 'grade', '年级'],
                 ['text', 'class', '班级'],])
