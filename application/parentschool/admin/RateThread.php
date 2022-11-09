@@ -37,6 +37,7 @@ class RateThread extends Admin
         // 读取用户数据
         $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where($map)
             ->order($order)
+            ->field("b.*,a.*")
             ->paginate()->each(function ($item) {
                 $userinfo = ParentModel::where("id", $item["uid"])->find();
                 $item["wx_name"] = $userinfo["wx_name"];
