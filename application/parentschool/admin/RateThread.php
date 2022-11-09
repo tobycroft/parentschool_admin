@@ -73,7 +73,7 @@ class RateThread extends Admin
 //                ['text', 'grade', '年级'],
                 ['text', 'class', '班级'],])
             ->setSearch(['question_id' => '问题ID']) // 设置搜索参数
-            ->addOrder('id')
+            ->addOrder('a.id')
             ->addColumn('id', 'ID')
             ->addColumn('type', '评价课程类型', "select", \Study\Type::get_type())
             ->addColumn('cname', '家长名称', 'text')
