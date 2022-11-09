@@ -48,7 +48,7 @@ class RateThread extends Admin
                 $item["cname"] = $item["name"] . "的" . $item['role'] . $item["wx_name"];
                 $now_time = strtotime('-8 month');
                 $now_year = date('Y', $now_time);
-                $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class_id'] . '班';
+                $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class'] . '班';
 
                 return $item;
 
