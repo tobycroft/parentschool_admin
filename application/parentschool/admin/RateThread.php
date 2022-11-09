@@ -45,6 +45,7 @@ class RateThread extends Admin
                 $fm = FamilyMemberModel::where("uid", $item["uid"])->where("student_id", $item["student_id"])->find();
                 $role = FamilyRoleModel::where("id", $fm["family_role_id"])->value("name");
                 $item["role"] = $role;
+                $item["cname"] = $item["name"] . "的" . $item['role'] . $item["wx_name"];
                 return $item;
 
             });
@@ -71,14 +72,14 @@ class RateThread extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('type', '评价课程类型', "select", \Study\Type::get_type())
-            ->addColumn('wx_name', '家长名称', 'text')
-            ->addColumn('name', '学生姓名', 'text')
-            ->addColumn('role', '关系', 'text')
+            ->addColumn('cname', '家长名称', 'text')
+//            ->addColumn('name', '学生姓名', 'text')
+//            ->addColumn('role', '关系', 'text')
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('score', '评分', 'number')
             ->addColumn('content', '评价内容', 'text.edit')
-            ->addColumn('img0', '评价图片', 'picture')
-            ->addColumn('img1', '评价图片', 'picture')
+//            ->addColumn('img0', '评价图片', 'picture')
+//            ->addColumn('img1', '评价图片', 'picture')
 //            ->addColumn('share', '分享', 'number')
 //            ->addColumn('like', '点赞数', 'number')
 //            ->addColumn('comment', '评论', 'number')
