@@ -32,7 +32,7 @@ class RateThread extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("a.date desc");
+        $order = $this->getOrder("a.id desc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where($map)
