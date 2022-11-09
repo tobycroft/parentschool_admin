@@ -46,6 +46,10 @@ class RateThread extends Admin
                 $role = FamilyRoleModel::where("id", $fm["family_role_id"])->value("name");
                 $item["role"] = $role;
                 $item["cname"] = $item["name"] . "的" . $item['role'] . $item["wx_name"];
+                $now_time = strtotime('-8 month');
+                $now_year = date('Y', $now_time);
+                $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class_id'] . '班';
+
                 return $item;
 
             });
@@ -73,6 +77,7 @@ class RateThread extends Admin
             ->addColumn('id', 'ID')
             ->addColumn('type', '评价课程类型', "select", \Study\Type::get_type())
             ->addColumn('cname', '家长名称', 'text')
+            ->addColumn('gc', '班级', 'text')
 //            ->addColumn('name', '学生姓名', 'text')
 //            ->addColumn('role', '关系', 'text')
             ->addColumn('study_id', '课程id', 'number')
