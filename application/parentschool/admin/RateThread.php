@@ -212,17 +212,9 @@ class RateThread extends Admin
                 ['image', 'img0', '图片', ''],
                 ['image', 'img1', '图片', ''],
             ]);
-        $imgs = json_decode($info["imgs"], 1);
-        if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-                $data->addFormItems([
-                    ['image', 'img', '图片', '', $img],
-                ]);
-            }
-        }
         return $data
             ->setFormData($info) // 设置表单数据
-            ->fetch();;
+            ->fetch();
     }
 
 
