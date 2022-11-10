@@ -5,7 +5,11 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\FamilyMemberModel;
+use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\NoteModel;
+use app\parentschool\model\ParentModel;
+use app\parentschool\model\StudentModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyMonthyModel;
@@ -37,6 +41,21 @@ class Note extends Admin
         $data_list = NoteModel::where($map)
             ->order($order)
             ->paginate()->each(function ($item) {
+                $userinfo = ParentModel::where('id', $item['uid'])->find();
+                $item['wx_name'] = $userinfo['wx_name'];
+                $stu = StudentModel::where('id', $item['student_id'])->find();
+                if ($stu) {
+                    $item['name'] = $stu['name'];
+                }
+                $fm = FamilyMemberModel::where('uid', $item['uid'])->where('student_id', $item['student_id'])->find();
+                if ($fm) {
+                    $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
+                    $item['role'] = $role;
+                }
+                $item['cname'] = $item['name'] . '的' . $item['role'] . $item['wx_name'];
+                $now_time = strtotime('-8 month');
+                $now_year = date('Y', $now_time);
+                $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class'] . '班';
                 $study = StudyModel::where('id', $item['study_id'])->find();
                 switch ($study['study_type']) {
                     case 'daily':
