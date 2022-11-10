@@ -48,8 +48,10 @@ class RateThread extends Admin
                 $stu = StudentModel::where("id", $item["student_id"])->find();
                 $item["name"] = $stu["name"];
                 $fm = FamilyMemberModel::where("uid", $item["uid"])->where("student_id", $item["student_id"])->find();
-                $role = FamilyRoleModel::where("id", $fm["family_role_id"])->value("name");
-                $item["role"] = $role;
+                if ($fm) {
+                    $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
+                    $item['role'] = $role;
+                }
                 $item["cname"] = $item["name"] . "的" . $item['role'] . $item["wx_name"];
                 $now_time = strtotime('-8 month');
                 $now_year = date('Y', $now_time);
