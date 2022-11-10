@@ -25,7 +25,7 @@ use util\Tree;
  * 用户默认控制器
  * @package app\user\admin
  */
-class RateThread extends Admin
+class RateThread2 extends Admin
 {
     /**
      * 用户首页
@@ -39,7 +39,7 @@ class RateThread extends Admin
         $order = $this->getOrder("a.id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')
+        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where($map)->where("content", "<>", "")->where("img0", "<>", "null")
             ->order($order)
             ->field("b.*,a.*")
             ->paginate()->each(function ($item) {
