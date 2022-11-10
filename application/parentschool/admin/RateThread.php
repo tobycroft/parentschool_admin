@@ -57,13 +57,13 @@ class RateThread extends Admin
                 $study = StudyModel::where("id", $item["study_id"])->find();
                 switch ($study["study_type"]) {
                     case "daily":
-                        $item['study_title'] = StudyDailyModel::where("id", $item["study_id"])->value("title");
+                        $item['study_title'] = StudyDailyModel::where("id", $study["study_id"])->value("title");
                         break;
                     case "weekly":
-                        $item['study_title'] = StudyWeeklyModel::where("id", $item["study_id"])->value("title");
+                        $item['study_title'] = StudyWeeklyModel::where("id", $study["study_id"])->value("title");
                         break;
                     case "monthy":
-                        $item['study_title'] = StudyMonthyModel::where("id", $item["study_id"])->value("title");
+                        $item['study_title'] = StudyMonthyModel::where("id", $study["study_id"])->value("title");
                         break;
                 }
 
