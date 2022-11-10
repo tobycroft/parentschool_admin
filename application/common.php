@@ -75,10 +75,11 @@ if (!function_exists('get_file_path')) {
     {
         $path = model('admin/attachment')->getFilePath($id);
         if (!$path) {
+
+            return config('public_static_path') . 'admin/img/none.png';
             if (!empty($id)) {
                 return $id;
             }
-            return config('public_static_path') . 'admin/img/none.png';
         }
         return $path;
     }
