@@ -88,6 +88,8 @@ class Note extends Admin
             ->addColumn('type', '课程类型')
             ->addColumn('study_id', '课程id', 'number')
             ->addColumn('study_title', '课程',)
+            ->addColumn('cname', '家长名称', 'text')
+            ->addColumn('gc', '班级', 'text')
             ->addColumn('uid', '家长id', 'number')
             ->addColumn('content', '内容', 'textarea.edit')
             ->addColumn('change_date', '修改时间')
