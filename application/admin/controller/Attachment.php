@@ -138,7 +138,7 @@ class Attachment extends Admin
         $file = $this->request->file($file_input_name);
         $file_name = $file->getInfo('name');
 
-        $Aoss = new Aoss(config("upload_prefix"), "complete");
+        $Aoss = new Aoss(config('upload_prefix'), 'complete');
         $md5_data = $Aoss->md5($file->hash('md5'));
         if ($md5_data->isSuccess()) {
             if ($file_exists = AttachmentModel::get(['md5' => $file->hash('md5')])) {
@@ -160,7 +160,7 @@ class Attachment extends Admin
         if ($file->getMime() == 'text/x-php' || $file->getMime() == 'text/html') {
             $error_msg = '禁止上传非法文件！';
         }
-        if (preg_grep("/php/i", $ext_limit)) {
+        if (preg_grep('/php/i', $ext_limit)) {
             $error_msg = '禁止上传非法文件！';
         }
         if (!preg_grep("/$file_ext/i", $ext_limit)) {
@@ -276,7 +276,7 @@ class Attachment extends Admin
     {
         $action = $this->request->get('action');
         $config_file = './static/libs/ueditor/php/config.json';
-        $config = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents($config_file)), true);
+        $config = json_decode(preg_replace('/\/\*[\s\S]+?\*\//', '', file_get_contents($config_file)), true);
         switch ($action) {
             /* 获取配置信息 */
             case 'config':
@@ -323,9 +323,9 @@ class Attachment extends Admin
         }
 
         /* 输出结果 */
-        if (isset($_GET["callback"])) {
-            if (preg_match("/^[\w_]+$/", $_GET["callback"])) {
-                return htmlspecialchars($_GET["callback"]) . '(' . $result . ')';
+        if (isset($_GET['callback'])) {
+            if (preg_match('/^[\w_]+$/', $_GET['callback'])) {
+                return htmlspecialchars($_GET['callback']) . '(' . $result . ')';
             } else {
                 return json(['state' => 'callback参数不合法']);
             }
@@ -374,9 +374,9 @@ class Attachment extends Admin
         if ($file_add = AttachmentModel::create($file_info)) {
             // 返回成功信息
             return json([
-                "state" => "SUCCESS", // 上传状态，上传成功时必须返回"SUCCESS"
-                "url" => PUBLIC_PATH . $file_info['path'], // 返回的地址
-                "title" => $file_info['name'], // 附件名
+                'state' => 'SUCCESS', // 上传状态，上传成功时必须返回"SUCCESS"
+                'url' => PUBLIC_PATH . $file_info['path'], // 返回的地址
+                'title' => $file_info['name'], // 附件名
             ]);
         } else {
             return json(['state' => '涂鸦上传出错']);
@@ -407,7 +407,7 @@ class Attachment extends Admin
                 $listSize = $config['imageManagerListSize'];
                 $path = realpath(config('upload_path') . '/images/');
         }
-        $allowFiles = substr(str_replace(".", "|", join("", $allowFiles)), 1);
+        $allowFiles = substr(str_replace('.', '|', join('', $allowFiles)), 1);
 
         /* 获取参数 */
         $size = isset($_GET['size']) ? htmlspecialchars($_GET['size']) : $listSize;
@@ -418,10 +418,10 @@ class Attachment extends Admin
         $files = $this->getfiles($path, $allowFiles);
         if (!count($files)) {
             return json(array(
-                "state" => "no match file",
-                "list" => array(),
-                "start" => $start,
-                "total" => count($files),
+                'state' => 'no match file',
+                'list' => array(),
+                'start' => $start,
+                'total' => count($files),
             ));
         }
 
@@ -437,10 +437,10 @@ class Attachment extends Admin
 
         /* 返回数据 */
         $result = array(
-            "state" => "SUCCESS",
-            "list" => $list,
-            "start" => $start,
-            "total" => count($files),
+            'state' => 'SUCCESS',
+            'list' => $list,
+            'start' => $start,
+            'total' => count($files),
         );
 
         return json($result);
@@ -478,7 +478,7 @@ class Attachment extends Admin
             if ($file->getMime() == 'text/x-php' || $file->getMime() == 'text/html') {
                 $this->error('禁止上传非法文件！');
             }
-            if (preg_grep("/php/i", $ext_limit)) {
+            if (preg_grep('/php/i', $ext_limit)) {
                 $this->error('禁止上传非法文件！');
             }
             if (!preg_grep("/$file_ext/i", $ext_limit)) {
@@ -646,18 +646,18 @@ class Attachment extends Admin
                 break;
             case 'ueditor':
                 return json([
-                    "state" => "SUCCESS", // 上传状态，上传成功时必须返回"SUCCESS"
-                    "url" => $file_path, // 返回的地址
-                    "title" => $file_name, // 附件名
-                    "data" => $data,
+                    'state' => 'SUCCESS', // 上传状态，上传成功时必须返回"SUCCESS"
+                    'url' => $file_path, // 返回的地址
+                    'title' => $file_name, // 附件名
+                    'data' => $data,
                 ]);
                 break;
             case 'editormd':
                 return json([
-                    "success" => 1,
-                    "message" => '上传成功',
-                    "url" => $file_path,
-                    "data" => $data,
+                    'success' => 1,
+                    'message' => '上传成功',
+                    'url' => $file_path,
+                    'data' => $data,
                 ]);
                 break;
             case 'ckeditor':
@@ -670,7 +670,7 @@ class Attachment extends Admin
                     'class' => 'success',
                     'id' => $file_path,
                     'path' => $file_path,
-                    "data" => $data,
+                    'data' => $data,
                 ]);
         }
     }
@@ -687,13 +687,13 @@ class Attachment extends Admin
     {
         switch ($from) {
             case 'wangeditor':
-                return "error|" . $msg;
+                return 'error|' . $msg;
                 break;
             case 'ueditor':
                 return json(['state' => $msg]);
                 break;
             case 'editormd':
-                return json(["success" => 0, "message" => $msg]);
+                return json(['success' => 0, 'message' => $msg]);
                 break;
             case 'ckeditor':
                 return ck_js($callback, '', $msg);
@@ -732,9 +732,9 @@ class Attachment extends Admin
                 if (is_dir($path2)) {
                     $this->getfiles($path2, $allowFiles, $files);
                 } else {
-                    if (preg_match("/\.(" . $allowFiles . ")$/i", $file)) {
+                    if (preg_match('/\.(' . $allowFiles . ')$/i', $file)) {
                         $files[] = array(
-                            'url' => str_replace("\\", "/", substr($path2, strlen($_SERVER['DOCUMENT_ROOT']))),
+                            'url' => str_replace("\\", '/', substr($path2, strlen($_SERVER['DOCUMENT_ROOT']))),
                             'mtime' => filemtime($path2),
                         );
                     }
