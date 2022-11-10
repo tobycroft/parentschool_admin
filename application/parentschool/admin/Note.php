@@ -49,6 +49,7 @@ class Note extends Admin
                         $item['study_title'] = StudyMonthyModel::where('id', $study['study_id'])->value('title');
                         break;
                 }
+                return $item;
             });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
