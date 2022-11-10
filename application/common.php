@@ -104,7 +104,7 @@ if (!function_exists('get_thumb')) {
     {
         $path = model('admin/attachment')->getThumbPath($id);
         if (!$path) {
-            return config('public_static_path') . 'admin/img/none.png';
+            return $id;
         }
         return $path;
     }
