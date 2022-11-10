@@ -11,6 +11,10 @@ use app\parentschool\model\ParentModel;
 use app\parentschool\model\RateThreadModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
+use app\parentschool\model\StudyDailyModel;
+use app\parentschool\model\StudyModel;
+use app\parentschool\model\StudyMonthyModel;
+use app\parentschool\model\StudyWeeklyModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -50,6 +54,18 @@ class RateThread extends Admin
                 $now_time = strtotime('-8 month');
                 $now_year = date('Y', $now_time);
                 $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class'] . '班';
+                $study = StudyModel::where("id", $item["study_id"])->find();
+                switch ($study["study_type"]) {
+                    case "daily":
+                        $item['study_title'] = StudyDailyModel::where("id", $item["study_id"])->value("title");
+                        break;
+                    case "weekly":
+                        $item['study_title'] = StudyWeeklyModel::where("id", $item["study_id"])->value("title");
+                        break;
+                    case "monthy":
+                        $item['study_title'] = StudyMonthyModel::where("id", $item["study_id"])->value("title");
+                        break;
+                }
 
                 return $item;
 
@@ -81,7 +97,8 @@ class RateThread extends Admin
             ->addColumn('gc', '班级', 'text')
 //            ->addColumn('name', '学生姓名', 'text')
 //            ->addColumn('role', '关系', 'text')
-            ->addColumn('study_id', '课程id', 'number')
+//            ->addColumn('study_id', '课程id', 'number')
+            ->addColumn('study_title', '课程', 'number')
             ->addColumn('score', '评分', 'number')
             ->addColumn('content', '评价内容', 'text.edit')
             ->addColumn('img0', '评价图片', 'picture')
