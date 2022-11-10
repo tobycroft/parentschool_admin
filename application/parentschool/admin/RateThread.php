@@ -98,7 +98,7 @@ class RateThread extends Admin
 //            ->addColumn('name', '学生姓名', 'text')
 //            ->addColumn('role', '关系', 'text')
 //            ->addColumn('study_id', '课程id', 'number')
-            ->addColumn('study_title', '课程', 'number')
+            ->addColumn('study_title', '课程')
             ->addColumn('score', '评分', 'number')
             ->addColumn('content', '评价内容', 'text.edit')
             ->addColumn('img0', '评价图片', 'picture')
