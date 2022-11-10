@@ -29,7 +29,9 @@ class Attachment extends Model
     public function getFilePath($id = '', $type = 0)
     {
         if (is_array($id)) {
-            $data_list = $this->where('path', 'in', $id)->whereOr('id', 'in', $id)->select();
+            $data_list = $this->where('path', 'in', $id)
+                ->whereOr('id', 'in', $id)
+                ->select();
             $paths = [];
             foreach ($data_list as $key => $value) {
                 if ($value['driver'] == 'local') {
@@ -40,7 +42,9 @@ class Attachment extends Model
             }
             return $paths;
         } else {
-            $data = $this->where('id', $id)->whereOr("path", $id)->find();
+            $data = $this->where('id', $id)
+                ->whereOr('path', $id)
+                ->find();
             if ($data) {
                 if ($data['driver'] == 'local') {
                     return ($type == 0 ? PUBLIC_PATH : '') . $data['path'];
@@ -63,7 +67,10 @@ class Attachment extends Model
      */
     public function getThumbPath($path = '')
     {
-        $result = $this->where('path', $path)->whereOr('id', $path)->field('path,driver,thumb')->find();
+        $result = $this->where('path', $path)
+            ->whereOr('id', $path)
+            ->field('path,driver,thumb')
+            ->find();
         if ($result) {
             if ($result['driver'] == 'local') {
                 return $result['thumb'] != '' ? PUBLIC_PATH . $result['thumb'] : PUBLIC_PATH . $result['path'];
@@ -82,12 +89,15 @@ class Attachment extends Model
      */
     public function getFileName($id = '')
     {
-        return $this->where('id', $id)->whereOr("path", $id)->value('name');
+        return $this->where('id', $id)
+            ->whereOr('path', $id)
+            ->value('name');
     }
 
     public function getFileMd5($path = '')
     {
-        return $this->where('path', $path)->value('md5');
+        return $this->where('path', $path)
+            ->value('md5');
     }
 
 
