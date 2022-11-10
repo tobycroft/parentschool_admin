@@ -46,6 +46,9 @@ class Note extends Admin
                 $stu = StudentModel::where('id', $item['student_id'])->find();
                 if ($stu) {
                     $item['name'] = $stu['name'];
+                    $item['year'] = $stu['year'];
+                    $item['grade'] = $stu['grade'];
+                    $item['class'] = $stu['class'];
                 }
                 $fm = FamilyMemberModel::where('uid', $item['uid'])->where('student_id', $item['student_id'])->find();
                 if ($fm) {
