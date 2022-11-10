@@ -54,7 +54,7 @@ class RateThread extends Admin
                     $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
                     $item['role'] = $role;
                 }
-                $item["cname"] = $item["name"] . "的" . $item['role'] . $item["wx_name"];
+                $item["cname"] = substr_replace($item['name'], '*', 1, 1) . "的" . $item['role'] . substr_replace($item['wx_name'], '*', 1, 1);
                 $now_time = strtotime('-8 month');
                 $now_year = date('Y', $now_time);
                 $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class'] . '班';
