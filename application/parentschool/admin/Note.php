@@ -6,6 +6,10 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\NoteModel;
+use app\parentschool\model\StudyDailyModel;
+use app\parentschool\model\StudyModel;
+use app\parentschool\model\StudyMonthyModel;
+use app\parentschool\model\StudyWeeklyModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -32,7 +36,20 @@ class Note extends Admin
         // 读取用户数据
         $data_list = NoteModel::where($map)
             ->order($order)
-            ->paginate();
+            ->paginate()->each(function ($item) {
+                $study = StudyModel::where('id', $item['study_id'])->find();
+                switch ($study['study_type']) {
+                    case 'daily':
+                        $item['study_title'] = StudyDailyModel::where('id', $study['study_id'])->value('title');
+                        break;
+                    case 'weekly':
+                        $item['study_title'] = StudyWeeklyModel::where('id', $study['study_id'])->value('title');
+                        break;
+                    case 'monthy':
+                        $item['study_title'] = StudyMonthyModel::where('id', $study['study_id'])->value('title');
+                        break;
+                }
+            });
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
@@ -50,6 +67,7 @@ class Note extends Admin
             ->addColumn('id', 'ID')
             ->addColumn('type', '课程类型')
             ->addColumn('study_id', '课程id', 'number')
+            ->addColumn('study_title', '课程',)
             ->addColumn('uid', '家长id', 'number')
             ->addColumn('content', '内容', 'textarea.edit')
             ->addColumn('change_date', '修改时间')
@@ -113,7 +131,10 @@ class Note extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容', ''],])
+                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
+                ['text', 'study_id', '课程id', '请确认务必存在'],
+                ['number', 'uid', '家长id', ''],
+                ['textarea', 'content', '内容', ''],])
             ->fetch();
     }
 
@@ -166,7 +187,11 @@ class Note extends Admin
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'], ['select', 'type', '课程类型', '', \Study\Type::get_type()], ['text', 'study_id', '课程id', '请确认务必存在'], ['number', 'uid', '家长id', ''], ['textarea', 'content', '内容'],]);
+                ['hidden', 'id'],
+                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
+                ['text', 'study_id', '课程id', '请确认务必存在'],
+                ['number', 'uid', '家长id', ''],
+                ['textarea', 'content', '内容'],]);
         return $data->setFormData($info) // 设置表单数据
         ->fetch();
     }
