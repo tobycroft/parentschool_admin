@@ -38,7 +38,8 @@ class Note extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = NoteModel::where($map)
+        $data_list = NoteModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')
+            ->where($map)
             ->order($order)
             ->paginate()->each(function ($item) {
                 $userinfo = ParentModel::where('id', $item['uid'])->find();
@@ -54,11 +55,11 @@ class Note extends Admin
                         $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
                         $item['role'] = $role;
                     }
-                $item['cname'] = substr_cut($item['name']) . '的' . $item['role'] . substr_cut($item['wx_name']);
-                $now_time = strtotime('-8 month');
-                $now_year = date('Y', $now_time);
-                $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class'] . '班';
-                $item['cname'] = $item['gc'] . $item['cname'];
+                    $item['cname'] = substr_cut($item['name']) . '的' . $item['role'] . substr_cut($item['wx_name']);
+                    $now_time = strtotime('-8 month');
+                    $now_year = date('Y', $now_time);
+                    $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class'] . '班';
+                    $item['cname'] = $item['gc'] . $item['cname'];
                 }
                 $study = StudyModel::where('id', $item['study_id'])->find();
                 switch ($study['study_type']) {
