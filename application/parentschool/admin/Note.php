@@ -85,7 +85,11 @@ class Note extends Admin
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
-            ->addTopButton("add")
+            ->setSearchArea([['select', 'type', '学习类型', '', '', ['daily' => '每日', 'weekly' => '周', 'monthy' => '月']],
+                ['select', 'school_id', '学校', '', '', $school],
+                ['text', 'year', '入学年份'],
+//                ['text', 'grade', '年级'],
+                ['text', 'class', '班级'],])->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
