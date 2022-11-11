@@ -49,11 +49,11 @@ class Note extends Admin
                     $item['year'] = $stu['year'];
                     $item['grade'] = $stu['grade'];
                     $item['class'] = $stu['class'];
-                }
-                $fm = FamilyMemberModel::where('uid', $item['uid'])->where('student_id', $item['student_id'])->find();
-                if ($fm) {
-                    $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
-                    $item['role'] = $role;
+                    $fm = FamilyMemberModel::where('uid', $item['uid'])->where('student_id', $item['student_id'])->find();
+                    if ($fm) {
+                        $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
+                        $item['role'] = $role;
+                    }
                 }
                 $item['cname'] = substr_cut($item['name']) . '的' . $item['role'] . substr_cut($item['wx_name']);
                 $now_time = strtotime('-8 month');
