@@ -9,6 +9,7 @@ use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\NoteModel;
 use app\parentschool\model\ParentModel;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
@@ -35,7 +36,7 @@ class Note extends Admin
     public function index()
     {
         // 获取排序
-        $order = $this->getOrder("id desc");
+        $order = $this->getOrder("a.id desc");
         $map = $this->getMap();
         // 读取用户数据
         $data_list = NoteModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')
@@ -81,6 +82,7 @@ class Note extends Admin
         $num1 = NoteModel::where("date", ">", $todaytime)
             ->count();
         $num2 = NoteModel::count();
+        $school = SchoolModel::column('id,name');
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -92,7 +94,7 @@ class Note extends Admin
                 ['text', 'class', '班级'],])->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
-            ->addOrder('id')
+            ->addOrder('a.id')
             ->addColumn('id', 'ID')
             ->addColumn('type', '课程类型')
 //            ->addColumn('study_id', '课程id', 'number')
