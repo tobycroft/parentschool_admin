@@ -413,6 +413,8 @@ class StudyWeekly extends Admin
                         $this->error('编辑失败');
                         return;
                     }
+                    var_dump($grades);
+                    exit();
                     foreach ($grades as $grade) {
                         $study_input['grade'] = $grade;
                         if (!StudyModel::where('study_type', $data['study_type'])->insert($study_input)) {
