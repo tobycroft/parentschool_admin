@@ -392,7 +392,7 @@ class StudyWeekly extends Admin
             $study_input = [
                 "area_id" => $data["area_id"],
                 "school_id" => $data["school_id"],
-                "grade" => $data["grade"],
+//                "grade" => $data["grade"],
                 "push_date" => $data["push_date"],
                 "show_date" => $data["show_date"],
                 "end_date" => $data["end_date"],
