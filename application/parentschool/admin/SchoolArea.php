@@ -49,6 +49,8 @@ class SchoolArea extends Admin
             ->addColumn('id', 'ID')
             ->addColumn('name', '区域名称', 'text')
             ->addColumn('uid', '绑定负责人UID', 'number')
+            ->addColumn('phone', '手机号', 'text')
+            ->addColumn('remark', '负责人备注', 'text')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -112,6 +114,8 @@ class SchoolArea extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '学校名称', ''],
                 ['number', 'uid', '负责人uid', ''],
+                ['text', 'phone', '绑定手机号', ''],
+                ['text', 'remark', '负责人备注', ''],
             ])
             ->fetch();
     }
@@ -168,6 +172,8 @@ class SchoolArea extends Admin
                 ['hidden', 'id'],
                 ['text', 'name', '学校名称', ''],
                 ['number', 'uid', '负责人uid', ''],
+                ['text', 'phone', '绑定手机号', ''],
+                ['text', 'remark', '负责人备注', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
