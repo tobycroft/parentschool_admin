@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
+use app\parentschool\model\SchoolAreaModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\parentschool\model\StudyRecordModel;
@@ -218,8 +219,8 @@ class School extends Admin
         }
 
         // 获取数据
-        $info = SchoolModel::where('id', $id)
-            ->find();
+        $info = SchoolModel::where('id', $id)->find();
+        $area = SchoolAreaModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
@@ -228,7 +229,7 @@ class School extends Admin
                 ['hidden', 'id'],
                 ['text', 'name', '学校名称', ''],
                 ['text', 'domain', '学校网址标签', '例如yunxiao,进入的时候就用www.网址.com/admin/login?domain=这个标签，来进入'],
-                ['number', 'area_id', '学校所在id', ''],
+                ['select', 'area_id', '学校所在id', '', $area],
                 ['textarea', 'detail', '学校详细信息', ''],
                 ['number', 'sight', '学校家长活动的可见性', ''],
                 ['image', 'icon', '学校图标', ''],
