@@ -58,7 +58,7 @@ class School extends Admin
                     ->count();
             });
         $data_list->each(function ($data) {
-//            $data['class_url'] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data['school_id'] . '}');
+            $data['class_url'] = url('http://api.ps.familyeducation.org.cn/v1/user/teacher/create?data={"school_id":' . $data['school_id'] . '}');
             return $data;
         });
         $page = $data_list->render();
