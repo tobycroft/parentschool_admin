@@ -65,6 +65,7 @@ class School extends Admin
         });
         $page = $data_list->render();
 
+        $area = SchoolAreaModel::column('id,name');
 
         $btn_access = [
             'title' => '对应课程',
@@ -94,7 +95,7 @@ class School extends Admin
             ->addColumn('count_weekly', '每周', 'text')
             ->addColumn('count_monthy', '每月', 'text')
             ->addColumn('domain', '学校标签', 'text.edit')
-            ->addColumn('area_id', '学校所属区域', 'number')
+            ->addColumn('area_id', '学校所属区域', 'select', $area)
             ->addColumn('detail', '详细说明')
             ->addColumn('sight', '可见性', 'number')
             ->addColumn('teacher_qr', '教师注册二维码', 'img_url')
