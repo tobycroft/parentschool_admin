@@ -58,7 +58,7 @@ class School extends Admin
                     ->count();
             });
         $data_list->each(function ($data) {
-            $json = ["school_id" => $data["school_id"]];
+            $json = ["school_id" => $data["id"]];
             $data['teacher_qr'] = url('http://api.ps.familyeducation.org.cn/v1/user/teacher/create?data=' . json_encode($json, 320));
             return $data;
         });
