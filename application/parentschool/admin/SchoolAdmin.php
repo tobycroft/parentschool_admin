@@ -46,7 +46,7 @@ class SchoolAdmin extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "phone" => "phone", 'name' => '用户名']) // 设置搜索参数
+            ->setSearch(['id' => 'ID', "phone" => "phone"]) // 设置搜索参数
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],

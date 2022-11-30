@@ -57,6 +57,10 @@ class School extends Admin
                     ->where("b.school_id", $item["id"])
                     ->count();
             });
+        $data_list->each(function ($data) {
+//            $data['class_url'] = url('http://api.ps.familyeducation.org.cn/v1/parent/wechat/create?data={"school_id":' . $data['school_id'] . '}');
+            return $data;
+        });
         $page = $data_list->render();
 
 
@@ -91,6 +95,7 @@ class School extends Admin
             ->addColumn('area_id', '学校所属区域', 'number')
             ->addColumn('detail', '详细说明')
             ->addColumn('sight', '可见性', 'number')
+            ->addColumn('teacher_qr', '教师注册二维码', 'img_url')
             ->addColumn('icon', '学校图标', 'picture')
             ->addColumn('img', '学校宣传图', 'picture')
             ->addColumn('bg_img', '学校背景图', 'picture')
