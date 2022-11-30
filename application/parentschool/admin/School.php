@@ -59,7 +59,7 @@ class School extends Admin
             });
         $data_list->each(function ($data) {
             $json = ["school_id" => $data["id"]];
-            $data['teacher_qr'] = '//api.ps.familyeducation.org.cn/v1/user/teacher/create?data=' . json_encode($json, 320);
+            $data['teacher_qr'] = '//api.ps.familyeducation.org.cn/v1/user/teacher/create?data=' . urlencode(json_encode($json, 320));
             return $data;
         });
         $page = $data_list->render();
