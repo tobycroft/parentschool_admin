@@ -87,26 +87,6 @@ class Jiazhang extends Admin
             if (true !== $result)
                 $this->error($result);
 
-            // 非超级管理需要验证可选择角色
-            if (session('user_auth.role') != 1) {
-                if ($data['role'] == session('user_auth.role')) {
-                    $this->error('禁止创建与当前角色同级的用户');
-                }
-                $role_list = RoleModel::getChildsId(session('user_auth.role'));
-                if (!in_array($data['role'], $role_list)) {
-                    $this->error('权限不足，禁止创建非法角色的用户');
-                }
-
-                if (isset($data['roles'])) {
-                    $deny_role = array_diff($data['roles'], $role_list);
-                    if ($deny_role) {
-                        $this->error('权限不足，附加角色设置错误');
-                    }
-                }
-            }
-
-            $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
-
             if ($user = ParentModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
@@ -117,26 +97,17 @@ class Jiazhang extends Admin
             }
         }
 
-        // 角色列表
-        if (session('user_auth.role') != 1) {
-            $role_list = RoleModel::getTree(null, false, session('user_auth.role'));
-        } else {
-            $role_list = RoleModel::getTree(null, false);
-        }
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'username', '用户名', '必填，可由英文字母、数字组成'],
-                ['text', 'nickname', '昵称', '可以是中文'],
-                ['select', 'role', '主角色', '非超级管理员，禁止创建与当前角色同级的用户', $role_list],
-                ['select', 'roles', '副角色', '可多选', $role_list, '', 'multiple'],
-                ['text', 'email', '邮箱', ''],
-                ['password', 'password', '密码', '必填，6-20位'],
-                ['text', 'mobile', '手机号'],
-                ['image', 'avatar', '头像'],
-                ['radio', 'status', '状态', '', ['禁用', '启用'], 1]
+                ['static', 'username', '用户名', '不可更改'],
+                ['text', 'password', '密码', '必填，6-20位'],
+                ['text', 'share', '共享码', '必填，6-20位'],
+                ['image', 'head_img', '头像'],
+                ['active', 'lock', '是否锁定'],
+//                ['radio', 'status', '状态', '', ['禁用', '启用'], 1]
             ])
             ->fetch();
     }
@@ -195,6 +166,8 @@ class Jiazhang extends Admin
                 ['text', 'password', '密码', '必填，6-20位'],
                 ['text', 'share', '共享码', '必填，6-20位'],
                 ['image', 'head_img', '头像'],
+                ['image', 'head_img', '头像'],
+                ['active', 'lock', '是否锁定'],
             ])
             ->setFormData($info) // 设置表单数据
             ->fetch();
