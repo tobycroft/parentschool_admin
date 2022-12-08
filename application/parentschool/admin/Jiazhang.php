@@ -106,7 +106,7 @@ class Jiazhang extends Admin
                 ['text', 'password', '密码', '必填，6-20位'],
                 ['text', 'share', '共享码', '必填，6-20位'],
                 ['image', 'head_img', '头像'],
-                ['active', 'lock', '是否锁定'],
+                ['status', 'lock', '是否锁定'],
 //                ['radio', 'status', '状态', '', ['禁用', '启用'], 1]
             ])
             ->fetch();
@@ -167,7 +167,7 @@ class Jiazhang extends Admin
                 ['text', 'share', '共享码', '必填，6-20位'],
                 ['image', 'head_img', '头像'],
                 ['image', 'head_img', '头像'],
-                ['active', 'lock', '是否锁定'],
+                ['status', 'lock', '是否锁定'],
             ])
             ->setFormData($info) // 设置表单数据
             ->fetch();
