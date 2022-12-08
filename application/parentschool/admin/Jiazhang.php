@@ -102,7 +102,8 @@ class Jiazhang extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['static', 'username', '用户名', '不可更改'],
+                ['text', 'phone', '用户名', '不可更改'],
+                ['text', 'username', '用户名', '不可更改'],
                 ['text', 'password', '密码', '必填，6-20位'],
                 ['text', 'share', '共享码', '必填，6-20位'],
                 ['image', 'head_img', '头像'],
@@ -163,7 +164,8 @@ class Jiazhang extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['static', 'username', '用户名', '不可更改'],
+                ['text', 'phone', '用户名', '不可更改'],
+                ['text', 'username', '用户名', '不可更改'],
                 ['text', 'password', '密码', '必填，6-20位'],
                 ['text', 'share', '共享码', '必填，6-20位'],
                 ['image', 'head_img', '头像'],
