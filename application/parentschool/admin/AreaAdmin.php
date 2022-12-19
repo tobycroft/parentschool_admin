@@ -175,7 +175,7 @@ class AreaAdmin extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['select', 'area_id', '学校', "", $school],
-                ['number', 'uid', '老师的UID'],
+                ['number', 'uid', 'uid'],
                 ['number', 'phone', '绑定手机号'],
 //                ['switch', 'status', '是否启用'],
             ]);
