@@ -167,14 +167,14 @@ class AreaAdmin extends Admin
         // 获取数据
         $info = AreaAdminModel::where('id', $id)
             ->find();
-        $school = SchoolModel::column("id,name");
+        $area = AreaModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'area_id', '学校', "", $school],
+                ['select', 'area_id', '区域', "", $area],
                 ['number', 'uid', 'uid'],
                 ['number', 'phone', '绑定手机号'],
 //                ['switch', 'status', '是否启用'],
