@@ -48,8 +48,6 @@ class Area extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '区域名称', 'text')
-            ->addColumn('uid', '绑定负责人UID', 'number')
-            ->addColumn('phone', '手机号', 'text')
             ->addColumn('remark', '负责人备注', 'text')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
