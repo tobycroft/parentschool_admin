@@ -5,7 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\SchoolAreaModel;
+use app\parentschool\model\AreaModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -16,7 +16,7 @@ use util\Tree;
  * 用户默认控制器
  * @package app\user\admin
  */
-class SchoolArea extends Admin
+class Area extends Admin
 {
     /**
      * 用户首页
@@ -30,14 +30,14 @@ class SchoolArea extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = SchoolAreaModel::where($map)
+        $data_list = AreaModel::where($map)
             ->order($order)
             ->paginate();
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-//        $num1 = SchoolAreaModel::where("date", ">", $todaytime)->count();
-//        $num2 = SchoolAreaModel::count();
+//        $num1 = AreaModel::where("date", ">", $todaytime)->count();
+//        $num2 = AreaModel::count();
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -91,7 +91,7 @@ class SchoolArea extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = SchoolAreaModel::create($data)) {
+            if ($user = AreaModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -151,8 +151,8 @@ class SchoolArea extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (SchoolAreaModel::update($data)) {
-                $user = SchoolAreaModel::get($data['id']);
+            if (AreaModel::update($data)) {
+                $user = AreaModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -162,7 +162,7 @@ class SchoolArea extends Admin
         }
 
         // 获取数据
-        $info = SchoolAreaModel::where('id', $id)
+        $info = AreaModel::where('id', $id)
             ->find();
 
         // 使用ZBuilder快速创建表单
@@ -412,19 +412,19 @@ class SchoolArea extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === SchoolAreaModel::where('id', 'in', $ids)
+                if (false === AreaModel::where('id', 'in', $ids)
                         ->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === SchoolAreaModel::where('id', 'in', $ids)
+                if (false === AreaModel::where('id', 'in', $ids)
                         ->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === SchoolAreaModel::where('id', 'in', $ids)
+                if (false === AreaModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
                 }
@@ -522,7 +522,7 @@ class SchoolArea extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = SchoolAreaModel::where("id", $id)
+        $result = AreaModel::where("id", $id)
             ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
