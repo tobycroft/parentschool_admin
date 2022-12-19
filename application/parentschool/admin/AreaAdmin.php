@@ -50,8 +50,8 @@ class AreaAdmin extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['area_id', '学校', 'text.edit'],
-                ['uid', '教师UID', 'text.edit'],
+                ['area_id', '区域', 'text.edit'],
+                ['uid', 'uid', 'text.edit'],
                 ['phone', '绑定手机号', 'text.edit'],
                 ['change_date', '修改时间'],
                 ['date', '创建时间'],
