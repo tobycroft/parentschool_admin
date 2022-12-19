@@ -11,7 +11,7 @@ use think\Model;
  */
 class SchoolAreaModel extends Model {
 	// 设置当前模型对应的完整数据表名称
-	protected $table = 'ps_school_area';
+	protected $table = 'ps_area';
 
 	// 设置当前模型对应的完整数据表名称
 
