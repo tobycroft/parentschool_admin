@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaAdminModel;
+use app\parentschool\model\AreaModel;
 use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
