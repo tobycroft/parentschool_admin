@@ -115,9 +115,11 @@ class Area extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['text', 'name', '区域名称', ''],
-                ['number', 'uid', '负责人uid', ''],
-                ['text', 'phone', '绑定手机号', ''],
                 ['text', 'remark', '负责人备注', ''],
+                ['text', 'domain', '区域标签', ''],
+                ['img', 'icon', '区域图标', ''],
+                ['img', 'img', '区域标签', ''],
+                ['img', 'bg_img', '区域标签', ''],
             ])
             ->fetch();
     }
@@ -173,9 +175,11 @@ class Area extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['text', 'name', '区域名称', ''],
-                ['number', 'uid', '负责人uid', ''],
-                ['text', 'phone', '绑定手机号', ''],
                 ['text', 'remark', '负责人备注', ''],
+                ['text', 'domain', '区域标签', ''],
+                ['img', 'icon', '区域图标', ''],
+                ['img', 'img', '区域标签', ''],
+                ['img', 'bg_img', '区域标签', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
