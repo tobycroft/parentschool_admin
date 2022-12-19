@@ -49,10 +49,10 @@ class Area extends Admin
             ->addColumn('id', 'ID')
             ->addColumn('name', '区域名称', 'text')
             ->addColumn('remark', '负责人备注', 'text')
-            ->addColumn('domain', '学校标签', 'text.edit')
-            ->addColumn('icon', '学校图标', 'picture')
-            ->addColumn('img', '学校宣传图', 'picture')
-            ->addColumn('bg_img', '学校背景图', 'picture')
+            ->addColumn('domain', '区域标签', 'text.edit')
+            ->addColumn('icon', '区域图标', 'picture')
+            ->addColumn('img', '区域宣传图', 'picture')
+            ->addColumn('bg_img', '区域背景图', 'picture')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -114,7 +114,7 @@ class Area extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'name', '学校名称', ''],
+                ['text', 'name', '区域名称', ''],
                 ['number', 'uid', '负责人uid', ''],
                 ['text', 'phone', '绑定手机号', ''],
                 ['text', 'remark', '负责人备注', ''],
@@ -172,7 +172,7 @@ class Area extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'name', '学校名称', ''],
+                ['text', 'name', '区域名称', ''],
                 ['number', 'uid', '负责人uid', ''],
                 ['text', 'phone', '绑定手机号', ''],
                 ['text', 'remark', '负责人备注', ''],
