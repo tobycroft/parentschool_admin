@@ -5,8 +5,8 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\AreaModel;
 use app\parentschool\model\FamilyMemberModel;
-use app\parentschool\model\SchoolAreaModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\parentschool\model\StudyRecordModel;
@@ -65,7 +65,7 @@ class School extends Admin
         });
         $page = $data_list->render();
 
-        $area = SchoolAreaModel::column('id,name');
+        $area = AreaModel::column('id,name');
 
         $btn_access = [
             'title' => '对应课程',
@@ -160,7 +160,7 @@ class School extends Admin
             $role_list = RoleModel::getTree(null, false);
         }
 
-        $area = SchoolAreaModel::column('id,name');
+        $area = AreaModel::column('id,name');
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
@@ -223,7 +223,7 @@ class School extends Admin
 
         // 获取数据
         $info = SchoolModel::where('id', $id)->find();
-        $area = SchoolAreaModel::column("id,name");
+        $area = AreaModel::column("id,name");
 
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')

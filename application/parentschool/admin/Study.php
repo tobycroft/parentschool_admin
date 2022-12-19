@@ -5,7 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\SchoolAreaModel;
+use app\parentschool\model\AreaModel;
 use app\parentschool\model\SchoolClassModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
@@ -101,7 +101,7 @@ class Study extends Admin
             });
         $page = $data_list->render();
 
-        $area = SchoolAreaModel::column("id,name");
+        $area = AreaModel::column("id,name");
         $school_id = SchoolModel::column("id,name");
         $grade = SchoolGradeModel::column("id,name");
 
@@ -214,7 +214,7 @@ class Study extends Admin
             "每月一课" => $monthy,
         ];
 
-        $area = SchoolAreaModel::column("id,name");
+        $area = AreaModel::column("id,name");
         $school_id = SchoolModel::column("id,name");
         $grade = SchoolGradeModel::column("id,name");
         $class = SchoolClassModel::column("id,name");
@@ -318,7 +318,7 @@ class Study extends Admin
         }
 
 
-        $area = SchoolAreaModel::column("id,name");
+        $area = AreaModel::column("id,name");
         $school_id = SchoolModel::column("id,name");
         $grade = SchoolGradeModel::column("id,name");
         $class = SchoolClassModel::column("id,name");
