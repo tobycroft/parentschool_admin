@@ -52,7 +52,7 @@ class AreaAdmin extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['area_id', '区域', 'select', '', $area],
+                ['area_id', '区域', 'select', '', '', $area],
                 ['uid', 'uid', 'text.edit'],
                 ['phone', '绑定手机号', 'text.edit'],
                 ['change_date', '修改时间'],
