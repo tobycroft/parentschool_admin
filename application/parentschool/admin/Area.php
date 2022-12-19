@@ -117,9 +117,9 @@ class Area extends Admin
                 ['text', 'name', '区域名称', ''],
                 ['text', 'remark', '负责人备注', ''],
                 ['text', 'domain', '区域标签', ''],
-                ['img', 'icon', '区域图标', ''],
-                ['img', 'img', '区域标签', ''],
-                ['img', 'bg_img', '区域标签', ''],
+                ['image', 'icon', '区域图标', ''],
+                ['image', 'img', '区域标签', ''],
+                ['image', 'bg_img', '区域标签', ''],
             ])
             ->fetch();
     }
