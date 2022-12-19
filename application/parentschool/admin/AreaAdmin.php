@@ -41,6 +41,8 @@ class AreaAdmin extends Admin
             ->count();
         $num2 = AreaAdminModel::count();
 
+        $area = AreaModel::column("id,name");
+
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -50,7 +52,7 @@ class AreaAdmin extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['area_id', '区域', 'text.edit'],
+                ['area_id', '区域', 'text.edit', '', $area],
                 ['uid', 'uid', 'text.edit'],
                 ['phone', '绑定手机号', 'text.edit'],
                 ['change_date', '修改时间'],
