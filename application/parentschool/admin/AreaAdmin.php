@@ -7,7 +7,6 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaAdminModel;
 use app\parentschool\model\AreaModel;
-use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -111,13 +110,13 @@ class AreaAdmin extends Admin
         } else {
             $role_list = RoleModel::getTree(null, false);
         }
-        $school = SchoolModel::column("id,name");
+        $area = AreaModel::column("id,name");
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'area_id', '学校', "", $school],
-                ['number', 'uid', '老师的UID'],
+                ['select', 'area_id', '区域', '', $area],
+                ['number', 'uid', 'uid'],
                 ['number', 'phone', '绑定手机号'],
 //                ['switch', 'status', '是否启用'],
             ])
