@@ -50,7 +50,7 @@ class AreaAdmin extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['school_id', '学校', 'text.edit'],
+                ['area_id', '学校', 'text.edit'],
                 ['uid', '教师UID', 'text.edit'],
                 ['phone', '绑定手机号', 'text.edit'],
                 ['change_date', '修改时间'],
@@ -115,7 +115,7 @@ class AreaAdmin extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'school_id', '学校', "", $school],
+                ['select', 'area_id', '学校', "", $school],
                 ['number', 'uid', '老师的UID'],
                 ['number', 'phone', '绑定手机号'],
 //                ['switch', 'status', '是否启用'],
@@ -174,7 +174,7 @@ class AreaAdmin extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'school_id', '学校', "", $school],
+                ['select', 'area_id', '学校', "", $school],
                 ['number', 'uid', '老师的UID'],
                 ['number', 'phone', '绑定手机号'],
 //                ['switch', 'status', '是否启用'],
