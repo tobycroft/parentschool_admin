@@ -230,7 +230,7 @@ class StudyDaily extends Admin
                     ['checkbox', 'grades', '年级', '', $grade],
                     ['number', 'area_id', '对应区域'],
                     ['number', 'school_id', '学校id'],
-                    ['select', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                    ['select', 'study_type', '课程类型', '', \Study\Type::get_type(), 'daily'],
                     ['text', 'title', '标题'],
                     ['text', 'slogan', '推荐金句'],
                     ['checkbox', 'special_tag', '特殊标签', "", $tag_special],
