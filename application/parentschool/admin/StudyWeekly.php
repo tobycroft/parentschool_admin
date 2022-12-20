@@ -277,7 +277,7 @@ class StudyWeekly extends Admin
                 ['datetime', 'push_date', '推送日期'],
                 ['datetime', 'show_date', '展示日期'],
 //                ['datetime', 'end_date', '结束日期'],
-                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type(), 'record'],
                 ['file', 'attach_url', '附件类型'],
 //                ['text', 'show_to', '展示给谁', "填写爸爸妈妈爷爷奶奶"],
 
