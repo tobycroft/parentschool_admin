@@ -245,7 +245,7 @@ class StudyDaily extends Admin
                     ['datetime', 'push_date', '推送日期'],
                     ['datetime', 'show_date', '展示日期'],
                     ['datetime', 'end_date', '结束展示日期'],
-                    ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type()],
+                    ['select', 'attach_type', '附件类型', '', \Study\Type::get_attach_type(), 'record'],
                     ['file', 'attach_url', '附件类型'],
                     ['number', 'attach_duration', '附件时长(秒)'],
                     ['select', 'show_to_role_id', '展示给谁', '全部展示', $family_role, '0'],
