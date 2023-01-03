@@ -68,6 +68,7 @@ class Student extends Admin
             ->addColumn('special', '特殊班级', 'text.edit')
             ->addColumn('callsign', '座号', 'number')
             ->addColumn('remark', '备注', 'textarea.edit')
+            ->addColumn('is_verify', '审核', 'switch')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
