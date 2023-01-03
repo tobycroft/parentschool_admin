@@ -156,6 +156,7 @@ class StudyWeekly extends Admin
             unset($data["special_tag"]);
             unset($data["common_tag"]);
             $weekly_input = [
+                'school_id' => $data['school_id'],
                 "title" => $data["title"],
                 "slogan" => $data["slogan"],
                 "content" => $data["content"],
@@ -369,6 +370,7 @@ class StudyWeekly extends Admin
                 $data["end_date"] = date("Y-m-d H:i:s", $end_date);
             }
             $weekly_input = [
+                'school_id' => $data['school_id'],
                 "title" => $data["title"],
                 "slogan" => $data["slogan"],
                 "content" => $data["content"],

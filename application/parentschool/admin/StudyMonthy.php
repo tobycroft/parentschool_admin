@@ -164,6 +164,7 @@ class StudyMonthy extends Admin
             unset($data["special_tag"]);
             unset($data["common_tag"]);
             $monthy_input = [
+                'school_id' => $data['school_id'],
                 "teacher_id" => $data["teacher_id"],
                 "title" => $data["title"],
                 "slogan" => $data["slogan"],
@@ -335,6 +336,7 @@ class StudyMonthy extends Admin
                 }
             }
             $monthy_input = [
+                'school_id' => $data['school_id'],
                 "teacher_id" => $data["teacher_id"],
                 "title" => $data["title"],
                 "slogan" => $data["slogan"],
