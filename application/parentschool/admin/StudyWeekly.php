@@ -76,7 +76,7 @@ class StudyWeekly extends Admin
                 ['id', 'ID'],
 //                ['grade', '年级', 'number'],
 //                ['area_id', '对应区域', 'number'],
-//                ['school_id', '学校id', 'number'],
+                ['school_id', '学校id', 'number'],
                 ['title', '标题'],
 //                ['slogan', '推荐金句'],
                 ['special_tag', '特殊标签'],
