@@ -102,7 +102,7 @@ class StudyMonthy extends Admin
 //                ['grade', '年级', 'number'],
 //                ['class', '班级', 'number'],
 //                ['area_id', '对应区域', 'number'],
-                ['school_id', '学校id', 'number'],
+                ['school_id', '学校id', 'text'],
                 ['teacher_id', '老师的id', 'number'],
                 ['title', '标题'],
                 ['slogan', '推荐金句'],
