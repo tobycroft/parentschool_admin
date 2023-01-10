@@ -61,7 +61,7 @@ class StudyFobid extends Admin
         $school = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
-            ->addTopButton("add")
+//            ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['study_id' => '课程id']) // 设置搜索参数
             ->addOrder('id')
