@@ -5,6 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudyFobidModel;
 use app\parentschool\model\StudyStudyFobidModel;
 use app\user\model\Role as RoleModel;
@@ -48,6 +49,8 @@ class StudyFobid extends Admin
 
             $data_list[$key] = $item;
         }
+        $school = SchoolModel::column("id,name");
+
         return ZBuilder::make('table')
             ->addTopButton("add")
             ->setPageTitle('列表')
@@ -55,12 +58,11 @@ class StudyFobid extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
+                ['school_id', '学校', 'select', $school],
                 ['study_id', '课程id', 'number'],
                 ['study_type', '课程类型', 'number'],
-                ['tag_id', '标签id', 'number'],
-                ['tag_type', '标签类型'],
-                ['tag_class', '标签分类'],
-                ['tag_name', '标签名称'],
+                ['pack_id', '课包id', 'number'],
+                ['date', '日期', 'text'],
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
