@@ -9,7 +9,6 @@ use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyFobidModel;
 use app\parentschool\model\StudyMonthyModel;
-use app\parentschool\model\StudyStudyFobidModel;
 use app\parentschool\model\StudyWeeklyModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -113,7 +112,7 @@ class StudyFobid extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = StudyStudyFobidModel::create($data)) {
+            if ($user = StudyFobidModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -178,8 +177,8 @@ class StudyFobid extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (StudyStudyFobidModel::update($data)) {
-                $user = StudyStudyFobidModel::get($data['id']);
+            if (StudyFobidModel::update($data)) {
+                $user = StudyFobidModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -189,7 +188,7 @@ class StudyFobid extends Admin
         }
 
         // 获取数据
-        $info = StudyStudyFobidModel::where('id', $id)
+        $info = StudyFobidModel::where('id', $id)
             ->find();
         $tag = StudyFobidModel::select();
         $tag_name = [];
@@ -445,19 +444,19 @@ class StudyFobid extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === StudyStudyFobidModel::where('id', 'in', $ids)
+                if (false === StudyFobidModel::where('id', 'in', $ids)
                         ->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === StudyStudyFobidModel::where('id', 'in', $ids)
+                if (false === StudyFobidModel::where('id', 'in', $ids)
                         ->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === StudyStudyFobidModel::where('id', 'in', $ids)
+                if (false === StudyFobidModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
                 }
@@ -556,7 +555,7 @@ class StudyFobid extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = StudyStudyFobidModel::where("id", $id)
+        $result = StudyFobidModel::where("id", $id)
             ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
