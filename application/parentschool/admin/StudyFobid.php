@@ -31,7 +31,7 @@ class StudyFobid extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyStudyFobidModel::where($map)
+        $data_list = StudyFobidModel::where($map)
             ->order($order)
             ->paginate();
         $page = $data_list->render();
