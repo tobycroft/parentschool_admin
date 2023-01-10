@@ -70,7 +70,7 @@ class StudyFobid extends Admin
                 ['id', 'ID'],
                 ['school_id', '学校', 'select', $school],
                 ['study_id', '课程id', 'number'],
-                ['title', '标题', 'popup'],
+                ['title', '标题', 'text'],
                 ['study_type', '课程类型', 'number'],
                 ['pack_id', '课包id', 'number'],
                 ['date', '日期', 'text'],
