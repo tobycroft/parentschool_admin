@@ -6,8 +6,11 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\SchoolModel;
+use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyFobidModel;
+use app\parentschool\model\StudyMonthyModel;
 use app\parentschool\model\StudyStudyFobidModel;
+use app\parentschool\model\StudyWeeklyModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -32,9 +35,27 @@ class StudyFobid extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudyFobidModel::where($map)
+        $data_list = StudyFobidModel::alias('b')
+            ->where($map)
             ->order($order)
-            ->paginate();
+            ->paginate()->each(function ($data) {
+                switch ($data["study_type"]) {
+                    case "daily":
+                        $item = StudyDailyModel::where("id", $data["pack_id"])->find();
+                        $data["title"] = $item["title"];
+                        break;
+
+                    case "weekly":
+                        $item = StudyWeeklyModel::where('id', $data['pack_id'])->find();
+                        $data['title'] = $item['title'];
+                        break;
+
+                    case "monthy":
+                        $item = StudyMonthyModel::where('id', $data['pack_id'])->find();
+                        $data['title'] = $item['title'];
+                        break;
+                }
+            });
         $page = $data_list->render();
 
 
