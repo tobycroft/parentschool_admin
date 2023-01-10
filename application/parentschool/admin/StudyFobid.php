@@ -38,17 +38,6 @@ class StudyFobid extends Admin
         $page = $data_list->render();
 
 
-        foreach ($data_list as $key => $item) {
-            $tag_info = StudyFobidModel::where("id", $item["tag_id"])
-                ->find();
-            if ($tag_info) {
-                $item["tag_type"] = $tag_info["tag_type"];
-                $item["tag_name"] = $tag_info["name"];
-                $item["tag_class"] = $tag_info["class"];
-            }
-
-            $data_list[$key] = $item;
-        }
         $school = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
