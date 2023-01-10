@@ -75,7 +75,7 @@ class StudyFobid extends Admin
                 ['date', '日期', 'text'],
             ])
             ->addColumn('right_button', '操作', 'btn')
-            ->addRightButton('edit') // 添加编辑按钮
+//            ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
