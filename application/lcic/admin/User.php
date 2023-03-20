@@ -6,6 +6,11 @@ namespace app\lcic\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use think\Db;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\ModelNotFoundException;
+use think\Exception;
+use think\exception\DbException;
+use think\exception\PDOException;
 use think\facade\Hook;
 use util\Tree;
 
@@ -18,8 +23,8 @@ class User extends Admin
     /**
      * 用户首页
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\exception\DbException
+     * @throws Exception
+     * @throws DbException
      */
     public function index()
     {
@@ -73,7 +78,7 @@ class User extends Admin
     /**
      * 新增
      * @return mixed
-     * @throws \think\Exception
+     * @throws Exception
      */
     public function add()
     {
@@ -117,10 +122,10 @@ class User extends Admin
      * 编辑
      * @param null $id 用户id
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws Exception
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
+     * @throws DbException
      */
     public function edit($id = null)
     {
@@ -181,11 +186,11 @@ class User extends Admin
      * @param int $uid 用户id
      * @param string $tab 分组tab
      * @return mixed
-     * @throws \think\Exception
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     * @throws \think\exception\PDOException
+     * @throws Exception
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
+     * @throws DbException
+     * @throws PDOException
      */
     public function access($module = '', $uid = 0, $tab = '')
     {
@@ -382,8 +387,8 @@ class User extends Admin
     /**
      * 删除用户
      * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws Exception
+     * @throws PDOException
      */
     public function delete($ids = [])
     {
@@ -396,8 +401,8 @@ class User extends Admin
      * 设置用户状态：删除、禁用、启用
      * @param string $type 类型：delete/enable/disable
      * @param array $record
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws Exception
+     * @throws PDOException
      */
     public function setStatus($type = '', $record = [])
     {
@@ -465,8 +470,8 @@ class User extends Admin
     /**
      * 启用用户
      * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws Exception
+     * @throws PDOException
      */
     public function enable($ids = [])
     {
@@ -477,8 +482,8 @@ class User extends Admin
     /**
      * 禁用用户
      * @param array $ids 用户id
-     * @throws \think\Exception
-     * @throws \think\exception\PDOException
+     * @throws Exception
+     * @throws PDOException
      */
     public function disable($ids = [])
     {
