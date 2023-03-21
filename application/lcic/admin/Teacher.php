@@ -159,7 +159,8 @@ class Teacher extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-
+        $info = LcicModel::where('id', $id)
+            ->find();
         // 保存数据
         if ($this->request->isPost()) {
             $data = $this->request->post();
@@ -167,7 +168,6 @@ class Teacher extends Admin
             // 非超级管理需要验证可选择角色
             $teacherid = $data['teacherid'];
             $name = $data['name'];
-            $roomid = $data['roomid'];
             $start_time = $data['start_time'];
             $end_time = $data['end_time'];
 
@@ -180,7 +180,7 @@ class Teacher extends Admin
             if (!$ret_create_user->isSuccess()) {
                 $this->error($ret_create_user->getError());
             }
-            $ret_room_info = $lcic->RoomCreate($teacherid, $start_time, $end_time, $name);
+            $ret_room_info = $lcic->RoomModify($info["roomid"], $teacherid, $start_time, $end_time, $name);
             if (!$ret_room_info->isSuccess()) {
                 $this->error($ret_room_info->getError());
             }
@@ -194,10 +194,6 @@ class Teacher extends Admin
                 $this->error('编辑失败');
             }
         }
-
-        // 获取数据
-        $info = LcicModel::where('id', $id)
-            ->find();
 
         $teacher = TeacherModel::column('uid,name');
         // 使用ZBuilder快速创建表单
