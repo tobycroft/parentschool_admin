@@ -110,7 +110,7 @@ class Teacher extends Admin
             if ($user = LcicModel::create([
                 'teacherid' => $teacherid,
                 'name' => $name,
-                'roomid' => $roomid,
+                'roomid' => $ret_room_info->GetRoomId(),
                 'start_time' => $start_time,
                 'end_time' => $end_time,
             ])) {
