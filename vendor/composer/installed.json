@@ -66,17 +66,17 @@
         },
         {
             "name": "tobycroft/aoss-sdk",
-            "version": "v1.11.1",
-            "version_normalized": "1.11.1.0",
+            "version": "v1.11.2",
+            "version_normalized": "1.11.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tobycroft/AossSdk.git",
-                "reference": "4ea4b188efd6e8b644b7fc2bae1c78abbf0fc327"
+                "reference": "32bddfd78787459985c7934cef86212b68bc3872"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tobycroft/AossSdk/zipball/4ea4b188efd6e8b644b7fc2bae1c78abbf0fc327",
-                "reference": "4ea4b188efd6e8b644b7fc2bae1c78abbf0fc327",
+                "url": "https://api.github.com/repos/tobycroft/AossSdk/zipball/32bddfd78787459985c7934cef86212b68bc3872",
+                "reference": "32bddfd78787459985c7934cef86212b68bc3872",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "ext-gd": "*",
                 "php": ">=8.0"
             },
-            "time": "2023-03-21T08:55:49+00:00",
+            "time": "2023-03-21T09:13:20+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -102,7 +102,7 @@
             "description": "AOSS is a private platform support OSS upload,ExcelToJson,Image canvas,Gen Wechat code,Gen qrcode,Gen barcode",
             "support": {
                 "issues": "https://github.com/tobycroft/AossSdk/issues",
-                "source": "https://github.com/tobycroft/AossSdk/tree/v1.11.1"
+                "source": "https://github.com/tobycroft/AossSdk/tree/v1.11.2"
             },
             "install-path": "../tobycroft/aoss-sdk"
         },

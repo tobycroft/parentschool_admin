@@ -91,8 +91,8 @@ class Teacher extends Admin
             // 验证
             $teacherid = $data["teacherid"];
             $name = $data["name"];
-            $start_time = $data["start_time"];
-            $end_time = $data["end_time"];
+            $start_time = strtotime($data['start_time']);
+            $end_time = strtotime($data['end_time']);
 
             $teacherinfo = TeacherModel::where("uid", $teacherid)->findOrEmpty();
             if ($teacherinfo->isEmpty()) {
