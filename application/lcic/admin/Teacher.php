@@ -91,7 +91,6 @@ class Teacher extends Admin
             // 验证
             $teacherid = $data["teacherid"];
             $name = $data["name"];
-            $roomid = $data["roomid"];
             $start_time = $data["start_time"];
             $end_time = $data["end_time"];
 
