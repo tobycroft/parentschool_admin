@@ -166,8 +166,11 @@ class Teacher extends Admin
             // 非超级管理需要验证可选择角色
             $teacherid = $data['teacherid'];
             $name = $data['name'];
-            $start_time = strtotime($data['start_time']);
-            $end_time = strtotime($data['end_time']);
+            $data['start_time'] = strtotime($data['start_time']);
+            $data['end_time'] = strtotime($data['end_time']);
+
+            $start_time = ($data['start_time']);
+            $end_time = ($data['end_time']);
 
             $teacherinfo = TeacherModel::where('uid', $teacherid)->findOrEmpty();
             if ($teacherinfo->isEmpty()) {
