@@ -98,7 +98,7 @@ class Teacher extends Admin
             if ($teacherinfo->isEmpty()) {
                 $this->error("教师信息不存在");
             }
-            $lcic = new Lcic();
+            $lcic = new Lcic(config('upload_prefix'));
             $ret_create_user = $lcic->CreateUser($teacherinfo["name"], $teacherid, $teacherinfo["img"]);
             if (!$ret_create_user->isSuccess()) {
                 $this->error($ret_create_user->getError());
@@ -175,7 +175,7 @@ class Teacher extends Admin
             if ($teacherinfo->isEmpty()) {
                 $this->error('教师信息不存在');
             }
-            $lcic = new Lcic();
+            $lcic = new Lcic(config('upload_prefix'));
             $ret_create_user = $lcic->CreateUser($teacherinfo['name'], $teacherid, $teacherinfo['img']);
             if (!$ret_create_user->isSuccess()) {
                 $this->error($ret_create_user->getError());
