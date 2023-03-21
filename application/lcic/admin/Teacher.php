@@ -166,7 +166,25 @@ class Teacher extends Admin
             $data = $this->request->post();
 
             // 非超级管理需要验证可选择角色
+            $teacherid = $data['teacherid'];
+            $name = $data['name'];
+            $roomid = $data['roomid'];
+            $start_time = $data['start_time'];
+            $end_time = $data['end_time'];
 
+            $teacherinfo = TeacherModel::where('uid', $teacherid)->findOrEmpty();
+            if ($teacherinfo->isEmpty()) {
+                $this->error('教师信息不存在');
+            }
+            $lcic = new Lcic();
+            $ret_create_user = $lcic->CreateUser($teacherinfo['name'], $teacherid, $teacherinfo['img']);
+            if (!$ret_create_user->isSuccess()) {
+                $this->error($ret_create_user->getError());
+            }
+            $ret_room_info = $lcic->RoomCreate($teacherid, $start_time, $end_time, $name);
+            if (!$ret_room_info->isSuccess()) {
+                $this->error($ret_room_info->getError());
+            }
 
             if (LcicModel::update($data)) {
                 $user = LcicModel::get($data['id']);
