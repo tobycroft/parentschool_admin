@@ -14,6 +14,7 @@ use think\Exception;
 use think\exception\DbException;
 use think\exception\PDOException;
 use think\facade\Hook;
+use Tobycroft\AossSdk\Lcic;
 use util\Tree;
 
 /**
@@ -88,15 +89,27 @@ class Teacher extends Admin
         if ($this->request->isPost()) {
             $data = $this->request->post();
             // 验证
-            $teahder_id = $data["teacherid"];
+            $teacherid = $data["teacherid"];
             $name = $data["name"];
             $roomid = $data["roomid"];
             $start_time = $data["start_time"];
             $end_time = $data["end_time"];
 
-
+            $teacherinfo = TeacherModel::where("uid", $teacherid)->findOrEmpty();
+            if ($teacherinfo->isEmpty()) {
+                $this->error("教师信息不存在");
+            }
+            $lcic = new Lcic();
+            $ret_create_user = $lcic->CreateUser($teacherinfo["name"], $teacherid, $teacherinfo["img"]);
+            if (!$ret_create_user->isSuccess()) {
+                $this->error($ret_create_user->getError());
+            }
+            $ret_room_info = $lcic->RoomCreate($teacherid, $start_time, $end_time, $name);
+            if (!$ret_room_info->isSuccess()) {
+                $this->error($ret_room_info->getError());
+            }
             if ($user = LcicModel::create([
-                'teacherid' => $teahder_id,
+                'teacherid' => $teacherid,
                 'name' => $name,
                 'roomid' => $roomid,
                 'start_time' => $start_time,
@@ -116,7 +129,7 @@ class Teacher extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'uid', '教师id', '', $teacher],
+                ['select', 'teacherid', '教师id', '', $teacher],
                 ['datetime', 'start_time', '开始时间', '开始时间必须大于当前时间'],
                 ['datetime', 'end_time', '结束时间', '结束时间不能超过开始时间5个小时'],
                 ['text', 'name', '房间名称'],
