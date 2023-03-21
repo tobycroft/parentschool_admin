@@ -6,6 +6,7 @@ namespace app\lcic\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\lcic\model\LcicModel;
+use app\parentschool\model\TeacherModel;
 use think\Db;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
@@ -102,19 +103,15 @@ class Teacher extends Admin
             }
         }
 
-
+        $teacher = TeacherModel::column("uid,name");
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'phone', '用户名', '不可更改'],
-                ['text', 'username', '用户名', '不可更改'],
-                ['text', 'password', '密码', '必填，6-20位'],
-                ['text', 'share', '共享码', '必填，6-20位'],
-                ['image', 'head_img', '头像'],
-                ['switch', 'active', '是否锁定'],
-                ['switch', 'lock', '是否锁定'],
-//                ['radio', 'status', '状态', '', ['禁用', '启用'], 1]
+                ['select', 'uid', '教师id', $teacher],
+                ['datetime', 'start_time', '开始时间'],
+                ['datetime', 'end_time', '结束时间'],
+                ['text', 'name', '房间名称'],
             ])
             ->fetch();
     }
