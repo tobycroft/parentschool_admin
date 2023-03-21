@@ -152,6 +152,12 @@ class Teacher extends Admin
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
+            $role_list = RoleModel::getChildsId(session('user_auth.role'));
+            $user_list = LcicModel::where('role', 'in', $role_list)
+                ->column('id');
+            if (!in_array($id, $user_list)) {
+                $this->error('权限不足，没有可操作的用户');
+            }
         }
 
         // 保存数据
