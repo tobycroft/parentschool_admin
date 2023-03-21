@@ -94,20 +94,14 @@ class Teacher extends Admin
             $start_time = $data["start_time"];
             $end_time = $data["end_time"];
 
-            LcicModel::create([
-                "teacherid" => $teahder_id,
-                "name" => $name,
-                "roomid" => $roomid,
-                "start_time" => $start_time,
-                "end_time" => $end_time,
-            ]);
 
-            $result = $this->validate($data, 'User');
-            // 验证失败 输出错误信息
-            if (true !== $result)
-                $this->error($result);
-
-            if ($user = LcicModel::create($data)) {
+            if ($user = LcicModel::create([
+                'teacherid' => $teahder_id,
+                'name' => $name,
+                'roomid' => $roomid,
+                'start_time' => $start_time,
+                'end_time' => $end_time,
+            ])) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
