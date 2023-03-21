@@ -88,6 +88,20 @@ class Teacher extends Admin
         if ($this->request->isPost()) {
             $data = $this->request->post();
             // 验证
+            $teahder_id = $data["teacherid"];
+            $name = $data["name"];
+            $roomid = $data["roomid"];
+            $start_time = $data["start_time"];
+            $end_time = $data["end_time"];
+
+            LcicModel::create([
+                "teacherid" => $teahder_id,
+                "name" => $name,
+                "roomid" => $roomid,
+                "start_time" => $start_time,
+                "end_time" => $end_time,
+            ]);
+
             $result = $this->validate($data, 'User');
             // 验证失败 输出错误信息
             if (true !== $result)
