@@ -5,6 +5,7 @@ namespace app\lcic\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\lcic\model\LcicModel;
 use think\Db;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
