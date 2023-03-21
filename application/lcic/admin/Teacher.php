@@ -157,8 +157,7 @@ class Teacher extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $info = LcicModel::where('id', $id)
-            ->find();
+        $info = LcicModel::where('id', $id)->find();
         // 保存数据
         if ($this->request->isPost()) {
             $data = $this->request->post();
@@ -419,6 +418,14 @@ class Teacher extends Admin
      */
     public function delete($ids = [])
     {
+        $info = LcicModel::where('id', "in", $ids)->select();
+        $lcic = new Lcic(config('upload_prefix'));
+        foreach ($info as $item) {
+            $ret_room_info = $lcic->RoomDelete($info['roomid']);
+            if (!$ret_room_info->isSuccess()) {
+                $this->error($ret_room_info->getError());
+            }
+        }
         Hook::listen('user_delete', $ids);
         action_log('user_delete', 'user', $ids, UID);
         return $this->setStatus('delete');
