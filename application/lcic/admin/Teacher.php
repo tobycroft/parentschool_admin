@@ -65,12 +65,13 @@ class Teacher extends Admin
             ->addColumn('name', '房间标题')
             ->addColumn('start_time', '开始时间', 'datetime')
             ->addColumn('end_time', '结束时间', 'datetime')
+            ->addColumn('weburl', '房间标题')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
-            ->addRightButtons(['教师开播地址' => $btn_access,])
+//            ->addRightButtons(['教师开播地址' => $btn_access,])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
@@ -116,8 +117,8 @@ class Teacher extends Admin
                 'roomid' => $ret_room_info->GetRoomId(),
                 'start_time' => $start_time,
                 'end_time' => $end_time,
-                "web_url" => $ret_room_url->GetUrlWeb(),
-                "pc_ur" => $ret_room_url->GetUrlPc(),
+                "weburl" => $ret_room_url->GetUrlWeb(),
+                "pcurl" => $ret_room_url->GetUrlPc(),
             ])) {
                 Hook::listen('user_add', $user);
                 // 记录行为
