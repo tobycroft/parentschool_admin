@@ -184,7 +184,6 @@ class Teacher extends Admin
             }
 
             if (LcicModel::update($data)) {
-                $user = LcicModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
