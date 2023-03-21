@@ -648,4 +648,9 @@ trait Attribute
         } else {
             $name = Loader::parseName($name);
 
-          
+            $this->withAttr[$name] = $callback;
+        }
+
+        return $this;
+    }
+}

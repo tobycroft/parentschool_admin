@@ -1,4 +1,4 @@
-# AossSdk(aoss-sdk)
+# AossSdk(asoo-sdk)
 
 Aoss是一个开源综合IO平台，可自行建设，本SDK的作用在于快速接入AOSS主站平台减少过多的开发接入
 

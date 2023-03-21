@@ -54,7 +54,7 @@ use think\db\Query;
  * @method $this withMax(string|array $relation, string $field, bool $subQuery = true) static 关联MAX统计
  * @method $this withMin(string|array $relation, string $field, bool $subQuery = true) static 关联Min统计
  * @method $this withAvg(string|array $relation, string $field, bool $subQuery = true) static 关联Avg统计
- * @method Paginator|$this paginate(int|array $listRows = null, int|bool $simple = false, array $config = []) static 分页
+ * @method Paginator|$this paginate() static 分页
  */
 abstract class Model implements \JsonSerializable, \ArrayAccess
 {
@@ -504,6 +504,15 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         if (!empty($data)) {
             // 数据对象赋值
             foreach ($data as $key => $value) {
+                switch ($value) {
+                    case "on":
+                        $value = true;
+                        break;
+
+                    case "off":
+                        $value = false;
+                        break;
+                }
                 $this->setAttr($key, $value, $data);
             }
 
