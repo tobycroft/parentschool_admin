@@ -110,8 +110,7 @@ class Teacher extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'uid', '教师id', '', $teacher],
                 ['datetime', 'start_time', '开始时间', '开始时间必须大于当前时间'],
-                ['datetime', 'end_time', '结束时间'],
-                '结束时间不能超过开始时间5个小时',
+                ['datetime', 'end_time', '结束时间', '结束时间不能超过开始时间5个小时'],
                 ['text', 'name', '房间名称'],
             ])
             ->fetch();
