@@ -23,7 +23,7 @@ use util\Tree;
  * 用户默认控制器
  * @package app\user\admin
  */
-class Index extends Admin
+class Room extends Admin
 {
     /**
      * 用户首页
