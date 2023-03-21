@@ -57,7 +57,7 @@ class Teacher extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->setPageTitle('列表')
             ->addTopButton('add')
-            ->setSearch(['id' => 'ID', "phone" => "phone", 'username' => '用户名']) // 设置搜索参数
+            ->setSearch(['id' => 'ID', "teacherid" => "教师id"]) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'UID')
             ->addColumn('roomid', '房间ID')
