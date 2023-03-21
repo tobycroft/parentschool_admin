@@ -106,12 +106,18 @@ class Teacher extends Admin
             if (!$ret_room_info->isSuccess()) {
                 $this->error($ret_room_info->getError());
             }
+            $ret_room_url = $lcic->RoomUrl($teacherid, $teacherid);
+            if (!$ret_room_url->isSuccess()) {
+                $this->error($ret_room_url->getError());
+            }
             if ($user = LcicModel::create([
                 'teacherid' => $teacherid,
                 'name' => $name,
                 'roomid' => $ret_room_info->GetRoomId(),
                 'start_time' => $start_time,
                 'end_time' => $end_time,
+                "web_url" => $ret_room_url->GetUrlWeb(),
+                "pc_ur" => $ret_room_url->GetUrlPc(),
             ])) {
                 Hook::listen('user_add', $user);
                 // 记录行为
