@@ -152,7 +152,6 @@ class Teacher extends Admin
 
         // 非超级管理员检查可编辑用户
         if (session('user_auth.role') != 1) {
-            $role_list = RoleModel::getChildsId(session('user_auth.role'));
             $user_list = LcicModel::where('role', 'in', $role_list)
                 ->column('id');
             if (!in_array($id, $user_list)) {
@@ -199,18 +198,16 @@ class Teacher extends Admin
         $info = LcicModel::where('id', $id)
             ->find();
 
+        $teacher = TeacherModel::column('uid,name');
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'phone', '用户名', '不可更改'],
-                ['text', 'username', '用户名', '不可更改'],
-                ['text', 'password', '密码', '必填，6-20位'],
-                ['text', 'share', '共享码', '必填，6-20位'],
-                ['image', 'head_img', '头像'],
-                ['switch', 'active', '是否锁定'],
-                ['switch', 'lock', '是否锁定'],
+                ['select', 'teacherid', '教师id', '', $teacher],
+                ['datetime', 'start_time', '开始时间', '开始时间必须大于当前时间'],
+                ['datetime', 'end_time', '结束时间', '结束时间不能超过开始时间5个小时'],
+                ['text', 'name', '房间名称'],
             ])
             ->setFormData($info) // 设置表单数据
             ->fetch();
