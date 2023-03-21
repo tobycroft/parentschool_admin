@@ -59,7 +59,7 @@ class Teacher extends Admin
             ->addTopButton('add')
             ->setSearch(['id' => 'ID', "teacherid" => "教师id"]) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('id', 'UID')
+            ->addColumn('id', 'ID')
             ->addColumn('roomid', '房间ID')
             ->addColumn('teacherid', '教师id')
             ->addColumn('name', '房间标题')
