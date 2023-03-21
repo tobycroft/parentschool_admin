@@ -174,6 +174,9 @@ class Teacher extends Admin
                 $this->error('教师信息不存在');
             }
             $lcic = new Lcic(config('upload_prefix'));
+            echo $start_time;
+            echo $end_time;
+            exit();
             $ret_room_info = $lcic->RoomModify($info["roomid"], $teacherid, $start_time, $end_time, $name);
             if (!$ret_room_info->isSuccess()) {
                 $this->error($ret_room_info->getError());
