@@ -49,7 +49,7 @@ class Teacher extends Admin
             'title' => '用户地址',
             'icon' => 'fa fa-fw fa-key',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('user_address/index', ['search_field' => 'uid', 'keyword' => '__id__'])
+            'href' => ""
         ];
 
         return ZBuilder::make('table')
@@ -70,6 +70,7 @@ class Teacher extends Admin
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
+            ->addRightButtons(['教师开播地址' => $btn_access,])
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
