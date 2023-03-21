@@ -108,7 +108,7 @@ class Teacher extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'uid', '教师id', $teacher],
+                ['select', 'uid', '教师id', '', $teacher],
                 ['datetime', 'start_time', '开始时间'],
                 ['datetime', 'end_time', '结束时间'],
                 ['text', 'name', '房间名称'],
