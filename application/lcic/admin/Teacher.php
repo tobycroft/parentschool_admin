@@ -49,7 +49,7 @@ class Teacher extends Admin
             'title' => '用户地址',
             'icon' => 'fa fa-fw fa-key',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => ""
+            'href' => url('user_address/index', ['search_field' => 'uid', 'keyword' => '__id__'])
         ];
 
         return ZBuilder::make('table')
