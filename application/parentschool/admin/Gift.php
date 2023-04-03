@@ -51,7 +51,6 @@ class Gift extends Admin
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['a.id' => 'ID', 'a.uid' => "uid", 'a.name' => '用户名']) // 设置搜索参数
-            ->addOrder('id,callsign,year,class')
             ->addColumn('id', '问题ID')
             ->addColumn('coin_id', '积分类型', 'number')
             ->addColumn('name', '勋章名称', 'text.edit')
