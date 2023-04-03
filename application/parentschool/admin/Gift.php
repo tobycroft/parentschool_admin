@@ -57,7 +57,7 @@ class Gift extends Admin
             ->addColumn('name', '勋章名称', 'text.edit')
             ->addColumn('img', '勋章图片', 'img_url')
             ->addColumn('img_fade', '勋章图片暗色', 'img_url')
-            ->addColumn('price_old', '老价格', 'number')
+            ->addColumn('old_price', '老价格', 'number')
             ->addColumn('price', '价格', 'number')
             ->addColumn('num', '剩余数量', 'number')
             ->addColumn('is_num_limit', '是否有限制', 'switch')
