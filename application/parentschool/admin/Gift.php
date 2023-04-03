@@ -133,7 +133,8 @@ class Gift extends Admin
                 ['switch', 'is_num_limit', '数量是否有限制', ''],
                 ['switch', 'need_exchange', '是否需要兑换', ''],
                 ['text', 'intro', '简介', ''],
-                ['textarea', 'content', '说明文字', ''],
+                ['ueditor', 'content', '说明文字', ''],
+
             ])
             ->fetch();
     }
@@ -198,7 +199,7 @@ class Gift extends Admin
                 ['switch', 'is_num_limit', '数量是否有限制', ''],
                 ['switch', 'need_exchange', '是否需要兑换', ''],
                 ['text', 'intro', '简介', ''],
-                ['textarea', 'content', '说明文字', ''],
+                ['ueditor', 'content', '说明文字', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
