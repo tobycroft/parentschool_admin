@@ -82,7 +82,11 @@ class Teacher extends Admin
 
         $lcic = new Lcic(config('upload_prefix'));
         $ret = $lcic->RoomUrl($info["teacherid"], $info['teacherid']);
-        $this->redirect($ret->GetUrlWeb());
+        if ($ret->isSuccess()) {
+            $this->redirect($ret->GetUrlWeb());
+        } else {
+            $this->error($ret->getError());
+        }
     }
 
 
