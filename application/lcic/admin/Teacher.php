@@ -45,7 +45,7 @@ class Teacher extends Admin
             ->count();
         $num2 = LcicModel::count();
 
-        $btn_access4 = [
+        $btn_access = [
             'title' => '地址',
             'icon' => 'fa fa-plus',
 //            'class' => 'btn btn-xs btn-default ajax-get',
