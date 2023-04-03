@@ -45,11 +45,11 @@ class Teacher extends Admin
             ->count();
         $num2 = LcicModel::count();
 
-        $btn_access = [
-            'title' => '用户地址',
-            'icon' => 'fa fa-fw fa-key',
+        $btn_access4 = [
+            'title' => '地址',
+            'icon' => 'fa fa-plus',
 //            'class' => 'btn btn-xs btn-default ajax-get',
-            'href' => url('address',)
+            'href' => url('teacher/address', ['id' => '__id__',])
         ];
 
         return ZBuilder::make('table')
