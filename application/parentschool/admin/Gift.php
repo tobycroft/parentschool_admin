@@ -188,17 +188,17 @@ class Gift extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['number', 'uid', '家长id', '请确认务必存在'],
-                ['number', 'school_id', '学校id', '请确认务必存在'],
-                ['select', 'gender', '性别', '', \Student\Student::get_student_gender()],
-                ['text', 'name', '姓名', ''],
-                ['image', 'img', '头像', ''],
-                ['number', 'year', '入学年份'],
-                ['number', 'grade', '年段'],
-                ['number', 'class', '班级'],
-                ['text', 'special', '特殊班级'],
-                ['number', 'callsign', '座号'],
-                ['textarea', 'remark', '提示', ''],
+                ['select', 'coin_id', '积分类型id', '请确认务必存在', CoinModel::column('id,name')],
+                ['text', 'name', '勋章名称',],
+                ['image', 'img', '图片地址', ''],
+                ['image', 'img_fade', '图片地址', ''],
+                ['number', 'old_price', '老价格'],
+                ['number', 'price', '当前价'],
+                ['number', 'num', '剩余数量'],
+                ['switch', 'is_num_limit', '数量是否有限制', ''],
+                ['switch', 'need_exchange', '是否需要兑换', ''],
+                ['text', 'intro', '简介', ''],
+                ['textarea', 'content', '说明文字', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
