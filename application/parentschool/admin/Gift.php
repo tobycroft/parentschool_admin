@@ -123,7 +123,7 @@ class Gift extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'coin_id', '积分类型id', '请确认务必存在', CoinModel::column("id,name")],
+                ['select', 'coin_id', '积分类型id', '请确认务必存在', CoinModel::column("id,cname")],
                 ['text', 'name', '勋章名称',],
                 ['image', 'img', '图片地址', ''],
                 ['image', 'img_fade', '图片地址', ''],
@@ -188,7 +188,7 @@ class Gift extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'coin_id', '积分类型id', '请确认务必存在', CoinModel::column('id,name')],
+                ['select', 'coin_id', '积分类型id', '请确认务必存在', CoinModel::column('id,cname')],
                 ['text', 'name', '勋章名称',],
                 ['image', 'img', '图片地址', ''],
                 ['image', 'img_fade', '图片地址', ''],
