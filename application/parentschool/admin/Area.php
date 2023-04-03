@@ -183,7 +183,7 @@ class Area extends Admin
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
-            ->fetch();;
+            ->fetch();
     }
 
 
