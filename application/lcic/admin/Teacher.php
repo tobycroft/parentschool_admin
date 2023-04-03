@@ -76,6 +76,15 @@ class Teacher extends Admin
             ->fetch();
     }
 
+    public function address($id)
+    {
+        $info = LcicModel::where('id', $id)->find();
+
+        $lcic = new Lcic(config('upload_prefix'));
+        $ret = $lcic->RoomUrl($info["teacherid"], $info['teacherid']);
+        $this->redirect($ret->GetUrlWeb());
+    }
+
 
     /**
      * 新增
