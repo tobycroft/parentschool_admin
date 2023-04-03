@@ -33,11 +33,7 @@ class Gift extends Admin
         $order = $this->getOrder("callsign asc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = GiftModel::field("a.*,c.wx_name")
-            ->alias("a")
-            ->where($map)
-            ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
-            ->order($order)
+        $data_list = GiftModel::order($order)
             ->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
