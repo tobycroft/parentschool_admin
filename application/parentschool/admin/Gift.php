@@ -7,8 +7,8 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\FamilyModel;
+use app\parentschool\model\GiftModel;
 use app\parentschool\model\SchoolModel;
-use app\parentschool\model\StudentModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -33,7 +33,7 @@ class Gift extends Admin
         $order = $this->getOrder("callsign asc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudentModel::field("a.*,c.wx_name")
+        $data_list = GiftModel::field("a.*,c.wx_name")
             ->alias("a")
             ->where($map)
             ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
@@ -42,9 +42,9 @@ class Gift extends Admin
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-        $num1 = StudentModel::where("date", ">", $todaytime)
+        $num1 = GiftModel::where("date", ">", $todaytime)
             ->count();
-        $num2 = StudentModel::count();
+        $num2 = GiftModel::count();
         $school = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
@@ -108,7 +108,7 @@ class Gift extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = StudentModel::create($data)) {
+            if ($user = GiftModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -175,8 +175,8 @@ class Gift extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (StudentModel::update($data)) {
-                $user = StudentModel::get($data['id']);
+            if (GiftModel::update($data)) {
+                $user = GiftModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -186,7 +186,7 @@ class Gift extends Admin
         }
 
         // 获取数据
-        $info = StudentModel::where('id', $id)
+        $info = GiftModel::where('id', $id)
             ->find();
 
         // 使用ZBuilder快速创建表单
@@ -443,20 +443,20 @@ class Gift extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === StudentModel::where('id', 'in', $ids)
+                if (false === GiftModel::where('id', 'in', $ids)
                         ->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === StudentModel::where('id', 'in', $ids)
+                if (false === GiftModel::where('id', 'in', $ids)
                         ->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
                 Db::startTrans();
-                if (false === StudentModel::where('id', 'in', $ids)
+                if (false === GiftModel::where('id', 'in', $ids)
                         ->delete()) {
                     Db::rollback();
                     $this->error('删除失败');
@@ -564,7 +564,7 @@ class Gift extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = StudentModel::where("id", $id)
+        $result = GiftModel::where("id", $id)
             ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
