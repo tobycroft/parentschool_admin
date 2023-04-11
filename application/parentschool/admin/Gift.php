@@ -63,7 +63,7 @@ class Gift extends Admin
             ->addColumn('is_num_limit', '是否有限制', 'switch')
             ->addColumn('need_exchange', '是否需要兑换', 'switch')
             ->addColumn('intro', '小字说明', 'text.edit')
-            ->addColumn('content', '小字说明', 'textarea.edit')
+            ->addColumn('content', '小字说明', 'popover')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
