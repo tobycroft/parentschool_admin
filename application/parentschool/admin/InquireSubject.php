@@ -73,10 +73,6 @@ class InquireSubject extends Admin
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
-            ->addRightButtons([
-                "题目列表" => $btn_access3,
-                "新建题目" => $btn_access4,
-            ])
             ->fetch();
     }
 
