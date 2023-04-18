@@ -121,7 +121,7 @@ class InquireQuestion extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
                 ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
-                ['number', 'rank', '排序', '',],
+                ['number', 'rank', '排序', '越大越靠后，可以直接是本题的题目号',],
                 ['text', 'title', '标题', '',],
                 ['textarea', 'content', '内容', '',],
                 ['textarea', 'remark', '错题解析', '',],
@@ -195,7 +195,7 @@ class InquireQuestion extends Admin
                 ['hidden', 'id'],
                 ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
                 ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
-                ['number', 'rank', '排序', '',],
+                ['number', 'rank', '排序', '越大越靠后，可以直接是本题的题目号',],
                 ['text', 'title', '标题', '',],
                 ['textarea', 'content', '内容', '',],
                 ['textarea', 'remark', '错题解析', '',],
