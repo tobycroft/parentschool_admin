@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\InquireModel;
+use app\parentschool\model\InquireSubjectModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -51,6 +52,8 @@ class Inquire extends Admin
             'href' => url('quiz_selection/add', ['question_id' => '__id__',])
         ];
 
+        $subjects = InquireSubjectModel::column("id,title");
+
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
@@ -59,11 +62,10 @@ class Inquire extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', '问题ID')
-            ->addColumn('type', '课程类型', \Study\Type::get_type())
-            ->addColumn('study_id', '课程id', 'number')
-            ->addColumn('title', '标题', 'textarea.edit')
-            ->addColumn('content', '内容', 'textarea.edit')
-            ->addColumn('remark', '备注提示', 'textarea.edit')
+            ->addColumn('subject_id', '题库', 'select', '', $subjects)
+            ->addColumn('school_id', '学校id', 'number')
+            ->addColumn('grade_id', '年级id', 'number')
+            ->addColumn('class_id', '班级id', 'number')
             ->addColumn('img', '图片', 'picture')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
