@@ -115,23 +115,18 @@ class InquireSubject extends Admin
             }
         }
 
-        // 角色列表
-        if (session('user_auth.role') != 1) {
-            $role_list = RoleModel::getTree(null, false, session('user_auth.role'));
-        } else {
-            $role_list = RoleModel::getTree(null, false);
-        }
 
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['textarea', 'title', '标题', ''],
-                ['textarea', 'content', '内容', ''],
-                ['textarea', 'remark', '提示', ''],
-                ['image', 'img', '配图', ''],
+                ['text', 'title', '标题', ''],
+                ['text', 'slogan', '短介绍', ''],
+                ['text', 'content', '内容', ''],
+                ['text', 'remark', '备注提示', ''],
+                ['image', 'icon', '图标', ''],
+                ['image', 'img', '图片', ''],
+                ['switch', 'is_new', '新标签', ''],
             ])
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
