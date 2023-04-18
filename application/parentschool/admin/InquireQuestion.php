@@ -16,7 +16,7 @@ use util\Tree;
  * 用户默认控制器
  * @package app\user\admin
  */
-class InquireSubject extends Admin
+class InquireQuestion extends Admin
 {
     /**
      * 用户首页
@@ -59,8 +59,9 @@ class InquireSubject extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', '问题ID')
+            ->addColumn('type', '课程类型', \Study\Type::get_type())
+            ->addColumn('study_id', '课程id', 'number')
             ->addColumn('title', '标题', 'textarea.edit')
-            ->addColumn('slogan', '短介绍', 'textarea.edit')
             ->addColumn('content', '内容', 'textarea.edit')
             ->addColumn('remark', '备注提示', 'textarea.edit')
             ->addColumn('img', '图片', 'picture')
