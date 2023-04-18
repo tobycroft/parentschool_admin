@@ -68,7 +68,7 @@ class InquireQuestion extends Admin
             ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
             ->addColumn('rank', '排序', 'number',)
             ->addColumn('content', '内容', 'text',)
-            ->addColumn('type', '题目类型', 'text',)
+            ->addColumn('type', '题目类型', 'select',)
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
