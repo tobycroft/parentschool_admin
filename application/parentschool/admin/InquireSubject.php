@@ -57,7 +57,7 @@ class InquireSubject extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('id', '问题ID')
+            ->addColumn('id', 'id')
             ->addColumn('title', '标题', 'textarea.edit')
             ->addColumn('slogan', '短介绍', 'textarea.edit')
             ->addColumn('content', '内容', 'textarea.edit')

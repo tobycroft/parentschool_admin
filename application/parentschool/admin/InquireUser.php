@@ -60,7 +60,7 @@ class InquireUser extends Admin
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
-            ->addColumn('id', '问题ID')
+            ->addColumn('id', 'id')
             ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
             ->addColumn('uid', '用户id')
             ->addColumn('student_id', '学生',)
