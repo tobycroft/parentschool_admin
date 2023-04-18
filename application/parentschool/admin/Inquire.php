@@ -7,6 +7,8 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\InquireModel;
 use app\parentschool\model\InquireSubjectModel;
+use app\parentschool\model\SchoolClassModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -54,8 +56,6 @@ class Inquire extends Admin
         ];
 
 //        $subjects = InquireSubjectModel::field("id,title as name")->select();
-        $subjects = InquireSubjectModel::column("id,title");
-        $schools = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -65,10 +65,10 @@ class Inquire extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', '问题ID')
-            ->addColumn('subject_id', '题库', 'select', $subjects)
-            ->addColumn('school_id', '学校id', 'select', $schools)
-            ->addColumn('grade_id', '年级id', 'number')
-            ->addColumn('class_id', '班级id', 'number')
+            ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
+            ->addColumn('school_id', '学校id', 'select', SchoolModel::column("id,name"))
+            ->addColumn('grade_id', '年级id', 'select', SchoolGradeModel::column("id,name"))
+            ->addColumn('class_id', '班级id', 'select', SchoolClassModel::column("id,name"))
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -124,9 +124,9 @@ class Inquire extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
-                ['select', 'school_id', '标题', '', SchoolModel::column('id,name')],
-                ['number', 'grade_id', '内容', ''],
-                ['number', 'class_id', '提示', ''],
+                ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
+                ['select', 'grade_id', '年级', '', SchoolGradeModel::column('id,name')],
+                ['select', 'class_id', '班级', '', SchoolClassModel::column('id,name')],
             ])
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
@@ -183,9 +183,9 @@ class Inquire extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
-                ['select', 'school_id', '标题', '', SchoolModel::column('id,name')],
-                ['number', 'grade_id', '内容', ''],
-                ['number', 'class_id', '提示', ''],
+                ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
+                ['select', 'grade_id', '年级', '', SchoolGradeModel::column("id,name")],
+                ['select', 'class_id', '班级', '', SchoolClassModel::column("id,name")],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
