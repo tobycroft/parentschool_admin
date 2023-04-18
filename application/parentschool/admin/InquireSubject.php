@@ -5,7 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\QuizQuestionModel;
+use app\parentschool\model\InquireSubjectModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -30,14 +30,14 @@ class InquireSubject extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = QuizQuestionModel::where($map)
+        $data_list = InquireSubjectModel::where($map)
             ->order($order)
             ->paginate();
         $page = $data_list->render();
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
-//        $num1 = QuizQuestionModel::where("date", ">", $todaytime)->count();
-//        $num2 = QuizQuestionModel::count();
+//        $num1 = InquireSubjectModel::where("date", ">", $todaytime)->count();
+//        $num2 = InquireSubjectModel::count();
         $btn_access3 = [
             'title' => '列出题目',
             'icon' => 'fa fa-list',
@@ -106,7 +106,7 @@ class InquireSubject extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = QuizQuestionModel::create($data)) {
+            if ($user = InquireSubjectModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -169,8 +169,8 @@ class InquireSubject extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (QuizQuestionModel::update($data)) {
-                $user = QuizQuestionModel::get($data['id']);
+            if (InquireSubjectModel::update($data)) {
+                $user = InquireSubjectModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -180,7 +180,7 @@ class InquireSubject extends Admin
         }
 
         // 获取数据
-        $info = QuizQuestionModel::where('id', $id)
+        $info = InquireSubjectModel::where('id', $id)
             ->find();
 
         // 使用ZBuilder快速创建表单
@@ -432,19 +432,19 @@ class InquireSubject extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === QuizQuestionModel::where('id', 'in', $ids)
+                if (false === InquireSubjectModel::where('id', 'in', $ids)
                         ->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === QuizQuestionModel::where('id', 'in', $ids)
+                if (false === InquireSubjectModel::where('id', 'in', $ids)
                         ->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === QuizQuestionModel::where('id', 'in', $ids)
+                if (false === InquireSubjectModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
                 }
@@ -542,7 +542,7 @@ class InquireSubject extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = QuizQuestionModel::where("id", $id)
+        $result = InquireSubjectModel::where("id", $id)
             ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
