@@ -62,7 +62,7 @@ class Inquire extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', '问题ID')
-            ->addColumn('subject_id', '题库', 'select', '', $subjects)
+            ->addColumn('subject_id', '题库', 'select', $subjects)
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('grade_id', '年级id', 'number')
             ->addColumn('class_id', '班级id', 'number')
