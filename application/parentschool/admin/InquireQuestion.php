@@ -118,10 +118,6 @@ class InquireQuestion extends Admin
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
-            ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
-            ->addColumn('rank', '排序', 'number',)
-            ->addColumn('content', '内容', 'text',)
-            ->addColumn('type', '题目类型', 'select', InquireTypeModel::column('type,name'))
             ->addFormItems([ // 批量添加表单项
                 ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
                 ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
