@@ -73,7 +73,7 @@ class InquireRecord extends Admin
             ->addColumn('correct', '是否正确',)
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
-            ->addColumn('right_button', '操作', 'btn')
+//            ->addColumn('right_button', '操作', 'btn')
 //            ->addRightButton('edit') // 添加编辑按钮
 //            ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
