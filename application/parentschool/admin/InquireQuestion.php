@@ -126,6 +126,7 @@ class InquireQuestion extends Admin
             ->addColumn('type', '题目类型', 'select', InquireTypeModel::column('type,name'))
             ->addFormItems([ // 批量添加表单项
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
+                ['number', 'pack_id', '跳题题目包', '', '0'],
                 ['number', 'rank', '排序', '',],
                 ['text', 'title', '标题', '',],
                 ['textarea', 'content', '内容', '',],
@@ -199,6 +200,7 @@ class InquireQuestion extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
+                ['number', 'pack_id', '跳题题目包', '', '0'],
                 ['number', 'rank', '排序', '',],
                 ['text', 'title', '标题', '',],
                 ['textarea', 'content', '内容', '',],
