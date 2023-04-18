@@ -8,9 +8,6 @@ use app\common\builder\ZBuilder;
 use app\parentschool\model\InquireQuestionModel;
 use app\parentschool\model\InquireSubjectModel;
 use app\parentschool\model\InquireTypeModel;
-use app\parentschool\model\SchoolClassModel;
-use app\parentschool\model\SchoolGradeModel;
-use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -202,9 +199,23 @@ class InquireQuestion extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
-                ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
-                ['select', 'grade_id', '年级', '', SchoolGradeModel::column("id,cname")],
-                ['select', 'class_id', '班级', '', SchoolClassModel::column("id,cname")],
+                ['number', 'rank', '排序', '',],
+                ['text', 'title', '标题', '',],
+                ['textarea', 'content', '内容', '',],
+                ['textarea', 'remark', '错题解析', '',],
+                ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
+                ['text', 'select1', '选项1', '',],
+                ['text', 'select2', '选项2', '',],
+                ['text', 'select3', '选项3', '',],
+                ['text', 'select4', '选项4', '',],
+                ['text', 'select5', '选项5', '',],
+                ['text', 'select6', '选项6', '',],
+                ['number', 'score1', '加权1', '只要不是0就是正确答案',],
+                ['number', 'score2', '加权2', '只要不是0就是正确答案',],
+                ['number', 'score3', '加权3', '只要不是0就是正确答案',],
+                ['number', 'score4', '加权4', '只要不是0就是正确答案',],
+                ['number', 'score5', '加权5', '只要不是0就是正确答案',],
+                ['number', 'score6', '加权6', '只要不是0就是正确答案',],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
