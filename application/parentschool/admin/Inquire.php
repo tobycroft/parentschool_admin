@@ -67,8 +67,8 @@ class Inquire extends Admin
             ->addColumn('id', '问题ID')
             ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
             ->addColumn('school_id', '学校id', 'select', SchoolModel::column("id,name"))
-            ->addColumn('grade_id', '年级id', 'select', SchoolGradeModel::column("id,name"))
-            ->addColumn('class_id', '班级id', 'select', SchoolClassModel::column("id,name"))
+            ->addColumn('grade_id', '年级id', 'select', SchoolGradeModel::column("id,cname"))
+            ->addColumn('class_id', '班级id', 'select', SchoolClassModel::column("id,cname"))
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -125,8 +125,8 @@ class Inquire extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
                 ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
-                ['select', 'grade_id', '年级', '', SchoolGradeModel::column('id,name')],
-                ['select', 'class_id', '班级', '', SchoolClassModel::column('id,name')],
+                ['select', 'grade_id', '年级', '', SchoolGradeModel::column('id,cname')],
+                ['select', 'class_id', '班级', '', SchoolClassModel::column('id,cname')],
             ])
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
@@ -184,8 +184,8 @@ class Inquire extends Admin
                 ['hidden', 'id'],
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
                 ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
-                ['select', 'grade_id', '年级', '', SchoolGradeModel::column("id,name")],
-                ['select', 'class_id', '班级', '', SchoolClassModel::column("id,name")],
+                ['select', 'grade_id', '年级', '', SchoolGradeModel::column("id,cname")],
+                ['select', 'class_id', '班级', '', SchoolClassModel::column("id,cname")],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
