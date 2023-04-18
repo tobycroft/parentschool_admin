@@ -119,23 +119,16 @@ class Inquire extends Admin
             }
         }
 
-        // 角色列表
-        if (session('user_auth.role') != 1) {
-            $role_list = RoleModel::getTree(null, false, session('user_auth.role'));
-        } else {
-            $role_list = RoleModel::getTree(null, false);
-        }
-
+        $subjects = InquireSubjectModel::column('id,title');
+        $schools = SchoolModel::column('id,name');
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['textarea', 'title', '标题', ''],
-                ['textarea', 'content', '内容', ''],
-                ['textarea', 'remark', '提示', ''],
-                ['image', 'img', '配图', ''],
+                ['select', 'subject_id', '课程id', '', $subjects],
+                ['select', 'school_id', '标题', '', $schools],
+                ['number', 'grade_id', '内容', ''],
+                ['number', 'class_id', '提示', ''],
             ])
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
