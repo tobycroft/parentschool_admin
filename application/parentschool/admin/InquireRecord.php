@@ -66,7 +66,7 @@ class InquireRecord extends Admin
             ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
             ->addColumn('uid', '用户id')
             ->addColumn('student_id', '学生',)
-            ->addColumn('type', '题目类型', 'select', InquireTypeModel::column("type,name"))
+            ->addColumn('question_type', '题目类型', 'select', InquireTypeModel::column("type,name"))
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
