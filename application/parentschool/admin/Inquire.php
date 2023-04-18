@@ -7,6 +7,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\InquireModel;
 use app\parentschool\model\InquireSubjectModel;
+use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -54,6 +55,7 @@ class Inquire extends Admin
 
 //        $subjects = InquireSubjectModel::field("id,title as name")->select();
         $subjects = InquireSubjectModel::column("id,title");
+        $schools = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -64,7 +66,7 @@ class Inquire extends Admin
             ->addOrder('id')
             ->addColumn('id', '问题ID')
             ->addColumn('subject_id', '题库', 'select', $subjects)
-            ->addColumn('school_id', '学校id', 'number')
+            ->addColumn('school_id', '学校id', 'select', $schools)
             ->addColumn('grade_id', '年级id', 'number')
             ->addColumn('class_id', '班级id', 'number')
             ->addColumn('change_date', '修改时间')
