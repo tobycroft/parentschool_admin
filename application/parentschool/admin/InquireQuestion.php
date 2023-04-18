@@ -125,8 +125,8 @@ class InquireQuestion extends Admin
             ->addColumn('content', '内容', 'text',)
             ->addColumn('type', '题目类型', 'select', InquireTypeModel::column('type,name'))
             ->addFormItems([ // 批量添加表单项
-                ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
-                ['number', 'pack_id', '跳题题目包', '', '0'],
+                ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
+                ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
                 ['number', 'rank', '排序', '',],
                 ['text', 'title', '标题', '',],
                 ['textarea', 'content', '内容', '',],
@@ -199,8 +199,8 @@ class InquireQuestion extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
-                ['number', 'pack_id', '跳题题目包', '', '0'],
+                ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
+                ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
                 ['number', 'rank', '排序', '',],
                 ['text', 'title', '标题', '',],
                 ['textarea', 'content', '内容', '',],
