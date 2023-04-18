@@ -5,6 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\InquireQuestionModel;
 use app\parentschool\model\InquireRecordModel;
 use app\parentschool\model\InquireSubjectModel;
 use app\parentschool\model\InquireTypeModel;
@@ -61,6 +62,7 @@ class InquireRecord extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', '问题ID')
+            ->addColumn('question_id', '题库', 'select', InquireQuestionModel::column('id,content'))
             ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
             ->addColumn('rank', '排序', 'number',)
             ->addColumn('content', '内容', 'text',)
