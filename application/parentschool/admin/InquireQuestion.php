@@ -7,6 +7,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\InquireQuestionModel;
 use app\parentschool\model\InquireSubjectModel;
+use app\parentschool\model\InquireTypeModel;
 use app\parentschool\model\SchoolClassModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
@@ -68,7 +69,7 @@ class InquireQuestion extends Admin
             ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
             ->addColumn('rank', '排序', 'number',)
             ->addColumn('content', '内容', 'text',)
-            ->addColumn('type', '题目类型', 'select',)
+            ->addColumn('type', '题目类型', 'select', InquireTypeModel::column("type,name"))
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
