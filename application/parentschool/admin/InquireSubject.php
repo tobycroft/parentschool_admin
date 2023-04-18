@@ -34,10 +34,9 @@ class InquireSubject extends Admin
             ->order($order)
             ->paginate();
         $page = $data_list->render();
-//        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
-
-//        $num1 = InquireSubjectModel::where("date", ">", $todaytime)->count();
-//        $num2 = InquireSubjectModel::count();
+        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
+        $num1 = InquireSubjectModel::where("date", ">", $todaytime)->count();
+        $num2 = InquireSubjectModel::count();
         $btn_access3 = [
             'title' => '列出题目',
             'icon' => 'fa fa-list',
@@ -52,8 +51,8 @@ class InquireSubject extends Admin
         ];
 
         return ZBuilder::make('table')
-//            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
-//            ->setPageTips("总数量：" . $num2, 'danger')
+            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
