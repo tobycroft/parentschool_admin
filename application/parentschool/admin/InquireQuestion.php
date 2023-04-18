@@ -5,7 +5,11 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\InquireModel;
 use app\parentschool\model\InquireSubjectModel;
+use app\parentschool\model\SchoolClassModel;
+use app\parentschool\model\SchoolGradeModel;
+use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -30,13 +34,14 @@ class InquireQuestion extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = InquireSubjectModel::where($map)
+        $data_list = InquireModel::where($map)
             ->order($order)
             ->paginate();
         $page = $data_list->render();
-        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
-        $num1 = InquireSubjectModel::where("date", ">", $todaytime)->count();
-        $num2 = InquireSubjectModel::count();
+//        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
+
+//        $num1 = InquireModel::where("date", ">", $todaytime)->count();
+//        $num2 = InquireModel::count();
         $btn_access3 = [
             'title' => '列出题目',
             'icon' => 'fa fa-list',
@@ -50,21 +55,20 @@ class InquireQuestion extends Admin
             'href' => url('quiz_selection/add', ['question_id' => '__id__',])
         ];
 
+//        $subjects = InquireSubjectModel::field("id,title as name")->select();
+
         return ZBuilder::make('table')
-            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
-            ->setPageTips("总数量：" . $num2, 'danger')
+//            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
+//            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', '问题ID')
-            ->addColumn('title', '标题', 'textarea.edit')
-            ->addColumn('slogan', '短介绍', 'textarea.edit')
-            ->addColumn('content', '内容', 'textarea.edit')
-            ->addColumn('remark', '备注提示', 'textarea.edit')
-            ->addColumn('icon', '图标', 'picture')
-            ->addColumn('img', '图片', 'picture')
-            ->addColumn('is_new', '新标签', 'switch')
+            ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
+            ->addColumn('school_id', '学校id', 'select', SchoolModel::column("id,name"))
+            ->addColumn('grade_id', '年级id', 'select', SchoolGradeModel::column("id,cname"))
+            ->addColumn('class_id', '班级id', 'select', SchoolClassModel::column("id,cname"))
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -105,7 +109,7 @@ class InquireQuestion extends Admin
 
             $data['roles'] = isset($data['roles']) ? implode(',', $data['roles']) : '';
 
-            if ($user = InquireSubjectModel::create($data)) {
+            if ($user = InquireModel::create($data)) {
                 Hook::listen('user_add', $user);
                 // 记录行为
                 action_log('user_add', 'admin_user', $user['id'], UID);
@@ -115,18 +119,14 @@ class InquireQuestion extends Admin
             }
         }
 
-
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'title', '标题', ''],
-                ['text', 'slogan', '短介绍', ''],
-                ['text', 'content', '内容', ''],
-                ['text', 'remark', '备注提示', ''],
-                ['image', 'icon', '图标', ''],
-                ['image', 'img', '图片', ''],
-                ['switch', 'is_new', '新标签', ''],
+                ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
+                ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
+                ['select', 'grade_id', '年级', '', SchoolGradeModel::column('id,cname')],
+                ['select', 'class_id', '班级', '', SchoolClassModel::column('id,cname')],
             ])
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
@@ -163,8 +163,8 @@ class InquireQuestion extends Admin
             // 非超级管理需要验证可选择角色
 
 
-            if (InquireSubjectModel::update($data)) {
-                $user = InquireSubjectModel::get($data['id']);
+            if (InquireModel::update($data)) {
+                $user = InquireModel::get($data['id']);
                 // 记录行为
                 action_log('user_edit', 'user', $id, UID);
                 $this->success('编辑成功');
@@ -174,7 +174,7 @@ class InquireQuestion extends Admin
         }
 
         // 获取数据
-        $info = InquireSubjectModel::where('id', $id)
+        $info = InquireModel::where('id', $id)
             ->find();
 
         // 使用ZBuilder快速创建表单
@@ -182,13 +182,10 @@ class InquireQuestion extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'title', '标题', ''],
-                ['text', 'slogan', '短介绍', ''],
-                ['text', 'content', '内容', ''],
-                ['text', 'remark', '备注提示', ''],
-                ['image', 'icon', '图标', ''],
-                ['image', 'img', '图片', ''],
-                ['switch', 'is_new', '新标签', ''],
+                ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
+                ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
+                ['select', 'grade_id', '年级', '', SchoolGradeModel::column("id,cname")],
+                ['select', 'class_id', '班级', '', SchoolClassModel::column("id,cname")],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
@@ -427,19 +424,19 @@ class InquireQuestion extends Admin
 
         switch ($type) {
             case 'enable':
-                if (false === InquireSubjectModel::where('id', 'in', $ids)
+                if (false === InquireModel::where('id', 'in', $ids)
                         ->setField('status', 1)) {
                     $this->error('启用失败');
                 }
                 break;
             case 'disable':
-                if (false === InquireSubjectModel::where('id', 'in', $ids)
+                if (false === InquireModel::where('id', 'in', $ids)
                         ->setField('status', 0)) {
                     $this->error('禁用失败');
                 }
                 break;
             case 'delete':
-                if (false === InquireSubjectModel::where('id', 'in', $ids)
+                if (false === InquireModel::where('id', 'in', $ids)
                         ->delete()) {
                     $this->error('删除失败');
                 }
@@ -537,7 +534,7 @@ class InquireQuestion extends Admin
                 $this->error('权限不足，没有可操作的用户');
             }
         }
-        $result = InquireSubjectModel::where("id", $id)
+        $result = InquireModel::where("id", $id)
             ->setField($field, $value);
         if (false !== $result) {
             action_log('user_edit', 'user', $id, UID);
