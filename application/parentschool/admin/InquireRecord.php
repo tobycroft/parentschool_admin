@@ -71,7 +71,7 @@ class InquireRecord extends Admin
             ->addColumn('progress', '百分比',)
             ->addColumn('score', '加权',)
             ->addColumn('correct', '是否正确',)
-            ->addColumn('change_date', '修改时间')
+//            ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
 //            ->addColumn('right_button', '操作', 'btn')
 //            ->addRightButton('edit') // 添加编辑按钮
