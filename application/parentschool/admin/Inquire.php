@@ -119,14 +119,12 @@ class Inquire extends Admin
             }
         }
 
-        $subjects = InquireSubjectModel::column('id,title');
-        $schools = SchoolModel::column('id,name');
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'subject_id', '课程id', '', $subjects],
-                ['select', 'school_id', '标题', '', $schools],
+                ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
+                ['select', 'school_id', '标题', '', SchoolModel::column('id,name')],
                 ['number', 'grade_id', '内容', ''],
                 ['number', 'class_id', '提示', ''],
             ])
@@ -184,12 +182,10 @@ class Inquire extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['select', 'type', '课程类型', '', \Study\Type::get_type()],
-                ['text', 'study_id', '课程id', '请确认务必存在'],
-                ['textarea', 'title', '标题', ''],
-                ['textarea', 'content', '内容', ''],
-                ['textarea', 'remark', '提示', ''],
-                ['image', 'img', '配图', ''],
+                ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
+                ['select', 'school_id', '标题', '', SchoolModel::column('id,name')],
+                ['number', 'grade_id', '内容', ''],
+                ['number', 'class_id', '提示', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
