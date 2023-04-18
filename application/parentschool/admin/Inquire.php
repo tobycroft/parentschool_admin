@@ -66,7 +66,6 @@ class Inquire extends Admin
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('grade_id', '年级id', 'number')
             ->addColumn('class_id', '班级id', 'number')
-            ->addColumn('img', '图片', 'picture')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
@@ -74,10 +73,6 @@ class Inquire extends Admin
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
-            ->addRightButtons([
-                "题目列表" => $btn_access3,
-                "新建题目" => $btn_access4,
-            ])
             ->fetch();
     }
 
