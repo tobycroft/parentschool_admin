@@ -52,7 +52,7 @@ class Inquire extends Admin
             'href' => url('quiz_selection/add', ['question_id' => '__id__',])
         ];
 
-        $subjects = InquireSubjectModel::field("id,title as name")->column("id,name");
+        $subjects = InquireSubjectModel::column("id,title");
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
