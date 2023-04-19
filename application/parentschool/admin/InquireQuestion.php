@@ -114,12 +114,12 @@ class InquireQuestion extends Admin
                 $this->error('新增失败');
             }
         }
-
+        $subjects = InquireSubjectModel::column('id,title');
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
+                ['select', 'subject_id', '题库', '', $subjects, $subjects[count($subjects) - 1]["id"]],
                 ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
                 ['number', 'rank', '排序', '越大越靠后，可以直接是本题的题目号',],
                 ['text', 'title', '标题', '一般没用这项',],
