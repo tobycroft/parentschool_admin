@@ -115,8 +115,6 @@ class InquireQuestion extends Admin
             }
         }
         $subjects = InquireSubjectModel::column('id,title');
-        var_dump($subjects);
-        exit();
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
