@@ -135,7 +135,7 @@ class InquireRecord extends Admin
                 ['text', 'title', '标题', '',],
                 ['textarea', 'content', '内容', '',],
                 ['textarea', 'remark', '错题解析', '',],
-                ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
+                ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name'), 'single'],
                 ['text', 'select1', '选项1', '需要显示就填写，留空则不会在界面中显示本选项',],
                 ['text', 'select2', '选项2', '需要显示就填写，留空则不会在界面中显示本选项',],
                 ['text', 'select3', '选项3', '需要显示就填写，留空则不会在界面中显示本选项',],
