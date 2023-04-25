@@ -380,8 +380,9 @@ INSERT INTO `dp_admin_config`
 VALUES ('39', 'asset_version', '资源版本号', 'develop', 'text', '20180327', '', '可通过修改版号强制用户更新静态文件', '', '', '', '', '', '0',
         '', '', '', '', '1522143239', '1522143239', '100', '1');
 INSERT INTO `dp_admin_config`
-VALUES ('40', 'upload_url', '上传地址', 'upload', 'text', 'http://upload.tuuz.cc:81/upfull?token=',
-        'http://upload.tuuz.cc:81/upfull?token=', '', '', '', '', '', '', 0, '', '', '', '', 1632582889, 1632582889,
+VALUES ('40', 'upload_url', '上传地址', 'upload', 'text', 'http://upload.familyeducation.org.cn:81/upfull?token=',
+        'http://upload.familyeducation.org.cn:81/upfull?token=', '', '', '', '', '', '', 0, '', '', '', '', 1632582889,
+        1632582889,
         100, 1);
 INSERT INTO `dp_admin_config`
 VALUES ('41', 'upload_prefix', '上传标签', 'upload', 'text', 'test', 'test', '', '', '', '', '', '', 0, '', '', '', '',

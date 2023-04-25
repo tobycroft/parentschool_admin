@@ -157,7 +157,7 @@ class Rounding extends Admin
                 ['text', 'title', '备注'],
                 ['image', 'img', '图片字段'],
             ])
-//            ->assign('image_upload_url', "http://upload.tuuz.cc:81/upfull?token=fbcct")
+//            ->assign('image_upload_url', "http://upload.familyeducation.org.cn:81/upfull?token=fbcct")
             ->setFormData($info) // 设置表单数据
             ->fetch();
     }
