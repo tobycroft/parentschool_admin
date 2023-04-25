@@ -255,7 +255,7 @@ class Ajax extends Common
                 $this->error('文件同步失败');
             }
         } else {
-            $this->error('需要上传文件');
+            $this->error($md5_data->getError());
         }
     }
 
