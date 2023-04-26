@@ -115,6 +115,7 @@ class TeacherClass extends Admin
 }
 </style>
 EOF;
+
         $school = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
