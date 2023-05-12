@@ -462,12 +462,8 @@ class Student extends Admin
                     $this->error('删除失败');
                 }
                 if (FamilyMemberModel::where("student_id", 'in', $ids)->delete()) {
-                    Db::rollback();
-                    $this->error('删除失败');
                 }
                 if (FamilyModel::where("student_id", 'in', $ids)->delete()) {
-                    Db::rollback();
-                    $this->error('删除失败');
                 }
                 Db::commit();
                 break;
