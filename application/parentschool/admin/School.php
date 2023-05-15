@@ -7,6 +7,7 @@ use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
 use app\parentschool\model\FamilyMemberModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\parentschool\model\StudyRecordModel;
@@ -79,6 +80,7 @@ class School extends Admin
 
 //        $num1 = SchoolModel::where("date", ">", $todaytime)->count();
 //        $num2 = SchoolModel::count();
+        $grades = SchoolGradeModel::column("id,name");
 
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -94,6 +96,8 @@ class School extends Admin
             ->addColumn('count_daily', '每日', 'text')
             ->addColumn('count_weekly', '每周', 'text')
             ->addColumn('count_monthy', '每月', 'text')
+            ->addColumn('grade_min', '最低年级', 'select', $grades)
+            ->addColumn('grade_max', '最高年级', 'select', $grades)
             ->addColumn('domain', '学校标签', 'text.edit')
             ->addColumn('area_id', '学校所属区域', 'select', $area)
             ->addColumn('detail', '详细说明')
