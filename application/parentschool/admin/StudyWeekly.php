@@ -262,6 +262,7 @@ class StudyWeekly extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['checkbox', 'grades', '年级', '', $grade],
                 ['number', 'area_id', '对应区域'],
+                ['text', 'school_ids', '学校id组', '使用英文逗号,分割；例如:5,40,45,46；如果这是一个公共内容，留空即可'],
                 ['number', 'school_id', '学校id'],
                 ['select', 'study_type', '课程类型', '', \Study\Type::get_type(), 'weekly'],
                 ['text', 'title', '标题'],
@@ -487,6 +488,7 @@ class StudyWeekly extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['switch', 'only_today', '本课程仅可以在如下年级和时间展示，并删除本课程在其他日期的展示'],
+                ['text', 'school_ids', '学校id组', '使用英文逗号,分割；例如:5,40,45,46；如果这是一个公共内容，留空即可'],
                 ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'area_id', '对应区域'],
                 ['number', 'school_id', '学校id'],

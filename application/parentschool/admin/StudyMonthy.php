@@ -257,6 +257,7 @@ class StudyMonthy extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
+                ['text', 'school_ids', '学校id组', '使用英文逗号,分割；例如:5,40,45,46；如果这是一个公共内容，留空即可'],
                 ['checkbox', 'grades', '年级', '', $grade],
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
@@ -443,6 +444,7 @@ class StudyMonthy extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['switch', 'only_today', '本课程仅可以在如下年级和时间展示，并删除本课程在其他日期的展示'],
+                ['text', 'school_ids', '学校id组', '使用英文逗号,分割；例如:5,40,45,46；如果这是一个公共内容，留空即可'],
                 ['checkbox', 'grades', '年级', '', $grade, $ids],
                 ['number', 'class', '班级'],
                 ['number', 'area_id', '对应区域'],
