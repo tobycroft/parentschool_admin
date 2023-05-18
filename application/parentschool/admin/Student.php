@@ -33,7 +33,7 @@ class Student extends Admin
         $order = $this->getOrder("callsign asc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = StudentModel::field("a.*,c.wx_name")
+        $data_list = StudentModel::field("a.*,c.wx_name,c.phone")
             ->alias("a")
             ->where($map)
             ->leftJoin(["ps_user" => "c"], "a.uid=c.id")
@@ -60,6 +60,7 @@ class Student extends Admin
             ->addColumn('school_id', '学校id', 'number')
             ->addColumn('gender', '男女', 'number')
             ->addColumn('wx_name', '家长姓名', 'text')
+            ->addColumn('phone', '手机', 'text')
             ->addColumn('name', '姓名', 'text.edit')
             ->addColumn('img', '头像', 'picture')
             ->addColumn('year', '入学年份', 'number')
