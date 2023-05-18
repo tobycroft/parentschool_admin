@@ -143,6 +143,7 @@ class StudyDaily extends Admin
             unset($data["special_tag"]);
             unset($data["common_tag"]);
             $daily_input = ["title" => $data["title"],
+                'school_ids' => $data['school_ids'],
                 'school_id' => $data['school_id'],
                 "slogan" => $data["slogan"],
                 "content" => $data["content"],
