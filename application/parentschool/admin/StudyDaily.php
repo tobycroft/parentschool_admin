@@ -231,7 +231,7 @@ class StudyDaily extends Admin
                     ['checkbox', 'grades', '年级', '', $grade],
                     ['number', 'area_id', '对应区域'],
                     ['number', 'school_id', '学校id', '比如我填写45，那么45这个学校就有权限修改本条课程的内容，如果是多学校这里不要写0'],
-                    ['text', 'school_ids', '学校id组', '使用英文逗号,分割'],
+                    ['text', 'school_ids', '学校id组', '使用英文逗号,分割；例如:5,40,45,46'],
                     ['select', 'study_type', '课程类型', '', \Study\Type::get_type(), 'daily'],
                     ['text', 'title', '标题'],
                     ['text', 'slogan', '推荐金句'],
