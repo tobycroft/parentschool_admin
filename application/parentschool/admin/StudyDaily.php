@@ -229,7 +229,7 @@ class StudyDaily extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                     ['checkbox', 'grades', '年级', '', $grade],
-                    ['text', 'school_ids', '学校id组', '使用英文逗号,分割；例如:5,40,45,46'],
+                    ['text', 'school_ids', '学校id组', '使用英文逗号,分割；例如:5,40,45,46；如果这是一个公共内容，留空即可'],
                     ['number', 'area_id', '对应区域'],
                     ['number', 'school_id', '学校id', '比如我填写45，那么45这个学校就有权限修改本条课程的内容，如果是多学校这里不要写0'],
                     ['select', 'study_type', '课程类型', '', \Study\Type::get_type(), 'daily'],
