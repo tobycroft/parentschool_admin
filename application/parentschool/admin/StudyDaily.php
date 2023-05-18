@@ -8,6 +8,7 @@ use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\SchoolGradeModel;
+use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudyDailyModel;
 use app\parentschool\model\StudyModel;
 use app\parentschool\model\StudyTagModel;
@@ -67,6 +68,7 @@ class StudyDaily extends Admin
 
         $family_role = FamilyRoleModel::column("id,name");
         $family_role[0] = "全部展示";
+        $schools = SchoolModel::column("id,name");
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
@@ -230,7 +232,7 @@ class StudyDaily extends Admin
             ->addFormItems([ // 批量添加表单项
                     ['checkbox', 'grades', '年级', '', $grade],
                     ['number', 'area_id', '对应区域'],
-                    ['number', 'school_id', '学校id'],
+                    ['text', 'school_id', '学校id'],
                     ['select', 'study_type', '课程类型', '', \Study\Type::get_type(), 'daily'],
                     ['text', 'title', '标题'],
                     ['text', 'slogan', '推荐金句'],
