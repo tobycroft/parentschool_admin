@@ -37,7 +37,7 @@ class TeacherClass2 extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = TeacherClassModel::alias("a")->where($map)->join("ps_teacher b", "b.teacher_id=a.id")
+        $data_list = TeacherClassModel::alias("a")->where($map)->join(["ps_teacher" => "b"], "b.teacher_id=a.id")
             ->order($order)
             ->paginate();
         $page = $data_list->render();
