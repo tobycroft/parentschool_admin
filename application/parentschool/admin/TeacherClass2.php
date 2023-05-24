@@ -96,7 +96,7 @@ class TeacherClass2 extends Admin
                 ['phone', '教师ID'],
                 ['school_id', '学校ID', 'select', $school],
                 ['gc', '班级', 'text'],
-//                ['img', '班级二维码', 'img_url'],
+                ['img', '头像', 'img_url'],
                 ['year', '第几届', 'text.edit'],
 //                ['change_date', '修改时间'],
 //                ['date', '创建时间'],
