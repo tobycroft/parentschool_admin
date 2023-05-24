@@ -37,7 +37,7 @@ class TeacherClass2 extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = TeacherClassModel::where($map)
+        $data_list = TeacherClassModel::alias("a")->where($map)->join("ps_teacher b", "b.teacher_id=a.id")
             ->order($order)
             ->paginate()
             ->each(function ($item) {
@@ -110,8 +110,9 @@ class TeacherClass2 extends Admin
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
-                ['name', '姓名', 'text.edit'],
-                ['teacher_id', '教师ID', 'text.edit'],
+                ['name', '姓名'],
+                ['teacher_id', '教师ID'],
+                ['phone', '教师ID'],
                 ['school_id', '学校ID', 'select', $school],
                 ['gc', '班级', 'text'],
 //                ['img', '班级二维码', 'img_url'],
