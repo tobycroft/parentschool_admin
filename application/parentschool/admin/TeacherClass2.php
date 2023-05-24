@@ -119,13 +119,13 @@ class TeacherClass2 extends Admin
 //                ['change_date', '修改时间'],
 //                ['date', '创建时间'],
             ])
-            ->setColumnWidth([
-                "teacher_id" => "60",
-                "school_id" => "40",
-                "year" => "80",
-                "gc" => "250",
-                "img" => "200",
-            ])
+//            ->setColumnWidth([
+//                "teacher_id" => "60",
+//                "school_id" => "40",
+//                "year" => "80",
+//                "gc" => "250",
+//                "img" => "200",
+//            ])
             ->addColumn('right_button', '操作', 'btn')
             ->setHeight("auto")
             ->addRightButton('edit') // 添加编辑按钮
