@@ -91,30 +91,6 @@ class TeacherClass2 extends Admin
             'href' => url('teacher/index', ['search_field' => 'id', 'keyword' => '__teacher_id__'])
         ];
 
-        $css = <<<EOF
-<style>
-.table-builder > tbody > tr > td .image {
-    height: 150px;
-}
-.table-cell {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    box-sizing: border-box;
-    min-height: 22px;
-    font-size: 35px;
-}
-.table-builder > tbody > tr > td {
-    vertical-align: middle;
-    padding: 10px;
-    min-width: 0;
-    height: 500px;
-    box-sizing: border-box;
-    text-align: center;
-    text-overflow: ellipsis;
-}
-</style>
-EOF;
 
         $school = SchoolModel::column("id,name");
 
@@ -152,7 +128,6 @@ EOF;
             ])
             ->addColumn('right_button', '操作', 'btn')
             ->setHeight("auto")
-            ->setExtraCss($css)
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->addRightButtons(["jump" => $btn_access, "学校" => $btn_school, "年级" => $btn_grade, "班级" => $btn_class])
