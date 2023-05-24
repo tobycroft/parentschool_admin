@@ -39,26 +39,7 @@ class TeacherClass2 extends Admin
         // 读取用户数据
         $data_list = TeacherClassModel::alias("a")->where($map)->join("ps_teacher b", "b.teacher_id=a.id")
             ->order($order)
-            ->paginate()
-            ->each(function ($item) {
-                $item["name"] = TeacherModel::where("id", $item["teacher_id"])->value("name");
-                $item["url"] = url($this->api_url . '/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . '}');
-                $item["class_url"] = url($this->api_url . '/v1/parent/wechat/create?data={"school_id":' . $item["school_id"] . ',"class_id":' . $item["class_id"] . '}');
-                $item["school_name"] = SchoolModel::where("id", $item["school_id"])->value("name");
-                $now_time = strtotime("-8 month");
-                $now_year = date("Y", $now_time);
-                $item["gc"] = $item["school_name"] . "</br>" . ($now_year - $item["year"] + 1) . "年" . $item["class_id"] . "班";
-
-                $dat = [
-                    "type" => "register",
-                    "school_id" => $item["school_id"],
-                    "year" => $item["year"],
-                    "class" => $item["class_id"],
-                ];
-                $item["img"] = $this->api_url . '/v1/parent/wechat/create?data=' . urlencode(json_encode($dat, 320));
-
-                return $item;
-            });
+            ->paginate();
         $page = $data_list->render();
         $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
