@@ -108,6 +108,8 @@ class School extends Admin
             ->addColumn('bg_img', '学校背景图', 'picture')
             ->addColumn('dashboard', '学校端权限', 'switch')
             ->addColumn('screen', '大屏端权限', 'switch')
+            ->addColumn('rate_up', '金榜大于', 'number')
+            ->addColumn('rate_down', '银榜大于', 'number')
             ->addColumn('right_button', '操作', 'btn')
             ->addRightButtons(["jump" => $btn_access])
             ->addRightButton('edit') // 添加编辑按钮
