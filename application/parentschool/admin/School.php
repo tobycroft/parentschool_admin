@@ -98,6 +98,7 @@ class School extends Admin
             ->addColumn('count_monthy', '每月', 'text')
             ->addColumn('grade_min', '最低年级', 'select', $grades)
             ->addColumn('grade_max', '最高年级', 'select', $grades)
+            ->addColumn('remark', '技术支持', 'text.edit')
             ->addColumn('domain', '学校标签', 'text.edit')
             ->addColumn('area_id', '学校所属区域', 'select', $area)
             ->addColumn('detail', '详细说明')
