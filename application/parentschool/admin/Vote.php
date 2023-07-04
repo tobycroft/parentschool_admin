@@ -115,9 +115,7 @@ class Vote extends Admin
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
-
             ->addFormItems([ // 批量添加表单项
-
                 ['text', 'study_type', '课程类型', '', \Study\Type::get_type()],
                 ['text', 'pack_id', '课包id', ''],
                 ['text', 'title', '区域标签', ''],
@@ -180,12 +178,14 @@ class Vote extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'name', '区域名称', ''],
-                ['text', 'remark', '负责人备注', ''],
-                ['text', 'domain', '区域标签', ''],
-                ['image', 'icon', '区域图标', ''],
-                ['image', 'img', '区域标签', ''],
-                ['image', 'bg_img', '区域标签', ''],
+                ['text', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['text', 'pack_id', '课包id', ''],
+                ['text', 'title', '区域标签', ''],
+                ['text', 'content', '类型', ''],
+                ['text', 'select1', '选项1', ''],
+                ['text', 'select2', '选项2', ''],
+                ['text', 'select3', '选项3', ''],
+                ['text', 'select4', '选项4', ''],
             ]);
         return $data
             ->setFormData($info) // 设置表单数据
