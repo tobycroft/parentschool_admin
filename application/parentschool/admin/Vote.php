@@ -47,7 +47,7 @@ class Vote extends Admin
             ->setSearch(['area_id' => '区域ID']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
-            ->addColumn('study_type', '模式', 'select', '', ["daily" => "每日", "weekly" => "每周", "monthy" => "每月"])
+            ->addColumn('study_type', '模式', 'select', '', ["每日" => "daily", "weekly" => "每周", "monthy" => "每月"])
             ->addColumn('pack_id', '课包id', 'text.edit')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
