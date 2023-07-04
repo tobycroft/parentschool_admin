@@ -116,7 +116,7 @@ class Vote extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
-                ['text', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['text', 'study_type', '课程类型', \Study\Type::get_type()],
                 ['text', 'pack_id', '课包id', ''],
                 ['text', 'title', '区域标签', ''],
                 ['text', 'content', '类型', ''],
@@ -178,7 +178,7 @@ class Vote extends Admin
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
-                ['text', 'study_type', '课程类型', '', \Study\Type::get_type()],
+                ['text', 'study_type', '课程类型', \Study\Type::get_type()],
                 ['text', 'pack_id', '课包id', ''],
                 ['text', 'title', '区域标签', ''],
                 ['text', 'content', '类型', ''],
