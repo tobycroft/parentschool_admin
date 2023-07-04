@@ -47,17 +47,17 @@ class Vote extends Admin
             ->setSearch(['area_id' => '区域ID']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'ID')
-            ->addColumn('study_type', '模式', 'select', '', ["daily" => "daily", "weekly" => "每周", "monthy" => "每月"])
+            ->addColumn('study_type', '模式', 'select', '', ''， ["daily" => "daily", "weekly" => "每周", "monthy" => "每月"])
             ->addColumn('pack_id', '课包id', 'text.edit')
-            ->addColumn('title', 'title', 'text.edit')
-            ->addColumn('content', 'content', 'text.edit')
-            ->addColumn('select1', 'select1', 'text.edit')
-            ->addColumn('select2', 'select2', 'text.edit')
-            ->addColumn('select3', 'select3', 'text.edit')
-            ->addColumn('select4', 'select4', 'text.edit')
-            ->addColumn('change_date', '修改时间')
-            ->addColumn('date', '创建时间')
-            ->addColumn('right_button', '操作', 'btn')
+        ->addColumn('title', 'title', 'text.edit')
+        ->addColumn('content', 'content', 'text.edit')
+        ->addColumn('select1', 'select1', 'text.edit')
+        ->addColumn('select2', 'select2', 'text.edit')
+        ->addColumn('select3', 'select3', 'text.edit')
+        ->addColumn('select4', 'select4', 'text.edit')
+        ->addColumn('change_date', '修改时间')
+        ->addColumn('date', '创建时间')
+        ->addColumn('right_button', '操作', 'btn')
             ->addRightButton('edit') // 添加编辑按钮
             ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
