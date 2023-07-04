@@ -48,7 +48,7 @@ class Vote extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('study_type', '模式', 'select', \Study\Type::get_type())
-            ->addColumn('pack_id', '课包id', 'text.edit')
+            ->addColumn('pack_id', '课包id', 'text')
             ->addColumn('title', 'title', 'text.edit')
             ->addColumn('content', 'content', 'text.edit')
             ->addColumn('select1', 'select1', 'text.edit')
