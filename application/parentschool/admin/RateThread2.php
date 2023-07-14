@@ -35,7 +35,7 @@ class RateThread2 extends Admin
 
     public function export($ids = [])
     {
-
+        $arr = [];
         $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where("length(content)>5 and img0<>'null'")
             ->where('a.id', 'in', $ids)
             ->order('a.id desc')
@@ -73,22 +73,20 @@ class RateThread2 extends Admin
                         break;
                 }
 
+                $arr[] = [
+                    'id' => $item['id'],
+                    '课程类型' => $item['study_title'],
+                    '班级' => $item['gc'],
+                    '名称' => $item['cname'],
+                    '评价' => $item['content'],
+                    '图片1' => $item['img0'],
+                    '图片2' => $item['img1'],
+                    '时间' => $item['date'],
+                ];
+
                 return $item;
 
             });
-        $arr = [];
-        foreach ($data_list as $item) {
-            $arr[] = [
-                "id" => $item['id'],
-                "课程类型" => $item['study_title'],
-                "班级" => $item['gc'],
-                "名称" => $item['cname'],
-                "评价" => $item['content'],
-                "图片1" => $item['img0'],
-                "图片2" => $item['img1'],
-                "时间" => $item['date'],
-            ];
-        }
         // 设置表头信息（对应字段名,宽度，显示表头名称）
         $Aoss = new Excel(config('upload_prefix'));
         $ret = $Aoss->create_excel_fileurl($arr);
