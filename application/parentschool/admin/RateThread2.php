@@ -75,13 +75,8 @@ class RateThread2 extends Admin
                 return $item;
 
             });
-        $data = EnrollModel::field('id,uid,age,tag_id,tag_group_id,phone,name,cert,school_name,school_name_show,province,city,district,address,date')
-            ->where('id', 'in', $ids)
-            ->order('id desc')
-            ->select()
-            ->toArray();
         // 设置表头信息（对应字段名,宽度，显示表头名称）
-        foreach ($data as $key => $item) {
+        foreach ($data_list as $key => $item) {
             $item['tag_id'] = TagModel::where('id', $item['tag_id'])->value('name');
             $item['tag_group_id'] = TagGroupModel::where('id', $item['tag_group_id'])->value('name');
             $data[$key] = $item;
