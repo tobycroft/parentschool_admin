@@ -78,7 +78,7 @@ class RateThread2 extends Admin
             });
         $arr = [];
         foreach ($data_list as $item) {
-            array_push($arr, [
+            $arr[] = [
                 'id' => $item['id'],
                 '课程类型' => $item['study_title'],
                 '班级' => $item['gc'],
@@ -87,7 +87,7 @@ class RateThread2 extends Admin
                 '图片1' => $item['img0'],
                 '图片2' => $item['img1'],
                 '时间' => $item['date'],
-            ]);
+            ];
         }
         // 设置表头信息（对应字段名,宽度，显示表头名称）
         $Aoss = new Excel(config('upload_prefix'));
