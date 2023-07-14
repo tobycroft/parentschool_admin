@@ -78,16 +78,16 @@ class RateThread2 extends Admin
             });
         $arr = [];
         foreach ($data_list as $item) {
-            $arr[] = [
-                "id" => $item['id'],
-                "课程类型" => $item['study_title'],
-                "班级" => $item['gc'],
-                "名称" => $item['cname'],
-                "评价" => $item['content'],
-                "图片1" => $item['img0'],
-                "图片2" => $item['img1'],
-                "时间" => $item['date'],
-            ];
+            array_push($arr, [
+                'id' => $item['id'],
+                '课程类型' => $item['study_title'],
+                '班级' => $item['gc'],
+                '名称' => $item['cname'],
+                '评价' => $item['content'],
+                '图片1' => $item['img0'],
+                '图片2' => $item['img1'],
+                '时间' => $item['date'],
+            ]);
         }
         // 设置表头信息（对应字段名,宽度，显示表头名称）
         $Aoss = new Excel(config('upload_prefix'));
