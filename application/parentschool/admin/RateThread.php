@@ -95,6 +95,7 @@ class RateThread extends Admin
             ->setSearchArea([['select', 'type', '学习类型', '', '', ["daily" => "每日", "weekly" => "周", "monthy" => "月"]],
                 ['select', 'school_id', "学校", '', '', $school],
                 ['text', 'year', '入学年份'],
+                ['datetime', 'date', '时间段'],
 //                ['text', 'grade', '年级'],
                 ['text', 'class', '班级'],])
             ->setSearch(['a.id' => '问题ID']) // 设置搜索参数
