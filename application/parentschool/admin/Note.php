@@ -59,7 +59,7 @@ class Note extends Admin
                     $item['cname'] = substr_cut($item['name']) . '的' . $item['role'] . substr_cut($item['wx_name']);
                     $now_time = strtotime('-8 month');
                     $now_year = date('Y', $now_time);
-                    $item['gc'] = ($now_year - $item['year'] + 1) . '年' . $item['class'] . '班';
+                    $item['gc'] = SchoolGradeModel::where('id', $now_year - $item['year'] + 1)->value('name') . $item['class'] . '班';
                     $item['cname'] = $item['gc'] . $item['cname'];
                 }
                 $study = StudyModel::where('id', $item['study_id'])->find();
