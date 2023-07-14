@@ -84,6 +84,7 @@ class RateThread2 extends Admin
             $arr["cname"] = $item["cname"];
             $arr["content"] = $item["content"];
             $arr["img0"] = $item["img0"];
+            $arr["img1"] = $item["img1"];
             $arr["date"] = $item["date"];
         }
         // 设置表头信息（对应字段名,宽度，显示表头名称）
