@@ -726,6 +726,18 @@ class Builder extends ZBuilder
                 ];
                 break;
 
+            // 导出
+            case 'export':
+                // 默认属性
+                $btn_attribute = [
+                    'title' => '导出',
+                    'icon' => 'fa fa-ban',
+                    'class' => 'btn btn-warning ajax-post confirm',
+                    'target-form' => 'ids',
+                    'href' => $this->getDefaultUrl($type, ['_t' => $table_token, 'field' => $field])
+                ];
+                break;
+
             // 自定义按钮
             default:
                 // 默认属性
@@ -1520,7 +1532,7 @@ class Builder extends ZBuilder
 
     /**
      * 设置Tab按钮列表
-     * @param array $tab_list Tab列表  ['title' => '标题', 'href' => 'http://www.DThinkphp.com']
+     * @param array $tab_list Tab列表  ['title' => '标题', 'href' => 'http://www.thinkphp.cn']
      * @param string $curr_tab 当前tab
      * @return $this
      */

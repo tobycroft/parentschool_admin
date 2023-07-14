@@ -148,6 +148,7 @@ class RateThread2 extends Admin
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
             ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
+            ->addTopButton("export")
             ->setPageTitle('列表')
             ->setSearchArea([['select', 'type', '学习类型', '', '', ["daily" => "每日", "weekly" => "周", "monthy" => "月"]],
                 ['select', 'school_id', "学校", '', '', $school],
