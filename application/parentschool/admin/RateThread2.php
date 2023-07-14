@@ -78,6 +78,7 @@ class RateThread2 extends Admin
             });
         $arr = [];
         foreach ($data_list as $item) {
+            $arr["id"] = $item["id"];
             $arr["study_title"] = $item["study_title"];
             $arr["gc"] = $item["gc"];
             $arr["cname"] = $item["cname"];
