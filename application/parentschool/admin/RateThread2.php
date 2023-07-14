@@ -96,7 +96,10 @@ class RateThread2 extends Admin
                 ['select', 'school_id', "学校", '', '', $school],
                 ['text', 'year', '入学年份'],
 //                ['text', 'grade', '年级'],
-                ['text', 'class', '班级'],])
+                ['text', 'class', '班级'],
+                ['datetime', 'date', '时间段'],
+
+            ])
             ->setSearch(['a.id' => '问题ID']) // 设置搜索参数
             ->addOrder('a.id')
             ->addColumn('id', 'ID')
