@@ -5,6 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\SystemParamModel;
 use app\parentschool\model\TeacherClassModel;
@@ -47,7 +48,8 @@ class TeacherClass extends Admin
                 $item["school_name"] = SchoolModel::where("id", $item["school_id"])->value("name");
                 $now_time = strtotime("-8 month");
                 $now_year = date("Y", $now_time);
-                $item["gc"] = $item["school_name"] . "</br>" . ($now_year - $item["year"] + 1) . "年" . $item["class_id"] . "班";
+
+                $item["gc"] = $item["school_name"] . "</br>" . SchoolGradeModel::where('id', $now_year - $item['year'] + 1)->value('name') . $item["class_id"] . "班";
 
                 $dat = [
                     "type" => "register",
