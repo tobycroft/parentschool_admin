@@ -9,6 +9,7 @@ use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\NoteModel;
 use app\parentschool\model\ParentModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\parentschool\model\StudyDailyModel;
