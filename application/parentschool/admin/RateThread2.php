@@ -37,8 +37,8 @@ class RateThread2 extends Admin
     {
 
         $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where("length(content)>5 and img0<>'null'")
-            ->where('id', 'in', $ids)
-            ->order('id desc')
+            ->where('a.id', 'in', $ids)
+            ->order('a.id desc')
             ->select()->each(function ($item) {
                 $userinfo = ParentModel::where('id', $item['uid'])->find();
                 $item['wx_name'] = $userinfo['wx_name'];
