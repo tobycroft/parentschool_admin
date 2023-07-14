@@ -23,6 +23,7 @@ use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use Tobycroft\AossSdk\Excel\Excel;
 use util\Tree;
 
 /**
@@ -76,13 +77,8 @@ class RateThread2 extends Admin
 
             });
         // 设置表头信息（对应字段名,宽度，显示表头名称）
-        foreach ($data_list as $key => $item) {
-            $item['tag_id'] = TagModel::where('id', $item['tag_id'])->value('name');
-            $item['tag_group_id'] = TagGroupModel::where('id', $item['tag_group_id'])->value('name');
-            $data[$key] = $item;
-        }
         $Aoss = new Excel(config('upload_prefix'));
-        $ret = $Aoss->create_excel_fileurl($data);
+        $ret = $Aoss->create_excel_fileurl($data_list);
         $this->success('成功', $ret->file_url(), '_blank');
     }
 
