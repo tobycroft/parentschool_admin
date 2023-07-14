@@ -63,6 +63,9 @@ class RateThread2 extends Admin
                 $item['gc'] = SchoolGradeModel::where('id', $now_year - $item['year'] + 1)->value('name') . $item['class'] . '班';
                 $item['cname'] = $item['gc'] . $item['cname'];
                 $study = StudyModel::where("id", $item["study_id"])->find();
+                if (!$study) {
+                    return $item;
+                }
                 switch ($study["study_type"]) {
                     case "daily":
                         $item['study_title'] = StudyDailyModel::where("id", $study["study_id"])->value("title");
