@@ -5,6 +5,9 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
+use app\gallery\model\EnrollModel;
+use app\gallery\model\TagGroupModel;
+use app\gallery\model\TagModel;
 use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\FamilyRoleModel;
 use app\parentschool\model\ParentModel;
@@ -28,6 +31,66 @@ use util\Tree;
  */
 class RateThread2 extends Admin
 {
+
+    public function export($ids = [])
+    {
+
+        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where("content<>'' and img0<>'null'")
+            ->where('id', 'in', $ids)
+            ->order('id desc')
+            ->select()->each(function ($item) {
+                $userinfo = ParentModel::where('id', $item['uid'])->find();
+                $item['wx_name'] = $userinfo['wx_name'];
+                $stu = StudentModel::where('id', $item['student_id'])->find();
+                if ($stu) {
+                    $item['name'] = $stu['name'];
+                }
+                $fm = FamilyMemberModel::where('uid', $item['uid'])->where('student_id', $item['student_id'])->find();
+                if ($fm) {
+                    $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
+                    $item['role'] = $role;
+                }
+
+                $item['cname'] = substr_cut($item['name']) . '的' . $item['role'] . substr_cut($item['wx_name']);
+                $now_time = strtotime('-8 month');
+                $now_year = date('Y', $now_time);
+                $item['gc'] = SchoolGradeModel::where('id', $now_year - $item['year'] + 1)->value('name') . $item['class'] . '班';
+                $item['cname'] = $item['gc'] . $item['cname'];
+                $study = StudyModel::where('id', $item['study_id'])->find();
+                if (!$study) {
+                    return $item;
+                }
+                switch ($study['study_type']) {
+                    case 'daily':
+                        $item['study_title'] = StudyDailyModel::where('id', $study['study_id'])->value('title');
+                        break;
+                    case 'weekly':
+                        $item['study_title'] = StudyWeeklyModel::where('id', $study['study_id'])->value('title');
+                        break;
+                    case 'monthy':
+                        $item['study_title'] = StudyMonthyModel::where('id', $study['study_id'])->value('title');
+                        break;
+                }
+
+                return $item;
+
+            });
+        $data = EnrollModel::field('id,uid,age,tag_id,tag_group_id,phone,name,cert,school_name,school_name_show,province,city,district,address,date')
+            ->where('id', 'in', $ids)
+            ->order('id desc')
+            ->select()
+            ->toArray();
+        // 设置表头信息（对应字段名,宽度，显示表头名称）
+        foreach ($data as $key => $item) {
+            $item['tag_id'] = TagModel::where('id', $item['tag_id'])->value('name');
+            $item['tag_group_id'] = TagGroupModel::where('id', $item['tag_group_id'])->value('name');
+            $data[$key] = $item;
+        }
+        $Aoss = new Excel(config('upload_prefix'));
+        $ret = $Aoss->create_excel_fileurl($data);
+        $this->success('成功', $ret->file_url(), '_blank');
+    }
+
     /**
      * 用户首页
      * @return mixed
