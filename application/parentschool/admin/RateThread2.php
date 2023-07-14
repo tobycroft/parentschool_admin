@@ -76,9 +76,18 @@ class RateThread2 extends Admin
                 return $item;
 
             });
+        $arr = [];
+        foreach ($data_list as $item) {
+            $arr["study_title"] = $item["study_title"];
+            $arr["gc"] = $item["gc"];
+            $arr["cname"] = $item["cname"];
+            $arr["content"] = $item["content"];
+            $arr["attachment"] = $item["attachment"];
+            $arr["date"] = $item["date"];
+        }
         // 设置表头信息（对应字段名,宽度，显示表头名称）
         $Aoss = new Excel(config('upload_prefix'));
-        $ret = $Aoss->create_excel_fileurl($data_list);
+        $ret = $Aoss->create_excel_fileurl($arr);
         $this->success('成功', $ret->file_url(), '_blank');
     }
 
