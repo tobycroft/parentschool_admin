@@ -119,6 +119,7 @@ class RateThread2 extends Admin
                     $item['name'] = $stu['name'];
                 }
                 $fm = FamilyMemberModel::where("uid", $item["uid"])->where("student_id", $item["student_id"])->find();
+                $item['role'] = '';
                 if ($fm) {
                     $role = FamilyRoleModel::where('id', $fm['family_role_id'])->value('name');
                     $item['role'] = $role;
