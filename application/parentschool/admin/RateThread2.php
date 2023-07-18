@@ -36,7 +36,7 @@ class RateThread2 extends Admin
     public function export($ids = [])
     {
 
-        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where("length(content)>10 and img0<>'null'")
+        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')
             ->where('a.id', 'in', $ids)
             ->order('a.id desc')
             ->select()->each(function ($item) {
