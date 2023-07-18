@@ -188,6 +188,7 @@ class RateThread2 extends Admin
 //            ->addColumn('share', '分享', 'number')
 //            ->addColumn('like', '点赞数', 'number')
 //            ->addColumn('comment', '评论', 'number')
+            ->addColumn('is_hot', '选中（热评）', "switch")
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
