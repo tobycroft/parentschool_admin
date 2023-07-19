@@ -107,7 +107,7 @@ class RateThread2 extends Admin
         $order = $this->getOrder("a.id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where($map)->where("length(content)>0 and img0<>'null'")
+        $data_list = RateThreadModel::alias('a')->leftJoin(['ps_student' => 'b'], 'b.id=a.student_id')->where($map)
             ->where($map)
             ->order($order)
             ->field("b.*,a.*")
