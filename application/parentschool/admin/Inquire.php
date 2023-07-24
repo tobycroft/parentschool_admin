@@ -65,7 +65,7 @@ class Inquire extends Admin
             ->addColumn('id', 'id')
             ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
             ->addColumn('school_id', '学校id', 'select', SchoolModel::column("id,name"))
-            ->addColumn('grade_id', '年级id', 'select', SchoolGradeModel::column("id,cname"))
+            ->addColumn('year', '第几界', 'text.edit')
             ->addColumn('class_id', '班级id', 'select', SchoolClassModel::column("id,cname"))
             ->addColumn('is_notify', '已推送', 'switch')
             ->addColumn('change_date', '修改时间')
