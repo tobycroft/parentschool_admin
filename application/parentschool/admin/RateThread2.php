@@ -170,7 +170,7 @@ class RateThread2 extends Admin
 //                ['text', 'grade', '年级'],
                 ['text', 'class', '班级'],
                 ['select', 'hot_type', '筛选热评', '', '', ['comment' => '评价', 'img' => '图片', 'all' => '图文评价', '' => '无']],
-                ['daterange', 'date', '时间段'],
+                ['daterange', 'a.date', '时间段'],
 
             ])
             ->setSearch(['a.id' => '问题ID']) // 设置搜索参数
