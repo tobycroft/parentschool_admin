@@ -169,7 +169,7 @@ class RateThread2 extends Admin
                 ['text', 'year', '入学年份'],
 //                ['text', 'grade', '年级'],
                 ['text', 'class', '班级'],
-                ['select', 'is_hot', '筛选热评', '', '', ["1" => "yes", '0' => 'no']],
+                ['select', 'hot_type', '筛选热评', '', '', ['comment' => '评价', 'img' => '图片', 'all' => '图文评价', '' => '无']],
                 ['datetime', 'date', '时间段'],
 
             ])
