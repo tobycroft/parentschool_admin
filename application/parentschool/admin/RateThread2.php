@@ -87,6 +87,7 @@ class RateThread2 extends Admin
                 '图片1' => $item['img0'],
                 '图片2' => $item['img1'],
                 '时间' => $item['date'],
+                'hot_type' => $item['hot_type'],
             ];
         }
         // 设置表头信息（对应字段名,宽度，显示表头名称）
