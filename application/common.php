@@ -1088,9 +1088,9 @@ if (!function_exists('action_log')) {
                         }
                     }
 
-                    $data['remark'] = str_replace($match[0], $replace, $action_info['log']);
+                    $data['remark'] = str_replace($match[0], $replace, $action_info['log']) . $details;
                 } else {
-                    $data['remark'] = $action_info['log'];
+                    $data['remark'] = $action_info['log'] . $details;
                 }
             } else {
                 // 未定义日志规则，记录操作url
