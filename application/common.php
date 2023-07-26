@@ -1094,7 +1094,7 @@ if (!function_exists('action_log')) {
                 }
             } else {
                 // 未定义日志规则，记录操作url
-                $data['remark'] = '操作url：' . $_SERVER['REQUEST_URI'];
+                $data['remark'] = '操作url：' . $_SERVER['REQUEST_URI'] . "\r操作细节:" . $details;
             }
 
             // 保存日志
