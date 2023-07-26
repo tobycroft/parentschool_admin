@@ -86,6 +86,7 @@ class RateThread2 extends Admin
                 '评价' => $item['content'],
                 '图片1' => $item['img0'],
                 '图片2' => $item['img1'],
+                '修改时间' => $item['change_date'],
                 '时间' => $item['date'],
                 'hot_type' => $item['hot_type'],
             ];
