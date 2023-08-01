@@ -184,7 +184,7 @@ class InquireTag extends Admin
         ];
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
-            $addGroup['分数' . $i] = [
+            $addGroup['Level' . $i] = [
                 ['number', 'score' . $i, '加权', '最低需要达到的分数',],
                 ['text', 'result' . $i, '评测结果', '',],
                 ['text', 'instruction' . $i, '指导意见', '',],
