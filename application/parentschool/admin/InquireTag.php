@@ -113,6 +113,7 @@ class InquireTag extends Admin
                 $this->error('新增失败');
             }
         }
+
         $additem = [ // 批量添加表单项
             ['text', 'name', '标签名称', '',],
         ];
