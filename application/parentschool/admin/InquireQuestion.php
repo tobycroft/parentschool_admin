@@ -131,10 +131,10 @@ class InquireQuestion extends Admin
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
             $addGroup["选项" . $i] = [
-                ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag],
-                ['select', 'tag_sub' . $i, '减分标签' . $i, '选择本标签后将会给本标签进行同时减分', $inquire_tag],
+                ['text', 'select' . $i, '选项', '需要显示就填写，留空则不会在界面中显示本选项',],
+                ['number', 'score' . $i, '加权', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
+                ['select', 'tag' . $i, '加分标签', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+                ['select', 'tag_sub' . $i, '减分标签', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
             ];
         }
         // 使用ZBuilder快速创建表单
@@ -206,10 +206,10 @@ class InquireQuestion extends Admin
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
             $addGroup['选项' . $i] = [
-                ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag],
-                ['select', 'tag_sub' . $i, '减分标签' . $i, '选择本标签后将会给本标签进行同时减分', $inquire_tag],
+                ['text', 'select' . $i, '选项', '需要显示就填写，留空则不会在界面中显示本选项',],
+                ['number', 'score' . $i, '加权', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
+                ['select', 'tag' . $i, '加分标签', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+                ['select', 'tag_sub' . $i, '减分标签', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
             ];
         }
         // 使用ZBuilder快速创建表单
