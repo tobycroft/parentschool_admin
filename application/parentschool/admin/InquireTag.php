@@ -125,7 +125,6 @@ class InquireTag extends Admin
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems($additem)
-            ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
     }
 
