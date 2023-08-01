@@ -5,7 +5,6 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\InquireQuestionModel;
 use app\parentschool\model\InquireSubjectModel;
 use app\parentschool\model\InquireTagModel;
 use app\parentschool\model\InquireTypeModel;
@@ -63,20 +62,15 @@ class InquireTag extends Admin
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
             ->addColumn('id', 'id')
-            ->addColumn('question_id', '题库', 'select', InquireQuestionModel::column('id,content'))
-            ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
-            ->addColumn('uid', '用户id')
-            ->addColumn('student_id', '学生',)
-            ->addColumn('question_type', '题目类型', 'select', InquireTypeModel::column("type,name"))
-            ->addColumn('selection', '选项',)
-            ->addColumn('progress', '百分比',)
-            ->addColumn('score', '加权',)
-            ->addColumn('correct', '是否正确')
-//            ->addColumn('change_date', '修改时间')
+            ->addColumn('name', '标签名称', 'text.edit')
+            ->addColumn('score1', '分数1', 'number')
+            ->addColumn('result1', '结论1', 'text.edit')
+            ->addColumn('instruction1', '指导方法1', 'text.edit')
+            ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
 //            ->addColumn('right_button', '操作', 'btn')
-//            ->addRightButton('edit') // 添加编辑按钮
-//            ->addRightButton('delete') //添加删除按钮
+            ->addRightButton('edit') // 添加编辑按钮
+            ->addRightButton('delete') //添加删除按钮
             ->setRowList($data_list) // 设置表格数据
             ->setPages($page)
             ->fetch();
