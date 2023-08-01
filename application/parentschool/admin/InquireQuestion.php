@@ -128,16 +128,20 @@ class InquireQuestion extends Admin
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name'), 'single'],
 
         ];
+        $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
-            $addFormItems[] = ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',];
-            $addFormItems[] = ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'];
-            $addFormItems[] = ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag];
-            $addFormItems[] = ['select', 'tag_sub' . $i, '减分标签' . $i, '选择本标签后将会给本标签进行同时减分', $inquire_tag];
+            $addGroup["选项" . $i] = [
+                ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',],
+                ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
+                ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+                ['select', 'tag_sub' . $i, '减分标签' . $i, '选择本标签后将会给本标签进行同时减分', $inquire_tag],
+            ];
         }
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems($addFormItems)
+            ->addGroup($addGroup)
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
     }
@@ -199,20 +203,23 @@ class InquireQuestion extends Admin
             ['textarea', 'remark', '错题解析', '',],
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
         ];
+        $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
-            $addFormItems[] = ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',];
-            $addFormItems[] = ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'];
-            $addFormItems[] = ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag];
-            $addFormItems[] = ['select', 'tag_sub' . $i, '减分标签' . $i, '选择本标签后将会给本标签进行同时减分', $inquire_tag];
+            $addGroup['选项' . $i] = [
+                ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',],
+                ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
+                ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+                ['select', 'tag_sub' . $i, '减分标签' . $i, '选择本标签后将会给本标签进行同时减分', $inquire_tag],
+            ];
         }
-
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
-            ->addFormItems($addFormItems);
-        return $data
+            ->addFormItems($addFormItems)
+            ->addGroup($addGroup)
             ->setFormData($info) // 设置表单数据
-            ->fetch();;
+            ->fetch();
+        return $data;
     }
 
 
