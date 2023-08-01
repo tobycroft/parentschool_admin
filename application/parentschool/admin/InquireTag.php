@@ -18,6 +18,25 @@ use util\Tree;
  */
 class InquireTag extends Admin
 {
+
+
+    /**
+     * @return array
+     */
+    public function addGroup(): array
+    {
+        $addGroup = [];
+        for ($i = 1; $i <= 9; $i++) {
+            $addGroup['Level' . $i] = [
+                ['number', 'score' . $i, '加权', '最低需要达到的分数',],
+                ['textarea', 'result' . $i, '评测结果', '',],
+                ['textarea', 'instruction' . $i, '指导意见', '',],
+            ];
+        }
+        return $addGroup;
+    }
+
+    
     /**
      * 用户首页
      * @return mixed
@@ -117,14 +136,7 @@ class InquireTag extends Admin
         $additem = [ // 批量添加表单项
             ['text', 'name', '标签名称', '',],
         ];
-        $addGroup = [];
-        for ($i = 1; $i <= 9; $i++) {
-            $addGroup['Level' . $i] = [
-                ['number', 'score' . $i, '加权', '最低需要达到的分数',],
-                ['text', 'result' . $i, '评测结果', '',],
-                ['text', 'instruction' . $i, '指导意见', '',],
-            ];
-        }
+        $addGroup = $this->addGroup();
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
@@ -182,14 +194,7 @@ class InquireTag extends Admin
             ['hidden', 'id'],
             ['text', 'name', '标签名称', '',],
         ];
-        $addGroup = [];
-        for ($i = 1; $i <= 9; $i++) {
-            $addGroup['Level' . $i] = [
-                ['number', 'score' . $i, '加权', '最低需要达到的分数',],
-                ['text', 'result' . $i, '评测结果', '',],
-                ['text', 'instruction' . $i, '指导意见', '',],
-            ];
-        }
+        $addGroup = $this->addGroup();
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
@@ -550,4 +555,5 @@ class InquireTag extends Admin
             $this->error('操作失败');
         }
     }
+
 }
