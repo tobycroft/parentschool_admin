@@ -180,31 +180,19 @@ class InquireTag extends Admin
         $info = InquireTagModel::where('id', $id)
             ->find();
 
+        $additem = [ // 批量添加表单项
+            ['hidden', 'id'],
+            ['text', 'name', '标签名称', '',],
+        ];
+        for ($i = 1; $i <= 9; $i++) {
+            $additem[] = ['number', 'score1', '加权1', '最低需要达到的分数',];
+            $additem[] = ['text', 'result1', '评测结果1', '',];
+            $additem[] = ['text', 'instruction1', '指导意见1', '',];
+        }
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
-            ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'],
-                ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
-                ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
-                ['number', 'rank', '排序', '',],
-                ['text', 'title', '标题', '',],
-                ['textarea', 'content', '内容', '',],
-                ['textarea', 'remark', '错题解析', '',],
-                ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
-                ['text', 'select1', '选项1', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['text', 'select2', '选项2', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['text', 'select3', '选项3', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['text', 'select4', '选项4', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['text', 'select5', '选项5', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['text', 'select6', '选项6', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score1', '加权1', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可',],
-                ['number', 'score2', '加权2', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可',],
-                ['number', 'score3', '加权3', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可',],
-                ['number', 'score4', '加权4', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可',],
-                ['number', 'score5', '加权5', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可',],
-                ['number', 'score6', '加权6', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可',],
-            ]);
+            ->addFormItems($additem);
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;
