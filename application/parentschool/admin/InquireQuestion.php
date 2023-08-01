@@ -128,7 +128,11 @@ class InquireQuestion extends Admin
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name'), 'single'],
 
             ['number', 'progress_score', '进度条分值', '如果题目类型不是进度条则无需设定',],
+            ['select', 'progress_tag', '加分标签', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+            ['select', 'progress_tag_sub', '减分标签', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
             ['tags', 'word', '关键词', '关键词，需要全部匹配才能判断为正确',],
+            ['select', 'word_tag', '加分标签', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+            ['select', 'word_tag_sub', '减分标签', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
         ];
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
@@ -206,7 +210,11 @@ class InquireQuestion extends Admin
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
 
             ['number', 'progress_score', '进度条分值', '如果题目类型不是进度条则无需设定',],
+            ['select', 'progress_tag', '加分标签', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+            ['select', 'progress_tag_sub', '减分标签', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
             ['tags', 'word', '关键词', '关键词，需要全部匹配才能判断为正确',],
+            ['select', 'word_tag', '加分标签', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
+            ['select', 'word_tag_sub', '减分标签', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
         ];
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
