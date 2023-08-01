@@ -18,11 +18,6 @@ use util\Tree;
  */
 class InquireTag extends Admin
 {
-
-
-    /**
-     * @return array
-     */
     public function addGroup(): array
     {
         $addGroup = [];
