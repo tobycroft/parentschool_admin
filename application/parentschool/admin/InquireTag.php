@@ -190,12 +190,11 @@ class InquireTag extends Admin
             $additem[] = ['text', 'instruction1', '指导意见1', '',];
         }
         // 使用ZBuilder快速创建表单
-        $data = ZBuilder::make('form')
+        return ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
-            ->addFormItems($additem);
-        return $data
+            ->addFormItems($additem)
             ->setFormData($info) // 设置表单数据
-            ->fetch();;
+            ->fetch();
     }
 
 
