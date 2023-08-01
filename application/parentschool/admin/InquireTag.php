@@ -28,7 +28,7 @@ class InquireTag extends Admin
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
             $addGroup['Level' . $i] = [
-                ['number', 'score' . $i, '加权', '最低需要达到的分数',],
+                ['number', 'score' . $i, '加权', '最低需要达到的分数，如果设定为0，本条自动作废',],
                 ['textarea', 'result' . $i, '评测结果', '',],
                 ['textarea', 'instruction' . $i, '指导意见', '',],
             ];
@@ -36,7 +36,7 @@ class InquireTag extends Admin
         return $addGroup;
     }
 
-    
+
     /**
      * 用户首页
      * @return mixed
