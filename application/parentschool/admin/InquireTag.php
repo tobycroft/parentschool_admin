@@ -117,15 +117,19 @@ class InquireTag extends Admin
         $additem = [ // 批量添加表单项
             ['text', 'name', '标签名称', '',],
         ];
+        $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
-            $additem[] = ['number', 'score1', '加权1', '最低需要达到的分数',];
-            $additem[] = ['text', 'result1', '评测结果1', '',];
-            $additem[] = ['text', 'instruction1', '指导意见1', '',];
+            $addGroup['选项' . $i] = [
+                ['number', 'score1', '加权1', '最低需要达到的分数',],
+                ['text', 'result1', '评测结果1', '',],
+                ['text', 'instruction1', '指导意见1', '',],
+            ];
         }
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems($additem)
+            ->addGroup($addGroup)
             ->fetch();
     }
 
@@ -178,15 +182,19 @@ class InquireTag extends Admin
             ['hidden', 'id'],
             ['text', 'name', '标签名称', '',],
         ];
+        $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
-            $additem[] = ['number', 'score1', '加权1', '最低需要达到的分数',];
-            $additem[] = ['text', 'result1', '评测结果1', '',];
-            $additem[] = ['text', 'instruction1', '指导意见1', '',];
+            $addGroup['选项' . $i] = [
+                ['number', 'score1', '加权1', '最低需要达到的分数',],
+                ['text', 'result1', '评测结果1', '',],
+                ['text', 'instruction1', '指导意见1', '',],
+            ];
         }
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
             ->addFormItems($additem)
+            ->addGroup($addGroup)
             ->setFormData($info) // 设置表单数据
             ->fetch();
     }
