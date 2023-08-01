@@ -5,9 +5,7 @@ namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
-use app\parentschool\model\InquireSubjectModel;
 use app\parentschool\model\InquireTagModel;
-use app\parentschool\model\InquireTypeModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -126,10 +124,6 @@ class InquireTag extends Admin
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
-            ->addColumn('subject_id', '题库', 'select', InquireSubjectModel::column('id,title'))
-            ->addColumn('rank', '排序', 'number',)
-            ->addColumn('content', '内容', 'text',)
-            ->addColumn('type', '题目类型', 'select', InquireTypeModel::column('type,name'))
             ->addFormItems($additem)
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
             ->fetch();
