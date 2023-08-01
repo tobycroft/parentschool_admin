@@ -28,7 +28,7 @@ class InquireTag extends Admin
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
             $addGroup['Level' . $i] = [
-                ['number', 'score' . $i, '加权-最低需要达到的分数', '最低需要达到的分数，如果设定为0，本条自动作废',],
+                ['number', 'score' . $i, '加权-最低需要达到的分数', '最低需要达到的分数，如果设定为0，本条自动作废，注意分数不能超过Level' . ($i + 1) . '的分数',],
                 ['textarea', 'result' . $i, '评测结果', '',],
                 ['textarea', 'instruction' . $i, '指导意见', '',],
             ];
