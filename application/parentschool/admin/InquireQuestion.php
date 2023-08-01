@@ -127,6 +127,8 @@ class InquireQuestion extends Admin
             ['textarea', 'remark', '错题解析', '',],
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name'), 'single'],
 
+            ['number', 'progress_score', '进度条分值', '如果题目类型不是进度条则无需设定',],
+            ['tags', 'word', '关键词', '关键词，需要全部匹配才能判断为正确',],
         ];
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
@@ -202,6 +204,9 @@ class InquireQuestion extends Admin
             ['textarea', 'content', '题目', '题目写在这里',],
             ['textarea', 'remark', '错题解析', '',],
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
+
+            ['number', 'progress_score', '进度条分值', '如果题目类型不是进度条则无需设定',],
+            ['tags', 'word', '关键词', '关键词，需要全部匹配才能判断为正确',],
         ];
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
