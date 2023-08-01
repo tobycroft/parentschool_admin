@@ -187,37 +187,29 @@ class InquireQuestion extends Admin
         $info = InquireQuestionModel::where('id', $id)
             ->find();
 
+        $inquire_tag = InquireTagModel::column('id,name');
+
+        $addFormItems = [ // 批量添加表单项
+            ['hidden', 'id'],
+            ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
+            ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
+            ['number', 'rank', '排序', '越大越靠后，可以直接是本题的题目号',],
+            ['text', 'title', '标题', '一般没用这项',],
+            ['textarea', 'content', '题目', '题目写在这里',],
+            ['textarea', 'remark', '错题解析', '',],
+            ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
+        ];
+        for ($i = 1; $i < 9; $i++) {
+            $addFormItems[] = ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',];
+            $addFormItems[] = ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'];
+            $addFormItems[] = ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag];
+            $addFormItems[] = ['select', 'tag_sub' . $i, '减分标签' . $i, '选择本标签后将会给本标签进行同时减分', $inquire_tag];
+        }
+
         // 使用ZBuilder快速创建表单
         $data = ZBuilder::make('form')
             ->setPageTitle('编辑') // 设置页面标题
-            ->addFormItems([ // 批量添加表单项
-                ['hidden', 'id'],
-                ['select', 'subject_id', '题库', '', InquireSubjectModel::column('id,title')],
-                ['number', 'pack_id', '跳题题目包', '这个是跨题库包的id', '0'],
-                ['number', 'rank', '排序', '越大越靠后，可以直接是本题的题目号',],
-                ['text', 'title', '标题', '一般没用这项',],
-                ['textarea', 'content', '题目', '题目写在这里',],
-                ['textarea', 'remark', '错题解析', '',],
-                ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
-                ['text', 'select1', '选项1', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score1', '加权1', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select2', '选项2', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score2', '加权2', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select3', '选项3', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score3', '加权3', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select4', '选项4', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score4', '加权4', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select5', '选项5', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score5', '加权5', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select6', '选项6', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score6', '加权6', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select7', '选项7', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score7', '加权7', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select8', '选项8', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score8', '加权8', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-                ['text', 'select9', '选项9', '需要显示就填写，留空则不会在界面中显示本选项',],
-                ['number', 'score9', '加权9', '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'],
-            ]);
+            ->addFormItems($addFormItems);
         return $data
             ->setFormData($info) // 设置表单数据
             ->fetch();;
