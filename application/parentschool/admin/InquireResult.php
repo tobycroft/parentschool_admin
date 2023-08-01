@@ -70,7 +70,7 @@ class InquireResult extends Admin
             ->addColumn('result', '结论')
             ->addColumn('instruction', '指导意见')
             ->addColumn('is_ai', '是否AI生成', 'switch')
-//            ->addColumn('change_date', '修改时间')
+            ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
 //            ->addColumn('right_button', '操作', 'btn')
 //            ->addRightButton('edit') // 添加编辑按钮
