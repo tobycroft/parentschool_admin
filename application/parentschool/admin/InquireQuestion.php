@@ -128,7 +128,7 @@ class InquireQuestion extends Admin
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name'), 'single'],
 
         ];
-        for ($i = 1; $i < 9; $i++) {
+        for ($i = 1; $i <= 9; $i++) {
             $addFormItems[] = ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',];
             $addFormItems[] = ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'];
             $addFormItems[] = ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag];
@@ -199,7 +199,7 @@ class InquireQuestion extends Admin
             ['textarea', 'remark', '错题解析', '',],
             ['select', 'type', '题目类型', '', InquireTypeModel::column('type,name')],
         ];
-        for ($i = 1; $i < 9; $i++) {
+        for ($i = 1; $i <= 9; $i++) {
             $addFormItems[] = ['text', 'select' . $i, '选项' . $i, '需要显示就填写，留空则不会在界面中显示本选项',];
             $addFormItems[] = ['number', 'score' . $i, '加权' . $i, '正确答案设定为1，不正确设定为0，如果需要使用加权评价算法，设定大于1即可', '1'];
             $addFormItems[] = ['select', 'tag' . $i, '加分标签' . $i, '选择标签后会对用户对应的标签进行加分', $inquire_tag];
