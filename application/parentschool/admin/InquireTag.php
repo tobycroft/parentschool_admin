@@ -184,10 +184,10 @@ class InquireTag extends Admin
         ];
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
-            $addGroup['选项' . $i] = [
-                ['number', 'score1', '加权1', '最低需要达到的分数',],
-                ['text', 'result1', '评测结果1', '',],
-                ['text', 'instruction1', '指导意见1', '',],
+            $addGroup['分数' . $i] = [
+                ['number', 'score' . $i, '加权', '最低需要达到的分数',],
+                ['text', 'result' . $i, '评测结果', '',],
+                ['text', 'instruction' . $i, '指导意见', '',],
             ];
         }
         // 使用ZBuilder快速创建表单
