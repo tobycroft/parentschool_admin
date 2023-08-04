@@ -300,7 +300,7 @@ class RateThread2 extends Admin
             if (RateThreadModel::update($data)) {
                 $user = RateThreadModel::get($data['id']);
                 // 记录行为
-                action_log('edit_data', 'user', $id, UID, json_encode(input('post.'), 1));
+                action_log('edit_data', 'user', $id, UID, json_encode(input('post.'), 320));
                 $this->success('编辑成功');
             } else {
                 $this->error('编辑失败');
@@ -674,7 +674,7 @@ class RateThread2 extends Admin
         $result = RateThreadModel::where("id", $id)
             ->setField($field, $value);
         if (false !== $result) {
-            action_log('edit_data', 'user', $id, UID, json_encode(input('post.'), 1));
+            action_log('edit_data', 'user', $id, UID, json_encode(input('post.'), 320));
             $this->success('操作成功');
         } else {
             $this->error('操作失败');
