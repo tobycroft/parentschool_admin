@@ -212,8 +212,7 @@ class InquireQuestion extends Admin
             ['select', 'progress_tag', '进度条加分标签', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
             ['select', 'progress_tag_sub', '进度条响应减分标签', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
             ['tags', 'word', '关键词', '关键词，需要全部匹配才能判断为正确',],
-            ['select', 'word_tag', '关键词加分', '选择标签后会对用户对应的标签进行加分', $inquire_tag],
-            ['select', 'word_tag_sub', '关键词减分', '选择本标签后将会给本标签进行同时减分', $inquire_tag],
+            ['switch', 'is_word_multiple', '是否同时匹配多个词语', '选择标签后会对用户对应的标签进行加分'],
         ];
         $addGroup = [];
         for ($i = 1; $i <= 9; $i++) {
