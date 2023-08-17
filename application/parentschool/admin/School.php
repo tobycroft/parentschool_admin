@@ -101,6 +101,7 @@ class School extends Admin
             ->addColumn('remark', '技术支持', 'text.edit')
             ->addColumn('domain', '学校标签', 'text.edit')
             ->addColumn('area_id', '学校所属区域', 'select', $area)
+            ->addColumn('content_type', '内容显示', 'select', ['普通' => "普通", '专属' => '专属', '混合' => '混合'])
             ->addColumn('detail', '详细说明')
             ->addColumn('sight', '可见性', 'number')
             ->addColumn('teacher_qr', '教师注册二维码', 'img_url')
