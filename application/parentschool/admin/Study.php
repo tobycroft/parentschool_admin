@@ -130,6 +130,7 @@ class Study extends Admin
                 ['show_date', '展示日期', 'text.edit'],
                 ['end_date', '结束展示日期', 'text.edit'],
             ])
+            ->addColumn('content_type', '内容显示', 'select', ['普通' => '普通', '专属' => '专属', '混合' => '混合'])
             ->addColumn('right_button', '操作', 'btn')
 //            ->addRightButton('新建', $btn_access2)
             ->addRightButton('edit') // 添加编辑按钮
