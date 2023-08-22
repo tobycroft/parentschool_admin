@@ -31,7 +31,10 @@ class SchoolAdmin extends Admin
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
         // 读取用户数据
-        $data_list = SchoolAdminModel::where($map)
+        $data_list = SchoolAdminModel::alias("a")
+            ->field("a.*,b.name")
+            ->leftJoin(['ps_school' => 'b'], 'b.id=a.school_id')
+            ->where($map)
             ->order($order)
             ->paginate();
         $page = $data_list->render();
@@ -46,11 +49,12 @@ class SchoolAdmin extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->setSearch(['id' => 'ID', "phone" => "phone"]) // 设置搜索参数
+            ->setSearch(['id' => 'ID', "phone" => "phone", "b.name" => "学校名称"]) // 设置搜索参数
             ->addOrder('id')
             ->addColumns([
                 ['id', 'ID'],
                 ['school_id', '学校', 'text.edit'],
+                ['name', '学校', 'text.edit'],
                 ['uid', '教师UID', 'text.edit'],
                 ['phone', '绑定手机号', 'text.edit'],
                 ['change_date', '修改时间'],
