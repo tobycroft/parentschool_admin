@@ -43,6 +43,7 @@ class School extends Admin
                 $count_parent = StudentModel::alias("a")
                     ->rightJoin(["ps_family_member" => "b"], "a.id=b.student_id")
                     ->where("school_id", $item["id"])
+                    ->where("b.is_verify", 1)
                     ->count();
                 $item['count_parent'] = $count_parent;
                 $item["count_daily"] = StudyRecordModel::alias("a")
