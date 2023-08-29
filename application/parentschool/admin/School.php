@@ -44,9 +44,6 @@ class School extends Admin
                     ->rightJoin(["ps_family_member" => "b"], "a.id=b.student_id")
                     ->where("school_id", $item["id"])
                     ->count();
-                if ($count_parent == 0) {
-                    $count_parent = 50;
-                }
                 $item['count_parent'] = $count_parent;
                 $item["count_daily"] = StudyRecordModel::alias("a")
                     ->where("a.type", "daily")
@@ -64,7 +61,7 @@ class School extends Admin
                     ->where("b.school_id", $item["id"])
                     ->count();
                 $parent_should_count = TeacherClassModel::where('school_id', $item['id'])->sum('num');
-                $item['percent'] = round($count_parent / floatval($parent_should_count), 2) . "%";
+                $item['percent'] = round(floatval($count_parent) / (floatval($parent_should_count) + 1), 2) . "%";
             });
         $data_list->each(function ($data) {
             $json = ["school_id" => $data["id"]];
