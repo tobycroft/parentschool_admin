@@ -61,7 +61,7 @@ class School extends Admin
                     ->where("b.school_id", $item["id"])
                     ->count();
                 $parent_should_count = TeacherClassModel::where('school_id', $item['id'])->sum('num');
-                $item['percent'] = round(floatval($count_parent) / (floatval($parent_should_count) + 1), 2) * 100. "%";
+                $item['percent'] = round(floatval($count_parent) / (floatval($parent_should_count) + 1) * 100, 2) . "%";
             });
         $data_list->each(function ($data) {
             $json = ["school_id" => $data["id"]];
