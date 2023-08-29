@@ -90,7 +90,7 @@ class School extends Admin
             ->addTopButton("add")
             ->setPageTitle('列表')
 //            ->setSearch(['area_id' => '区域ID']) // 设置搜索参数
-            ->setSearchArea([['select', 'area_id', '其余', '', '', $area]])
+            ->setSearchArea([['select', 'area_id', '区域', '', '', $area]])
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '学校名称', 'text')
