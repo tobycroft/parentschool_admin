@@ -82,13 +82,15 @@ class School extends Admin
 //        $num2 = SchoolModel::count();
         $grades = SchoolGradeModel::column("id,name");
 
+        $area = AreaModel::column("id,name");
+
         return ZBuilder::make('table')
 //            ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
 //            ->setSearch(['area_id' => '区域ID']) // 设置搜索参数
-            ->setSearchArea(["area_id" => "区域ID"])
+            ->setSearchArea([['select', 'area_id', '其余', '', '', $area]])
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '学校名称', 'text')
