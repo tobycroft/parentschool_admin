@@ -62,7 +62,7 @@ class School extends Admin
                     ->where("b.school_id", $item["id"])
                     ->count();
                 $parent_should_count = TeacherClassModel::where('school_id', $item['id'])->sum('num');
-                $item['percent'] = floatval($parent_should_count) / floatval($count_parent);
+                $item['percent'] = round(floatval($parent_should_count) / floatval($count_parent) * 100, 2);
             });
         $data_list->each(function ($data) {
             $json = ["school_id" => $data["id"]];
@@ -99,6 +99,7 @@ class School extends Admin
             ->addOrder('id')
             ->addColumn('id', 'ID')
             ->addColumn('name', '学校名称', 'text')
+            ->addColumn('percent', '注册率', 'text')
             ->addColumn('count_student', '学生数量', 'text')
             ->addColumn('count_parent', '家长数量', 'text')
             ->addColumn('count_daily', '每日', 'text')
