@@ -42,7 +42,6 @@ class School extends Admin
 
                 $count_parent = StudentModel::alias("a")
                     ->rightJoin(["ps_family_member" => "b"], "a.id=b.student_id")
-                    ->leftJoin(["ps_user" => "c"], "c.id=b.uid")
                     ->where("school_id", $item["id"])
                     ->count();
                 if ($count_parent == 0) {
