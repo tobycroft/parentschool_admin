@@ -6,7 +6,6 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
-use app\parentschool\model\FamilyMemberModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
@@ -41,8 +40,8 @@ class School extends Admin
             ->paginate()->each(function ($item) {
                 $item["count_student"] = StudentModel::where("school_id", $item["id"])->count();
 
-                $count_parent = FamilyMemberModel::alias("a")
-                    ->leftJoin(["ps_student" => "b"], "b.id=a.student_id")
+                $count_parent = StudentModel::alias("a")
+                    ->rightJoin(["ps_family_member" => "b"], "a.id=b.student_id")
                     ->where("school_id", $item["id"])
                     ->count();
                 if ($count_parent == 0) {
