@@ -46,7 +46,7 @@ class School extends Admin
                     ->where("school_id", $item["id"])
                     ->count();
                 if ($count_parent == 0) {
-                    $count_parent = 1;
+                    $count_parent = 50;
                 }
                 $item['count_parent'] = $count_parent;
                 $item["count_daily"] = StudyRecordModel::alias("a")
