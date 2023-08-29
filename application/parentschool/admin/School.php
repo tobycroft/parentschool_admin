@@ -11,6 +11,7 @@ use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
 use app\parentschool\model\StudyRecordModel;
+use app\parentschool\model\TeacherClassModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
@@ -39,10 +40,12 @@ class School extends Admin
             ->order($order)
             ->paginate()->each(function ($item) {
                 $item["count_student"] = StudentModel::where("school_id", $item["id"])->count();
-                $item["count_parent"] = FamilyMemberModel::alias("a")
+
+                $count_parent = FamilyMemberModel::alias("a")
                     ->leftJoin(["ps_student" => "b"], "b.id=a.student_id")
                     ->where("school_id", $item["id"])
                     ->count();
+                $item['count_parent'] = $count_parent;
                 $item["count_daily"] = StudyRecordModel::alias("a")
                     ->where("a.type", "daily")
                     ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
@@ -58,6 +61,8 @@ class School extends Admin
                     ->leftJoin(["ps_student" => "b"], "a.student_id=b.id")
                     ->where("b.school_id", $item["id"])
                     ->count();
+                $parent_should_count = TeacherClassModel::where('school_id', $item['id'])->sum('num');
+                $item['percent'] = floatval($parent_should_count) / floatval($count_parent);
             });
         $data_list->each(function ($data) {
             $json = ["school_id" => $data["id"]];
