@@ -104,7 +104,7 @@ class Teacher extends Admin
             'href' => url('teacher_class/index', ['search_field' => 'teacher_id', 'keyword' => '__id__'])
         ];
         $top_upload = [
-            'title' => '上传讲座数据',
+            'title' => '上传老师',
             'icon' => 'fa fa-fw fa-key',
             'href' => url('upload')
         ];
