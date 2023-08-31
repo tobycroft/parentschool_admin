@@ -42,7 +42,7 @@ class Teacher extends Admin
             if (empty($excel_json)) {
                 $this->error('excel解析错误');
             }
-            echo json_encode($excel_json，320);
+            echo json_encode($excel_json, 320);
             exit();
             $resp = \Net::PostForm(config("upload_url"), [], [
                 "school_id" => $data['school_id'],
