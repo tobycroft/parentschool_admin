@@ -4,6 +4,7 @@
 namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
+use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\TeacherModel;
@@ -11,6 +12,7 @@ use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use Tobycroft\AossSdk\Excel\Excel;
 use util\Tree;
 
 /**
@@ -19,6 +21,53 @@ use util\Tree;
  */
 class Teacher extends Admin
 {
+
+    public function upload()
+    {
+        // 保存数据
+        if ($this->request->isPost()) {
+            $data = $this->request->post();
+
+            $atta = Attachment::where('path', $data['file'])->find();
+            if (!$atta) {
+                $this->error('先上传文件');
+            }
+            $excel = new Excel(config('upload_prefix'));
+            $ex = $excel->send_md5($atta['md5']);
+            if (!$ex->isSuccess()) {
+                echo $ex->getError();
+                exit();
+            }
+            $excel_json = $ex->getExcelJson();
+            if (empty($excel_json)) {
+                $this->error('excel解析错误');
+            }
+            $resp = \Net::PostForm(config("upload_url"), [], [
+                "school_id" => $data['school_id'],
+                "data" => json_encode($excel_json),
+            ]);
+            $ret = json_decode($resp, true);
+            if ($ret['code'] == 0) {
+                $this->success('上传成功');
+            } else {
+                $this->error($ret['echo']);
+            }
+        }
+
+
+        $schools = SchoolModel::column('id,name');
+        // 使用ZBuilder快速创建表单
+        return ZBuilder::make('form')
+            ->setPageTitle('新增') // 设置页面标题
+            ->addFormItems([ // 批量添加表单项
+                ['select', 'school_id', '学校', '', $schools],
+                ['file', 'file', '上传老师导入列表',],
+            ])
+//            ->assign("file_upload_url", "https://upload.familyeducation.org.cn:444/v1/excel/index/index?token=fsa")
+            ->fetch();
+    }
+
+
     /**
      * 用户首页
      * @return mixed
