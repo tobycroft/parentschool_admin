@@ -103,13 +103,17 @@ class Teacher extends Admin
 //            'class' => 'btn btn-xs btn-default ajax-get',
             'href' => url('teacher_class/index', ['search_field' => 'teacher_id', 'keyword' => '__id__'])
         ];
-
+        $top_upload = [
+            'title' => '上传讲座数据',
+            'icon' => 'fa fa-fw fa-key',
+            'href' => url('upload')
+        ];
 
         return ZBuilder::make('table')
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
-            ->addTopButton("upload")
+            ->addTopButton("upload", $top_upload)
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "phone" => "phone", 'name' => '用户名']) // 设置搜索参数
             ->addOrder('id')
