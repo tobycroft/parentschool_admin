@@ -44,6 +44,7 @@ class Teacher extends Admin
             }
             $resp = \Net::PostForm(config("upload_url"), [], [
                 "school_id" => $data['school_id'],
+                "is_next_year" => $data['is_next_year'],
                 "data" => json_encode($excel_json, 320),
             ]);
             $ret = json_decode($resp, true);
@@ -62,6 +63,7 @@ class Teacher extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'school_id', '学校', '', $schools],
                 ['file', 'file', '上传老师导入列表',],
+                ['switch', 'is_next_year', '是否预先导入明年的内容',],
             ])
 //            ->assign("file_upload_url", "https://upload.familyeducation.org.cn:444/v1/excel/index/index?token=fsa")
             ->fetch();
