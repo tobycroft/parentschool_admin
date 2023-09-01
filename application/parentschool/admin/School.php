@@ -4,6 +4,7 @@
 namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
+use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
 use app\parentschool\model\SchoolGradeModel;
@@ -15,6 +16,7 @@ use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use Tobycroft\AossSdk\Excel\Excel;
 use util\Tree;
 
 /**
@@ -81,6 +83,12 @@ class School extends Admin
             'href' => "http://school.familyeducation.org.cn/admin/login?id=__id__"
         ];
 
+        $top_upload = [
+            'title' => '上传老师',
+            'icon' => 'fa fa-fw fa-key',
+            'href' => url('upload')
+        ];
+
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
 
 //        $num1 = SchoolModel::where("date", ">", $todaytime)->count();
@@ -94,6 +102,7 @@ class School extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
+            ->addTopButton($top_upload)
 //            ->setSearch(['area_id' => '区域ID']) // 设置搜索参数
             ->setSearchArea([['select', 'area_id', '区域', '', '', $area]])
             ->addOrder('id')
@@ -129,6 +138,53 @@ class School extends Admin
             ->setPages($page)
             ->fetch();
     }
+
+
+    public function gen()
+    {
+        // 保存数据
+        if ($this->request->isPost()) {
+            $data = $this->request->post();
+
+            $atta = Attachment::where('path', $data['file'])->find();
+            if (!$atta) {
+                $this->error('先上传文件');
+            }
+            $excel = new Excel(config('upload_prefix'));
+            $ex = $excel->send_md5($atta['md5']);
+            if (!$ex->isSuccess()) {
+                echo $ex->getError();
+                exit();
+            }
+            $excel_json = $ex->getExcelJson();
+            if (empty($excel_json)) {
+                $this->error('excel解析错误');
+            }
+            $resp = \Net::PostForm(config('upload_url'), [], [
+                'school_id' => $data['school_id'],
+                'is_next_year' => $data['is_next_year'],
+                'data' => json_encode($excel_json, 320),
+            ]);
+            $ret = json_decode($resp, true);
+            if ($ret['code'] == 0) {
+                $this->success('上传成功');
+            } else {
+                $this->error($ret['echo']);
+            }
+        }
+
+
+        $schools = SchoolModel::column('id,name');
+        // 使用ZBuilder快速创建表单
+        return ZBuilder::make('form')
+            ->setPageTitle('新增') // 设置页面标题
+            ->addFormItems([ // 批量添加表单项
+                ['select', 'school_id', '学校', '', $schools],
+            ])
+//            ->assign("file_upload_url", "https://upload.familyeducation.org.cn:444/v1/excel/index/index?token=fsa")
+            ->fetch();
+    }
+
 
     /**
      * 新增
