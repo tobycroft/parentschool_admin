@@ -150,14 +150,16 @@ class School extends Admin
             $maxyear = \YearAction::CalcYear($school["grade_max"]);
 
             $classes = TeacherClassModel::where("school_id", $school_id)->whereBetween("year", [$minyear, $maxyear])->order("year asc, class_id asc")->select()->toArray();
+            $datas = [];
             foreach ($classes as $class) {
                 $schoolid = $class["school_id"];
                 $year = $class["year"];
                 $class_id = $class["class_id"];
                 $parents = Db::query("SELECT *,count(0) as count FROM `ps_study_record`a left join ps_student b on b.id=a.student_id where school_id=$schoolid and year=$year and class_id=$class_id group by student_id order by count desc limit 3");
-                echo json_encode($parents, 320);
-                exit();
+                $datas[$schoolid . "_" . $year . "_" . $class_id] = $parents;
             }
+            return json($datas);
+            
 
         }
 
