@@ -6,8 +6,6 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
-use app\parentschool\model\BalanceModel;
-use app\parentschool\model\ParentModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
@@ -17,6 +15,7 @@ use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
+use Tobycroft\AossSdk\Excel\Excel;
 use util\Tree;
 
 /**
@@ -160,30 +159,62 @@ class School extends Admin
                 $datas[$schoolid . "_" . $year . "_" . $class_id] = $parents;
             }
 
+
+//            foreach ($datas as $key => $value) {
+//                $str = explode("_", $key);
+//                $school_id = $str[0];
+//                $year = $str[1];
+//                $class_id = $str[2];
+//                $grade = \YearAction::CalcGrade($year);
+//                echo $grade . "年" . $class_id . "班" . "<br/>";
+//                $int = 1;
+//
+//                foreach ($value as $k => $v) {
+//                    $parent = ParentModel::where("id", $v["uid"])->find();
+//                    $score = 0;
+//                    $fenshu = BalanceModel::where("uid", $v["uid"])->where("student_id", $v["student_id"])->find();
+//                    if ($fenshu) {
+//                        $score = $fenshu["balance"];
+//                    }
+//                    echo "第" . $int . "名:" . $v["name"] . " 家长姓名:" . $parent["wx_name"] .
+//                        "   学习量:" . $v["count"] .
+//                        "   分数:" . floor($score) .
+//                        "<br>";
+//                    $int++;
+//                }
+//                echo "<br>";
+//            }
+            $excel = [];
             foreach ($datas as $key => $value) {
                 $str = explode("_", $key);
-                $school_id = $str[0];
                 $year = $str[1];
                 $class_id = $str[2];
                 $grade = \YearAction::CalcGrade($year);
-                echo $grade . "年" . $class_id . "班" . "<br/>";
-                $int = 1;
 
                 foreach ($value as $k => $v) {
-                    $parent = ParentModel::where("id", $v["uid"])->find();
+                    $parent = ParentModel::where('id', $v['uid'])->find();
                     $score = 0;
-                    $fenshu = BalanceModel::where("uid", $v["uid"])->where("student_id", $v["student_id"])->find();
+                    $fenshu = BalanceModel::where('uid', $v['uid'])->where('student_id', $v['student_id'])->find();
                     if ($fenshu) {
-                        $score = $fenshu["balance"];
+                        $score = $fenshu['balance'];
                     }
-                    echo "第" . $int . "名:" . $v["name"] . " 家长姓名:" . $parent["wx_name"] .
-                    "   学习量:" . $v["count"] .
-                        "   分数:" . floor($score) .
-                        "<br>";
+                    $excel[] = [
+                        '年级' => $grade,
+                        '班级' => $class_id,
+                        "班级排名" => $int,
+                        "学生姓名" => $v['name'],
+                        "家长姓名" => $parent['wx_name'],
+                        "学习量" => $v['count'],
+                        "分数" => $score,
+                    ];
                     $int++;
                 }
-                echo "<br>";
             }
+
+            $Aoss = new Excel(config('upload_prefix'));
+            $ret = $Aoss->create_excel_fileurl($excel);
+            $this->success('成功', $ret->file_url(), '_blank');
+
         }
 
 
