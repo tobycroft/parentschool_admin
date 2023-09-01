@@ -159,7 +159,6 @@ class School extends Admin
                 $datas[$schoolid . "_" . $year . "_" . $class_id] = $parents;
             }
 
-
             foreach ($datas as $key => $value) {
                 $str = str_split($key);
                 $school_id = $str[0];
