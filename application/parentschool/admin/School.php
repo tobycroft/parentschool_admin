@@ -6,7 +6,6 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
-use app\parentschool\model\BalanceModel;
 use app\parentschool\model\ParentModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
@@ -166,7 +165,7 @@ class School extends Admin
                 $year = $str[1];
                 $class_id = $str[2];
                 $grade = \YearAction::CalcGrade($year);
-                echo $grade . "年:" . $class_id . "班" . "<br/>";
+                echo $grade . "年" . $class_id . "班" . "<br/>";
                 $int = 1;
 
                 foreach ($value as $k => $v) {
