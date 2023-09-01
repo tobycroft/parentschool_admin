@@ -102,7 +102,7 @@ class School extends Admin
 //            ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
             ->setPageTitle('列表')
-            ->addTopButton($top_upload)
+            ->addTopButton(["学校统计" => $top_upload])
 //            ->setSearch(['area_id' => '区域ID']) // 设置搜索参数
             ->setSearchArea([['select', 'area_id', '区域', '', '', $area]])
             ->addOrder('id')
