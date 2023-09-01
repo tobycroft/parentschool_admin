@@ -174,8 +174,8 @@ class School extends Admin
                     $fenshu = BalanceModel::where("uid", $v["uid"])->where("student_id", $v["student_id"])->find();
                     echo "第" . $int . "名:" . $v["name"] . " 家长姓名:" . $parent["wx_name"] .
                         "   学习量:" . $v["count"] .
-                        "   分数:" . $fenshu["balance"]
-                        . "<br>";
+                        "   分数:" . $fenshu["balance"] .
+                        "<br>";
                     $int++;
                 }
                 echo "<br>";
