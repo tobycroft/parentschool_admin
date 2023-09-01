@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
+use app\parentschool\model\BalanceModel;
 use app\parentschool\model\ParentModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
@@ -167,10 +168,13 @@ class School extends Admin
                 $grade = \YearAction::CalcGrade($year);
                 echo $grade . "年:" . $class_id . "班" . "<br/>";
                 $int = 1;
+
                 foreach ($value as $k => $v) {
                     $parent = ParentModel::where("id", $v["uid"])->find();
+                    $fenshu = BalanceModel::where("uid", $v["uid"])->where("student_id", $v["student_id"])->find();
                     echo "第" . $int . "名:" . $v["name"] . " 家长姓名:" . $parent["wx_name"] .
-                        "   学习量:" . $v["count"]
+                        "   学习量:" . $v["count"] .
+                        "   分数:" $fenshu["balance"] .
                         . "<br>";
                     $int++;
                 }
