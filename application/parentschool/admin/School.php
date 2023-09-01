@@ -172,6 +172,7 @@ class School extends Admin
                     echo "第" . $int . "名:" . $v["name"] . "家长:" . $parent["wx_name"] . "<br>";
                     $int++;
                 }
+                echo "<br>";
             }
         }
 
