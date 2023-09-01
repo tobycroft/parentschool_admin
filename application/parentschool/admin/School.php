@@ -156,6 +156,7 @@ class School extends Admin
                 $class_id = $class["class_id"];
                 $parents = Db::query("SELECT *,count(0) as count FROM `ps_study_record`a left join ps_student b on b.id=a.student_id where school_id=$schoolid and year=$year and class_id=$class_id group by student_id order by count desc limit 3");
                 echo json_encode($parents, 320);
+                exit();
             }
 
         }
