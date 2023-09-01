@@ -33,7 +33,6 @@ class TeacherClass extends Admin
     public function index()
     {
         $this->api_url = SystemParamModel::where("key", "api_url")->value("val");
-
         // 获取排序
         $order = $this->getOrder("id desc");
         $map = $this->getMap();
