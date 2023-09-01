@@ -165,7 +165,7 @@ class School extends Admin
                 $year = $str[1];
                 $class_id = $str[2];
                 $grade = \YearAction::CalcGrade($year);
-                echo $year . "年:" . $class_id . "班" . "<br/>";
+                echo $grade . "年:" . $class_id . "班" . "<br/>";
                 $int = 1;
                 foreach ($value as $k => $v) {
                     $parent = ParentModel::where("id", $v["uid"])->find();
