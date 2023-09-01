@@ -178,7 +178,7 @@ class School extends Admin
                     }
                     echo "第" . $int . "名:" . $v["name"] . " 家长姓名:" . $parent["wx_name"] .
                     "   学习量:" . $v["count"] .
-                        "   分数:" . $score .
+                        "   分数:" . floor($score) .
                         "<br>";
                     $int++;
                 }
