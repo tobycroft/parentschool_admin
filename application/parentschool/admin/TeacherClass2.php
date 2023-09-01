@@ -81,10 +81,10 @@ class TeacherClass2 extends Admin
             ->addTopButton("add")
             ->addTopButton("delete")
             ->setSearchArea([
-                ['select', 'school_id', '学校id', "", "", $school],
-                ['text', 'year', '入学年份'],
+                ['select', 'a.school_id', '学校id', "", "", $school],
+                ['text', 'a.year', '入学年份'],
 //                ['text', 'grade', '年级'],
-                ['text', 'class_id', '班级'],
+                ['text', 'a.class_id', '班级'],
             ])
             ->setPageTitle('列表')
             ->setSearch(['teacher_id' => '教师id']) // 设置搜索参数
