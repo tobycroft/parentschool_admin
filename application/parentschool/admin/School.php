@@ -160,7 +160,7 @@ class School extends Admin
             }
 
             foreach ($datas as $key => $value) {
-                $str = explode(",", $key);
+                $str = explode("_", $key);
                 $school_id = $str[0];
                 $year = $str[1];
                 $class_id = $str[2];
