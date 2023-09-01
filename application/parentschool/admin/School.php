@@ -170,7 +170,7 @@ class School extends Admin
                 foreach ($value as $k => $v) {
                     $parent = ParentModel::where("id", $v["uid"])->find();
                     echo "第" . $int . "名:" . $v["name"] . " 家长姓名:" . $parent["wx_name"] .
-                        "学习量:" . $v["count"]
+                        "   学习量:" . $v["count"]
                         . "<br>";
                     $int++;
                 }
