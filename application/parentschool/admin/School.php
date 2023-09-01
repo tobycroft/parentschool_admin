@@ -6,6 +6,7 @@ namespace app\parentschool\admin;
 use app\admin\controller\Admin;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
+use app\parentschool\model\ParentModel;
 use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\parentschool\model\StudentModel;
@@ -157,9 +158,21 @@ class School extends Admin
                 $parents = Db::query("SELECT *,count(0) as count FROM `ps_study_record`a left join ps_student b on b.id=a.student_id where school_id=$schoolid and year=$year and class=$class_id group by student_id order by count desc limit 3");
                 $datas[$schoolid . "_" . $year . "_" . $class_id] = $parents;
             }
-            echo json_encode($datas, 320);
-            exit();
 
+
+            foreach ($datas as $key => $value) {
+                $str = str_split($key);
+                $school_id = $str[0];
+                $year = $str[1];
+                $class_id = $str[2];
+                $grade = \YearAction::CalcGrade($year);
+                echo $grade . "年:" . $year . "班";
+                $int = 1;
+                foreach ($value as $k => $v) {
+                    $parent = ParentModel::where("id", $v["uid"])->find();
+                    echo "第" . $int . "名:" . $v["name"] . "家长:" . $parent["wx_name"] . "<br>";
+                }
+            }
         }
 
 
@@ -180,7 +193,8 @@ class School extends Admin
      * @return mixed
      * @throws \think\Exception
      */
-    public function add()
+    public
+    function add()
     {
         // 保存数据
         if ($this->request->isPost()) {
@@ -252,7 +266,8 @@ class School extends Admin
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function edit($id = null)
+    public
+    function edit($id = null)
     {
         if ($id === null)
             $this->error('缺少参数');
@@ -323,7 +338,8 @@ class School extends Admin
      * @throws \think\exception\DbException
      * @throws \think\exception\PDOException
      */
-    public function access($module = '', $uid = 0, $tab = '')
+    public
+    function access($module = '', $uid = 0, $tab = '')
     {
         if ($uid === 0)
             $this->error('缺少参数');
@@ -521,7 +537,8 @@ class School extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function delete($ids = [])
+    public
+    function delete($ids = [])
     {
         Hook::listen('user_delete', $ids);
         action_log('user_delete', 'user', $ids, UID);
@@ -535,7 +552,8 @@ class School extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function setStatus($type = '', $record = [])
+    public
+    function setStatus($type = '', $record = [])
     {
         $ids = $this->request->isPost() ? input('post.ids/a') : input('param.ids');
         $ids = (array)$ids;
@@ -575,7 +593,8 @@ class School extends Admin
      * @param array $user_access 用户授权信息
      * @return string
      */
-    private function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
+    private
+    function buildJsTree($nodes = [], $curr_access = [], $user_access = [])
     {
         $result = '';
         if (!empty($nodes)) {
@@ -604,7 +623,8 @@ class School extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function enable($ids = [])
+    public
+    function enable($ids = [])
     {
         Hook::listen('user_enable', $ids);
         return $this->setStatus('enable');
@@ -616,13 +636,15 @@ class School extends Admin
      * @throws \think\Exception
      * @throws \think\exception\PDOException
      */
-    public function disable($ids = [])
+    public
+    function disable($ids = [])
     {
         Hook::listen('user_disable', $ids);
         return $this->setStatus('disable');
     }
 
-    public function quickEdit($record = [])
+    public
+    function quickEdit($record = [])
     {
         $field = input('post.name', '');
         $value = input('post.value', '');
