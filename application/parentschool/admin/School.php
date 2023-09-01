@@ -149,7 +149,7 @@ class School extends Admin
             $minyear = \YearAction::CalcYear($school["grade_min"]);
             $maxyear = \YearAction::CalcYear($school["grade_max"]);
             echo $minyear, $maxyear;
-            $classes = TeacherClassModel::where("school_id", $school_id)->whereBetween("year", [$minyear, $maxyear])->order("year asc, class_id asc")->select()->toArray();
+            $classes = TeacherClassModel::where("school_id", $school_id)->whereBetween("year", $minyear, $maxyear)->order("year asc, class_id asc")->select()->toArray();
             $datas = [];
             foreach ($classes as $class) {
                 $schoolid = $class["school_id"];
