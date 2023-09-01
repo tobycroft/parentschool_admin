@@ -84,7 +84,7 @@ class School extends Admin
         ];
 
         $top_upload = [
-            'title' => '上传老师',
+            'title' => '学校统计',
             'icon' => 'fa fa-fw fa-key',
             'href' => url('gen')
         ];
