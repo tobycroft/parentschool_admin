@@ -158,8 +158,8 @@ class School extends Admin
                 $parents = Db::query("SELECT *,count(0) as count FROM `ps_study_record`a left join ps_student b on b.id=a.student_id where school_id=$schoolid and year=$year and class_id=$class_id group by student_id order by count desc limit 3");
                 $datas[$schoolid . "_" . $year . "_" . $class_id] = $parents;
             }
-            return json($datas);
-            
+            echo json($datas);
+            exit();
 
         }
 
