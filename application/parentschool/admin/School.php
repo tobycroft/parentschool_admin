@@ -86,7 +86,7 @@ class School extends Admin
         $top_upload = [
             'title' => '上传老师',
             'icon' => 'fa fa-fw fa-key',
-            'href' => url('upload')
+            'href' => url('gen')
         ];
 
 //        $todaytime = date('Y-m-d H:i:s', strtotime(date("Y-m-d"), time()));
