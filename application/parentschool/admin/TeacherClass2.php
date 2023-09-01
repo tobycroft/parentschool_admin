@@ -88,7 +88,7 @@ class TeacherClass2 extends Admin
             ])
             ->setPageTitle('列表')
             ->setSearch(['a.teacher_id' => '教师id', "a.name" => "教师名称"]) // 设置搜索参数
-            ->addOrder('id')
+            ->addOrder('id,year')
             ->addColumns([
                 ['id', 'ID'],
                 ['name', '姓名'],
