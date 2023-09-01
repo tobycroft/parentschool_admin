@@ -4,7 +4,6 @@
 namespace app\parentschool\admin;
 
 use app\admin\controller\Admin;
-use app\admin\model\Attachment;
 use app\common\builder\ZBuilder;
 use app\parentschool\model\AreaModel;
 use app\parentschool\model\SchoolGradeModel;
@@ -16,7 +15,6 @@ use app\user\model\Role as RoleModel;
 use app\user\model\User;
 use think\Db;
 use think\facade\Hook;
-use Tobycroft\AossSdk\Excel\Excel;
 use util\Tree;
 
 /**
@@ -146,31 +144,20 @@ class School extends Admin
         if ($this->request->isPost()) {
             $data = $this->request->post();
 
-            $atta = Attachment::where('path', $data['file'])->find();
-            if (!$atta) {
-                $this->error('先上传文件');
+            $school_id = $data['school_id'];
+            $school = SchoolModel::where("id", $school_id)->find()->toArray();
+            $minyear = \YearAction::CalcYear($school["grade_min"]);
+            $maxyear = \YearAction::CalcYear($school["grade_max"]);
+
+            $classes = TeacherClassModel::where("school_id", $school_id)->whereBetween("year", [$minyear, $maxyear])->order("year asc, class_id asc")->select()->toArray();
+            foreach ($classes as $class) {
+                $schoolid = $class["school_id"];
+                $year = $class["year"];
+                $class_id = $class["class_id"];
+                $parents = Db::query("SELECT *,count(0) as count FROM `ps_study_record`a left join ps_student b on b.id=a.student_id where school_id=$schoolid and year=$year and class_id=$class_id group by student_id order by count desc limit 3");
+                echo json_encode($parents, 320);
             }
-            $excel = new Excel(config('upload_prefix'));
-            $ex = $excel->send_md5($atta['md5']);
-            if (!$ex->isSuccess()) {
-                echo $ex->getError();
-                exit();
-            }
-            $excel_json = $ex->getExcelJson();
-            if (empty($excel_json)) {
-                $this->error('excel解析错误');
-            }
-            $resp = \Net::PostForm(config('upload_url'), [], [
-                'school_id' => $data['school_id'],
-                'is_next_year' => $data['is_next_year'],
-                'data' => json_encode($excel_json, 320),
-            ]);
-            $ret = json_decode($resp, true);
-            if ($ret['code'] == 0) {
-                $this->success('上传成功');
-            } else {
-                $this->error($ret['echo']);
-            }
+
         }
 
 
