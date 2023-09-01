@@ -187,6 +187,15 @@ class School extends Admin
 //                echo "<br>";
 //            }
             $excel = [];
+            $excel[] = [
+                '年级' => "年级",
+                '班级' => "班级",
+                '班级排名' => "班级排名",
+                '学生姓名' => "学生姓名",
+                '家长姓名' => "家长姓名",
+                '学习量' => "学习量",
+                '分数' => "分数",
+            ];
             foreach ($datas as $key => $value) {
                 $str = explode("_", $key);
                 $year = $str[1];
