@@ -171,10 +171,14 @@ class School extends Admin
 
                 foreach ($value as $k => $v) {
                     $parent = ParentModel::where("id", $v["uid"])->find();
+                    $score = 0;
                     $fenshu = BalanceModel::where("uid", $v["uid"])->where("student_id", $v["student_id"])->find();
+                    if ($fenshu) {
+                        $score = $fenshu["balance"];
+                    }
                     echo "第" . $int . "名:" . $v["name"] . " 家长姓名:" . $parent["wx_name"] .
                     "   学习量:" . $v["count"] .
-                    "   分数:" . empty($fenshu) ? 0 : round($fenshu->balance) .
+                        "   分数:" . $score .
                         "<br>";
                     $int++;
                 }
