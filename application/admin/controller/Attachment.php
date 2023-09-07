@@ -210,7 +210,7 @@ class Attachment extends Admin
                     if (config('upload_image_thumb') != '') {
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename());
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
-                        if ($thumb_ret->isSuccess()) {
+                        if (!$thumb_ret->isSuccess()) {
                             return $this->uploadError($from, $thumb_ret->getError(), $callback);
                         } else {
                             $thumb_path_name = $thumb_ret->url;
@@ -221,7 +221,7 @@ class Attachment extends Admin
                         list($thumb_size, $thumb_type) = explode('|', $thumb);
                         $thumb_path_name = $this->create_thumb($info, $info->getPathInfo()->getfileName(), $info->getFilename(), $thumb_size, $thumb_type);
                         $thumb_ret = $Aoss->send($thumb_path_name, $file->getMime(), $info->getFilename());
-                        if ($thumb_ret->isSuccess()) {
+                        if (!$thumb_ret->isSuccess()) {
                             return $this->uploadError($from, $thumb_ret->getError(), $callback);
                         } else {
                             $thumb_path_name = $thumb_ret->url;
