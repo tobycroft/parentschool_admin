@@ -64,6 +64,7 @@ class Teacher extends Admin
                 ['select', 'school_id', '学校', '', $schools],
                 ['file', 'file', '上传老师导入列表',],
                 ['switch', 'is_next_year', '是否预先导入明年的内容',],
+                ['switch', 'cover', '覆盖当前班级',],
             ])
 //            ->assign("file_upload_url", "https://upload.familyeducation.org.cn:444/v1/excel/index/index?token=fsa")
             ->fetch();
