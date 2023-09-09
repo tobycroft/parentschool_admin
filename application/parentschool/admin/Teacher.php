@@ -42,14 +42,16 @@ class Teacher extends Admin
             if (empty($excel_json)) {
                 $this->error('excel解析错误');
             }
-            $data['is_next_year'] = false;
-            $data['cover'] = false;
 
-            if (!empty($$data['is_next_year'])) {
+            if (!empty($data['is_next_year'])) {
                 $data['is_next_year'] = true;
+            } else {
+                $data['is_next_year'] = false;
             }
-            if (!empty($$data['cover'])) {
+            if (!empty($data['cover'])) {
                 $data['cover'] = true;
+            } else {
+                $data['cover'] = false;
             }
             $resp = \Net::PostForm(config("upload_url"), [], [
                 "school_id" => $data['school_id'],
