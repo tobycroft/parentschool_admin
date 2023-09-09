@@ -45,6 +45,7 @@ class Teacher extends Admin
             $resp = \Net::PostForm(config("upload_url"), [], [
                 "school_id" => $data['school_id'],
                 "is_next_year" => $data['is_next_year'],
+                "cover" => $data['cover'],
                 "data" => json_encode($excel_json, 320),
             ]);
             $ret = json_decode($resp, true);
