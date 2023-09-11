@@ -131,6 +131,7 @@ class Inquire extends Admin
             ->fetch();
     }
 
+
     /**
      * 编辑
      * @param null $id 用户id
