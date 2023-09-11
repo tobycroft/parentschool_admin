@@ -8,7 +8,6 @@ use app\common\builder\ZBuilder;
 use app\parentschool\model\InquirePushModel;
 use app\parentschool\model\InquireSubjectModel;
 use app\parentschool\model\SchoolClassModel;
-use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -68,6 +67,8 @@ class Inquire extends Admin
             ->addColumn('year', '第几界（0就是全部）', 'text.edit')
             ->addColumn('class_id', '班级id', 'select', SchoolClassModel::column("id,cname"))
             ->addColumn('is_pushed', '已推送(关闭可重新推送)', 'switch')
+            ->addColumn('is_notified', '推送下发完毕', 'switch')
+            ->addColumn('is_retract', '全局回撤消息', 'switch')
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
