@@ -57,6 +57,7 @@ class InquireUser extends Admin
             ->setPageTips("总数量：" . $num2 . "    今日数量：" . $num1, 'danger')
             ->setPageTips("总数量：" . $num2, 'danger')
             ->addTopButton("add")
+            ->addTopButton('delete')
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
