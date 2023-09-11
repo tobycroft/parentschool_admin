@@ -121,8 +121,8 @@ class InquireSubject extends Admin
             ->setPageTitle('新增') // 设置页面标题
             ->addFormItems([ // 批量添加表单项
                 ['text', 'title', '标题', ''],
-                ['text', 'slogan', '短介绍', ''],
-                ['text', 'content', '内容', ''],
+                ['textarea', 'slogan', '短介绍', ''],
+                ['textarea', 'content', '内容', ''],
                 ['text', 'remark', '备注提示', ''],
                 ['image', 'icon', '图标', ''],
                 ['image', 'img', '图片', ''],
@@ -183,8 +183,8 @@ class InquireSubject extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['hidden', 'id'],
                 ['text', 'title', '标题', ''],
-                ['text', 'slogan', '短介绍', ''],
-                ['text', 'content', '内容', ''],
+                ['textarea', 'slogan', '短介绍', ''],
+                ['textarea', 'content', '内容', ''],
                 ['text', 'remark', '备注提示', ''],
                 ['image', 'icon', '图标', ''],
                 ['image', 'img', '图片', ''],
