@@ -58,6 +58,7 @@ class InquireResult extends Admin
             ->setPageTips("总数量：" . $num2, 'danger')
 //            ->addTopButton("add")
 //            ->addTopButton("delete")
+            ->addTopButton('delete')
             ->setPageTitle('列表')
             ->setSearch(['id' => 'ID', "pid" => "上级UID", 'username' => '用户名']) // 设置搜索参数
             ->addOrder('id')
