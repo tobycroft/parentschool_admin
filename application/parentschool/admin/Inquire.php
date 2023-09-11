@@ -66,7 +66,7 @@ class Inquire extends Admin
             ->addColumn('school_id', '学校id', 'select', SchoolModel::column("id,name"))
             ->addColumn('year', '第几界（0就是全部）', 'text.edit')
             ->addColumn('class_id', '班级id', 'select', SchoolClassModel::column("id,cname"))
-            ->addColumn('is_pushed', '推送状态', 'switch')
+            ->addColumn('is_pushed', '已推送', 'switch')
             ->addColumn('is_notified', '消息下发')
             ->addColumn('is_retract', '全局回撤消息', 'switch')
             ->addColumn('change_date', '修改时间')
