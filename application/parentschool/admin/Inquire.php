@@ -8,6 +8,7 @@ use app\common\builder\ZBuilder;
 use app\parentschool\model\InquirePushModel;
 use app\parentschool\model\InquireSubjectModel;
 use app\parentschool\model\SchoolClassModel;
+use app\parentschool\model\SchoolGradeModel;
 use app\parentschool\model\SchoolModel;
 use app\user\model\Role as RoleModel;
 use app\user\model\User;
@@ -123,7 +124,7 @@ class Inquire extends Admin
             ->addFormItems([ // 批量添加表单项
                 ['select', 'subject_id', '课程id', '', InquireSubjectModel::column('id,title')],
                 ['select', 'school_id', '学校', '', SchoolModel::column('id,name')],
-                ['select', 'year', '第几界'],
+                ['select', 'year', '第几届', SchoolGradeModel::column('id,cname')],
                 ['select', 'class_id', '班级', '', SchoolClassModel::column('id,cname')],
             ])
             ->setFormData(["type" => input("study_type"), "study_id" => input("study_id")])
