@@ -65,6 +65,7 @@ class InquireSubject extends Admin
             ->addColumn('icon', '图标', 'picture')
             ->addColumn('img', '图片', 'picture')
             ->addColumn('is_new', '新标签', 'switch')
+            ->addColumn('inquire_type', '调查类型', 'select', ["测评" => "测评", "问卷" => "问卷", "任务" => "任务"])
             ->addColumn('change_date', '修改时间')
             ->addColumn('date', '创建时间')
             ->addColumn('right_button', '操作', 'btn')
