@@ -35,8 +35,7 @@ class Teacher extends Admin
             $excel = new Excel(config('upload_prefix'));
             $ex = $excel->send_md5($atta['md5']);
             if (!$ex->isSuccess()) {
-                echo $ex->getError();
-                exit();
+                throw new \Error($ex->getError());
             }
             $excel_json = $ex->getExcelJson();
             if (empty($excel_json)) {
