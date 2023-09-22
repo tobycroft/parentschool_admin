@@ -69,7 +69,7 @@ class Teacher extends Admin
         }
 
 
-        $schools = SchoolModel::column('id,name');
+        $schools = SchoolModel::order("id desc")->column('id,name');
         // 使用ZBuilder快速创建表单
         return ZBuilder::make('form')
             ->setPageTitle('新增') // 设置页面标题
