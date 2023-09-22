@@ -62,7 +62,7 @@ class Teacher extends Admin
             ]);
             $ret = json_decode($resp, true);
             if ($ret['code'] == 0) {
-                $this->success('上传成功');
+                $this->success('上传成功', "", $excel_json);
             } else {
                 $this->error($ret['echo']);
             }
