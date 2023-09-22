@@ -41,8 +41,6 @@ class Teacher extends Admin
             if (empty($excel_json)) {
                 $this->error('excel解析错误');
             }
-            echo json_encode($excel_json, 320);
-            return;
             if (!empty($data['is_next_year'])) {
                 $data['is_next_year'] = true;
             } else {
